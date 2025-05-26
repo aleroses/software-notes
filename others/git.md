@@ -230,3 +230,103 @@ Añadir llave pública en GitHub, para esto necesitas copias la llave pública d
 # Si es la primera vez que añades una URL utiliza el comando: Ver tema: 19 y 21
 - git remote add origin url
 ```
+
+## Extra: Contribuir a proyectos open source
+
+Contribuir a proyectos de código abierto (_open source_) es una excelente forma de:
+
+- Mejorar tus habilidades
+- Construir tu portafolio: GitHub presentación profesional.
+- Formar parte de comunidades globales.
+
+No necesitas ser un experto para empezar.
+
+### 🎯 Objetivos para desarrolladores junior
+
+- Leer y entender código de otros desarrolladores.
+- Contribuir en documentación, traducciones o tutoriales.    
+- Reportar o solucionar _issues_ reales.
+- Participar en discusiones técnicas con otros colaboradores.
+
+Puedes contribuir también sin programar.
+
+### 🧩 Contribuyes al software que usas
+
+- Ayudas a mejorar herramientas que tú mismo utilizas (ej. VS Code, TypeScript, FreeCodeCamp).
+- Incluso un pequeño cambio puede tener gran impacto en la comunidad.
+
+### ¿Cómo empezar?
+
+✅ Repositorios recomendados para practicar
+
+**Repositorio de práctica:**
+
+- [https://github.com/firstcontributions/first-contributions](https://github.com/firstcontributions/first-contributions)  
+    (Ideal para aprender a hacer tu primer _pull request_ en un entorno seguro)
+
+Otros sitios útiles:
+
+- [https://firstcontributions.github.io/#project-list](https://firstcontributions.github.io/#project-list)
+- [https://firstcontributions.github.io/](https://firstcontributions.github.io/)
+- [https://github.com/roshanjossey/code-contributions](https://github.com/roshanjossey/code-contributions)
+- [https://github.com/fork-commit-merge/fork-commit-merge](https://github.com/fork-commit-merge/fork-commit-merge)
+- [https://up-for-grabs.net](https://up-for-grabs.net/)
+- [https://goodfirstissue.dev](https://goodfirstissue.dev/)
+- [https://opensource.guide/how-to-contribute/](https://opensource.guide/how-to-contribute/)
+
+### 🧪 Primer _commit_ con `first-contributions`
+
+1. Haz un **fork** del repositorio.
+    
+2. Clona tu fork a tu máquina local:
+    
+    ```bash
+    git clone https://github.com/tuusuario/first-contributions.git
+    cd first-contributions
+    ```
+    
+3. Crea una rama con tu nombre:
+    
+    ```bash
+    git checkout -b tu-nombre-contributor
+    ```
+    
+4. Abre el archivo `Contributors.md` y añade tu nombre:
+    
+    ```md
+    [Tu Nombre](https://github.com/tuusuario)
+    ```
+    
+5. Guarda, añade y haz _commit_ de tus cambios:
+    
+    ```bash
+    git add .
+    git commit -m "Add Tu Nombre to Contributors list"
+    git push origin tu-nombre-contributor
+    ```
+    
+6. Ve a tu repositorio en GitHub y haz un **pull request** desde tu rama.
+	1. New pull request
+	2. `base repository: firstcontributions...`  `base: main` ⬅️ `head repository: aleroses/first-contributions`  `compare: aleroses-contributor`
+	3. Create pull request
+    
+7. Espera a que lo acepten. ¡Felicitaciones, hiciste tu primera contribución!
+    
+
+### 🔍 Cómo encontrar proyectos reales
+
+- Explora los _issues_ con etiquetas como:
+    - `good first issue`
+    - `help wanted`
+    - `documentation`
+- Lee siempre:
+    - `README.md`
+    - `CONTRIBUTING.md`
+    - Guías de estilo o _code of conduct_
+
+### 📌 Consejos finales
+
+- Sé respetuoso en tus interacciones.
+- No temas preguntar o pedir ayuda.
+- La constancia es clave: empieza con tareas pequeñas y ve subiendo el nivel.
+- Aporta valor genuino, no contribuyas solo por tener "más commits".
