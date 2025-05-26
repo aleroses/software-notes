@@ -8,20 +8,6 @@
         "type": "tabs",
         "children": [
           {
-            "id": "ecd8f2368c03aa73",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "DW/3-avanzado/1.react.js/devTalles/material-ui.md",
-                "mode": "preview",
-                "source": true
-              },
-              "icon": "lucide-file",
-              "title": "material-ui"
-            }
-          },
-          {
             "id": "3902d5f495176886",
             "type": "leaf",
             "state": {
@@ -33,6 +19,20 @@
               },
               "icon": "lucide-file",
               "title": "react-hooks-mern"
+            }
+          },
+          {
+            "id": "1d757ead808bd6d9",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "others/git.md",
+                "mode": "preview",
+                "source": true
+              },
+              "icon": "lucide-file",
+              "title": "git"
             }
           },
           {
@@ -197,12 +197,12 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "3902d5f495176886",
+  "active": "1d757ead808bd6d9",
   "lastOpenFiles": [
+    "DW/3-avanzado/1.react.js/devTalles/react-hooks-mern.md",
     "DW/3-avanzado/1.react.js/devTalles/material-ui.md",
     "DW/3-avanzado/contributions/contributions-to-open-source.md",
     "DW/1-basico/005-git-github/git-github.md",
-    "DW/3-avanzado/1.react.js/devTalles/react-hooks-mern.md",
     "DW/3-avanzado/contributions",
     "DW/3-avanzado/1.react.js/devTalles/img/18-15-RTK-Query-data.png",
     "DW/3-avanzado/1.react.js/devTalles/img/18-14-RTK-Query.png",

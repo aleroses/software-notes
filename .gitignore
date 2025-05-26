@@ -240,7 +240,7 @@ $RECYCLE.BIN/
 *.pdf
 *.mp4
 *.mp3
-.obsidian
+*.obsidian
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode
 
