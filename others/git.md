@@ -231,7 +231,7 @@ Añadir llave pública en GitHub, para esto necesitas copias la llave pública d
 - git remote add origin url
 ```
 
-## Extra: Contribuir a proyectos open source
+## 🔥 Extra: Contribuir a proyectos open source
 
 Contribuir a proyectos de código abierto (_open source_) es una excelente forma de:
 
