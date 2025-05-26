@@ -1,6 +1,8 @@
 # Git y GitHub
 
-- [Notas en img](https://twitter.com/alerxses)
+## Enlaces y recursos:
+
+- [Infografías en Twitter (X)](https://twitter.com/alerxses)
 - [Notas en GitHub](https://github.com/aleroses/Platzi/blob/master/DW/1-basico/5-git-github/git-github.md)
 - [Descargar Infografías](https://www.dropbox.com/scl/fo/9dwgw4vt77378wngci80w/AL3k_3O6Z_qZr6xTrveXpek?rlkey=rp0b5qs86uq50ghn6v9hbd7de&st=7fowehsc&dl=0)
 - [Ver carpeta Infografías](https://www.dropbox.com/scl/fo/54d69ya3y99x2vqvh7vfn/AD7TJBg8vbU9MXXAxvaM_Ug?rlkey=elhrjjzgnry3obgv9qrmw8muk&st=p7znvypq&dl=0)
@@ -15,9 +17,9 @@ Red social para desarrolladores que permite guardar y compartir tus proyectos.
 
 ## 3. ¿Por qué usarlo?
 
-- Para tener control de tus avances
-- Para poder retroceder en caso de errores
-- Para tener diferentes versiones de un proyecto
+- Para tener control de tus avances.
+- Para poder retroceder en caso de errores.
+- Para tener diferentes versiones de un proyecto.
 
 ## 4. CLI
 
@@ -83,15 +85,17 @@ Para salir: **Esc + shift + zz**
 
 ## 8. **Staging**
 
-![stag](https://camo.githubusercontent.com/8cc39f328070369b9e0920d96c6ebc57c9d2fcf705d5d127a4a23e9ed73f3c9c/68747470733a2f2f692e706f7374696d672e63632f4e3054586d6273442f31302d6369636c6f2d62617369636f2d64652d74726162616a6f2d656e2d6769742e706e67)
+Zona de preparación.
+
+![stag](https://i.postimg.cc/cLss2WDG/10-Ciclo-b-sico-de-trabajo-en-Git.png)
 
 ## 9. Ramas
 
-![branch](https://camo.githubusercontent.com/4270c04b162525e6beff8ce454185837c8f33589ae3cb889c48ef11ffe38cf81/68747470733a2f2f692e706f7374696d672e63632f70725233545a474c2f31312d6272616e63682d6d657267652e706e67)
+![branch](https://i.postimg.cc/m23LmkyS/11-1-Qu-es-un-Branch-rama-y-c-mo-funciona-un-Merge-en-Git.png)
 
 ## 10. Volver en el tiempo
 
-Opcion 01
+Paso 01:
 
 ```bash
 - git log
@@ -103,7 +107,7 @@ Opcion 01
 - git commit -am "mensaje"
 ```
 
-Opcion 02
+Paso 02:
 
 ```bash
 # Habiendo usado git checkout opción 1, la opción 2 nos regresa a la versión más reciente registrada en el repositorio, a la ultima versión antes de haber hecho checkout.
@@ -112,7 +116,9 @@ git checkout master algo.txt
 
 ## 11. Flujo de trabajo básico con un repositorio remoto
 
-![Flujo basico](https://camo.githubusercontent.com/c712113c337e48b3682182d3fd67daeb2d85422c1289000406e35ffe1157371a/68747470733a2f2f692e706f7374696d672e63632f3930643150386d6d2f31342d666c756a6f2d7265706f2d72656d6f746f2e706e67)
+En caso de cambiar de computador.
+
+![Flujo basico](https://i.postimg.cc/7P0wLhdy/14-1-Esquema-del-Flujo-de-trabajo-b-sico-con-un-repositorio-remoto.png)
 
 ## 12. Introducción a las ramas o branches de Git
 
@@ -126,11 +132,11 @@ git checkout master algo.txt
 - git checkout -b nameBranch
 ```
 
-📌 Cada vez que estés en una rama no olvidar realizar add y commit -am a los cambios realizados en cada rama correspondiente.
+📌 Cada vez que estés en una rama no olvidar realizar `add` y `commit -am` a los cambios realizados en cada rama correspondiente.
 
 ## 13. Fusión de ramas con Git merge
 
-![Merge](https://camo.githubusercontent.com/1a34d8ee8b9a80461cea8233e539895f26001e2ee62a484b0cc51c2d21a9f796/68747470733a2f2f692e706f7374696d672e63632f66544c79354e34322f31362d667573696f6e2d6272616e63682e706e67)
+![Merge](https://i.postimg.cc/0Nzq1yDF/16-2-Fusi-n-de-ramas-con-Git-merge.png)
 
 ```bash
 - git checkout master
@@ -164,13 +170,13 @@ Creamos un nuevo repositorio.
 $ git remote rename origin destination
 ```
 
+[Uso de GitHub](https://github.com/aleroses/software-notes/blob/master/DW/1-basico/005-git-github/git-github.md#19-uso-de-github)
+
 ## 15. Llaves públicas y privadas
 
 Las llaves públicas y privadas nos ayudan a cifrar y descifrar nuestros archivos de forma que los podamos compartir sin correr el riesgo de que sean interceptados por personas con malas intenciones.
 
-![keys](https://camo.githubusercontent.com/b39880a5fad15d2e64b43fa83c4f9d9a3133bab385e94e8b432da37149b74917/68747470733a2f2f692e706f7374696d672e63632f4e30725a335132732f32302d707269766174652d7075626c69632d6b65792e706e67)
-
-![función](https://camo.githubusercontent.com/a20133d0a5108ece09f6246572ab1959834896e3f258628697a1be52960b686c/68747470733a2f2f692e706f7374696d672e63632f71525657305732382f32302d6b6579732e706e67)
+![ssh](https://i.postimg.cc/G2Yw9gMj/21-1-Configura-tus-llaves-SSH-en-local.png)
 
 ## 16. Configura tus llaves SSH en local
 
@@ -193,6 +199,8 @@ C:\Users\aleroses\.ssh
 # Agregar llave privada al servidor 📌 ~ alt + 126:
 - ssh-add ~/.ssh/id_rsa
 ```
+
+[Configuración](https://github.com/aleroses/software-notes/blob/master/DW/1-basico/005-git-github/git-github.md#21-configura-tus-llaves-ssh-en-local)
 
 ## 17. Conexión a GitHub con SSH
 
