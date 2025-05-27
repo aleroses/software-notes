@@ -18490,8 +18490,8 @@ Estructura:
 │   ├── main.jsx
 │   ├── router
 │   │   └── AppRouter.jsx
-│   ├── store
-│   │   └── store.js
+│   ├── store 👈👀
+│   │   └── store.js 
 │   ├── styles.css
 │   └── theme
 │       ├── purpleTheme.js
@@ -18528,7 +18528,7 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
+  <StrictMode>  👀👇
     <Provider store={store}>
       <BrowserRouter>
         <App />
