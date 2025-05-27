@@ -69,6 +69,22 @@ Git crea una nueva carpeta oculta llamada ".git". Esta carpeta contiene toda la 
 - git status 👈👀🔴🟢
 ```
 
+Envía los cambios a la BD de Git.
+
+```bash
+- git add main.js
+- git commit -am "first commit"
+
+# Cambiar el último commit
+- git commit --amend -am "second commit"
+```
+
+📌 Para enviar cambios de muchos archivos puedes usar `.`
+
+```bash
+- git add .
+```
+
 ## 7. Analizar cambios
 
 ```bash
