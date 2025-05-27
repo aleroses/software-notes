@@ -5,7 +5,7 @@
 - [Infografías en Twitter (X)](https://twitter.com/alerxses)
 - [Notas en GitHub](https://github.com/aleroses/software-notes/blob/master/DW/1-basico/005-git-github/git-github.md)
 - [Descargar Infografías](https://www.dropbox.com/scl/fo/9dwgw4vt77378wngci80w/AL3k_3O6Z_qZr6xTrveXpek?rlkey=rp0b5qs86uq50ghn6v9hbd7de&st=7fowehsc&dl=0)
-- [Ver carpeta Infografías](https://www.dropbox.com/scl/fo/54d69ya3y99x2vqvh7vfn/AD7TJBg8vbU9MXXAxvaM_Ug?rlkey=elhrjjzgnry3obgv9qrmw8muk&st=p7znvypq&dl=0)
+- [Carpeta Infografías](https://www.dropbox.com/scl/fo/54d69ya3y99x2vqvh7vfn/AD7TJBg8vbU9MXXAxvaM_Ug?rlkey=elhrjjzgnry3obgv9qrmw8muk&st=p7znvypq&dl=0)
 
 ## 1. ¿Qué es Git?
 
