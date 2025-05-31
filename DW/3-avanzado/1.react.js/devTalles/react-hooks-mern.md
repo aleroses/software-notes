@@ -18911,21 +18911,21 @@ Firebase, es una plataforma integral de desarrollo de aplicaciones móviles y we
 
 - Go to Console
 - Crear un nuevo proyecto
-- Nombre: journalApp
+- Nombre: **journalApp**
 - Continuar
 - Quitar Gemini y Google Analytics
 - Crear proyecto
 - Icono `</>` web
-- journalApp
+- **journalApp**
 - Registrar App
-- instalar Firebase
+- Instalar Firebase
 
-```bash
-npm install firebase
-yarn add firebase
-```
+	```bash
+	npm install firebase
+	yarn add firebase
+	```
 
-- copiar la configuración
+- Copiar la configuración
 
 Estructura:
 
@@ -18945,9 +18945,8 @@ Estructura:
 │   │   ├── pages
 │   │   │   ├── LoginPage.jsx
 │   │   │   └── RegisterPage.jsx
-│   │   ├── routes
-│   │   │   └── AuthRoutes.jsx
-│   │   └── thunks.js
+│   │   └── routes
+│   │       └── AuthRoutes.jsx
 │   ├── firebase 👈👀
 │   │   └── config.js
 │   ├── hooks
@@ -18987,7 +18986,7 @@ Estructura:
 ```js
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth } from "firebase/auth"; 👈👀
 import { getFirestore } from "firebase/firestore/lite";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -19003,9 +19002,11 @@ const firebaseConfig = {
   appId: "1:339972861287:web:4ac56da1de5f56a6bc53c2",
 };
 
-// Initialize Firebase
+// Initialize Firebase 👈👀👇
 export const FirebaseApp = initializeApp(firebaseConfig);
+// Autenticación 👀👇
 export const FirebaseAuth = getAuth(FirebaseApp);
+// Configuración de la BD
 export const FirebaseDB = getFirestore(FirebaseApp);
 ```
 
