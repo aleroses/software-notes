@@ -18580,7 +18580,7 @@ Estructura:
 │   ├── router
 │   │   └── AppRouter.jsx
 │   ├── store
-│   │   ├── auth
+│   │   ├── auth 👈👀👇
 │   │   │   └── authSlice.js
 │   │   └── store.js
 │   ├── styles.css
@@ -18634,6 +18634,57 @@ export const store = configureStore({
 ```
 
 ### 19.6 Manejo del formulario de login
+
+Estructura:
+
+```bash
+.
+├── eslint.config.js
+├── index.html
+├── node_modules
+├── package.json
+├── public
+├── README.md
+├── src
+│   ├── App.jsx
+│   ├── auth
+│   │   ├── layout
+│   │   │   └── AuthLayout.jsx
+│   │   ├── pages
+│   │   │   ├── LoginPage.jsx
+│   │   │   └── RegisterPage.jsx
+│   │   └── routes
+│   │       └── AuthRoutes.jsx
+│   ├── hooks 👈👀👇
+│   │   └── useForm.js
+│   ├── journal
+│   │   ├── components
+│   │   │   ├── ImageGallery.jsx
+│   │   │   ├── NavBar.jsx
+│   │   │   └── SideBar.jsx
+│   │   ├── layout
+│   │   │   └── JournalLayout.jsx
+│   │   ├── pages
+│   │   │   └── JournalPage.jsx
+│   │   ├── routes
+│   │   │   └── JournalRoutes.jsx
+│   │   └── views
+│   │       ├── NoteView.jsx
+│   │       └── NothingSelectedView.jsx
+│   ├── main.jsx
+│   ├── router
+│   │   └── AppRouter.jsx
+│   ├── store
+│   │   ├── auth
+│   │   │   └── authSlice.js
+│   │   └── store.js
+│   ├── styles.css
+│   └── theme
+│       ├── purpleTheme.js
+│       └── Theme.jsx
+├── vite.config.js
+└── yarn.lock
+```
 
 `src/store/auth/authSlice.js`
 
