@@ -19015,6 +19015,8 @@ export const FirebaseDB = getFirestore(FirebaseApp);
 
 ### 19.8 Google SignIn - Firebase
 
+Dentro de Firebase:
+
 - Autentication
 - Comenzar
 - Proveedor: Correo / Contraseña
@@ -19047,12 +19049,11 @@ Estructura:
 │   │   ├── pages
 │   │   │   ├── LoginPage.jsx
 │   │   │   └── RegisterPage.jsx
-│   │   ├── routes
-│   │   │   └── AuthRoutes.jsx
-│   │   └── thunks.js
+│   │   └── routes
+│   │       └── AuthRoutes.jsx
 │   ├── firebase
 │   │   ├── config.js
-│   │   └── providers.js
+│   │   └── providers.js 👈👀
 │   ├── hooks
 │   │   └── useForm.js
 │   ├── journal
