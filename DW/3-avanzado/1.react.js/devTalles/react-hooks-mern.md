@@ -19864,16 +19864,13 @@ export const useForm = (
   const createValidators = () => {
     const formCheckedValues = {};
 
-    for (const formField of Object.keys(
-      formValidations
-    )) {
-      // xd = fn
+    for (const formField of Object.keys(formValidations)) {
       const [
         fn,
         errorMessage, //= "This field is required",
       ] = formValidations[formField];
 
-      formCheckedValues[`${formField}Valid`] = fn(
+      formCheckedValues[`${formField }Valid`] = fn(
         formState[formField]
       )
         ? null
