@@ -21139,7 +21139,7 @@ Estructura:
 │   ├── theme
 │   │   ├── purpleTheme.js
 │   │   └── Theme.jsx
-│   └── ui
+│   └── ui 👈👀👇
 │       └── components
 │           └── CheckingAuth.jsx
 ├── vite.config.js
