@@ -21348,7 +21348,7 @@ Estructura:
 │   │   ├── config.js
 │   │   └── providers.js
 │   ├── hooks
-│   │   ├── useCheckAuth.js
+│   │   ├── useCheckAuth.js 👈👀
 │   │   └── useForm.js
 │   ├── journal
 │   │   ├── components
