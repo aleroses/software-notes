@@ -1,4 +1,4 @@
-# Tomar notas usando Git y GitHub
+# Notas con Git y GitHub
 
 Esta es una **guía reestructurada y optimizada** de como tomar apuntes, pensada especialmente para seguir cursos de código usando Git y GitHub. Incluye:
 
@@ -33,9 +33,11 @@ sección-CRUD/
 └── README.md
 ```
 
-- Cada carpeta `clase-XX` representa el contenido trabajado en esa sesión.
+- Cada carpeta/archivo `clase-XX` representa el contenido trabajado en esa sesión.
 - Puedes consolidar todo en `/src` al finalizar.
 - Documenta cambios importantes en `README.md`.
+
+📌 Es importante aclarar que esta estructura es solo una sugerencia. En el siguiente punto se verá la opción de en lugar de carpetas usar ramas y por cada clase hacer un commit para dejar registro.
 
 ---
 
@@ -402,62 +404,39 @@ Cuando termines de editar, guarda y cierra el editor para confirmar el commit.
 
 Puedes usar un hook de Git para **prellenar automáticamente** ciertos campos del commit (como el número de clase o un emoji), o aplicar validaciones.
 
-Archivo: `.git/hooks/prepare-commit-msg`  
+Los hooks viven en `.git/hooks/`. Ahí encontrarás archivos como `pre-commit.sample`, etc.
+
+Crea un archivo llamado `.git/hooks/prepare-commit-msg` (sin extensión) y hazlo ejecutable:
+
 Dale permisos: `chmod +x .git/hooks/prepare-commit-msg`
 
 ```bash
-#!/bin/sh
-
-MSG_FILE="$1"
-COMMIT_SOURCE="$2"
-
-if [ "$COMMIT_SOURCE" = "" ]; then
-  if ! grep -qE "^\[#Clase-[0-9]{2}\]" "$MSG_FILE"; then
-    sed -i.bak '1s/^/[#Clase-XX] 🎯 /' "$MSG_FILE"
-  fi
-fi
+touch .git/hooks/prepare-commit-msg
+chmod +x .git/hooks/prepare-commit-msg
 ```
 
----
-
-## 🚀 Automatiza Todo con un Script
-
-Guarda como `scripts/setup-commits.sh`:
+🧪 Ejemplo simple: agregar automáticamente `[Clase-XX]` si no existe
 
 ```bash
-#!/bin/bash
-
-TEMPLATE=".git/commit-template.txt"
-HOOK=".git/hooks/prepare-commit-msg"
-
-# Crear template
-cat > "$TEMPLATE" <<EOL
-[#Clase-XX] ✨ Breve título del cambio
-
-Resumen del cambio (opcional):
-- ¿Qué se hizo?
-- ¿Por qué se hizo?
-- Archivos relevantes modificados
-EOL
-
-git config commit.template "$TEMPLATE"
-
-# Crear hook
-cat > "$HOOK" <<'EOF'
 #!/bin/sh
+
 MSG_FILE="$1"
 COMMIT_SOURCE="$2"
+
 if [ "$COMMIT_SOURCE" = "" ]; then
   if ! grep -qE "^\[#Clase-[0-9]{2}\]" "$MSG_FILE"; then
     sed -i.bak '1s/^/[#Clase-XX] 🎯 /' "$MSG_FILE"
   fi
 fi
-EOF
-
-chmod +x "$HOOK"
-
-echo "✅ Configuración completa. Usa 'git commit' sin '-m'."
 ```
+
+Esto revisa si ya existe `[Clase-XX]` y, si no, lo añade al comienzo del mensaje de commit.
+
+Puedes automatizar aún más si tienes el número de clase como variable de entorno o lo pasas por argumento, pero eso sería más avanzado.
+
+### Commitizen
+
+Puedes hacer lo anterior más interesante con herramientas como [commitizen](https://github.com/commitizen/cz-cli)
 
 ---
 
@@ -478,4 +457,6 @@ echo "✅ Configuración completa. Usa 'git commit' sin '-m'."
 - v2.0-clase05: Módulo de autenticación completo
 ```
 
-## Ejemplo real:
+## Ejemplo real
+
+Pendiente...
