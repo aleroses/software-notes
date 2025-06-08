@@ -25,6 +25,7 @@ Para colaborar con otros, usar interfaz web o publicar proyectos.
 🎲
 
 ## 2. ¿Por qué usar un sistema de control de versiones como Git?
+
 Para solo guardar los cambios y no guardar todo el archivo de nuevo.
 
 **Control de versiones:**    
@@ -122,6 +123,7 @@ Actualizar Git en Windows
 🎲
 
 ## 4. Instalando Git en OSX
+
 La instalación de GIT en Mac es un poco más sencilla. No debemos instalar GitBash porque Mac ya trae por defecto una consola de comandos (la puedes encontrar como “Terminal”). Tampoco debemos configurar OpenSSL porque viene listo por defecto.
 
 OSX está basado en un Kernel de UNIX llamado BSD. Estos significa que hay algunas diferencias entre las consolas de Mac y Linux. Pero no vas a notar la diferencia a menos que trabajes con acceso profundo a las interfaces de red o los archivos del sistema operativo. Ambas consolas funcionan muy parecido y comparten los comandos que vamos a ver durante el curso.
@@ -141,6 +143,7 @@ OSX está basado en un Kernel de UNIX llamado BSD. Estos significa que hay algun
 🎲
 
 ## 5. Instalando Git en Linux
+
 **Instalación en Consola**     
 - `sudo apt-get update`
 	- Super User Do: Super usuario hacer 🦸‍♀️🦸‍♂️
@@ -163,6 +166,7 @@ OSX está basado en un Kernel de UNIX llamado BSD. Estos significa que hay algun
 🎲
 
 ## 6. Editores de código, archivos binarios y de texto plano
+
 **Editores de Código**   
 - Atom
 - Sublime Text
@@ -192,6 +196,7 @@ Podemos guardar imágenes y texto con diferentes tamaños, estilos y colores. Al
 🎲
 
 ## 7. Introducción a la terminal y línea de comandos
+
 **Comandos Usados en la terminal**
 - `pwd` Print working directory    
 	- Muestra la ruta de nuestra ubicación
@@ -233,6 +238,7 @@ Podemos guardar imágenes y texto con diferentes tamaños, estilos y colores. Al
 🎲
 
 ## 8. Crea un repositorio de Git y haz tu primer commit
+
 **Configurar git bash**     
 Primero debemos decirle quienes somos
 - `git config --list`
@@ -307,6 +313,7 @@ Si quieres configurar un repositorio como local y agregar otro correo, debes [Le
 🎲
 
 ## 9. Analizar cambios en los archivos de tu proyecto con Git
+
 **Comandos para visualizar y comparar cambios**
 Para probar estos comandos usar un archivo que ya tenga varios cambios (`git add .` y `git commit`).
 
