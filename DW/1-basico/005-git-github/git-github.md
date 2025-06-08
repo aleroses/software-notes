@@ -766,7 +766,7 @@ $ git remote rename origin destination
 
 🚀 [Mira tus estadísticas](https://www.githubwrapped.io/)
 
-### Extra: Configurar Vim como editor por defecto
+### Extra 01: Configurar Vim como editor por defecto
 
 ```bash
 # 1. Usar el comando global de configuración de Git
@@ -778,6 +778,94 @@ cat ~/.gitconfig
 # 3. (Opcional) Cambiar el editor para una sesión específica
 GIT_EDITOR=vim git commit
 ```
+
+### Extra 02: Uso de `git push -u origin rama`
+
+Cuando haces:
+
+```bash
+git push -u origin modulo-autenticacion
+```
+
+Estás haciendo **dos cosas al mismo tiempo**:
+
+1. **PUSH**: Subes la rama `modulo-autenticacion` de tu repositorio local al remoto llamado `origin` (normalmente GitHub).
+    
+2. **UPSTREAM (el `-u`)**: Le dices a Git:
+    
+    > “Esta rama local (`modulo-autenticacion`) estará conectada/enlazada a la rama remota con el mismo nombre en `origin`.”
+    
+
+#### 🧩 ¿Qué pasa si no usas `-u`?
+
+Supón que haces:
+
+```bash
+git push origin modulo-autenticacion
+```
+
+Sí, la rama se sube, pero Git **no guarda el enlace automático** entre tu rama local y la remota. Entonces, cada vez que hagas un push o pull, tendrás que escribir el nombre del remoto y la rama:
+
+```bash
+git push origin modulo-autenticacion
+git pull origin modulo-autenticacion
+```
+
+#### ✅ ¿Qué pasa si usas `-u` (una sola vez)?
+
+Git recordará que:
+
+- Tu rama local `modulo-autenticacion`
+    
+- está conectada a `origin/modulo-autenticacion`
+    
+
+Entonces, desde ese momento puedes usar simplemente:
+
+```bash
+git push
+git pull
+```
+
+Y Git ya **sabe a dónde enviar y de dónde traer** sin que tú lo repitas.
+
+#### 📦 Lo que Git guarda internamente
+
+Cuando usas `-u`, Git agrega esto al archivo `.git/config`:
+
+```ini
+[branch "modulo-autenticacion"]
+    remote = origin
+    merge = refs/heads/modulo-autenticacion
+```
+
+Eso es lo que permite el comportamiento automático después.
+
+#### 🎯 Ejemplo paso a paso
+
+```bash
+# 1. Crear rama nueva
+git checkout -b modulo-login
+
+# 2. Haces cambios y commit
+git add .
+git commit -m "[#Clase-07] Añade formulario de login"
+
+# 3. Subes la rama por primera vez, enlazándola
+git push -u origin modulo-login
+
+# 4. A partir de aquí puedes hacer simplemente:
+git push     # Ya no necesitas escribir origin modulo-login
+git pull     # Tampoco aquí
+```
+
+#### 🧠 Recuerda
+
+|Comando|¿Qué hace?|
+|---|---|
+|`git push origin rama`|Sube la rama, **pero no guarda enlace**|
+|`git push -u origin rama`|Sube la rama **y enlaza** tu rama local con la remota|
+|`git push`|Funciona **solo si ya hay un enlace (upstream)**|
 
 🎲
 
