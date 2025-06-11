@@ -459,4 +459,4 @@ Puedes hacer lo anterior más interesante con herramientas como [commitizen](htt
 
 ## Ejemplo real
 
-Pendiente...
+Pendiente.
