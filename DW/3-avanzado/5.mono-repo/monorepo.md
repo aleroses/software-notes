@@ -372,3 +372,8 @@ Con sui-mono las releases se hacen así:
 ```bash
 ./node_modules/.bin/sui-mon release
 ```
+
+## Enlaces
+
+- [Crea un monorepositorio multipaquete con npm workspaces y releases de paquetes](https://www.youtube.com/watch?v=2QSBXhuqSlI)
+- [Monorepo multipaquete con NPM Workspaces](https://www.youtube.com/watch?v=KEkRy4q_0oI)
