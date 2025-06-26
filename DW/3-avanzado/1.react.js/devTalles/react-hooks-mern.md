@@ -15650,7 +15650,7 @@ export const LoginPage = () => {
 };
 ```
 
-📌 Nota: Grid2 cambio a Grid.
+📌 Nota: Grid2 cambió a Grid.
 
 [Grid MUI](https://mui.com/material-ui/react-grid/)
 
