@@ -15650,7 +15650,9 @@ export const LoginPage = () => {
 };
 ```
 
-[Grid2 MUI](https://mui.com/material-ui/react-grid2/)
+📌 Nota: Grid2 cambio a Grid.
+
+[Grid MUI](https://mui.com/material-ui/react-grid/)
 
 ### 17.10 LoginPage - Diseño - Segunda Parte
 
