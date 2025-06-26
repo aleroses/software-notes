@@ -15827,7 +15827,7 @@ import { AuthLayout } from "../layout/AuthLayout";
 
 export const LoginPage = () => {
   return (
-    <AuthLayout title="Login">
+    <AuthLayout title="Login"> 👈👀👇
       <Grid2 container component="form" spacing={2}>
         <Grid2 size={{ xs: 12, md: 6 }}>
           <TextField
