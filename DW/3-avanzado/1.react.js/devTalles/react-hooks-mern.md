@@ -16076,7 +16076,7 @@ Estructura actual:
 │   │   │   └── RegisterPage.jsx
 │   │   └── routes
 │   │       └── AuthRoutes.jsx
-│   ├── journal
+│   ├── journal 👈👀👇
 │   │   ├── components
 │   │   │   └── NavBar.jsx
 │   │   ├── layout
