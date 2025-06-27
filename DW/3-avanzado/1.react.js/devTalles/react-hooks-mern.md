@@ -15990,7 +15990,7 @@ Estructura actual:
 │   │   └── routes
 │   │       └── AuthRoutes.jsx
 │   ├── journal
-│   │   ├── layout
+│   │   ├── layout 👈👀👇
 │   │   │   └── JournalLayout.jsx
 │   │   ├── pages
 │   │   │   └── JournalPage.jsx
