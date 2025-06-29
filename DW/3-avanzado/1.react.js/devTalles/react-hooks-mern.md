@@ -16220,7 +16220,7 @@ Estructura actual:
 │   ├── journal
 │   │   ├── components
 │   │   │   ├── NavBar.jsx
-│   │   │   └── SideBar.jsx
+│   │   │   └── SideBar.jsx 👈👀
 │   │   ├── layout
 │   │   │   └── JournalLayout.jsx
 │   │   ├── pages
