@@ -16515,7 +16515,7 @@ Estructura actual:
 │   │       └── AuthRoutes.jsx
 │   ├── journal
 │   │   ├── components
-│   │   │   ├── ImageGallery.jsx
+│   │   │   ├── ImageGallery.jsx 👈👀
 │   │   │   ├── NavBar.jsx
 │   │   │   └── SideBar.jsx
 │   │   ├── layout
