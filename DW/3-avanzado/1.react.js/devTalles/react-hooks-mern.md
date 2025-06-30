@@ -16525,7 +16525,7 @@ Estructura actual:
 │   │   ├── routes
 │   │   │   └── JournalRoutes.jsx
 │   │   └── views
-│   │       ├── NoteView.jsx
+│   │       ├── NoteView.jsx 👈👀
 │   │       └── NothingSelectedView.jsx
 │   ├── main.jsx
 │   ├── router
