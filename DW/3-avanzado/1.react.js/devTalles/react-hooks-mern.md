@@ -16427,7 +16427,7 @@ Estructura actual:
 │   │   │   └── JournalPage.jsx
 │   │   ├── routes
 │   │   │   └── JournalRoutes.jsx
-│   │   └── views
+│   │   └── views 👈👀👇
 │   │       └── NothingSelectedView.jsx
 │   ├── main.jsx
 │   ├── router
