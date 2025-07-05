@@ -17443,7 +17443,7 @@ export default App;
 
 `App` es el componente principal de la aplicación. Renderiza el componente `Counter`.
 
-6. Flujo Completo**
+6. Flujo Completo
 
 - **Store**: El store de Redux se configura en `store.js` y se provee a la aplicación mediante `Provider`.
 - **Slice**: El slice `counterSlice.js` define la lógica del contador, incluyendo los reducers y las acciones.
