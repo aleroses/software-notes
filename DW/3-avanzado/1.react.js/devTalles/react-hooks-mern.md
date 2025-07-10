@@ -18087,6 +18087,8 @@ Vista general:
 
 ![Redux async](https://i.postimg.cc/SK9D8x5x/18-13-redux-async.png)
 
+[Axios Curso](https://www.youtube.com/watch?v=i8sr--1D13Y)
+
 ### 18.14 RTK Query
 
 RTK Query es una capa de abstracción sobre **Redux** que automatiza:  
