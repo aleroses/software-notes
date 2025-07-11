@@ -18420,6 +18420,10 @@ Vista general:
 
 ![](https://i.postimg.cc/RVs8WmLW/18-14-RTK-Query.png)
 
+Desplegamos:
+
+[Proyecto Redux Toolkit](https://redux1toolkit.netlify.app/)
+
 ### 18.17 Código fuente de la sección
 
 Aquí les dejo el código fuente de la sección por si lo llegan a necesitar para compararlo contra el mío
