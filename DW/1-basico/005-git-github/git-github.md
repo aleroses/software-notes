@@ -435,6 +435,12 @@ Opción 2
 - `git reset 83d73c4a2eb79az03b1b130574e9e706c99a --soft`    
 	- Volvemos a una versión anterior pero lo que está en staging sigue ahí.
 
+Si ya habías hecho `push` al repositorio remoto y quieres que el cambio también se refleje ahí:
+
+- `git push --force`
+
+> ⚠️ `--force` sobrescribe el historial en el repositorio remoto. Asegúrate de que nadie más esté trabajando sobre esa misma rama, o podrías causar conflictos para otros desarrolladores.
+
 📌 `git log`   
 - Muestra como si lo trabajado anteriormente hubiera desaparecido.
 - Ejecutar con cuidado. 
