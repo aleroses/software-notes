@@ -22152,8 +22152,41 @@ Recuerden cambiar la configuración de firebase, porque yo lo borraré en cualqu
 
 [**GitHub - Fin sección 19**](https://github.com/Klerith/react-journal-material/tree/fin-seccion-19)
 
-## 🟣 20
+## 🟣 20. JournalApp - Redux - CRUD en Firestore y subida de archivos
 
+### 20.1 Introducción a la sección
+
+### 20.2 Temas puntuales de la sección
+
+**¿Qué veremos en esta sección?**
+
+- CRUD hacia Firestore
+- Expandiendo nuestro store añadiendo otros reducers
+- Seleccionar y subir archivos
+- Animaciones adicionales a nuestra aplicación
+- Limpieza en el logout
+
+Esta sección está enfocada ahora en las entradas de nuestro diario, asegurándose de que grabe únicamente en el documento del usuario autenticado.
+
+### 20.3
+
+### 20.4
+
+### 20.5
+
+### 20.6
+
+### 20.7
+
+### 20.8
+
+### 20.9
+
+### 20.10
+
+### 20.11
+
+### 20.12
 `src/`
 
 ```jsx
