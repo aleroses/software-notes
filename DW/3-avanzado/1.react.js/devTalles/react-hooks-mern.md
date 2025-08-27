@@ -21990,7 +21990,7 @@ export const LoginPage = () => {
   // }, []);
 
   return (
-    <AuthLayout title="Login">
+    <AuthLayout title="Login">👈👀
       <form
         action=""
         onSubmit={handleSubmit}
@@ -22168,9 +22168,127 @@ Recuerden cambiar la configuración de firebase, porque yo lo borraré en cualqu
 
 Esta sección está enfocada ahora en las entradas de nuestro diario, asegurándose de que grabe únicamente en el documento del usuario autenticado.
 
-### 20.3
+### 20.3 Continuación del proyecto - JournalApp
 
-### 20.4
+### 20.4 JournalSlice
+
+Estructura:
+
+```bash
+.
+├── eslint.config.js
+├── index.html
+├── LICENSE
+├── node_modules
+├── package.json
+├── public
+├── README.md
+├── src
+│   ├── App.jsx
+│   ├── auth
+│   │   ├── layout
+│   │   │   └── AuthLayout.jsx
+│   │   ├── pages
+│   │   │   ├── LoginPage.jsx
+│   │   │   └── RegisterPage.jsx
+│   │   └── routes
+│   │       └── AuthRoutes.jsx
+│   ├── firebase
+│   │   ├── config.js
+│   │   └── providers.js
+│   ├── hooks
+│   │   ├── useCheckAuth.js
+│   │   └── useForm.js
+│   ├── journal
+│   │   ├── components
+│   │   │   ├── ImageGallery.jsx
+│   │   │   ├── NavBar.jsx
+│   │   │   └── SideBar.jsx
+│   │   ├── layout
+│   │   │   └── JournalLayout.jsx
+│   │   ├── pages
+│   │   │   └── JournalPage.jsx
+│   │   ├── routes
+│   │   │   └── JournalRoutes.jsx
+│   │   └── views
+│   │       ├── NoteView.jsx
+│   │       └── NothingSelectedView.jsx
+│   ├── main.jsx
+│   ├── router
+│   │   └── AppRouter.jsx
+│   ├── store
+│   │   ├── auth
+│   │   │   ├── authSlice.js
+│   │   │   └── thunks.js
+│   │   ├── journal
+│   │   │   ├── journalSlice.js 👈👀
+│   │   │   └── thunks.js 👈👀
+│   │   └── store.js 👈👀
+│   ├── styles.css
+│   ├── theme
+│   │   ├── purpleTheme.js
+│   │   └── Theme.jsx
+│   └── ui
+│       └── components
+│           └── CheckingAuth.jsx
+├── vite.config.js
+└── yarn.lock
+```
+
+`src/store/journal/journalSlice.js`
+
+```js
+import { createSlice } from "@reduxjs/toolkit";
+
+export const journalSlice = createSlice({
+  name: "journal",
+  initialState: {
+    isSaving: true,
+    messageSaved: "",
+    notes: [],
+    active: null,
+    // active: {
+    //   id: "ABC123",
+    //   title: "",
+    //   body: "",
+    //   date: 1234567,
+    //   imageUrls: [],
+    // },
+  },
+  reducers: {
+    addNewEmptyNote: (state, { payload }) => {},
+    setActiveNote: (state, action) => {},
+    setNotes: (state, { payload }) => {},
+    setSaving: () => {},
+    updateNote: (state, action) => {},
+    deleteNoteById: (state, action) => {},
+  },
+});
+
+export const {
+  addNewEmptyNote,
+  setActiveNote,
+  setNotes,
+  setSaving,
+  updateNote,
+  deleteNoteById,
+} = journalSlice.actions;
+```
+
+`src/store/journal/thunks.js`
+
+```js
+import { configureStore } from "@reduxjs/toolkit";
+import { authSlice } from "./auth/authSlice";
+import { journalSlice } from "./journal/journalSlice";
+
+export const store = configureStore({
+  reducer: {
+    auth: authSlice.reducer,
+    journal: journalSlice.reducer,
+  },
+});
+```
 
 ### 20.5
 
