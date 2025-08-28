@@ -22290,7 +22290,136 @@ export const store = configureStore({
 });
 ```
 
-### 20.5
+### 20.5 Preparar la base de datos - CloudFirestore
+
+#### 1. Crear base de datos
+
+- Go to console
+- journalApp
+- Compilación
+- Firestore Database
+- Crear base de datos
+	- Edición Standard: (Siguiente)
+	- ID de la base de datos: (default)
+	- Ubicación: Buscar ubicación cercana (Siguiente)
+	- Configurar: Iniciar en modo de producción 
+	- Crear
+
+#### 2. Crear colección inicial
+
+**id-user-1** representa al usuario por su ID único.
+
+- **Iniciar colección**
+- **id-user-1** (Siguiente)
+- ID de documento: **journal**
+- Guardar
+
+#### 3. Agregar campos al documento `journal`
+
+- **Agregar campo**:
+	- Campo: numero-notas
+	- Tipo: number
+	- Valor: 2
+	- Agregar
+
+#### 4. Crear colección de notas dentro de `journal`
+
+- **Iniciar colección**:
+	- ID de la colección: notes (Siguiente)
+	- ID de documento: **ID automático** 👈👀
+	- Guardar
+- **Agregar campo**:
+	- **Campo**: title
+		- Tipo: String
+		- Valor: Hi world
+		- Agregar
+	- **Campo**: body
+		- Tipo: String
+		- Valor: Hi world again
+		- Agregar
+	- **Campo**: date
+		- Tipo: Number
+		- Valor: 123456
+		- Agregar
+- **Agregar documento**
+	- ID de documento: **ID automático** 👈👀
+	- **Campo**: title
+		- Tipo: String
+		- Valor: Hi world
+		- Agregar
+
+La ruta para acceder a una nota específica es:
+
+```
+/id-user-1/journal/notes/S7oYX9sGYZY1O7CXmqaZ
+```
+
+```mermaid
+flowchart TD
+    A[Firestore DB] --> B[id-user-1 : Colección]
+    B --> C[journal : Documento]
+    C --> D[n-notas = 2: Campo]
+    C --> E[notes : Colección]
+    E --> F1[Nota 1 : Documento]
+    E --> F2[Nota 2 : Documento]
+    
+    F1 --> G1[title: Hi world]
+    F1 --> G2[body: Hi world again]
+    F1 --> G3[date: 123456]
+    
+    F2 --> H1[title: Hi world]
+    F2 --> H2[body: Hi world again]
+    F2 --> H3[date: 123456]
+```
+
+Donde:
+- `id-user-1`: Identificador único del usuario. Tendremos muchos de estos.
+- `journal`: Vive dentro de id-user-1, cada usuario tiene uno, este documento contiene datos generales del diario.
+- `notes`: Vive dentro de journal y es la colección que almacena todas las notas del usuario.
+- `s7oYX9sGYZY107CXm1az`: Vive dentro de `notes`, son los metadatos que iteraremos más adelante. Ejemplo: Body, date y título.
+
+```mermaid
+flowchart TD
+    subgraph Firestore DB
+        subgraph id-user-1 [id-user-1 : Colección]
+            subgraph journal [journal : Documento]
+                D[numero-notas = 2]
+                subgraph notes [notes : Colección]
+                    subgraph Nota1 [Nota 1 : Documento]
+                        G1[title: Hi world]
+                        G2[body: Hi world again]
+                        G3[date: 123456]
+                    end
+                    subgraph Nota2 [Nota 2 : Documento]
+                        H1[title: Hi world]
+                        H2[body: Hi world again]
+                        H3[date: 123456]
+                    end
+                end
+            end
+        end
+    end
+```
+
+`src/store/journal/thunks.js`
+
+```js
+export const startNewNote = () => {
+  return async (dispatch) => {
+    // uid
+
+    const newNote = {
+      title: "",
+      body: "",
+      date: new Date().getTime(),
+    };
+
+    // dispatch
+    // dispatc(newNote)
+    // dispatch(activarNote)
+  };
+};
+```
 
 ### 20.6
 
