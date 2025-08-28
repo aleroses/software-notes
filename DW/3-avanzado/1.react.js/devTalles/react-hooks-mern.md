@@ -22421,7 +22421,168 @@ export const startNewNote = () => {
 };
 ```
 
-### 20.6
+### 20.6 Crear una nueva nota
+
+`Firestore Database / (default) / Reglas`
+
+Esto sirve para dejar pasar las peticiones.
+
+```js
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {  👀👇
+      allow read, write: if request.auth != null;
+    }
+  }
+}
+```
+
+Darle en `Publicar`
+
+`src/journal/pages/JournalPage.jsx`
+
+```jsx
+import { JournalLayout } from "../layout/JournalLayout";
+import IconButton from "@mui/material/IconButton";
+import { NothingSelectedView } from "../views/NothingSelectedView";
+import { AddOutlined } from "@mui/icons-material";
+import { startNewNote } from "../../store/journal/thunks";
+import { useDispatch } from "react-redux";
+
+export const JournalPage = () => {
+  const dispatch = useDispatch(); 👈👀
+
+  const onClickNewNote = () => { 👈👀
+    dispatch(startNewNote());
+  };
+
+  return (
+    <JournalLayout>
+      <NothingSelectedView />
+
+      <IconButton
+        aria-label=""
+        size="large"
+        sx={{
+          color: "white",
+          bgcolor: "error.main",
+          ":hover": {
+            bgcolor: "error.main",
+            opacity: 0.9,
+          },
+          position: "fixed",
+          right: 50,
+          bottom: 50,
+        }}
+        onClick={onClickNewNote} 👈👀
+      >
+        <AddOutlined sx={{ fontSize: 30 }} />
+      </IconButton>
+    </JournalLayout>
+  );
+};
+```
+
+`src/store/journal/thunks.js`
+
+```js
+import {
+  collection,
+  doc,
+  setDoc,
+} from "firebase/firestore/lite";
+import { FirebaseDB } from "../../firebase/config";
+
+export const startNewNote = () => {
+  return async (dispatch, getState) => {
+    const { uid } = getState().auth;
+    // uid
+
+    const newNote = {
+      title: "",
+      body: "",
+      date: new Date().getTime(),
+    };
+
+    const newDoc = doc(  👈👀👇
+      collection(FirebaseDB, `${uid}/journal/notes`)
+    );
+
+    // Para ver la info añadir variable y hacer console.log
+    await setDoc(newDoc, newNote); 👈👀
+
+    // dispatch
+    // dispatc(newNote)
+    // dispatch(activarNote)
+  };
+};
+```
+
+Ahora al hacer clic en el botón añadir nota `➕` debe salir algo como esto:
+
+```js
+{
+  newDoc: {
+    converter: null,
+    _key: {
+      path: {
+        segments: [
+          "SwqBKmZo3Gg6m4nNDrOvV6oFgCD2",
+          "journal",
+          "notes",
+          "RhnIlpXk25uiOviGjIfa",
+        ],
+        offset: 0,
+        len: 4,
+      },
+    },
+    type: "document",
+    firestore: {
+      app: {
+        _isDeleted: false,
+        _options: {
+          apiKey: "AIzaSyClS8Dtp-O686mpBJW6-4EwgwASeKqFLMw",
+          authDomain: "journalapp-72f2d.firebaseapp.com",
+          projectId: "journalapp-72f2d",
+          storageBucket:
+            "journalapp-72f2d.firebasestorage.app",
+          messagingSenderId: "339972861287",
+          appId: "1:339972861287:web:4ac56da1de5f56a6bc53c2",
+        },
+        _config: {
+          name: "[DEFAULT]",
+          automaticDataCollectionEnabled: false,
+        },
+        _name: "[DEFAULT]",
+        _automaticDataCollectionEnabled: false,
+        _container: {
+          name: "[DEFAULT]",
+          providers: {},
+        },
+      },
+      databaseId: {
+        projectId: "journalapp-72f2d",
+        database: "(default)",
+      },
+      settings: {
+        host: "firestore.googleapis.com",
+        ssl: true,
+        ignoreUndefinedProperties: false,
+        cacheSizeBytes: 41943040,
+        experimentalForceLongPolling: false,
+        experimentalAutoDetectLongPolling: true,
+        experimentalLongPollingOptions: {},
+        useFetchStreams: false,
+      },
+    },
+  },
+};
+```
+
+- Verificamos dentro de la extensión `Redux/State/uid` debe coincidir con `"SwqBKmZo3Gg6m4nNDrOvV6oFgCD2"`
+- Dentro de la BD también debemos tener lo mismo.
 
 ### 20.7
 
