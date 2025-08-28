@@ -22586,7 +22586,146 @@ Ahora al hacer clic en el botón añadir nota `➕` debe salir algo como esto:
 
 ### 20.7 Activar la nota creada
 
+`src/store/journal/thunks.js`
 
+```js
+import {
+  collection,
+  doc,
+  setDoc,
+} from "firebase/firestore/lite";
+import { FirebaseDB } from "../../firebase/config";
+import {
+  addNewEmptyNote,
+  savingNewNote,
+  setActiveNote,
+} from "./journalSlice";
+
+export const startNewNote = () => {
+  return async (dispatch, getState) => {
+    dispatch(savingNewNote());
+
+    const { uid } = getState().auth;
+    // uid
+
+    const newNote = {
+      title: "",
+      body: "",
+      date: new Date().getTime(),
+    };
+
+    const newDoc = doc(
+      collection(FirebaseDB, `${uid}/journal/notes`)
+    );
+
+    // Para ver la info añadir variable y hacer console.log
+    await setDoc(newDoc, newNote);
+
+    newNote.id = newDoc.id;
+
+    // dispatch
+    dispatch(addNewEmptyNote(newNote));
+    dispatch(setActiveNote(newNote));
+  };
+};
+```
+
+`src/store/journal/journalSlice.js`
+```js
+import { createSlice } from "@reduxjs/toolkit";
+
+export const journalSlice = createSlice({
+  name: "journal",
+  initialState: {
+    isSaving: false,
+    messageSaved: "",
+    notes: [],
+    active: null,
+    // active: {
+    //   id: "ABC123",
+    //   title: "",
+    //   body: "",
+    //   date: 1234567,
+    //   imageUrls: [],
+    // },
+  },
+  reducers: {
+    savingNewNote: (state, { payload }) => {
+      state.isSaving = true;
+    },
+    addNewEmptyNote: (state, { payload }) => {
+      state.notes.push(payload);
+      state.isSaving = false;
+    },
+    setActiveNote: (state, { payload }) => {
+      state.active = payload;
+    },
+    setNotes: (state, { payload }) => {},
+    setSaving: () => {},
+    updateNote: (state, action) => {},
+    deleteNoteById: (state, action) => {},
+  },
+});
+
+export const {
+  addNewEmptyNote,
+  deleteNoteById,
+  savingNewNote,
+  setActiveNote,
+  setNotes,
+  setSaving,
+  updateNote,
+} = journalSlice.actions;
+```
+
+`src/journal/pages/JournalPage.jsx`
+
+```jsx
+import { JournalLayout } from "../layout/JournalLayout";
+import IconButton from "@mui/material/IconButton";
+import { NothingSelectedView } from "../views/NothingSelectedView";
+import { AddOutlined } from "@mui/icons-material";
+import { startNewNote } from "../../store/journal/thunks";
+import { useDispatch, useSelector } from "react-redux";
+import { NoteView } from "../views/NoteView";
+
+export const JournalPage = () => {
+  const dispatch = useDispatch();
+  const { isSaving, active } = useSelector(
+    (state) => state.journal
+  );
+
+  const onClickNewNote = () => {
+    dispatch(startNewNote());
+  };
+
+  return (
+    <JournalLayout>
+      {!!active ? <NoteView /> : <NothingSelectedView />}
+
+      <IconButton
+        aria-label=""
+        size="large"
+        disabled={isSaving}
+        sx={{
+          color: "white",
+          bgcolor: "error.main",
+          ":hover": {
+            bgcolor: "error.main",
+            opacity: 0.9,
+          },
+          position: "fixed",
+          right: 50,
+          bottom: 50,
+        }}
+        onClick={onClickNewNote}
+      >
+        <AddOutlined sx={{ fontSize: 30 }} />
+      </IconButton>
+    </JournalLayout>
+  );
+};
+```
 
 ### 20.8
 
