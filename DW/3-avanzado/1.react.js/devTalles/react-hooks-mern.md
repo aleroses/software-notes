@@ -22584,7 +22584,9 @@ Ahora al hacer clic en el botón añadir nota `➕` debe salir algo como esto:
 - Verificamos dentro de la extensión `Redux/State/uid` debe coincidir con `"SwqBKmZo3Gg6m4nNDrOvV6oFgCD2"`
 - Dentro de la BD también debemos tener lo mismo.
 
-### 20.7
+### 20.7 Activar la nota creada
+
+
 
 ### 20.8
 
