@@ -22727,7 +22727,239 @@ export const JournalPage = () => {
 };
 ```
 
-### 20.8
+### 20.8 Cargar notas de Firestore
+
+Estructura:
+
+```bash
+.
+├── eslint.config.js
+├── index.html
+├── LICENSE
+├── node_modules
+├── package.json
+├── public
+├── README.md
+├── src
+│   ├── App.jsx
+│   ├── auth
+│   │   ├── layout
+│   │   │   └── AuthLayout.jsx
+│   │   ├── pages
+│   │   │   ├── LoginPage.jsx
+│   │   │   └── RegisterPage.jsx
+│   │   └── routes
+│   │       └── AuthRoutes.jsx
+│   ├── firebase
+│   │   ├── config.js
+│   │   └── providers.js
+│   ├── helpers 👈👀👇
+│   │   └── loadNotes.js
+│   ├── hooks
+│   │   ├── useCheckAuth.js
+│   │   └── useForm.js
+│   ├── journal
+│   │   ├── components
+│   │   │   ├── ImageGallery.jsx
+│   │   │   ├── NavBar.jsx
+│   │   │   └── SideBar.jsx
+│   │   ├── layout
+│   │   │   └── JournalLayout.jsx
+│   │   ├── pages
+│   │   │   └── JournalPage.jsx
+│   │   ├── routes
+│   │   │   └── JournalRoutes.jsx
+│   │   └── views
+│   │       ├── NoteView.jsx
+│   │       └── NothingSelectedView.jsx
+│   ├── main.jsx
+│   ├── router
+│   │   └── AppRouter.jsx
+│   ├── store
+│   │   ├── auth
+│   │   │   ├── authSlice.js
+│   │   │   └── thunks.js
+│   │   ├── journal
+│   │   │   ├── journalSlice.js
+│   │   │   └── thunks.js
+│   │   └── store.js
+│   ├── styles.css
+│   ├── theme
+│   │   ├── purpleTheme.js
+│   │   └── Theme.jsx
+│   └── ui
+│       └── components
+│           └── CheckingAuth.jsx
+├── vite.config.js
+└── yarn.lock
+```
+
+`src/store/journal/thunks.js`
+
+```js
+import {
+  collection,
+  doc,
+  setDoc,
+} from "firebase/firestore/lite";
+import { FirebaseDB } from "../../firebase/config";
+import {
+  addNewEmptyNote,
+  savingNewNote,
+  setActiveNote,
+  setNotes,
+} from "./journalSlice";
+import { loadNotes } from "../../helpers/loadNotes";
+
+export const startNewNote = () => {
+  return async (dispatch, getState) => {
+    dispatch(savingNewNote());
+
+    const { uid } = getState().auth;
+    // uid
+
+    const newNote = {
+      title: "",
+      body: "",
+      date: new Date().getTime(),
+    };
+
+    const newDoc = doc(
+      collection(FirebaseDB, `${uid}/journal/notes`)
+    );
+
+    // Para ver la info añadir variable y hacer console.log
+    await setDoc(newDoc, newNote);
+
+    newNote.id = newDoc.id;
+
+    // dispatch
+    dispatch(addNewEmptyNote(newNote));
+    dispatch(setActiveNote(newNote));
+  };
+};
+
+export const startLoadingNotes = () => {
+  return async (dispatch, getState) => {
+    const { uid } = getState().auth;
+
+    if (!uid) throw new Error("The user uid doesn't exist");
+
+    const notes = await loadNotes(uid);
+
+    dispatch(setNotes(notes));
+  };
+};
+```
+
+`src/hooks/useCheckAuth.js`
+
+```js
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { onAuthStateChanged } from "firebase/auth";
+import { login, logout } from "../store/auth/authSlice";
+import { FirebaseAuth } from "../firebase/config";
+import { startLoadingNotes } from "../store/journal/thunks";
+
+export const useCheckAuth = () => {
+  const { status } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    onAuthStateChanged(FirebaseAuth, async (user) => {
+      // console.log(user);
+
+      if (!user) return dispatch(logout());
+
+      const { uid, email, displayName, photoURL } = user;
+
+      dispatch(login({ uid, email, displayName, photoURL }));
+      
+      // If you place this before dispatch(login({})) it will fail.
+      dispatch(startLoadingNotes());
+    });
+  }, []);
+
+  return status;
+};
+```
+
+`src/helpers/loadNotes.js`
+
+```js
+import { collection, getDocs } from "firebase/firestore/lite";
+import { FirebaseDB } from "../firebase/config";
+
+export const loadNotes = async (uid = "") => {
+  if (!uid) throw new Error("The user uid doesn't exist");
+
+  const collectionRef = collection(
+    FirebaseDB,
+    `${uid}/journal/notes`
+  );
+  const docs = await getDocs(collectionRef);
+
+  const notes = [];
+
+  docs.forEach((doc) => {
+    notes.push({ id: doc.id, ...doc.data() });
+  });
+
+  return notes;
+};
+```
+
+`src/store/journal/journalSlice.js`
+
+```js
+import { createSlice } from "@reduxjs/toolkit";
+
+export const journalSlice = createSlice({
+  name: "journal",
+  initialState: {
+    isSaving: false,
+    messageSaved: "",
+    notes: [],
+    active: null,
+    // active: {
+    //   id: "ABC123",
+    //   title: "",
+    //   body: "",
+    //   date: 1234567,
+    //   imageUrls: [],
+    // },
+  },
+  reducers: {
+    savingNewNote: (state, { payload }) => {
+      state.isSaving = true;
+    },
+    addNewEmptyNote: (state, { payload }) => {
+      state.notes.push(payload);
+      state.isSaving = false;
+    },
+    setActiveNote: (state, { payload }) => {
+      state.active = payload;
+    },
+    setNotes: (state, { payload }) => {
+      state.notes = payload;
+    },
+    setSaving: () => {},
+    updateNote: (state, action) => {},
+    deleteNoteById: (state, action) => {},
+  },
+});
+
+export const {
+  addNewEmptyNote,
+  deleteNoteById,
+  savingNewNote,
+  setActiveNote,
+  setNotes,
+  setSaving,
+  updateNote,
+} = journalSlice.actions;
+```
 
 ### 20.9
 
