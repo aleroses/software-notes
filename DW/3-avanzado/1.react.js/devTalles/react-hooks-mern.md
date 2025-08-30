@@ -22961,9 +22961,203 @@ export const {
 } = journalSlice.actions;
 ```
 
-### 20.9
+### 20.9 Mostrar las notas en el menú lateral
+
+En Firestore Database, dentro de **notas**, seleccionamos un ID y añadimos algo de información:
+
+```json
+body: ✏️
+  String: "This is something inside the body."
+date: 34334342342
+title: ✏️ 
+  String: "Nota 1"
+```
+
+Estructura:
+
+```bash
+.
+├── eslint.config.js
+├── index.html
+├── LICENSE
+├── node_modules
+├── package.json
+├── public
+├── README.md
+├── src
+│   ├── App.jsx
+│   ├── auth
+│   │   ├── layout
+│   │   │   └── AuthLayout.jsx
+│   │   ├── pages
+│   │   │   ├── LoginPage.jsx
+│   │   │   └── RegisterPage.jsx
+│   │   └── routes
+│   │       └── AuthRoutes.jsx
+│   ├── firebase
+│   │   ├── config.js
+│   │   └── providers.js
+│   ├── helpers
+│   │   └── loadNotes.js
+│   ├── hooks
+│   │   ├── useCheckAuth.js
+│   │   └── useForm.js
+│   ├── journal
+│   │   ├── components
+│   │   │   ├── ImageGallery.jsx
+│   │   │   ├── NavBar.jsx
+│   │   │   ├── SideBarItem.jsx 👈👀
+│   │   │   └── SideBar.jsx
+│   │   ├── layout
+│   │   │   └── JournalLayout.jsx
+│   │   ├── pages
+│   │   │   └── JournalPage.jsx
+│   │   ├── routes
+│   │   │   └── JournalRoutes.jsx
+│   │   └── views
+│   │       ├── NoteView.jsx
+│   │       └── NothingSelectedView.jsx
+│   ├── main.jsx
+│   ├── router
+│   │   └── AppRouter.jsx
+│   ├── store
+│   │   ├── auth
+│   │   │   ├── authSlice.js
+│   │   │   └── thunks.js
+│   │   ├── journal
+│   │   │   ├── journalSlice.js
+│   │   │   └── thunks.js
+│   │   └── store.js
+│   ├── styles.css
+│   ├── theme
+│   │   ├── purpleTheme.js
+│   │   └── Theme.jsx
+│   └── ui
+│       └── components
+│           └── CheckingAuth.jsx
+├── vite.config.js
+└── yarn.lock
+```
+
+`src/journal/components/SideBarItem.jsx`
+
+```jsx
+import {
+  Grid2,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
+import { TurnedInNot } from "@mui/icons-material";
+import { useMemo } from "react";
+
+export const SideBarItem = ({ title = "", body, id }) => {
+  const newTitle = useMemo(() => {
+    return title.length > 17
+      ? title.substring(0, 17) + "..."
+      : title;
+  }, [title]);
+
+  return (
+    <ListItem disablePadding>
+      <ListItemButton component="a">
+        <ListItemIcon>
+          <TurnedInNot />
+        </ListItemIcon>
+        <Grid2 container>
+          <ListItemText
+            // primary={text}
+            secondary={body}
+          >
+            {newTitle}
+          </ListItemText>
+        </Grid2>
+      </ListItemButton>
+    </ListItem>
+  );
+};
+```
+
+`src/journal/components/SideBar.jsx`
+
+```jsx
+import {
+  Box,
+  Drawer,
+  Typography,
+  Toolbar,
+  Divider,
+  List,
+} from "@mui/material";
+import { useSelector } from "react-redux";
+import { SideBarItem } from "./SideBarItem";
+
+export const SideBar = ({ drawerWidth = 240 }) => {
+  const { displayName } = useSelector((state) => state.auth);
+  const { notes } = useSelector((state) => state.journal);
+
+  return (
+    // <Box
+    //   component="nav"
+    //   sx={{
+    //     width: { sm: drawerWidth },
+    //     flexShrink: { sm: 0 },
+    //   }}
+    // >
+    <Drawer
+      variant="permanent"
+      anchor="left"
+      open
+      sx={{
+        width: { sm: drawerWidth },
+        flexShrink: { sm: 0 },
+        display: { xs: "block" },
+        "& .MuiDrawer-paper": {
+          boxSizing: "border-box",
+          width: drawerWidth,
+        },
+      }}
+    >
+      <Toolbar>
+        <Typography variant="h6" noWrap component="div">
+          {displayName}
+        </Typography>
+      </Toolbar>
+      <Divider />
+
+      <Box component="nav">
+        <List>
+          {notes.map((note) => (
+            <SideBarItem key={note.id} {...note} />
+          ))}
+        </List>
+      </Box>
+    </Drawer>
+    //* </Box>
+  );
+};
+```
 
 ### 20.10
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+
+
+
+
+
+
 
 ### 20.11
 
