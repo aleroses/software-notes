@@ -23139,16 +23139,389 @@ export const SideBar = ({ drawerWidth = 240 }) => {
 };
 ```
 
-### 20.10
+### 20.10 Activar una nota
 
-`src/`
-
-```jsx
-```
-
-`src/`
+`src/journal/components/SideBarItem.jsx`
 
 ```jsx
+import { useMemo } from "react";
+import { useDispatch } from "react-redux";
+import {
+  Grid2,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
+import { TurnedInNot } from "@mui/icons-material";
+import { setActiveNote } from "../../store/journal/journalSlice";
+
+export const SideBarItem = ({
+  title = "",
+  body,
+  id,
+  date,
+  imageUrls = [],
+}) => {
+  const dispatch = useDispatch();
+
+  const onClickNote = () => {
+    dispatch(
+      setActiveNote({ title, body, id, date, imageUrls })
+    );
+  };
+
+  const newTitle = useMemo(() => {
+    return title.length > 17
+      ? title.substring(0, 17) + "..."
+      : title;
+  }, [title]);
+
+  return (
+    <ListItem disablePadding>
+      <ListItemButton component="a" onClick={onClickNote}>
+        <ListItemIcon>
+          <TurnedInNot />
+        </ListItemIcon>
+        <Grid2 container>
+          <ListItemText
+            // primary={text}
+            secondary={body}
+          >
+            {newTitle}
+          </ListItemText>
+        </Grid2>
+      </ListItemButton>
+    </ListItem>
+  );
+};
+```
+
+### 20.11 Activar una nota para su edición
+
+`src/auth/pages/LoginPage.jsx`
+
+```jsx
+import { useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link as RouterLink } from "react-router";
+import {
+  TextField,
+  Grid2,
+  Button,
+  Link,
+  Box,
+  Alert,
+} from "@mui/material";
+import { Google } from "@mui/icons-material";
+import { AuthLayout } from "../layout/AuthLayout";
+import { useForm } from "../../hooks/useForm";
+import {
+  startGoogleSignIn,
+  startLoginWithEmailPassword,
+} from "../../store/auth/thunks";
+
+const formDate = { 👈👀👇
+  email: "",
+  password: "",
+};
+
+export const LoginPage = () => {
+  const { status, errorMessage } = useSelector(
+    (state) => state.auth
+  );
+
+  const dispatch = useDispatch();
+
+  const { email, password, handleInputChange } =
+    useForm(formDate); 👈👀
+
+  const isAuthenticating = useMemo(
+    () => status === "checking",
+    [status]
+  );
+
+  // const { status } = useSelector((state) => state.auth);
+
+  // console.log(email, password);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    // console.log({ email, password });
+    //! This isn't the action to be dispatched
+    // dispatch(checkingAuthentication());
+    dispatch(
+      startLoginWithEmailPassword({ email, password })
+    );
+  };
+
+  const handleGoogleSignIn = () => {
+    console.log("handleGoogleSignIn");
+
+    dispatch(startGoogleSignIn());
+  };
+
+  // useEffect(() => {
+  //   dispatch(checkingAuthentication());
+  // }, []);
+
+  return (
+    <AuthLayout title="Login">
+      <form
+        action=""
+        onSubmit={handleSubmit}
+        className="animate__animated animate__fadeIn animate__faster"
+      >
+        <Grid2
+          container
+          // component="form"
+          spacing={2}
+        >
+          <Grid2 size={{ xs: 12, md: 6 }}>
+            <TextField
+              id="email"
+              label="Email"
+              type="email"
+              placeholder="email@google.com"
+              size="small"
+              fullWidth
+              name="email"
+              value={email}
+              onChange={handleInputChange}
+            />
+          </Grid2>
+          <Grid2 size={{ xs: 12, md: 6 }}>
+            <TextField
+              id="password"
+              label="Password"
+              type="password"
+              placeholder="password"
+              size="small"
+              fullWidth
+              name="password"
+              value={password}
+              onChange={handleInputChange}
+            />
+          </Grid2>
+        </Grid2>
+        {/* New */}
+        <Box>
+          <Grid2
+            size={{ xs: 12 }}
+            display={!!errorMessage ? "" : "none"}
+            sx={{
+              mt: 1,
+            }}
+          >
+            <Alert severity="error">{errorMessage}</Alert>
+          </Grid2>
+          <Grid2 container spacing={2} sx={{ mt: 2 }}>
+            <Grid2 size={{ xs: 12, md: 6 }}>
+              <Button
+                disabled={isAuthenticating}
+                type="submit"
+                variant="contained"
+                fullWidth
+              >
+                Login
+              </Button>
+            </Grid2>
+            <Grid2 size={{ xs: 12, md: 6 }}>
+              <Button
+                disabled={isAuthenticating}
+                variant="contained"
+                fullWidth
+                startIcon={<Google />}
+                onClick={handleGoogleSignIn}
+              >
+                Google
+              </Button>
+            </Grid2>
+          </Grid2>
+          <Grid2
+            container
+            // direction="row"
+            justifyContent="end"
+            sx={{ mt: 2 }}
+          >
+            <Link
+              component={RouterLink}
+              color="inherit"
+              to="/auth/register"
+            >
+              Create an account.
+            </Link>
+          </Grid2>
+        </Box>
+      </form>
+    </AuthLayout>
+  );
+};
+```
+
+`src/hooks/useForm.js`
+
+```js
+import { useEffect, useMemo, useState } from "react";
+
+export const useForm = (
+  initialForm = {},
+  formValidations = {}
+) => {
+  const [formState, setFormState] = useState(initialForm);
+  const [formValidation, setFormValidation] = useState({});
+
+  // const { value, name, password } = formState;
+
+  useEffect(() => {
+    createValidators();
+  }, [formState]);
+
+  useEffect(() => { 👈👀👇
+    setFormState(initialForm);
+  }, [initialForm]);
+
+  const isFormValid = useMemo(() => {
+    for (const formValue of Object.keys(formValidation)) {
+      if (formValidation[formValue] !== null) return false;
+    }
+
+    return true;
+  }, [formValidation]);
+
+  const handleInputChange = ({ target }) => {
+    const { value, name } = target;
+
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
+  };
+
+  const handleResetForm = () => {
+    setFormState(initialForm);
+  };
+
+  const createValidators = () => {
+    const formCheckedValues = {};
+
+    for (const formField of Object.keys(formValidations)) {
+      // xd = fn
+      const [
+        fn,
+        errorMessage, //= "This field is required",
+      ] = formValidations[formField];
+
+      formCheckedValues[`${formField}Valid`] = fn(
+        formState[formField]
+      )
+        ? null
+        : errorMessage;
+    }
+
+    setFormValidation(formCheckedValues);
+  };
+
+  return {
+    ...formState,
+    formState,
+    handleInputChange,
+    handleResetForm,
+    ...formValidation,
+    isFormValid,
+  };
+};
+```
+
+`src/journal/views/NoteView.jsx`
+
+```jsx
+import { useSelector } from "react-redux";
+import {
+  Button,
+  Grid2,
+  Typography,
+  TextField,
+} from "@mui/material";
+import { SaveOutlined } from "@mui/icons-material";
+import { ImageGallery } from "../components/ImageGallery";
+import { useForm } from "../../hooks/useForm";
+import { useMemo } from "react";
+
+export const NoteView = () => {
+  const { active: note } = useSelector(
+    (state) => state.journal
+  );
+  const { body, title, date, onInputChange, formState } =
+    useForm(note);
+
+  const dateString = useMemo(() => { 👈👀👇
+    const newDate = new Date(date);
+    return newDate.toUTCString();
+  }, [date]);
+
+  return (
+    <>
+      <Grid2
+        className="animate__animated animate__fadeIn animate__faster"
+        container
+        justifyContent="space-between"
+        alignItems="center"
+        sx={{ mb: 1 }}
+      >
+        <Grid2>
+          <Typography
+            variant="h5"
+            fontSize={39}
+            fontWeight="light"
+          >
+            {dateString}
+          </Typography>
+        </Grid2>
+
+        <Grid2>
+          <Button color="primary" sx={{ padding: 2 }}>
+            <SaveOutlined sx={{ fontSize: 30, mr: 1 }} />
+            Save
+          </Button>
+        </Grid2>
+
+        <Grid2 container sx={{ flexGrow: 1 }}>
+          <TextField
+            id=""
+            type="text"
+            variant="filled"
+            label="Title"
+            placeholder="Enter a title"
+            fullWidth
+            sx={{ border: "none", mb: 1 }}
+            name="title" 👈👀👇
+            value={title}
+            onChange={onInputChange}
+          />
+          <TextField
+            id=""
+            type="text"
+            variant="filled"
+            // label="Title"
+            placeholder="What happened today?"
+            fullWidth
+            multiline
+            minRows={5}
+            sx={{ border: "none", mb: 1 }}
+            name="body" 👈👀👇
+            value={body}
+            onChange={onInputChange}
+          />
+        </Grid2>
+
+        {/* Image gallery */}
+        <ImageGallery />
+      </Grid2>
+    </>
+  );
+};
 ```
 
 
@@ -23159,7 +23532,12 @@ export const SideBar = ({ drawerWidth = 240 }) => {
 
 
 
-### 20.11
+
+
+
+
+
+
 
 ### 20.12
 `src/`
