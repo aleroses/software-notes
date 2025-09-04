@@ -23453,7 +23453,7 @@ export const NoteView = () => {
   const { active: note } = useSelector(
     (state) => state.journal
   );
-  const { body, title, date, onInputChange, formState } =
+  const { body, title, date, handleInputChange, formState } =
     useForm(note);
 
   const dateString = useMemo(() => { 👈👀👇
@@ -23498,7 +23498,7 @@ export const NoteView = () => {
             sx={{ border: "none", mb: 1 }}
             name="title" 👈👀👇
             value={title}
-            onChange={onInputChange}
+            onChange={handleInputChange}
           />
           <TextField
             id=""
@@ -23512,7 +23512,7 @@ export const NoteView = () => {
             sx={{ border: "none", mb: 1 }}
             name="body" 👈👀👇
             value={body}
-            onChange={onInputChange}
+            onChange={handleInputChange}
           />
         </Grid2>
 
@@ -23524,41 +23524,569 @@ export const NoteView = () => {
 };
 ```
 
+### 20.12 Actualizar la nota actual
 
+`src/journal/views/NoteView.jsx`
 
+```jsx
+import { useDispatch, useSelector } from "react-redux";
+import {
+  Button,
+  Grid2,
+  Typography,
+  TextField,
+} from "@mui/material";
+import { SaveOutlined } from "@mui/icons-material";
+import { ImageGallery } from "../components/ImageGallery";
+import { useForm } from "../../hooks/useForm";
+import { useEffect, useMemo } from "react";
+import { setActiveNote } from "../../store/journal/journalSlice";
+import { startSaveNote } from "../../store/journal/thunks";
 
+export const NoteView = () => {
+  const dispatch = useDispatch();
+  const { active: note } = useSelector(
+    (state) => state.journal
+  );
+  const { body, title, date, handleInputChange, formState } =
+    useForm(note);
 
+  const dateString = useMemo(() => {
+    const newDate = new Date(date);
+    return newDate.toUTCString();
+  }, [date]);
 
+  useEffect(() => {
+    dispatch(setActiveNote(formState));
+  }, [formState]);
 
+  const onSaveNote = () => {
+    dispatch(startSaveNote());
+  };
 
+  return (
+    <>
+      <Grid2
+        className="animate__animated animate__fadeIn animate__faster"
+        container
+        justifyContent="space-between"
+        alignItems="center"
+        sx={{ mb: 1 }}
+      >
+        <Grid2>
+          <Typography
+            variant="h5"
+            fontSize={39}
+            fontWeight="light"
+          >
+            {dateString}
+          </Typography>
+        </Grid2>
 
+        <Grid2>
+          <Button
+            onClick={onSaveNote}
+            color="primary"
+            sx={{ padding: 2 }}
+          >
+            <SaveOutlined sx={{ fontSize: 30, mr: 1 }} />
+            Save
+          </Button>
+        </Grid2>
 
+        <Grid2 container sx={{ flexGrow: 1 }}>
+          <TextField
+            id=""
+            type="text"
+            variant="filled"
+            label="Title"
+            placeholder="Enter a title"
+            fullWidth
+            sx={{ border: "none", mb: 1 }}
+            name="title"
+            value={title}
+            onChange={handleInputChange}
+          />
+          <TextField
+            id=""
+            type="text"
+            variant="filled"
+            // label="Title"
+            placeholder="What happened today?"
+            fullWidth
+            multiline
+            minRows={5}
+            sx={{ border: "none", mb: 1 }}
+            name="body"
+            value={body}
+            onChange={handleInputChange}
+          />
+        </Grid2>
 
+        {/* Image gallery */}
+        <ImageGallery />
+      </Grid2>
+    </>
+  );
+};
+```
 
+`src/store/journal/thunks.js`
 
+```js
+import {
+  collection,
+  doc,
+  setDoc,
+} from "firebase/firestore/lite";
+import { FirebaseDB } from "../../firebase/config";
+import {
+  addNewEmptyNote,
+  savingNewNote,
+  setActiveNote,
+  setNotes,
+  setSaving,
+} from "./journalSlice";
+import { loadNotes } from "../../helpers/loadNotes";
 
+export const startNewNote = () => {
+  return async (dispatch, getState) => {
+    dispatch(savingNewNote());
 
+    const { uid } = getState().auth;
+    // uid
 
-### 20.12
+    const newNote = {
+      title: "",
+      body: "",
+      date: new Date().getTime(),
+    };
+
+    const newDoc = doc(
+      collection(FirebaseDB, `${uid}/journal/notes`)
+    );
+
+    // Para ver la info añadir variable y hacer console.log
+    await setDoc(newDoc, newNote);
+
+    newNote.id = newDoc.id;
+
+    // dispatch
+    dispatch(addNewEmptyNote(newNote));
+    dispatch(setActiveNote(newNote));
+  };
+};
+
+export const startLoadingNotes = () => {
+  return async (dispatch, getState) => {
+    const { uid } = getState().auth;
+
+    if (!uid) throw new Error("The user uid doesn't exist");
+
+    const notes = await loadNotes(uid);
+
+    dispatch(setNotes(notes));
+  };
+};
+
+export const startSaveNote = () => {
+  return async (dispatch, getState) => {
+    dispatch(setSaving());
+
+    const { uid } = getState().auth;
+    const { active: note } = getState().journal;
+
+    const noteToFireStore = { ...note };
+    delete noteToFireStore.id;
+
+    const docRef = doc(
+      FirebaseDB,
+      `${uid}/journal/notes/${note.id}`
+    );
+
+    // Merge para mantener los campos existentes
+    await setDoc(docRef, noteToFireStore, { merge: true });
+  };
+};
+```
+
+`src/store/journal/journalSlice.js`
+
+```js
+import { createSlice } from "@reduxjs/toolkit";
+
+export const journalSlice = createSlice({
+  name: "journal",
+  initialState: {
+    isSaving: false,
+    messageSaved: "",
+    notes: [],
+    active: null,
+    // active: {
+    //   id: "ABC123",
+    //   title: "",
+    //   body: "",
+    //   date: 1234567,
+    //   imageUrls: [],
+    // },
+  },
+  reducers: {
+    savingNewNote: (state, { payload }) => {
+      state.isSaving = true;
+    },
+    addNewEmptyNote: (state, { payload }) => {
+      state.notes.push(payload);
+      state.isSaving = false;
+    },
+    setActiveNote: (state, { payload }) => {
+      state.active = payload;
+    },
+    setNotes: (state, { payload }) => {
+      state.notes = payload;
+    },
+    setSaving: (state) => {
+      state.isSaving = true;
+      // TODO: error message
+    },
+    updateNote: (state, action) => {
+      state.isSaving = false;
+      // state.notes = state.notes.map();
+    },
+    deleteNoteById: (state, action) => {},
+  },
+});
+
+export const {
+  addNewEmptyNote,
+  deleteNoteById,
+  savingNewNote,
+  setActiveNote,
+  setNotes,
+  setSaving,
+  updateNote,
+} = journalSlice.actions;
+```
+
+### 20.13 Resolución de la tarea
+
+`src/store/journal/journalSlice.js`
+
+```js
+import { createSlice } from "@reduxjs/toolkit";
+
+export const journalSlice = createSlice({
+  name: "journal",
+  initialState: {
+    isSaving: false,
+    messageSaved: "",
+    notes: [],
+    active: null,
+    // active: {
+    //   id: "ABC123",
+    //   title: "",
+    //   body: "",
+    //   date: 1234567,
+    //   imageUrls: [],
+    // },
+  },
+  reducers: {
+    savingNewNote: (state, { payload }) => {
+      state.isSaving = true;
+    },
+    addNewEmptyNote: (state, { payload }) => {
+      state.notes.push(payload);
+      state.isSaving = false;
+    },
+    setActiveNote: (state, { payload }) => {
+      state.active = payload;
+    },
+    setNotes: (state, { payload }) => {
+      state.notes = payload;
+    },
+    setSaving: (state) => {
+      state.isSaving = true;
+      // TODO: error message
+    },
+    updateNote: (state, { payload }) => {
+      state.isSaving = false;
+      state.notes = state.notes.map((note) => {
+        if (note.id === payload.id) {
+          return payload;
+        }
+
+        return note;
+      });
+
+      // TODO: Mostrar mensaje de actualización
+    },
+    deleteNoteById: (state, action) => {},
+  },
+});
+
+export const {
+  addNewEmptyNote,
+  deleteNoteById,
+  savingNewNote,
+  setActiveNote,
+  setNotes,
+  setSaving,
+  updateNote,
+} = journalSlice.actions;
+```
+
+`src/store/journal/thunks.js`
+
+```js
+import {
+  collection,
+  doc,
+  setDoc,
+} from "firebase/firestore/lite";
+import { FirebaseDB } from "../../firebase/config";
+import {
+  addNewEmptyNote,
+  savingNewNote,
+  setActiveNote,
+  setNotes,
+  setSaving,
+  updateNote,
+} from "./journalSlice";
+import { loadNotes } from "../../helpers/loadNotes";
+
+export const startNewNote = () => {
+  return async (dispatch, getState) => {
+    dispatch(savingNewNote());
+
+    const { uid } = getState().auth;
+    // uid
+
+    const newNote = {
+      title: "",
+      body: "",
+      date: new Date().getTime(),
+    };
+
+    const newDoc = doc(
+      collection(FirebaseDB, `${uid}/journal/notes`)
+    );
+
+    // Para ver la info añadir variable y hacer console.log
+    await setDoc(newDoc, newNote);
+
+    newNote.id = newDoc.id;
+
+    // dispatch
+    dispatch(addNewEmptyNote(newNote));
+    dispatch(setActiveNote(newNote));
+  };
+};
+
+export const startLoadingNotes = () => {
+  return async (dispatch, getState) => {
+    const { uid } = getState().auth;
+
+    if (!uid) throw new Error("The user uid doesn't exist");
+
+    const notes = await loadNotes(uid);
+
+    dispatch(setNotes(notes));
+  };
+};
+
+export const startSaveNote = () => {
+  return async (dispatch, getState) => {
+    dispatch(setSaving());
+
+    const { uid } = getState().auth;
+    const { active: note } = getState().journal;
+
+    const noteToFireStore = { ...note };
+    delete noteToFireStore.id;
+
+    const docRef = doc(
+      FirebaseDB,
+      `${uid}/journal/notes/${note.id}`
+    );
+
+    // Merge para mantener los campos existentes
+    await setDoc(docRef, noteToFireStore, { merge: true });
+
+    dispatch(updateNote(note));
+  };
+};
+```
+
+### 20.14
+
 `src/`
 
 ```jsx
 ```
 
-`src/`
-
-```jsx
-```
 
 `src/`
 
 ```jsx
 ```
 
+### 20.15
+
 `src/`
 
 ```jsx
 ```
+
+
+`src/`
+
+```jsx
+```
+
+### 20.16
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+### 20.17
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+
+### 20.18
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+
+
+### 20.19
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+
+
+### 20.20
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+
+
+### 20.21
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+
+
+### 20.22
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+
+### 20.23
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+
+
+### 20.24
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+
+
+## 21
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+
 
 ☝️👆
 👈👀
