@@ -23916,7 +23916,7 @@ export const startSaveNote = () => {
 };
 ```
 
-### 20.14
+### 20.14 SweetAlert 2
 
 `src/`
 
