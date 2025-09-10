@@ -24107,7 +24107,59 @@ export const NoteView = () => {
 };
 ```
 
-### 20.15
+### 20.15 Cloudinary.com - Backend para subir imágenes
+
+#### Cloudinary
+
+Crea una cuenta: [Cloudinary](https://cloudinary.com/)
+
+`⚙️/Upload/Upload presets/Add Upload Preset`
+
+- Upload preset name: `journal-app`
+- Signing Mode: `Unsigned`
+- Folder: `journal`
+- Save
+
+Ahora revisa la documentación de Cloudinary en `⭕❓/Documentation` o [aquí](https://cloudinary.com/documentation/)
+
+Busca `Upload API reference` o entra en [Upload API reference](https://cloudinary.com/documentation/image_upload_api_reference#banner)
+
+Esto nos va a servir en Postman:
+
+`POST https://api.cloudinary.com/v1_1/demo/image/upload`
+
+📌 Una vez cargada la imagen de prueba usando Postman podemos revisarlas en `Image/Media Library/Folders`
+
+#### Postman
+
+>  Si tienes problemas con Postman usa la [version web](https://web.postman.co/workspace/My-Workspace~8937cc18-9d43-4a60-8591-492add66379f/request/create?requestId=30bd5742-7613-4cd8-8463-93c7f67858f8) de este.
+
+Añadimos una nueva pestaña para hacer las peticiones `POST`. 
+
+Teniendo esto `POST https://api.cloudinary.com/v1_1/demo/image/upload`, reemplaza `demo` por el nombre de tu Cloud, revísalo en:
+
+`⚙️/API Keys`
+
+Queda algo así:
+
+`POST https://api.cloudinary.com/v1_1/luxxyz26z/upload`
+
+Una vez colocado esto, nos vamos a `Body` dentro de Postman y seleccionamos `form-data`. 
+
+Ahora, dentro de `KEY` escribimos `file` y de tipo `file`, en `VALUE` seleccionamos cualquier imagen que tengamos en nuestra PC.
+
+Nuevamente en `KEY` escribimos `upload_preset`  y en `Value` escribimos `journal-app` nombre que le dimos cuando entramos en `⚙️/Upload/Upload presets/Add Upload Preset`
+
+- Upload preset name: `journal-app`
+
+|Key           | Value        |
+|--------------|--------------|
+|file (file)   |cyberpunk.jpg |
+|upload_preset |journal-app   |
+
+**Send**
+
+Si copias la `secure_url` verás la imagen que cargaste.
 
 `src/`
 
