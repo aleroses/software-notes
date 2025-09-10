@@ -23918,15 +23918,193 @@ export const startSaveNote = () => {
 
 ### 20.14 SweetAlert 2
 
-`src/`
+Instalar [Sweetalert2](https://sweetalert2.github.io/)
 
-```jsx
+```bash
+npm install sweetalert2
 ```
 
+`src/store/journal/journalSlice.js`
 
-`src/`
+```js
+import { createSlice } from "@reduxjs/toolkit";
+
+export const journalSlice = createSlice({
+  name: "journal",
+  initialState: {
+    isSaving: false,
+    messageSaved: "",
+    notes: [],
+    active: null,
+    // active: {
+    //   id: "ABC123",
+    //   title: "",
+    //   body: "",
+    //   date: 1234567,
+    //   imageUrls: [],
+    // },
+  },
+  reducers: {
+    savingNewNote: (state, { payload }) => {
+      state.isSaving = true;
+    },
+    addNewEmptyNote: (state, { payload }) => {
+      state.notes.push(payload);
+      state.isSaving = false;
+    },
+    setActiveNote: (state, { payload }) => {
+      state.active = payload;
+      state.messageSaved = "";
+    },
+    setNotes: (state, { payload }) => {
+      state.notes = payload;
+    },
+    setSaving: (state) => {
+      state.isSaving = true;
+      state.messageSaved = "";
+    },
+    updateNote: (state, { payload }) => {
+      state.isSaving = false;
+      state.notes = state.notes.map((note) => {
+        if (note.id === payload.id) {
+          return payload;
+        }
+
+        return note;
+      });
+
+      state.messageSaved = `${payload.title}, updated correctly.`;
+    },
+    deleteNoteById: (state, action) => {},
+  },
+});
+
+export const {
+  addNewEmptyNote,
+  deleteNoteById,
+  savingNewNote,
+  setActiveNote,
+  setNotes,
+  setSaving,
+  updateNote,
+} = journalSlice.actions;
+```
+
+`src/journal/views/NoteView.jsx`
 
 ```jsx
+import { useEffect, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  Button,
+  Grid2,
+  Typography,
+  TextField,
+} from "@mui/material";
+import { SaveOutlined } from "@mui/icons-material";
+import Swal from "sweetalert2";
+import "sweetalert2/dist/sweetalert2.css";
+
+import { useForm } from "../../hooks/useForm";
+import { ImageGallery } from "../components/ImageGallery";
+import { setActiveNote } from "../../store/journal/journalSlice";
+import { startSaveNote } from "../../store/journal/thunks";
+
+export const NoteView = () => {
+  const dispatch = useDispatch();
+  const {
+    active: note,
+    messageSaved,
+    isSaving,
+  } = useSelector((state) => state.journal);
+  const { body, title, date, handleInputChange, formState } =
+    useForm(note);
+
+  const dateString = useMemo(() => {
+    const newDate = new Date(date);
+    return newDate.toUTCString();
+  }, [date]);
+
+  useEffect(() => {
+    dispatch(setActiveNote(formState));
+  }, [formState]);
+
+  useEffect(() => {
+    if (messageSaved.length > 0) {
+      Swal.fire("Note updated.", messageSaved, "success");
+    }
+  }, [messageSaved]);
+
+  const onSaveNote = () => {
+    dispatch(startSaveNote());
+  };
+
+  return (
+    <>
+      <Grid2
+        className="animate__animated animate__fadeIn animate__faster"
+        container
+        justifyContent="space-between"
+        alignItems="center"
+        sx={{ mb: 1 }}
+      >
+        <Grid2>
+          <Typography
+            variant="h5"
+            fontSize={39}
+            fontWeight="light"
+          >
+            {dateString}
+          </Typography>
+        </Grid2>
+
+        <Grid2>
+          <Button
+            disabled={isSaving}
+            onClick={onSaveNote}
+            color="primary"
+            sx={{ padding: 2 }}
+          >
+            <SaveOutlined sx={{ fontSize: 30, mr: 1 }} />
+            Save
+          </Button>
+        </Grid2>
+
+        <Grid2 container sx={{ flexGrow: 1 }}>
+          <TextField
+            id=""
+            type="text"
+            variant="filled"
+            label="Title"
+            placeholder="Enter a title"
+            fullWidth
+            sx={{ border: "none", mb: 1 }}
+            name="title"
+            value={title}
+            onChange={handleInputChange}
+          />
+          <TextField
+            id=""
+            type="text"
+            variant="filled"
+            // label="Title"
+            placeholder="What happened today?"
+            fullWidth
+            multiline
+            minRows={5}
+            sx={{ border: "none", mb: 1 }}
+            name="body"
+            value={body}
+            onChange={handleInputChange}
+          />
+        </Grid2>
+
+        {/* Image gallery */}
+        <ImageGallery />
+      </Grid2>
+    </>
+  );
+};
 ```
 
 ### 20.15

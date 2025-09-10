@@ -111,13 +111,13 @@ done
 Rutas con comillas:
 
 ```bash
-mkdir -p "/path/path/path path/path/path path/path/baja_calidad/"
+mkdir -p "./baja_calidad/"
 
-find "/path/path/path path/path/path path/path/path" -type f \( -name "*.mp4" -o -name "*.mkv" \) | while read -r f; do
+find "./" -type f \( -name "*.mp4" -o -name "*.mkv" \) | while read -r f; do
     res=$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of csv=p=0 "$f" | tr -d '[:space:]')
     if [ "$res" -le 480 ]; then
         # echo "Moviendo: $f (${res}p)"
-        mv "$f" "/path/path/path path/path/path path/path/baja_calidad/"
+        mv "$f" "./baja_calidad/"
     fi
 done
 ```
