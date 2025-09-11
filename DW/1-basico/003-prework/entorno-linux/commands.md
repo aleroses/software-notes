@@ -135,3 +135,59 @@ done
 | **1440p (2K)**      | 2560x1440                           | 1440x2560                         |
 | **2160p (4K)**      | 3840x2160                           | 2160x3840                         |
 
+## Comprimir carpetas
+
+### `.zip`
+
+```bash
+zip -r "Course_Book.zip" "Course Book"
+```
+
+- `zip` → comando para comprimir.
+    
+- `-r` → comprime recursivamente todo el contenido de la carpeta.
+    
+- Entre **comillas** el nombre, porque puede que tus carpetas tengan espacios y puntos.
+    
+- Puedes cambiar el nombre del `.zip` a como quieras (yo lo puse con guiones bajos para que sea más limpio).
+
+
+### `.rar`
+
+Primero asegúrate de instalarlo:
+
+```bash
+sudo apt install rar unrar -y
+```
+
+```bash
+rar a "Course_Book.rar" "Course Book"
+```
+
+- `rar a` → crea un archivo `.rar` (el `a` significa _add_).
+    
+- Entre comillas el nombre del `.rar` y la carpeta de origen (por los espacios).
+    
+- El `.rar` se genera en el directorio actual.
+    
+
+### Comprimir con contraseña en `.rar`
+
+Para crear los `.rar` **con contraseña** usas la opción `-p`.
+
+```bash
+rar a -p1234 "Course_Book.rar" "Course Book"
+```
+
+- `-p1234` → establece la contraseña `1234`.
+    
+- Si no pones la contraseña junto (`-p` sin nada), el sistema te la pedirá al momento.
+    
+- Al descomprimir (`unrar x archivo.rar`) pedirá la contraseña `1234`.
+    
+- Si alguien abre el `.rar` con un gestor de archivos, tampoco podrá extraer sin la clave.
+    
+
+---
+
+⚡ Pregunta rápida: ¿quieres que además el **listado de archivos** dentro del `.rar` quede **oculto** (es decir, que solo se pueda ver el contenido después de poner la contraseña), o basta con proteger la extracción?
