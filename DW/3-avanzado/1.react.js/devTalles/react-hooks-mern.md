@@ -24252,7 +24252,7 @@ export const NoteView = () => {
             ref={fileInputRef}
             onChange={onFileInputChange}
             style={{
-              disabled: "none",
+              display: "none",
             }}
           />
 
@@ -24313,37 +24313,299 @@ export const NoteView = () => {
 };
 ```
 
-### 20.17
+### 20.17 Subir imagen a Cloudinary
 
-`src/`
+`src/store/journal/thunks.js`
 
-```jsx
+```js
+import {
+  collection,
+  doc,
+  setDoc,
+} from "firebase/firestore/lite";
+import { FirebaseDB } from "../../firebase/config";
+import {
+  addNewEmptyNote,
+  savingNewNote,
+  setActiveNote,
+  setNotes,
+  setSaving,
+  updateNote,
+} from "./journalSlice";
+import { loadNotes } from "../../helpers/loadNotes";
+import { fileUpload } from "../../helpers/fileUpload";
+
+export const startNewNote = () => {
+  return async (dispatch, getState) => {
+    dispatch(savingNewNote());
+
+    const { uid } = getState().auth;
+    // uid
+
+    const newNote = {
+      title: "",
+      body: "",
+      date: new Date().getTime(),
+    };
+
+    const newDoc = doc(
+      collection(FirebaseDB, `${uid}/journal/notes`)
+    );
+
+    // Para ver la info añadir variable y hacer console.log
+    await setDoc(newDoc, newNote);
+
+    newNote.id = newDoc.id;
+
+    // dispatch
+    dispatch(addNewEmptyNote(newNote));
+    dispatch(setActiveNote(newNote));
+  };
+};
+
+export const startLoadingNotes = () => {
+  return async (dispatch, getState) => {
+    const { uid } = getState().auth;
+
+    if (!uid) throw new Error("The user uid doesn't exist");
+
+    const notes = await loadNotes(uid);
+
+    dispatch(setNotes(notes));
+  };
+};
+
+export const startSaveNote = () => {
+  return async (dispatch, getState) => {
+    dispatch(setSaving());
+
+    const { uid } = getState().auth;
+    const { active: note } = getState().journal;
+
+    const noteToFireStore = { ...note };
+    delete noteToFireStore.id;
+
+    const docRef = doc(
+      FirebaseDB,
+      `${uid}/journal/notes/${note.id}`
+    );
+
+    // Merge para mantener los campos existentes
+    await setDoc(docRef, noteToFireStore, { merge: true });
+
+    dispatch(updateNote(note));
+  };
+};
+
+export const startUploadingFiles = (files = []) => {
+  return async (dispatch, getState) => {
+    dispatch(setSaving());
+
+    await fileUpload(files[0]);
+  };
+};
 ```
 
+`src/helpers/fileUpload.js`
 
-`src/`
+```js
+export const fileUpload = async (file) => {
+  if (!file) throw new Error("No files will be uploaded.");
+  const cloudUrl =
+    "https://api.cloudinary.com/v1_1/delkxyr6z/upload";
 
-```jsx
+  const formData = new FormData();
+  formData.append("upload_preset", "journal-app");
+  formData.append("file", file);
+
+  try {
+    const resp = await fetch(cloudUrl, {
+      method: "POST",
+      body: formData,
+    });
+
+    console.log(resp);
+    if (!resp.ok)
+      throw new Error("The image could not be uploaded.");
+
+    const cloudResp = await resp.json();
+
+    console.log({ cloudResp });
+
+    return cloudResp.secure_url;
+  } catch (error) {
+    console.log(error);
+
+    throw new Error(error.message);
+  }
+};
 ```
 
-`src/`
+`src/journal/views/NoteView.jsx`
 
 ```jsx
+import { useEffect, useMemo, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  Button,
+  Grid2,
+  Typography,
+  TextField,
+  IconButton,
+} from "@mui/material";
+import {
+  SaveOutlined,
+  UploadOutlined,
+} from "@mui/icons-material";
+import Swal from "sweetalert2";
+import "sweetalert2/dist/sweetalert2.css";
+
+import { useForm } from "../../hooks/useForm";
+import { ImageGallery } from "../components/ImageGallery";
+import { setActiveNote } from "../../store/journal/journalSlice";
+import {
+  startSaveNote,
+  startUploadingFiles,
+} from "../../store/journal/thunks";
+
+export const NoteView = () => {
+  const dispatch = useDispatch();
+  const {
+    active: note,
+    messageSaved,
+    isSaving,
+  } = useSelector((state) => state.journal);
+  const { body, title, date, handleInputChange, formState } =
+    useForm(note);
+
+  const dateString = useMemo(() => {
+    const newDate = new Date(date);
+    return newDate.toUTCString();
+  }, [date]);
+
+  const fileInputRef = useRef();
+
+  useEffect(() => {
+    dispatch(setActiveNote(formState));
+  }, [formState]);
+
+  useEffect(() => {
+    if (messageSaved.length > 0) {
+      Swal.fire("Note updated.", messageSaved, "success");
+    }
+  }, [messageSaved]);
+
+  const onSaveNote = () => {
+    dispatch(startSaveNote());
+  };
+
+  const onFileInputChange = ({ target }) => {
+    if (target.files === 0) return;
+
+    dispatch(startUploadingFiles(target.files));
+  };
+
+  return (
+    <>
+      <Grid2
+        className="animate__animated animate__fadeIn animate__faster"
+        container
+        justifyContent="space-between"
+        alignItems="center"
+        sx={{ mb: 1 }}
+      >
+        <Grid2>
+          <Typography
+            variant="h5"
+            fontSize={39}
+            fontWeight="light"
+          >
+            {dateString}
+          </Typography>
+        </Grid2>
+
+        <Grid2>
+          <input
+            type="file"
+            multiple
+            ref={fileInputRef}
+            onChange={onFileInputChange}
+            style={{
+              display: "none",
+            }}
+          />
+
+          <IconButton
+            // aria-label=""
+            color="primary"
+            disabled={isSaving}
+            onClick={() => fileInputRef.current.click()}
+          >
+            <UploadOutlined />
+          </IconButton>
+
+          <Button
+            disabled={isSaving}
+            onClick={onSaveNote}
+            color="primary"
+            sx={{ padding: 2 }}
+          >
+            <SaveOutlined sx={{ fontSize: 30, mr: 1 }} />
+            Save
+          </Button>
+        </Grid2>
+
+        <Grid2 container sx={{ flexGrow: 1 }}>
+          <TextField
+            id=""
+            type="text"
+            variant="filled"
+            label="Title"
+            placeholder="Enter a title"
+            fullWidth
+            sx={{ border: "none", mb: 1 }}
+            name="title"
+            value={title}
+            onChange={handleInputChange}
+          />
+          <TextField
+            id=""
+            type="text"
+            variant="filled"
+            // label="Title"
+            placeholder="What happened today?"
+            fullWidth
+            multiline
+            minRows={5}
+            sx={{ border: "none", mb: 1 }}
+            name="body"
+            value={body}
+            onChange={handleInputChange}
+          />
+        </Grid2>
+
+        {/* Image gallery */}
+        <ImageGallery />
+      </Grid2>
+    </>
+  );
+};
 ```
 
-`src/`
-
-```jsx
-```
-
-
-`src/`
-
-```jsx
-```
-
+Ya podemos ver la imagen subida en Claudinary .
 
 ### 20.18
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
 
 `src/`
 
