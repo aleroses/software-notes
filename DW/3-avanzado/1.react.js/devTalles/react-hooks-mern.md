@@ -24315,6 +24315,74 @@ export const NoteView = () => {
 
 ### 20.17 Subir imagen a Cloudinary
 
+Estructura:
+
+```bash
+.
+├── eslint.config.js
+├── index.html
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+├── README.md
+├── src
+│   ├── App.jsx
+│   ├── auth
+│   │   ├── layout
+│   │   │   └── AuthLayout.jsx
+│   │   ├── pages
+│   │   │   ├── LoginPage.jsx
+│   │   │   └── RegisterPage.jsx
+│   │   └── routes
+│   │       └── AuthRoutes.jsx
+│   ├── firebase
+│   │   ├── config.js
+│   │   └── providers.js
+│   ├── helpers
+│   │   ├── fileUpload.js 👈👀
+│   │   └── loadNotes.js
+│   ├── hooks
+│   │   ├── useCheckAuth.js
+│   │   └── useForm.js
+│   ├── journal
+│   │   ├── components
+│   │   │   ├── ImageGallery.jsx
+│   │   │   ├── NavBar.jsx
+│   │   │   ├── SideBarItem.jsx
+│   │   │   └── SideBar.jsx
+│   │   ├── layout
+│   │   │   └── JournalLayout.jsx
+│   │   ├── pages
+│   │   │   └── JournalPage.jsx
+│   │   ├── routes
+│   │   │   └── JournalRoutes.jsx
+│   │   └── views
+│   │       ├── NoteView.jsx
+│   │       └── NothingSelectedView.jsx
+│   ├── main.jsx
+│   ├── router
+│   │   └── AppRouter.jsx
+│   ├── store
+│   │   ├── auth
+│   │   │   ├── authSlice.js
+│   │   │   └── thunks.js
+│   │   ├── journal
+│   │   │   ├── journalSlice.js
+│   │   │   └── thunks.js
+│   │   └── store.js
+│   ├── styles.css
+│   ├── theme
+│   │   ├── purpleTheme.js
+│   │   └── Theme.jsx
+│   └── ui
+│       └── components
+│           └── CheckingAuth.jsx
+├── vite.config.js
+└── yarn.lock
+```
+
 `src/store/journal/thunks.js`
 
 ```js
