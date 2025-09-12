@@ -25050,25 +25050,9 @@ export const ImageGallery = ({ images }) => {
 };
 ```
 
-### 20.20
+### 20.20 Corregir un posible error
 
-`src/`
-
-```jsx
-```
-
-
-`src/`
-
-```jsx
-```
-
-`src/`
-
-```jsx
-```
-
-
+Se corrigió el error en la clase [[#20.11 Activar una nota para su edición]]
 
 ### 20.21
 
@@ -25083,6 +25067,21 @@ export const ImageGallery = ({ images }) => {
 ```jsx
 ```
 
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
 
 
 ### 20.22

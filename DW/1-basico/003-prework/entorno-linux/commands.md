@@ -188,6 +188,184 @@ rar a -p1234 "Course_Book.rar" "Course Book"
 - Si alguien abre el `.rar` con un gestor de archivos, tampoco podrá extraer sin la clave.
     
 
----
+### Ocultar listado de archivos dentro del `.rar`
 
-⚡ Pregunta rápida: ¿quieres que además el **listado de archivos** dentro del `.rar` quede **oculto** (es decir, que solo se pueda ver el contenido después de poner la contraseña), o basta con proteger la extracción?
+Cuando creas un `.rar` con contraseña, tienes **dos opciones de protección**:
+
+1. Proteger **solo la extracción** (lo que ya hicimos con `-p1234`)
+	- El `.rar` se crea normalmente.
+    
+	- Si alguien abre el archivo `.rar` (por ejemplo, con el explorador de archivos), podrá **ver la lista de archivos que contiene**, pero **no podrá extraerlos** sin la contraseña.
+    
+	
+	Ejemplo:
+	
+	```
+	English_Book_2016-Audio.rar
+	 ├── 01_track.mp3
+	 ├── 02_track.mp3
+	 └── 03_track.mp3
+	```
+	
+	👉 Aquí la lista de nombres se ve, pero no se pueden abrir ni extraer los archivos sin la clave.
+
+2. Proteger **también el listado de archivos** (`-hp1234`)
+	- Con esta opción, el `.rar` queda totalmente cifrado.
+	    
+	- **No se puede ver ni siquiera qué archivos contiene** hasta ingresar la contraseña.
+	    
+	- Si alguien intenta abrirlo, solo verá un archivo “vacío” o pedirá contraseña directamente.
+	    
+	
+	Ejemplo:
+	
+	```
+	English_Book_2016-Audio.rar
+	 └── (contenido oculto hasta poner contraseña)
+	```
+
+#### 📌 Comandos
+
+- Solo proteger la extracción (lo que ya probamos):
+    
+
+```bash
+rar a -p1234 archivo.rar carpeta/
+```
+
+- Proteger también el listado de archivos:
+    
+
+```bash
+rar a -hp1234 archivo.rar carpeta/
+```
+
+### Comprimir varias carpetas en `.zip`
+
+Si todas tus carpetas están en un mismo directorio, puedes hacer:
+
+```bash
+for d in */; do
+    zip -r "${d%/}.zip" "$d"
+done
+```
+
+🔎 Explicación:
+
+- `for d in */; do ... done` → recorre todas las carpetas del directorio actual.
+    
+- `"${d%/}.zip"` → crea un `.zip` con el mismo nombre de la carpeta.
+    
+- `-r` → incluye todo el contenido recursivamente.
+    
+
+### Comprimir varias carpetas en `.rar`
+
+Primero asegúrate de tener instalado `rar`:
+
+```bash
+sudo apt install rar -y
+```
+
+Luego:
+
+```bash
+for d in */; do
+    rar a "${d%/}.rar" "$d"
+done
+```
+
+🔎 Igual que con `.zip`, pero genera un `.rar` por carpeta.
+
+Si quieres que los nombres tengan guiones:
+
+```bash
+for d in */; do
+    name="${d%/}"                # quitamos la barra final
+    clean_name=$(echo "$name" | tr ' ' '_')   # reemplazamos espacios por "_"
+    rar a "${clean_name}.rar" "$d"
+done
+```
+
+```bash
+for d in */; do
+    name="${d%/}"                                # nombre de la carpeta
+    clean_name=$(echo "$name" | tr ' ' '_' | tr '[:upper:]' '[:lower:]')  # espacios → "_" y todo en minúsculas
+    rar a -r "${clean_name}.rar" "$name"
+done
+```
+
+```bash
+# Pasa de esto:
+01 English grammar in use/
+02 Practice book level 1/
+
+# A esto:
+01_English_grammar_in_use.rar
+02_Practice_book_level_1.rar
+```
+
+### Si quieres proteger cada `.rar` con contraseña
+
+```bash
+for d in */; do
+    rar a -p1234 "${d%/}.rar" "$d"
+done
+```
+
+- Esto pondrá la contraseña `1234` a cada `.rar`.
+    
+- Si quieres que también oculte la lista de archivos: usa `-hp1234` en lugar de `-p1234`.
+    
+## Extraer archivos
+
+### 1. Extraer en la misma carpeta
+
+```bash
+# Para rar
+unrar x "material cambridge.rar"
+
+# Para zip
+unzip "material cambridge.zip"
+```
+
+- `x` → extrae manteniendo la estructura de carpetas.
+    
+- El contenido quedará en un subdirectorio (si el `.rar` lo tiene) o directamente en la carpeta actual.
+    
+
+### 2. Extraer en otra carpeta específica
+
+```bash
+# Para rar
+unrar x "material cambridge.rar" "/ruta/de/destino/"
+
+# Para zip
+unzip "material cambridge.zip" -d "/ruta/de/destino/"
+```
+
+Ejemplo:
+
+```bash
+unrar x "material cambridge.rar" "~/Downloads/extracto/"
+```
+
+### 3. Si tiene contraseña
+
+```bash
+unrar x "material cambridge.rar"
+
+unzip "material cambridge.zip"
+```
+
+Te pedirá la contraseña en la terminal.  
+(En tu caso, si lo hiciste con `-p1234`, pones `1234`).
+
+### 4. Ver el contenido sin extraer
+
+```bash
+unrar l "material cambridge.rar"
+
+unzip -l "material cambridge.zip"
+```
+
