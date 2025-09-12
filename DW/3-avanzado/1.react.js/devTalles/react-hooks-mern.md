@@ -25754,7 +25754,13 @@ export const startDeletingNote = () => {
 };
 ```
 
-### 20.24
+### 20.24 Código fuente de la sección
+
+Aquí les dejo el código fuente de la sección por si lo llegan a necesitar o comparar contra el mío.
+
+[**Github: Fin Sección 20**](https://github.com/Klerith/react-journal-material/tree/fin-seccion-20)
+
+## 21. 
 
 `src/`
 
@@ -25767,10 +25773,6 @@ export const startDeletingNote = () => {
 ```jsx
 ```
 
-
-
-## 21
-
 `src/`
 
 ```jsx
@@ -25781,7 +25783,6 @@ export const startDeletingNote = () => {
 
 ```jsx
 ```
-
 
 
 ☝️👆
