@@ -25054,35 +25054,175 @@ export const ImageGallery = ({ images }) => {
 
 Se corrigió el error en la clase [[#20.11 Activar una nota para su edición]]
 
-### 20.21
+### 20.21 Limpiar notas al cerrar sesión
 
-`src/`
+`src/store/journal/journalSlice.js`
 
-```jsx
+```js
+import { createSlice } from "@reduxjs/toolkit";
+
+export const journalSlice = createSlice({
+  name: "journal",
+  initialState: {
+    isSaving: false,
+    messageSaved: "",
+    notes: [],
+    active: null,
+    // active: {
+    //   id: "ABC123",
+    //   title: "",
+    //   body: "",
+    //   date: 1234567,
+    //   imageUrls: [],
+    // },
+  },
+  reducers: {
+    savingNewNote: (state, { payload }) => {
+      state.isSaving = true;
+    },
+    addNewEmptyNote: (state, { payload }) => {
+      state.notes.push(payload);
+      state.isSaving = false;
+    },
+    setActiveNote: (state, { payload }) => {
+      state.active = payload;
+      state.messageSaved = "";
+    },
+    setNotes: (state, { payload }) => {
+      state.notes = payload;
+    },
+    setSaving: (state) => {
+      state.isSaving = true;
+      state.messageSaved = "";
+    },
+    updateNote: (state, { payload }) => {
+      state.isSaving = false;
+      state.notes = state.notes.map((note) => {
+        if (note.id === payload.id) {
+          return payload;
+        }
+
+        return note;
+      });
+
+      state.messageSaved = `${payload.title}, updated correctly.`;
+    },
+    setPhotosToActiveNote: (state, action) => {
+      state.active.imageUrls = [
+        ...state.active.imageUrls,
+        ...action.payload,
+      ];
+      state.isSaving = false;
+    },
+    clearNotesLogout: (state) => {
+      state.isSaving = false;
+      state.messageSaved = "";
+      state.notes = [];
+      state.active = null;
+    },
+    deleteNoteById: (state, action) => {},
+  },
+});
+
+export const {
+  addNewEmptyNote,
+  clearNotesLogout,
+  deleteNoteById,
+  savingNewNote,
+  setActiveNote,
+  setNotes,
+  setPhotosToActiveNote,
+  setSaving,
+  updateNote,
+} = journalSlice.actions;
 ```
 
+`src/store/auth/thunks.js`
 
-`src/`
+```js
+import {
+  singInWithGoogle,
+  registerUserWithEmailPassword,
+  loginWithEmailPassword,
+  logoutFirebase,
+} from "../../firebase/providers";
+import { clearNotesLogout } from "../journal/journalSlice";
+import {
+  checkingCredentials,
+  login,
+  logout,
+} from "./authSlice";
 
-```jsx
+export const checkingAuthentication = (email, password) => {
+  return async (dispatch) => {
+    dispatch(checkingCredentials());
+  };
+};
+
+export const startGoogleSignIn = () => {
+  return async (dispatch) => {
+    dispatch(checkingCredentials());
+
+    const result = await singInWithGoogle();
+
+    // console.log({ result });
+
+    if (!result.ok)
+      return dispatch(logout(result.errorMessage));
+
+    dispatch(login(result));
+  };
+};
+
+export const startCreatingUserWithEmailPassword = ({
+  email,
+  password,
+  displayName,
+}) => {
+  return async (dispatch) => {
+    dispatch(checkingCredentials());
+
+    const { ok, uid, photoURL, errorMessage } =
+      await registerUserWithEmailPassword({
+        email,
+        password,
+        displayName,
+      });
+
+    if (!ok) return dispatch(logout({ errorMessage }));
+
+    dispatch(login({ uid, displayName, email, photoURL }));
+  };
+};
+
+export const startLoginWithEmailPassword = ({
+  email,
+  password,
+}) => {
+  return async (dispatch) => {
+    dispatch(checkingCredentials());
+
+    const result = await loginWithEmailPassword({
+      email,
+      password,
+    });
+
+    if (!result.ok) return dispatch(logout(result));
+
+    dispatch(login(result));
+  };
+};
+
+export const startLogout = () => {
+  return async (dispatch) => {
+    await logoutFirebase();
+
+    dispatch(clearNotesLogout());
+
+    dispatch(logout());
+  };
+};
 ```
-
-`src/`
-
-```jsx
-```
-
-
-`src/`
-
-```jsx
-```
-
-`src/`
-
-```jsx
-```
-
 
 ### 20.22
 
@@ -25091,6 +25231,22 @@ Se corrigió el error en la clase [[#20.11 Activar una nota para su edición]]
 ```jsx
 ```
 
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
 
 `src/`
 
