@@ -25810,7 +25810,7 @@ npm install --save-dev
 Luego de revisar e implementar la configuración:
 
 ```
-npm run test
+npm test
 ```
 
 ### 21.6 Pruebas de carga de archivos
@@ -25893,25 +25893,102 @@ describe("Tests in fileUpload", () => {
 });
 ```
 
-### 21.7
+### 21.7 Cloudinary SDK - Delete image
 
+Elimina todas las imágenes de Cloudinary.
 
-`src/`
+Revisa: `?/documentation/Node.js`
 
-```jsx
+**Node.js SDK**
+
+```bash
+npm install cloudinary
+
+npm install -D cloudinary
+yarn add -D cloudinary
 ```
 
+Busca: `Delete resources by public ID`
 
-`src/`
+Instala: `setInmediate`
 
-```jsx
+```bash
+npm i setimmediate
+npm i -D setimmediate
+npm install -D setimmediate
 ```
 
-`src/`
+`jest.config.cjs`
 
-```jsx
+```cjs
+module.exports = {
+  testEnvironment: "jest-environment-jsdom",
+  setupFiles: ["./jest.setup.js"],
+};
 ```
 
+`jest.setup.js`
+
+```js
+// En caso de necesitar la implementación del FetchAPI
+import "whatwg-fetch"; // yarn add whatwg-fetch
+import "setimmediate"; // npm i -D setimmediate
+```
+
+`tests/helpers/fileUpload.test.js`
+
+```js
+import { v2 as cloudinary } from "cloudinary";
+import { fileUpload } from "../../src/helpers/fileUpload";
+
+cloudinary.config({
+  cloud_name: "delkxyr6z",
+  api_key: "423579532613278",
+  api_secret: "k-ZUekWF7jbsR1Jm91rIe2P5cd8",
+  secure: true,
+});
+
+describe("Tests in fileUpload", () => {
+  test("The file should upload correctly to Cloudinary.", async () => {
+    const imageUrl =
+      "https://www.online-image-editor.com/styles/2019/images/power_girl.png";
+    const resp = await fetch(imageUrl);
+    const blob = await resp.blob();
+    const file = new File([blob], "photo.png");
+
+    const url = await fileUpload(file);
+
+    expect(typeof url).toBe("string");
+
+    // console.log(url);
+    const segments = url.split("/");
+    const imageId = segments[segments.length - 1].replace(
+      ".png",
+      ""
+    );
+
+    // const cloudResp = await cloudinary.api.delete_resources(
+    //   ["journal/" + imageId],
+    //   {
+    //     resource_type: "image",
+    //   }
+    // );
+
+    const cloudResp = await cloudinary.api.delete_resources([
+      imageId,
+    ]);
+
+    console.log({ cloudResp });
+  });
+
+  test("It must return null.", async () => {
+    const file = new File([], "photo.png");
+    const url = await fileUpload(file);
+
+    expect(url).toBe(null);
+  });
+});
+```
 
 ### 21.8
 
