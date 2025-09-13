@@ -25784,60 +25784,34 @@ No olvidar ver: [[#5.7 Nota de Actualización - Extensión de archivos]]
 
 [**Gist - Vite + Testing + Jest**](https://gist.github.com/Klerith/ca7e57fae3c9ab92ad08baadc6c26177)
 
-### 21.4
+### 21.4 Continuación de proyecto - JournalTesting
 
+### 21.5 Configuración del testing
 
-`src/`
+Ver [[#8.3 Configurar el ambiente de pruebas]]
 
-```jsx
+```bash
+npm install --save-dev
+  jest 
+  babel-jest 
+  @babel/preset-env 
+  @babel/preset-react 
+  react-test-renderer
+
+npm install --save-dev 
+  @testing-library/react
+  @testing-library/dom
+
+npm install --save-dev 
+  @types/jest
+  jest-environment-jsdom
 ```
 
+Luego de revisar e implementar la configuración:
 
-`src/`
-
-```jsx
 ```
-
-`src/`
-
-```jsx
+npm test
 ```
-
-`src/`
-
-```jsx
-```
-
-
-`src/`
-
-```jsx
-```
-
-`src/`
-
-```jsx
-```
-
-### 21.5
-
-
-`src/`
-
-```jsx
-```
-
-
-`src/`
-
-```jsx
-```
-
-`src/`
-
-```jsx
-```
-
 
 ### 21.6
 
