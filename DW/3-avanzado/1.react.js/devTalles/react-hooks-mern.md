@@ -25810,28 +25810,88 @@ npm install --save-dev
 Luego de revisar e implementar la configuración:
 
 ```
-npm test
+npm run test
 ```
 
-### 21.6
+### 21.6 Pruebas de carga de archivos
 
+Estructura:
 
-`src/`
-
-```jsx
+```bash
+.
+├── babel.config.cjs
+├── eslint.config.js
+├── index.html
+├── jest.config.cjs
+├── jest.setup.js
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+├── README.md
+├── src
+├── tests 👈👀👇
+│   └── helpers
+│       └── fileUpload.test.js
+└── vite.config.js
 ```
 
+`src/helpers/fileUpload.js`
 
-`src/`
+```js
+export const fileUpload = async (file) => {
+  // if (!file) throw new Error("No files will be uploaded.");
+  if (!file) return null;
 
-```jsx
+  const cloudUrl =
+    "https://api.cloudinary.com/v1_1/delkxyr6z/upload";
+
+  const formData = new FormData();
+  formData.append("upload_preset", "journal-app");
+  formData.append("file", file);
+
+  try {
+    const resp = await fetch(cloudUrl, {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!resp.ok)
+      throw new Error("The image could not be uploaded.");
+
+    const cloudResp = await resp.json();
+
+    return cloudResp.secure_url;
+  } catch (error) {
+    // console.log(error);
+
+    // throw new Error(error.message);
+
+    return null;
+  }
+};
 ```
 
-`src/`
+`tests/helpers/fileUpload.test.js`
 
-```jsx
+```js
+import { fileUpload } from "../../src/helpers/fileUpload";
+
+describe("Tests in fileUpload", () => {
+  test("The file should upload correctly to Cloudinary.", async () => {
+    const imageUrl =
+      "https://www.online-image-editor.com/styles/2019/images/power_girl.png";
+    const resp = await fetch(imageUrl);
+    const blob = await resp.blob();
+    const file = new File([blob], "photo.jpg");
+
+    const url = await fileUpload(file);
+
+    expect(typeof url).toBe("string");
+  });
+});
 ```
-
 
 ### 21.7
 
