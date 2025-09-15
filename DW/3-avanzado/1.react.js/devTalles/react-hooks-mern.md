@@ -5115,6 +5115,7 @@ module.exports = {
 module.exports = {
   testEnvironment: "jest-environment-jsdom",
   setupFiles: ["./jest.setup.js"],
+  transformIgnorePatterns: [],
 };
 ```
 
@@ -26162,25 +26163,81 @@ describe("Tests in authSlice", () => {
 });
 ```
 
-### 21.10
+### 21.10 Pruebas sobre Thunks
 
-`tests/`
+Estructura:
 
-```jsx
+```bash
+.
+├── babel.config.cjs
+├── eslint.config.js
+├── index.html
+├── jest.config.cjs
+├── jest.setup.js
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+├── README.md
+├── src
+├── tests
+│   ├── fixtures
+│   │   └── authFixtures.js
+│   ├── helpers
+│   │   └── fileUpload.test.js
+│   └── store
+│       └── auth
+│           ├── authSlice.test.js
+│           └── thunks.test.js 👈👀
+└── vite.config.js
 ```
 
+`jest.config.cjs`
 
-`tests/`
-
-```jsx
+```js
+module.exports = {
+  testEnvironment: "jest-environment-jsdom",
+  setupFiles: ["./jest.setup.js"],
+  transformIgnorePatterns: [],
+};
 ```
 
-`tests/`
+`tests/store/auth/thunks.test.js`
 
-```jsx
+```js
+import { checkingCredentials } from "../../../src/store/auth/authSlice";
+import { checkingAuthentication } from "../../../src/store/auth/thunks";
+
+jest.mock("../../../src/firebase/providers");
+
+describe("Tests in AuthThunks.", () => {
+  const dispatch = jest.fn();
+
+  beforeEach(() => jest.clearAllMocks());
+
+  test("It must invoke checkingCredentials.", async () => {
+    // checkingAuthentication();
+    await checkingAuthentication()(dispatch);
+
+    expect(dispatch).toHaveBeenCalledWith(
+      checkingCredentials()
+    );
+  });
+});
 ```
 
 ### 21.11
+
+`tests/`
+
+```jsx
+```
+
+`tests/`
+
+```jsx
+```
 
 
 `src/`
