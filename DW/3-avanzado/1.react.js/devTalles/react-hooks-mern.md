@@ -25990,42 +25990,109 @@ describe("Tests in fileUpload", () => {
 });
 ```
 
-### 21.8
+### 21.8 Pruebas con los Slices de Redux Toolkit
 
+Estructura:
 
-`src/`
-
-```jsx
+```bash
+.
+├── babel.config.cjs
+├── eslint.config.js
+├── index.html
+├── jest.config.cjs
+├── jest.setup.js
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+├── README.md
+├── src
+├── tests
+│   ├── fixtures 👈👀👇
+│   │   └── authFixtures.js
+│   ├── helpers
+│   │   └── fileUpload.test.js
+│   └── store 👈👀👇
+│       └── auth
+│           └── authSlice.test.js
+└── vite.config.js
 ```
 
+`tests/Fixtures/authFixtures.js`
 
-`src/`
+```js
+export const initialState = {
+  status: "checking",
+  uid: null,
+  email: null,
+  displayName: null,
+  photoURL: null,
+  errorMessage: null,
+};
 
-```jsx
+export const authenticatedState = {
+  status: "authenticated",
+  uid: "123ABC",
+  email: "demo@google.com",
+  displayName: "Demo User",
+  photoURL: "https://demo.jpg",
+  errorMessage: null,
+};
+
+export const notAuthenticatedState = {
+  status: "not-authenticated",
+  uid: null,
+  email: null,
+  displayName: null,
+  photoURL: null,
+  errorMessage: null,
+};
+
+export const demoUser = {
+  uid: "ABC123",
+  email: "demo@google.com",
+  displayName: "Demo User",
+  photoURL: "https://demo.jpg",
+};
 ```
 
-`src/`
+`tests/store/auth/authSlice.test.js`
 
-```jsx
+```js
+import { authSlice } from "../../../src/store/auth/authSlice";
+import { initialState } from "../../fixtures/authFixtures";
+
+describe("Tests in authSlice", () => {
+  test("It must return to its initial state and be called auth.", () => {
+    const state = authSlice.reducer(initialState, {});
+
+    expect(state).toEqual(initialState);
+    expect(authSlice.name).toBe("auth");
+  });
+});
 ```
-
-
 
 ### 21.9
 
+`tests/`
 
-`src/`
+```jsx
+```
+
+
+`tests/`
 
 ```jsx
 ```
 
 
-`src/`
+`tests/`
 
 ```jsx
 ```
 
-`src/`
+`tests/`
 
 ```jsx
 ```
