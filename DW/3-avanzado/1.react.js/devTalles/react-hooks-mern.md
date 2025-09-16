@@ -26227,50 +26227,175 @@ describe("Tests in AuthThunks.", () => {
 });
 ```
 
-### 21.11
+### 21.11 Thunks - checkingCredentials correcto e incorrecto
 
-`tests/`
+`src/store/auth/thunks.js`
 
-```jsx
+```js
+import {
+  singInWithGoogle,
+  registerUserWithEmailPassword,
+  loginWithEmailPassword,
+  logoutFirebase,
+} from "../../firebase/providers";
+import { clearNotesLogout } from "../journal/journalSlice";
+import {
+  checkingCredentials,
+  login,
+  logout,
+} from "./authSlice";
+
+export const checkingAuthentication = (email, password) => {
+  return async (dispatch) => {
+    dispatch(checkingCredentials());
+  };
+};
+
+export const startGoogleSignIn = () => {
+  return async (dispatch) => {
+    dispatch(checkingCredentials());
+
+    const result = await singInWithGoogle();
+
+    // console.log({ result }); 👈👀
+
+    if (!result.ok)
+      return dispatch(logout(result.errorMessage));
+
+    dispatch(login(result));
+  };
+};
+
+export const startCreatingUserWithEmailPassword = ({
+  email,
+  password,
+  displayName,
+}) => {
+  return async (dispatch) => {
+    dispatch(checkingCredentials());
+
+    const { ok, uid, photoURL, errorMessage } =
+      await registerUserWithEmailPassword({
+        email,
+        password,
+        displayName,
+      });
+
+    if (!ok) return dispatch(logout({ errorMessage }));
+
+    dispatch(login({ uid, displayName, email, photoURL }));
+  };
+};
+
+export const startLoginWithEmailPassword = ({
+  email,
+  password,
+}) => {
+  return async (dispatch) => {
+    dispatch(checkingCredentials());
+
+    const result = await loginWithEmailPassword({
+      email,
+      password,
+    });
+
+    if (!result.ok) return dispatch(logout(result));
+
+    dispatch(login(result));
+  };
+};
+
+export const startLogout = () => {
+  return async (dispatch) => {
+    await logoutFirebase();
+
+    dispatch(clearNotesLogout());
+
+    dispatch(logout());
+  };
+};
 ```
 
-`tests/`
+`tests/store/auth/thunks.test.js`
 
-```jsx
-```
+```js
+import { singInWithGoogle } from "../../../src/firebase/providers";
+import {
+  checkingCredentials,
+  login,
+  logout,
+} from "../../../src/store/auth/authSlice";
+import {
+  checkingAuthentication,
+  startGoogleSignIn,
+} from "../../../src/store/auth/thunks";
+import { demoUser } from "../../fixtures/authFixtures";
 
+jest.mock("../../../src/firebase/providers");
 
-`src/`
+describe("Tests in AuthThunks.", () => {
+  const dispatch = jest.fn();
 
-```jsx
-```
+  beforeEach(() => jest.clearAllMocks());
 
+  test("It must invoke checkingCredentials.", async () => {
+    // checkingAuthentication();
+    await checkingAuthentication()(dispatch);
 
-`src/`
+    expect(dispatch).toHaveBeenCalledWith(
+      checkingCredentials()
+    );
+  });
 
-```jsx
-```
+  test("startGoogleSignIn must call checkingCredentials and login - Success", async () => {
+    const loginData = { ok: true, ...demoUser };
+    await singInWithGoogle.mockResolvedValue(loginData);
 
-`src/`
+    //  thunk
+    await startGoogleSignIn()(dispatch);
 
-```jsx
+    expect(dispatch).toHaveBeenCalledWith(
+      checkingCredentials()
+    );
+    expect(dispatch).toHaveBeenCalledWith(login(loginData));
+  });
+
+  test("startGoogleSignIn must call checkingCredentials and logout - Error", async () => {
+    const loginData = {
+      ok: false,
+      errorMessage: "An error in Google",
+    };
+
+    await singInWithGoogle.mockResolvedValue(loginData);
+
+    //  thunk
+    await startGoogleSignIn()(dispatch);
+
+    expect(dispatch).toHaveBeenCalledWith(
+      checkingCredentials()
+    );
+    expect(dispatch).toHaveBeenCalledWith(
+      logout(loginData.errorMessage)
+    );
+  });
+});
 ```
 
 ### 21.12
 
 
-`src/`
+`tests/`
 
 ```jsx
 ```
 
 
-`src/`
+`tests/`
 
 ```jsx
 ```
 
-`src/`
+`tests/`
 
 ```jsx
 ```
