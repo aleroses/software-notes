@@ -26479,7 +26479,101 @@ describe("Tests in AuthThunks.", () => {
 });
 ```
 
-### 21.13
+### 21.13 Pruebas en Journal Thunks
+
+Estructura:
+
+```bash
+.
+├── babel.config.cjs
+├── eslint.config.js
+├── index.html
+├── jest.config.cjs
+├── jest.setup.js
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+├── README.md
+├── src
+├── tests
+│   ├── fixtures
+│   │   └── authFixtures.js
+│   ├── helpers
+│   │   └── fileUpload.test.js
+│   └── store
+│       ├── auth
+│       │   ├── authSlice.test.js
+│       │   └── thunks.test.js
+│       └── journal 👈👀👇
+│           └── thunks.test.js
+└── vite.config.js
+```
+
+`tests/store/journal/thunks.test.js`
+
+```js
+import { startNewNote } from "../../../src/store/journal/thunks";
+
+describe("Tests in Journal Thunks", () => {
+  const dispatch = jest.fn();
+  const getState = jest.fn();
+
+  beforeEach(() => jest.clearAllMocks());
+
+  test("startNewNote must create a new blank note", async () => {
+    const uid = "TEST-UID";
+
+    getState.mockReturnValue({ auth: { uid } });
+    await startNewNote()(dispatch, getState);
+  });
+});
+```
+
+Para esta prueba vamos a Firebase y cambiamos las reglas para que pasen.
+
+`JournalApp/Firestore Database/Reglas`
+
+```js
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if request.auth != null; 👈👀
+    }
+  }
+}
+
+/* Changes: Publicar */
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if true; 👈👀
+    }
+  }
+}
+```
+
+Ahora, al revisar en Datos, puedes ver la nota `TEST-UID`. Pero como esto no es muy seguro regresamos a las `Reglas`, entramos a la fecha anterior al cambio actual y le damos en `Comparar con las más recientes`. Si no te sale `publicar` edita las reglas más recientes y déjalo con el código anterior.
+
+```js
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if request.auth != null; 👈👀
+    }
+  }
+}
+```
+
+### 21.14 
+
 
 `tests/`
 
@@ -26487,25 +26581,6 @@ describe("Tests in AuthThunks.", () => {
 ```
 
 `tests/`
-
-```jsx
-```
-
-### 21.14
-
-
-`src/`
-
-```jsx
-```
-
-
-`src/`
-
-```jsx
-```
-
-`src/`
 
 ```jsx
 ```
@@ -26514,18 +26589,12 @@ describe("Tests in AuthThunks.", () => {
 ### 21.15
 
 
-`src/`
+`tests/`
 
 ```jsx
 ```
 
-
-`src/`
-
-```jsx
-```
-
-`src/`
+`tests/`
 
 ```jsx
 ```
@@ -26534,18 +26603,12 @@ describe("Tests in AuthThunks.", () => {
 ### 21.16
 
 
-`src/`
+`tests/`
 
 ```jsx
 ```
 
-
-`src/`
-
-```jsx
-```
-
-`src/`
+`tests/`
 
 ```jsx
 ```
@@ -26554,18 +26617,12 @@ describe("Tests in AuthThunks.", () => {
 ### 21.17
 
 
-`src/`
+`tests/`
 
 ```jsx
 ```
 
-
-`src/`
-
-```jsx
-```
-
-`src/`
+`tests/`
 
 ```jsx
 ```
