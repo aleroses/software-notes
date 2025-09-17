@@ -26735,34 +26735,141 @@ describe("Tests in Journal Thunks", () => {
 
 Si revisas `Firestore Database/Datos` se habrán eliminado todas las inserciones.
 
-### 21.16
+### 21.16 Variables de entorno
 
+Son **valores configurables** que se definen fuera del código fuente y afectan el comportamiento de una aplicación.  
 
-`tests/`
+Ejemplo clásico:
 
-```jsx
+- `NODE_ENV=production` → indica que la app corre en modo producción.
+- `API_URL=https://api.midominio.com` → evita poner URLs fijas en el código.
+
+Sirven para **separar configuración del código**, facilitando:
+
+- Cambiar claves, rutas o credenciales sin tocar el código.
+- Manejar diferentes entornos (desarrollo, pruebas, producción).
+- Mantener secretos fuera del repositorio (aunque lo ideal es usar un gestor seguro como Vault).
+
+Normalmente, se guardan en archivos `.env` o se definen en el sistema operativo.
+
+Estructura:
+
+```bash
+.
+├── babel.config.cjs
+├── .env 👈👀
+├── .env.test 👈👀
+├── eslint.config.js
+├── index.html
+├── jest.config.cjs
+├── jest.setup.js
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+├── README.md
+├── src
+├── tests
+└── vite.config.js
 ```
 
-`tests/`
+Para esta clase cancela las pruebas y ejecuta:
 
-```jsx
+```bash
+npm dev
 ```
 
-`tests/`
+Para acceder a variables de entorno, podemos escribir en cualquier archivo `.js` o `.jsx` que se esté ejecutando:
 
-```jsx
+```js
+console.log(import.meta.env);
+console.log(import.meta.env.MODE);
 ```
 
-`tests/`
+Si a lo anterior le sumamos esto en el archivo `.env`
 
-```jsx
+`.env/`
+
+```
+PROPIEDAD_PRIVADA=I am private
+
+# Para verlo desde Fronted
+VITE_HOLA=World in Production!!!
 ```
 
-`tests/`
+Vemos en la consola del navegador:
 
-```jsx
+```js
+{
+  BASE_URL: "/",
+  DEV: true,
+  MODE: "development",
+  PROD: false,
+  SSR: false,
+  VITE_HOLA: "World in Production!!!",
+  [[Prototype]]: Object,
+};
+
+development
 ```
 
+Ahora si ejecutamos nuestras pruebas con `npm test` nos da algunos errores sin importar cuál prueba sea ejecutada.
+
+#### Errores con mis versiones de React
+
+El error principal es este:
+
+```js
+Incompatible React versions: The "react" and "react-dom" packages must have the exact same version.
+  - react:      19.1.1
+  - react-dom:  19.0.0
+```
+
+React y ReactDOM **deben estar siempre en la misma versión exacta**.  
+Al ser este un proyecto que empecé hace meses tengo:
+
+- `react` en **19.0.0**
+- `react-dom` en **19.0.0**
+- `react-test-renderer` en **19.1.1**
+
+```js
+{
+  name: "08-journal-app",
+  private: true,
+  version: "0.0.0",
+  type: "module",
+  scripts: {
+    dev: "vite",
+    build: "vite build",
+    lint: "eslint .",
+    preview: "vite preview",
+    test: "jest --watchAll",
+  },
+  dependencies: {
+    "react": "^19.0.0", 👈👀
+    "react-dom": "^19.0.0", 👈👀
+  },
+  devDependencies: {
+    "react-test-renderer": "^19.1.1", 👈👀
+  },
+};
+```
+
+Para solucionarlo, eliminé la carpeta `node_modules` y el archivo `package-lock.json`:
+
+```bash
+rm -rf node_modules package-lock.json
+```
+
+Luego:
+
+```bash
+npm install react@19.1.1 react-dom@19.1.1
+npm install react-test-renderer@19.1.1 --save-dev
+
+npm install
+```
 
 ### 21.17
 
@@ -26781,18 +26888,17 @@ Si revisas `Firestore Database/Datos` se habrán eliminado todas las inserciones
 ### 21.18
 
 
-`src/`
+`tests/`
 
 ```jsx
 ```
 
-
-`src/`
+`tests/`
 
 ```jsx
 ```
 
-`src/`
+`tests/`
 
 ```jsx
 ```
@@ -26801,18 +26907,17 @@ Si revisas `Firestore Database/Datos` se habrán eliminado todas las inserciones
 ### 21.19
 
 
-`src/`
+`tests/`
 
 ```jsx
 ```
 
-
-`src/`
+`tests/`
 
 ```jsx
 ```
 
-`src/`
+`tests/`
 
 ```jsx
 ```
@@ -26821,18 +26926,17 @@ Si revisas `Firestore Database/Datos` se habrán eliminado todas las inserciones
 ### 21.20
 
 
-`src/`
+`tests/`
 
 ```jsx
 ```
 
-
-`src/`
+`tests/`
 
 ```jsx
 ```
 
-`src/`
+`tests/`
 
 ```jsx
 ```
@@ -26841,18 +26945,17 @@ Si revisas `Firestore Database/Datos` se habrán eliminado todas las inserciones
 ### 21.21
 
 
-`src/`
+`tests/`
 
 ```jsx
 ```
 
-
-`src/`
+`tests/`
 
 ```jsx
 ```
 
-`src/`
+`tests/`
 
 ```jsx
 ```
@@ -26861,18 +26964,17 @@ Si revisas `Firestore Database/Datos` se habrán eliminado todas las inserciones
 ### 21.22
 
 
-`src/`
+`tests/`
 
 ```jsx
 ```
 
-
-`src/`
+`tests/`
 
 ```jsx
 ```
 
-`src/`
+`tests/`
 
 ```jsx
 ```
@@ -26881,18 +26983,17 @@ Si revisas `Firestore Database/Datos` se habrán eliminado todas las inserciones
 ### 21.23
 
 
-`src/`
+`tests/`
 
 ```jsx
 ```
 
-
-`src/`
+`tests/`
 
 ```jsx
 ```
 
-`src/`
+`tests/`
 
 ```jsx
 ```
