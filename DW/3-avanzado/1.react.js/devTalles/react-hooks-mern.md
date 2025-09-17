@@ -26572,22 +26572,111 @@ service cloud.firestore {
 }
 ```
 
-### 21.14 
+### 21.14 Crear base de datos de testing
 
+Ingresa a cualquier proyecto creado en `Firebase` o crea uno desde 0. Sigue estos pasos: [[#20.5 Preparar la base de datos - CloudFirestore#1. Crear base de datos]]
 
-`tests/`
+`Firestore Database/Reglas`
 
-```jsx
+```js
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write;
+    }
+  }
+}
 ```
 
-`tests/`
+`⚙️/Configuración del proyecto/General/Tus apps/(</>) web`
 
-```jsx
+Agrega Firebase a tu app web:
+- Registrar app: `react-testing`
+- [ ] Además, configura Firebase Hosting (no marcar)
+- Registrar app
+
+En esta sección solo necesitamos copiar `firebaseConfig`
+
+```js
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSdsfHZgelzrA7JRP0rrRtMVMlslgJY9I8jA",
+  authDomain: "appcompras-254fb.firebaseapp.com",
+  databaseURL: "https://appcompras-254fb-default-rtdb.firebaseio.com",
+  projectId: "appcompras-254fb",
+  storageBucket: "appcompras-254fb.firebasestorage.app",
+  messagingSenderId: "365421874604",
+  appId: "1:365432679604:web:49ef886549d7673fc67cc8"
+};
 ```
 
+- Ir a la consola
+
+`src/firebase/config.js`
+
+```js
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore/lite";
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// const firebaseConfig = {
+//   apiKey: "AIzaSdsfHZgelzrA7JRP0rrRtMVMlslgJY9I8jA",
+//   authDomain: "journalapp-254fb.firebaseapp.com",
+//   projectId: "journalapp-254fb",
+//   storageBucket: "journalapp-254fb.firebasestorage.app",
+//   messagingSenderId: "365421874604",
+//   appId: "1:365432679604:web:49ef886549d7673fc67cc8",
+// };
+
+// Testing
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSdsfHZgelzrA7JRP0rrRtMVMlslgJY9I8jA",
+  authDomain: "appcompras-254fb.firebaseapp.com",
+  databaseURL:
+    "https://appcompras-254fb-default-rtdb.firebaseio.com",
+  projectId: "appcompras-254fb",
+  storageBucket: "appcompras-254fb.firebasestorage.app",
+  messagingSenderId: "365421874604",
+  appId: "1:365432679604:web:49ef886549d7673fc67cc8",
+};
+
+// Initialize Firebase
+export const FirebaseApp = initializeApp(firebaseConfig);
+export const FirebaseAuth = getAuth(FirebaseApp);
+export const FirebaseDB = getFirestore(FirebaseApp);
+```
+
+Luego:
+
+```bash
+# Ejecutar las pruebas
+npm test
+```
+
+`Firestore Database/Datos`
+
+Parece `TEST-UID`
+
+📌 Para esta clase usé `appcompras` como sujeto de pruebas.
 
 ### 21.15
 
+
+`tests/`
+
+```jsx
+```
+
+`tests/`
+
+```jsx
+```
 
 `tests/`
 
@@ -26831,7 +26920,7 @@ service cloud.firestore {
 ```jsx
 ```
 
-
+⚙️
 ☝️👆
 👈👀
 ❯
