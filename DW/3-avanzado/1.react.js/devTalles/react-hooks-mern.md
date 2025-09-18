@@ -27032,25 +27032,145 @@ npm -v
 npm install --save-dev dotenv
 ```
 
-### 21.18
+### 21.18 Configurar variables de entorno de Firebase
 
+Estructura:
 
-`tests/`
-
-```jsx
+```bash
+.
+├── babel.config.cjs
+├── .env
+├── .env.template 👈👀
+├── .env.test
+├── eslint.config.js
+├── .git
+├── .gitignore
+├── index.html
+├── jest.config.cjs
+├── jest.setup.js
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+├── README.md
+├── src
+├── tests
+└── vite.config.js
 ```
 
-`tests/`
+`.gitignore`
 
-```jsx
+```
+# dotenv environment variable files
+.env
+.env.*
+!.env.example
 ```
 
-`tests/`
+`src/firebase/config.js`
 
-```jsx
+```js
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore/lite";
+import { getEnvironments } from "../helpers/getEnvironments";
+
+// Use "Uppercase" to convert to uppercase letters 
+const {
+  VITE_APIKEY,
+  VITE_AUTHDOMAIN,
+  VITE_DATABASEURL,
+  VITE_PROJECTID,
+  VITE_STORAGEBUCKET,
+  VITE_MESSAGINGSENDERID,
+  VITE_APPID,
+} = getEnvironments(); 👈👀
+// console.log(env);
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// const firebaseConfig = {
+//   ...
+// };
+
+// Testing
+
+// Your web app's Firebase configuration
+// const firebaseConfig = {
+//   ...
+// };
+
+// Copy the keys from the firebaseConfig object
+const firebaseConfig = { 
+  apiKey: VITE_APIKEY,
+  authDomain: VITE_AUTHDOMAIN,
+  databaseURL: VITE_DATABASEURL,
+  projectId: VITE_PROJECTID,
+  storageBucket: VITE_STORAGEBUCKET,
+  messagingSenderId: VITE_MESSAGINGSENDERID,
+  appId: VITE_APPID,
+}; 👈👀☝️
+
+// console.log(firebaseConfig );
+
+// Initialize Firebase
+export const FirebaseApp = initializeApp(firebaseConfig);
+export const FirebaseAuth = getAuth(FirebaseApp);
+export const FirebaseDB = getFirestore(FirebaseApp);
 ```
 
-👈👀
+`.env`
+
+```
+PROPIEDAD_PRIVADA=I am private
+
+# To view it from Fronted
+VITE_HOLA=World in Production!!!
+
+# Copy of the main configuration of our project.
+VITE_APIKEY="AIzaSylZD4Stp-8992mpBJW6-4EwgwASeKqXnMw"
+VITE_AUTHDOMAIN="journalapp-72f2d.firebaseapp.com"
+VITE_PROJECTID="journalapp-72f2d"
+VITE_STORAGEBUCKET="journalapp-72f2d.firebasestorage.app"
+VITE_MESSAGINGSENDERID="33342861287"
+VITE_APPID="1:339972861287:web:4ac56da1de5f56a6bc53c2"
+```
+
+`.env.test`
+
+```VITE_HOLA=Testing in Production!!!
+VITE_JWT_SEED=Docs...
+
+# Copy of firebaseConfig for testing
+VITE_APIKEY= "AD1aSyCYxsdfs3A7JRP033RtMVMls4dJY9I8jA"
+VITE_AUTHDOMAIN= "appcompras-518fb.firebaseapp.com"
+VITE_DATABASEURL= "https://appcompras-518fb-default-rtdb.firebaseio.com",
+VITE_PROJECTID= "appcompras-518fb"
+VITE_STORAGEBUCKET= "appcompras-518fb.firebasestorage.app"
+VITE_MESSAGINGSENDERID= "3654274329609"
+VITE_APPID= "1:365427579609:web:49ef88123s7673fc67cc8"
+```
+
+`.env.template`
+
+```
+PROPIEDAD_PRIVADA=I am private
+
+# To view it from Fronted
+VITE_HOLA=World in Production!!!
+
+VITE_APIKEY=""
+VITE_AUTHDOMAIN=""
+VITE_PROJECTID=""
+VITE_STORAGEBUCKET=""
+VITE_MESSAGINGSENDERID=""
+VITE_APPID=""
+```
+
 ### 21.19
 
 
@@ -27069,6 +27189,9 @@ npm install --save-dev dotenv
 ```jsx
 ```
 
+👈👀👇
+👈👀☝️
+👈👀
 
 ### 21.20
 
