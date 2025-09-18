@@ -27171,7 +27171,114 @@ VITE_MESSAGINGSENDERID=""
 VITE_APPID=""
 ```
 
-### 21.19
+### 21.19 Pruebas en el LoginPage
+
+Estructura:
+
+```bash
+.
+├── babel.config.cjs
+├── .env
+├── .env.template
+├── .env.test
+├── eslint.config.js
+├── .git
+├── .gitignore
+├── index.html
+├── jest.config.cjs
+├── jest.setup.js
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+├── README.md
+├── src
+├── tests
+│   ├── auth 👈👀👇
+│   │   └── pages
+│   │       └── LoginPage.test.jsx
+│   ├── fixtures
+│   │   └── authFixtures.js
+│   ├── helpers
+│   │   └── fileUpload.test.js
+│   └── store
+│       ├── auth
+│       │   ├── authSlice.test.js
+│       │   └── thunks.test.js
+│       └── journal
+│           └── thunks.test.js
+└── vite.config.js
+```
+
+`tests/auth/pages/LoginPage.test.jsx`
+
+```jsx
+import { render, screen } from "@testing-library/react";
+import { Provider } from "react-redux";
+import { configureStore } from "@reduxjs/toolkit";
+import { MemoryRouter } from "react-router-dom";
+
+import { LoginPage } from "../../../src/auth/pages/LoginPage";
+import { authSlice } from "../../../src/store/auth/authSlice";
+
+const store = configureStore({
+  reducer: {
+    auth: authSlice.reducer,
+    // preloadedState: {},
+  },
+});
+
+describe("Testing on LoginPage", () => {
+  test("It should display the component correctly", () => {
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <LoginPage />
+        </MemoryRouter>
+      </Provider>
+    );
+    // screen.debug();
+    expect(
+      screen.getAllByText("Login").length
+    ).toBeGreaterThanOrEqual(1);
+  });
+});
+```
+
+#### Error TextEncoder is not defined
+
+```bash
+ FAIL  tests/auth/pages/LoginPage.test.jsx
+  ● Test suite failed to run
+
+    ReferenceError: TextEncoder is not defined
+```
+
+Para solucionarlo ver  [[#16.6 Pruebas en el PublicRoute#ReferenceError `TextEncoder` is not defined]]
+
+`jest.setup.js`
+
+```js
+// En caso de necesitar la implementación del FetchAPI
+import "whatwg-fetch"; // yarn add whatwg-fetch
+import "setimmediate"; // npm i -D setimmediate
+
+require("dotenv").config({
+  path: ".env.test",
+});
+
+jest.mock("./src/helpers/getEnvironments", () => ({
+  getEnvironments: () => ({ ...process.env }),
+}));
+
+// Solution TextEncoder is not defined 👈👀👇
+import { TextDecoder, TextEncoder } from "util";
+global.TextEncoder = TextEncoder;
+global.TextDecoder = TextDecoder;
+```
+
+### 21.20
 
 
 `tests/`
@@ -27193,25 +27300,6 @@ VITE_APPID=""
 👈👀☝️
 👈👀
 
-### 21.20
-
-
-`tests/`
-
-```jsx
-```
-
-`tests/`
-
-```jsx
-```
-
-`tests/`
-
-```jsx
-```
-
-
 ### 21.21
 
 
@@ -27230,6 +27318,15 @@ VITE_APPID=""
 ```jsx
 ```
 
+`tests/`
+
+```jsx
+```
+
+`tests/`
+
+```jsx
+```
 
 ### 21.22
 
