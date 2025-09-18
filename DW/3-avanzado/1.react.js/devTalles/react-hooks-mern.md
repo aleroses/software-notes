@@ -26871,19 +26871,166 @@ npm install react-test-renderer@19.1.1 --save-dev
 npm install
 ```
 
-### 21.17
+### 21.17 Variables de entorno Testing y Development
 
+Estructura:
 
-`tests/`
-
-```jsx
+```bash
+.
+├── babel.config.cjs
+├── .env
+├── .env.test
+├── eslint.config.js
+├── .git
+├── .gitignore
+├── index.html
+├── jest.config.cjs
+├── jest.setup.js
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+├── README.md
+├── src
+│   ├── App.jsx
+│   ├── auth
+│   │   ├── layout
+│   │   │   └── AuthLayout.jsx
+│   │   ├── pages
+│   │   │   ├── LoginPage.jsx
+│   │   │   └── RegisterPage.jsx
+│   │   └── routes
+│   │       └── AuthRoutes.jsx
+│   ├── firebase
+│   │   ├── config.js
+│   │   └── providers.js
+│   ├── helpers
+│   │   ├── fileUpload.js
+│   │   ├── getEnvironments.js 👈👀
+│   │   └── loadNotes.js
+│   ├── hooks
+│   │   ├── useCheckAuth.js
+│   │   └── useForm.js
+│   ├── journal
+│   │   ├── components
+│   │   │   ├── ImageGallery.jsx
+│   │   │   ├── NavBar.jsx
+│   │   │   ├── SideBarItem.jsx
+│   │   │   └── SideBar.jsx
+│   │   ├── layout
+│   │   │   └── JournalLayout.jsx
+│   │   ├── pages
+│   │   │   └── JournalPage.jsx
+│   │   ├── routes
+│   │   │   └── JournalRoutes.jsx
+│   │   └── views
+│   │       ├── NoteView.jsx
+│   │       └── NothingSelectedView.jsx
+│   ├── main.jsx
+│   ├── router
+│   │   └── AppRouter.jsx
+│   ├── store
+│   │   ├── auth
+│   │   │   ├── authSlice.js
+│   │   │   └── thunks.js
+│   │   ├── journal
+│   │   │   ├── journalSlice.js
+│   │   │   └── thunks.js
+│   │   └── store.js
+│   ├── styles.css
+│   ├── theme
+│   │   ├── purpleTheme.js
+│   │   └── Theme.jsx
+│   └── ui
+│       └── components
+│           └── CheckingAuth.jsx
+├── tests
+└── vite.config.js
 ```
 
-`tests/`
+Instalar [`dotenv`](https://www.npmjs.com/package/dotenv)
 
-```jsx
+```bash
+npm i dotenv --save-dev
+npm i dotenv -D
 ```
 
+`jest.setup.js`
+
+```js
+// En caso de necesitar la implementación del FetchAPI
+import "whatwg-fetch"; // yarn add whatwg-fetch
+import "setimmediate"; // npm i -D setimmediate
+
+require("dotenv").config({
+  path: ".env.test",
+});
+
+jest.mock("./src/helpers/getEnvironments", () => ({
+  getEnvironments: () => ({ ...process.env }),
+}));
+```
+
+`.env.test`
+
+```js
+VITE_HOLA=Testing in Production!!!
+VITE_JWT_SEED=Docs...
+```
+
+`src/firebase/config.js`
+
+```js
+// Añadimos esto para probar
+const env = getEnvironments();
+console.log(env);
+```
+
+`src/helpers/getEnvironments.js`
+
+```js
+export const getEnvironments = () => {
+  import.meta.env;
+
+  return {
+    ...import.meta.env
+  }
+};
+```
+
+Volvemos a ejecutar las pruebas:
+
+```bash
+npm test
+```
+
+#### Error al instalar paquetes
+
+Al ejecutar `npm i dotenv --save-dev` para instalar `dotenv` salía este mensaje.
+
+```bash
+Did you mean this?
+  npm install # Install a package
+To see a list of supported npm commands, run:
+  npm help
+```
+
+Lo que hice fue actualizar `npm` de `11.4.2` a `11.6.0`.
+
+```bash
+npm -v
+11.4.2
+
+# Actualiza
+npm install -g npm@latest
+
+npm -v
+11.6.0
+
+# Intenta nuevamente
+npm install --save-dev dotenv
+```
 
 ### 21.18
 
@@ -26903,7 +27050,7 @@ npm install
 ```jsx
 ```
 
-
+👈👀
 ### 21.19
 
 
