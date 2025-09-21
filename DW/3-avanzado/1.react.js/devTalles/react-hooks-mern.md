@@ -28003,25 +28003,13 @@ describe("Testing on LoginPage", () => {
 });
 ```
 
-### 21.24
+### 21.24 Código fuente de la sección
 
+Aquí les dejo el código fuente de la sección por si lo llegan a necesitar:
 
-`src/`
+[**GitHub - Fin sección 21**](https://github.com/Klerith/react-journal-material/tree/fin-seccion-21)
 
-```jsx
-```
-
-
-`src/`
-
-```jsx
-```
-
-`src/`
-
-```jsx
-```
-
+---
 
 ## 🟣 22
 
