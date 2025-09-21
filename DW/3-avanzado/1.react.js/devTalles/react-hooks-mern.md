@@ -27575,8 +27575,301 @@ describe("Testing on LoginPage", () => {
 });
 ```
 
-### 21.22
+### 21.22 Disparar el submit del formulario
 
+`src/auth/pages/LoginPage.jsx`
+
+```jsx
+import { useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link as RouterLink } from "react-router";
+import {
+  TextField,
+  Grid2,
+  Button,
+  Link,
+  Box,
+  Alert,
+} from "@mui/material";
+import { Google } from "@mui/icons-material";
+import { AuthLayout } from "../layout/AuthLayout";
+import { useForm } from "../../hooks/useForm";
+import {
+  startGoogleSignIn,
+  startLoginWithEmailPassword,
+} from "../../store/auth/thunks";
+
+const formDate = {
+  email: "",
+  password: "",
+};
+
+export const LoginPage = () => {
+  const { status, errorMessage } = useSelector(
+    (state) => state.auth
+  );
+
+  const dispatch = useDispatch();
+
+  const { email, password, handleInputChange } =
+    useForm(formDate);
+
+  const isAuthenticating = useMemo(
+    () => status === "checking",
+    [status]
+  );
+
+  // const { status } = useSelector((state) => state.auth);
+
+  // console.log(email, password);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    //! This isn't the action to be dispatched
+    // dispatch(checkingAuthentication());
+
+    console.log({ email, password }); 👈👀
+
+    dispatch(
+      startLoginWithEmailPassword({ email, password })
+    );
+  };
+
+  const handleGoogleSignIn = () => {
+    console.log("handleGoogleSignIn");
+
+    dispatch(startGoogleSignIn());
+  };
+
+  // useEffect(() => {
+  //   dispatch(checkingAuthentication());
+  // }, []);
+
+  return (
+    <AuthLayout title="Login">
+      <form
+        aria-label="submit-form" 👈👀
+        action=""
+        onSubmit={handleSubmit}
+        className="animate__animated animate__fadeIn animate__faster"
+      >
+        <Grid2
+          container
+          // component="form"
+          spacing={2}
+        >
+          <Grid2 size={{ xs: 12, md: 6 }}>
+            <TextField
+              id="email"
+              label="Email"
+              type="email"
+              placeholder="email@google.com"
+              size="small"
+              fullWidth
+              name="email"
+              value={email}
+              onChange={handleInputChange}
+            />
+          </Grid2>
+          <Grid2 size={{ xs: 12, md: 6 }}>
+            <TextField
+              id="password"
+              label="Password"
+              type="password"
+              placeholder="password"
+              size="small"
+              fullWidth
+              slotProps={{ 👈👀👇
+                input: { "data-testid": "password" },
+              }}
+              name="password"
+              value={password}
+              onChange={handleInputChange}
+            />
+          </Grid2>
+        </Grid2>
+        {/* New */}
+        <Box>
+          <Grid2
+            size={{ xs: 12 }}
+            display={!!errorMessage ? "" : "none"}
+            sx={{
+              mt: 1,
+            }}
+          >
+            <Alert severity="error">{errorMessage}</Alert>
+          </Grid2>
+          <Grid2 container spacing={2} sx={{ mt: 2 }}>
+            <Grid2 size={{ xs: 12, md: 6 }}>
+              <Button
+                disabled={isAuthenticating}
+                type="submit"
+                variant="contained"
+                fullWidth
+              >
+                Login
+              </Button>
+            </Grid2>
+            <Grid2 size={{ xs: 12, md: 6 }}>
+              <Button
+                disabled={isAuthenticating}
+                variant="contained"
+                fullWidth
+                aria-label="google-btn" 👈👀
+                startIcon={<Google />}
+                onClick={handleGoogleSignIn}
+              >
+                Google
+              </Button>
+            </Grid2>
+          </Grid2>
+          <Grid2
+            container
+            // direction="row"
+            justifyContent="end"
+            sx={{ mt: 2 }}
+          >
+            <Link
+              component={RouterLink}
+              color="inherit"
+              to="/auth/register"
+            >
+              Create an account.
+            </Link>
+          </Grid2>
+        </Box>
+      </form>
+    </AuthLayout>
+  );
+};
+```
+
+`tests/auth/pages/LoginPage.test.jsx`
+
+```jsx
+import {
+  fireEvent,
+  render,
+  screen,
+} from "@testing-library/react";
+import { Provider } from "react-redux";
+import { configureStore } from "@reduxjs/toolkit";
+import { MemoryRouter } from "react-router-dom";
+
+import { LoginPage } from "../../../src/auth/pages/LoginPage";
+import { authSlice } from "../../../src/store/auth/authSlice";
+import { notAuthenticatedState } from "../../fixtures/authFixtures";
+
+// It is important to put the word "mock" first.
+const mockStartGoogleSignIn = jest.fn();
+
+jest.mock("../../../src/store/auth/thunks", () => ({
+  startGoogleSignIn: () => mockStartGoogleSignIn,
+}));
+
+const store = configureStore({
+  reducer: {
+    auth: authSlice.reducer,
+  },
+  preloadedState: {
+    auth: notAuthenticatedState,
+  },
+});
+
+describe("Testing on LoginPage", () => {
+  test("It should display the component correctly", () => {
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <LoginPage />
+        </MemoryRouter>
+      </Provider>
+    );
+    // screen.debug();
+    expect(
+      screen.getAllByText("Login").length
+    ).toBeGreaterThanOrEqual(1);
+  });
+
+  test("The Google button should call startGoogleSignIn", () => {
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <LoginPage />
+        </MemoryRouter>
+      </Provider>
+    );
+
+    // screen.debug()
+    // console.log(store.getState());
+
+    const googleBtn = screen.getByLabelText("google-btn");
+    fireEvent.click(googleBtn);
+
+    // screen.debug();
+
+    // console.log(store.getState());
+
+    expect(mockStartGoogleSignIn).toHaveBeenCalled();
+    // expect(mockStartGoogleSignIn).toHaveBeenCalledWith();
+  });
+
+  test("Submit must call startLoginWithEmailPassword.", () => {
+    const email = "diego.more@gmail.com";
+    const password = "123456";
+
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <LoginPage />
+        </MemoryRouter>
+      </Provider>
+    );
+
+    const emailField = screen.getByRole("textbox", {
+      name: "Email",
+    });
+
+    // console.log(emailField);
+
+    // screen.debug();
+
+    fireEvent.change(emailField, {
+      target: { name: "email", value: email },
+    });
+
+    /* It didn't work for me. 
+    const passwordField = screen.getByTestId("password");
+    fireEvent.change(passwordField, {
+      target: { name: "password", value: password },
+    });
+
+    const loginForm = screen.getByLabelText("submit-form");
+    fireEvent.submit(loginForm); */
+
+    const passwordWrapper = screen.getByTestId("password");
+    const passwordInput =
+      passwordWrapper.querySelector("input");
+    fireEvent.change(passwordInput, {
+      target: { name: "password", value: password },
+    });
+
+    const passwordField = screen.getByLabelText("Password");
+    fireEvent.change(passwordField, {
+      target: { name: "password", value: password },
+    });
+  });
+});
+```
+
+### 21.23
+
+
+`tests/`
+
+```jsx
+```
 
 `tests/`
 
@@ -27596,24 +27889,6 @@ describe("Testing on LoginPage", () => {
 👈👀👇
 👈👀☝️
 👈👀
-
-### 21.23
-
-
-`tests/`
-
-```jsx
-```
-
-`tests/`
-
-```jsx
-```
-
-`tests/`
-
-```jsx
-```
 
 
 ### 21.24
