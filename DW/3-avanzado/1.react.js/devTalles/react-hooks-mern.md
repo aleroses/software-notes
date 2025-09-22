@@ -28011,7 +28011,118 @@ Aquí les dejo el código fuente de la sección por si lo llegan a necesitar:
 
 ---
 
-## 🟣 22
+## 🟣 22. MERN Calendar - Estructura y Diseño
+
+### 22.1 Introducción a la sección
+
+### 22.2 Temas puntuales de la sección
+
+**¿Qué veremos en esta sección?**
+
+- Estructura y diseño de nuestra aplicación de Calendario
+- Uso de componentes de terceros
+- Modals
+- Configuración de Redux
+- CRUD local
+- Preparación de pantallas para futuras secciones
+- Uso de MomentJS
+- Manejo de fechas
+
+Esta sección es el inicio de nuestro MERN, (Mongo Express React Node), luego crearemos nuestro backend y después regresaremos a esta app para conectarla y desplegarla en producción
+
+### 22.3 Demostración del objetivo final de la sección
+
+### 22.4 Inicio de proyecto - MERN-Calendar
+
+```bash
+npm create vite@latest
+Ok to proceed? (y) y
+Project name: 10-calendar
+Select a framework: React
+Select a variant: JavaScript
+```
+
+```bash
+cd 10-calendar
+npm i
+npm run dev
+```
+
+Estructura:
+
+```bash
+.
+├── eslint.config.js
+├── index.html
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+├── README.md
+├── src
+│   ├── CalendarApp.jsx
+│   ├── main.jsx
+│   └── styles.css
+└── vite.config.js
+```
+
+```bash
+# React Router
+npm i react-router
+```
+
+`index.html`
+
+```html
+# https://getbootstrap.com/
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>CalendarApp</title>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+```
+
+`src/main.jsx`
+
+```jsx
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { CalendarApp } from "./CalendarApp.jsx";
+
+import "./styles.css";
+
+createRoot(document.getElementById("root")).render(
+  <StrictMode>
+    <CalendarApp />
+  </StrictMode>
+);
+```
+
+`src/CalendarApp.jsx`
+
+```jsx
+export const CalendarApp = () => {
+  return <div>CalendarApp</div>;
+};
+```
+
+### 22.5 
 
 
 `src/`
@@ -28030,26 +28141,7 @@ Aquí les dejo el código fuente de la sección por si lo llegan a necesitar:
 ```jsx
 ```
 
-### 22.1
-
-
-`src/`
-
-```jsx
-```
-
-
-`src/`
-
-```jsx
-```
-
-`src/`
-
-```jsx
-```
-
-### 22.2
+### 22.6
 
 👈👀👇
 👈👀☝️
@@ -28060,6 +28152,318 @@ Aquí les dejo el código fuente de la sección por si lo llegan a necesitar:
 ```jsx
 ```
 
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+### 22.7
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+### 22.8
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+
+### 22.9
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+
+### 22.10
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+### 22.11
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+### 22.12
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+### 22.13
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+### 22.14
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+
+### 22.15
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+
+### 22.16
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+
+### 22.17
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+
+### 22.18
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+### 22.19
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+### 22.20
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+### 22.21
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+### 22.22
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+### 22.23
 
 `src/`
 
@@ -28089,6 +28493,24 @@ Aquí les dejo el código fuente de la sección por si lo llegan a necesitar:
 🔘
 🟣
 🟡
+
+### 22.24
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
 
 ```bash
 npm install react@latest react-dom@latest
