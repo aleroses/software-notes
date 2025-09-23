@@ -28318,7 +28318,6 @@ export const CalendarPage = () => {
 };
 ```
 
-
 `src/calendar/components/Navbar.jsx`
 
 ```jsx
@@ -28481,27 +28480,76 @@ export const LoginPage = () => {
 - [CSS LoginScreen.js]
 - [CDN font-awesome](https://cdnjs.com/libraries/font-awesome)
 
-### 22.7
+### 22.7 React Big Calendar
 
-`src/`
-
-```jsx
+```bash
+# Install
+npm i react-big-calendar
+npm i date-fns@2.29.0
 ```
 
-`src/`
+`src/calendar/pages/CalendarPage.jsx`
 
 ```jsx
+import {
+  Calendar,
+  dateFnsLocalizer,
+} from "react-big-calendar";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import {
+  addHours,
+  format,
+  parse,
+  startOfWeek,
+  getDay,
+} from "date-fns";
+import enUS from "date-fns/locale/en-US";
+import { Navbar } from "../components/Navbar";
+
+const locales = {
+  "en-US": enUS,
+};
+
+const localizer = dateFnsLocalizer({
+  format,
+  parse,
+  startOfWeek,
+  getDay,
+  locales,
+});
+
+const events = [
+  {
+    title: "The boss's birthday.",
+    notes: "Buy cake",
+    start: new Date(),
+    end: addHours(new Date(), 2),
+    bgColor: "#fafafa",
+    user: {
+      _id: "123",
+      name: "Ale",
+    },
+  },
+];
+
+export const CalendarPage = () => {
+  return (
+    <>
+      <Navbar />
+      <Calendar
+        localizer={localizer}
+        events={events}
+        startAccessor="start"
+        endAccessor="end"
+        style={{ height: "calc(100vh - 80px)" }}
+      />
+    </>
+  );
+};
 ```
 
-
-`src/`
-
-```jsx
-```
-
-👈👀👇
-👈👀☝️
-👈👀
+- [React Big Calendar](https://www.npmjs.com/package/react-big-calendar)
+- [date-fns](https://www.npmjs.com/package/date-fns/v/2.29.0)
 
 ### 22.8
 
@@ -28540,7 +28588,9 @@ export const LoginPage = () => {
 ```jsx
 ```
 
-
+👈👀👇
+👈👀☝️
+👈👀
 ### 22.10
 
 `src/`
