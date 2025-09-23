@@ -28586,7 +28586,7 @@ Estructura:
 └── vite.config.js
 ```
 
-Por algún motivo los botones de `Month` `Week` `Day` y `Agenda` no funcionan con el `StrictMode` de React, así que por esta vez no deberías usarlos.
+Por algún motivo, los botones de `Month` `Week` `Day` y `Agenda` no funcionan con el `StrictMode` de React, así que por esta vez no deberías usarlos.
 
 `src/main.jsx`
 
@@ -28710,27 +28710,123 @@ export const localizer = dateFnsLocalizer({
 
 [Calendar-messages-es.js](https://gist.github.com/Klerith/1658fc368898dd673fc5a9a01ccb12ff)
 
-### 22.9
+### 22.9 Personalizar el cuadro de evento
 
-`src/`
+Estructura:
 
-```jsx
+```bash
+.
+├── eslint.config.js
+├── index.html
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+├── README.md
+├── src
+│   ├── auth
+│   │   └── pages
+│   │       ├── LoginPage.css
+│   │       └── LoginPage.jsx
+│   ├── calendar
+│   │   ├── components
+│   │   │   ├── CalendarEvent.jsx 👈👀
+│   │   │   └── Navbar.jsx
+│   │   └── pages
+│   │       └── CalendarPage.jsx
+│   ├── CalendarApp.jsx
+│   ├── helpers
+│   │   ├── calendarLocalizer.js
+│   │   └── getMessages.js
+│   ├── main.jsx
+│   ├── router
+│   │   └── AppRouter.jsx
+│   └── styles.css
+└── vite.config.js
 ```
 
-`src/`
+`src/calendar/components/CalendarEvent.jsx`
 
 ```jsx
+export const CalendarEvent = ({ event }) => {
+  const { title, user } = event;
+
+  return (
+    <>
+      <strong>{title}</strong>
+      <span> - {user.name}</span>
+    </>
+  );
+};
 ```
 
-
-`src/`
+`src/calendar/pages/CalendarPage.jsx`
 
 ```jsx
+import { Calendar } from "react-big-calendar";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import { addHours } from "date-fns";
+import { Navbar } from "../components/Navbar";
+import { localizer } from "../../helpers/calendarLocalizer";
+import { getMessagesES } from "../../helpers/getMessages";
+import { CalendarEvent } from "../components/CalendarEvent";
+
+const events = [
+  {
+    title: "The boss's birthday.",
+    notes: "Buy cake",
+    start: new Date(),
+    end: addHours(new Date(), 2),
+    bgColor: "#fafafa",
+    user: {
+      _id: "123",
+      name: "Ale",
+    },
+  },
+];
+
+export const CalendarPage = () => {
+  const eventStyleGetter = (
+    event,
+    start,
+    end,
+    isSelected
+  ) => {
+    // console.log({ event, start, end, isSelected });
+
+    const style = {
+      backgroundColor: "#347CF7",
+      borderRadius: "0px",
+      opacity: "white",
+    };
+
+    return {
+      style,
+    };
+  };
+
+  return (
+    <>
+      <Navbar />
+      <Calendar
+        culture="es"
+        localizer={localizer}
+        events={events}
+        startAccessor="start"
+        endAccessor="end"
+        style={{ height: "calc(100vh - 80px)" }}
+        messages={getMessagesES()}
+        eventPropGetter={eventStyleGetter}
+        components={{
+          event: CalendarEvent,
+        }}
+      />
+    </>
+  );
+};
 ```
 
-👈👀👇
-👈👀☝️
-👈👀
 ### 22.10
 
 `src/`
@@ -28748,6 +28844,15 @@ export const localizer = dateFnsLocalizer({
 
 ```jsx
 ```
+
+`src/`
+
+```jsx
+```
+
+👈👀👇
+👈👀☝️
+👈👀
 
 ### 22.11
 
