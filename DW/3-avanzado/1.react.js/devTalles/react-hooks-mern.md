@@ -28122,23 +28122,91 @@ export const CalendarApp = () => {
 };
 ```
 
-### 22.5 
+### 22.5 Rutas de la aplicación
 
+Estructura:
 
-`src/`
-
-```jsx
+```bash
+.
+├── eslint.config.js
+├── index.html
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+├── README.md
+├── src
+│   ├── auth
+│   │   └── pages
+│   │       └── LoginPage.jsx
+│   ├── calendar
+│   │   └── pages
+│   │       └── CalendarPage.jsx
+│   ├── CalendarApp.jsx
+│   ├── main.jsx
+│   ├── router
+│   │   └── AppRouter.jsx
+│   └── styles.css
+└── vite.config.js
 ```
 
-
-`src/`
+`src/auth/pages/LoginPage.jsx`
 
 ```jsx
+export const LoginPage = () => {
+  return <div>LoginPage</div>;
+};
 ```
 
-`src/`
+`src/calendar/pages/CalendarPage.jsx`
 
 ```jsx
+export const CalendarPage = () => {
+  return <div>CalendarPage</div>;
+};
+```
+
+`src/router/AppRouter.jsx`
+
+```jsx
+import { Navigate, Route, Routes } from "react-router";
+import { LoginPage } from "../auth/pages/LoginPage";
+import { CalendarPage } from "../calendar/pages/CalendarPage";
+
+export const AppRouter = () => {
+  const authStatus = "not-authenticated";
+
+  return (
+    <Routes>
+      {authStatus === "not-authenticated" ? (
+        <Route path="/auth/*" element={<LoginPage />} />
+      ) : (
+        <Route path="/*" element={<CalendarPage />} />
+      )}
+
+      <Route
+        path="/*"
+        element={<Navigate to="/auth/login" />}
+      />
+    </Routes>
+  );
+};
+```
+
+`src/CalendarApp.jsx`
+
+```jsx
+import { BrowserRouter } from "react-router";
+import { AppRouter } from "./router/AppRouter";
+
+export const CalendarApp = () => {
+  return (
+    <BrowserRouter>
+      <AppRouter />
+    </BrowserRouter>
+  );
+};
 ```
 
 ### 22.6
