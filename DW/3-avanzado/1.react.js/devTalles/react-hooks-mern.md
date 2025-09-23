@@ -28085,11 +28085,12 @@ npm i react-router
       content="width=device-width, initial-scale=1.0"
     />
     <title>CalendarApp</title>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
       crossorigin="anonymous"
-    ></script>
+    />
   </head>
   <body>
     <div id="root"></div>
@@ -28209,33 +28210,276 @@ export const CalendarApp = () => {
 };
 ```
 
-### 22.6
+### 22.6 LoginScreen y Navbar
 
-👈👀👇
-👈👀☝️
-👈👀
+Estructura:
 
-`src/`
+```bash
+.
+├── eslint.config.js
+├── index.html
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+├── README.md
+├── src
+│   ├── auth
+│   │   └── pages
+│   │       ├── LoginPage.css
+│   │       └── LoginPage.jsx
+│   ├── calendar
+│   │   ├── components 👈👀
+│   │   │   └── Navbar.jsx
+│   │   └── pages
+│   │       └── CalendarPage.jsx
+│   ├── CalendarApp.jsx
+│   ├── main.jsx
+│   ├── router
+│   │   └── AppRouter.jsx
+│   └── styles.css
+└── vite.config.js
+```
+
+`index.html`
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>CalendarApp</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+```
+
+`src/router/AppRouter.jsx`
 
 ```jsx
+import { Navigate, Route, Routes } from "react-router";
+import { LoginPage } from "../auth/pages/LoginPage";
+import { CalendarPage } from "../calendar/pages/CalendarPage";
+
+export const AppRouter = () => {
+  const authStatus = "authenticated"; 👈👀
+
+  return (
+    <Routes>
+      {authStatus === "not-authenticated" ? (
+        <Route path="/auth/*" element={<LoginPage />} />
+      ) : (
+        <Route path="/*" element={<CalendarPage />} />
+      )}
+
+      <Route
+        path="/*"
+        element={<Navigate to="/auth/login" />}
+      />
+    </Routes>
+  );
+};
+```
+
+`src/calendar/pages/CalendarPage.jsx`
+
+```jsx
+import { Navbar } from "../components/Navbar";
+
+export const CalendarPage = () => {
+  return (
+    <>
+      <Navbar />
+    </>
+  );
+};
 ```
 
 
-`src/`
+`src/calendar/components/Navbar.jsx`
 
 ```jsx
+export const Navbar = () => {
+  return (
+    <div className="navbar navbar-dark bg-dark mb-4 px-4">
+      <span className="navbar-brand">
+        <i className="fas fa-calendar-alt"></i> Ale Roses
+      </span>
+      <button className="btn btn-outline-danger">
+        <i className="fas fa-sign-out-alt"></i>
+        <span>Exit</span>
+      </button>
+    </div>
+  );
+};
 ```
 
-`src/`
+`src/auth/pages/LoginPage.jsx`
 
 ```jsx
+import "./LoginPage.css";
+
+export const LoginPage = () => {
+  return (
+    <div className="container login-container">
+      <div className="row">
+        <div className="col-md-6 login-form-1">
+          <h3>Ingreso</h3>
+          <form>
+            <div className="form-group mb-2">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Correo"
+              />
+            </div>
+            <div className="form-group mb-2">
+              <input
+                type="password"
+                className="form-control"
+                placeholder="Contraseña"
+              />
+            </div>
+            <div className="form-group mb-2">
+              <input
+                type="submit"
+                className="btnSubmit"
+                value="Login"
+              />
+            </div>
+          </form>
+        </div>
+
+        <div className="col-md-6 login-form-2">
+          <h3>Registro</h3>
+          <form>
+            <div className="form-group mb-2">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Nombre"
+              />
+            </div>
+            <div className="form-group mb-2">
+              <input
+                type="email"
+                className="form-control"
+                placeholder="Correo"
+              />
+            </div>
+            <div className="form-group mb-2">
+              <input
+                type="password"
+                className="form-control"
+                placeholder="Contraseña"
+              />
+            </div>
+
+            <div className="form-group mb-2">
+              <input
+                type="password"
+                className="form-control"
+                placeholder="Repita la contraseña"
+              />
+            </div>
+
+            <div className="form-group mb-2">
+              <input
+                type="submit"
+                className="btnSubmit"
+                value="Crear cuenta"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
 ```
 
+`src/auth/pages/LoginPage.css`
 
-`src/`
-
-```jsx
+```css
+.login-container {
+  margin-top: 15%;
+}
+.login-form-1 {
+  border-radius: 5px;
+  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2),
+    0 9px 26px 0 rgba(0, 0, 0, 0.19);
+  padding: 5%;
+}
+.login-form-1 h3 {
+  text-align: center;
+  color: #333;
+}
+.login-form-2 {
+  border-radius: 5px;
+  box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2),
+    0 9px 26px 0 rgba(0, 0, 0, 0.19);
+  padding: 5%;
+  background: #0062cc;
+}
+.login-form-2 h3 {
+  text-align: center;
+  color: #fff;
+}
+.login-container form {
+  padding: 10%;
+}
+.btnSubmit {
+  width: 50%;
+  border-radius: 1rem;
+  padding: 1.5%;
+  border: none;
+  cursor: pointer;
+}
+.login-form-1 .btnSubmit {
+  color: #fff;
+  background-color: #0062cc;
+}
+.login-form-2 .btnSubmit {
+  background-color: #fff;
+  color: #0062cc;
+}
+.login-form-2 .ForgetPwd {
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+}
+.login-form-1 .ForgetPwd {
+  color: #0062cc;
+  font-weight: 600;
+  text-decoration: none;
+}
 ```
+
+- [CSS LoginScreen.js]
+- [CDN font-awesome](https://cdnjs.com/libraries/font-awesome)
 
 ### 22.7
 
@@ -28254,6 +28498,10 @@ export const CalendarApp = () => {
 
 ```jsx
 ```
+
+👈👀👇
+👈👀☝️
+👈👀
 
 ### 22.8
 
