@@ -28551,24 +28551,164 @@ export const CalendarPage = () => {
 - [React Big Calendar](https://www.npmjs.com/package/react-big-calendar)
 - [date-fns](https://www.npmjs.com/package/date-fns/v/2.29.0)
 
-### 22.8
+### 22.8 Configuraciones adicionales al calendario
 
-`src/`
+Estructura:
 
-```jsx
+```bash
+.
+├── eslint.config.js
+├── index.html
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+├── README.md
+├── src
+│   ├── auth
+│   │   └── pages
+│   │       ├── LoginPage.css
+│   │       └── LoginPage.jsx
+│   ├── calendar
+│   │   ├── components
+│   │   │   └── Navbar.jsx
+│   │   └── pages
+│   │       └── CalendarPage.jsx
+│   ├── CalendarApp.jsx
+│   ├── helpers 👈👀👇
+│   │   ├── calendarLocalizer.js
+│   │   └── getMessages.js
+│   ├── main.jsx
+│   ├── router
+│   │   └── AppRouter.jsx
+│   └── styles.css
+└── vite.config.js
 ```
 
-`src/`
+Por algún motivo los botones de `Month` `Week` `Day` y `Agenda` no funcionan con el `StrictMode` de React, así que por esta vez no deberías usarlos.
+
+`src/main.jsx`
 
 ```jsx
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { CalendarApp } from "./CalendarApp.jsx";
+
+import "./styles.css";
+
+createRoot(document.getElementById("root")).render(
+  // <StrictMode>
+  <CalendarApp />
+  // </StrictMode>
+);
 ```
 
+`src/helpers/getMessages.js`
 
-`src/`
+```js
+export const getMessagesES = () => {
+  return {
+    allDay: "Todo el día",
+    previous: "<",
+    next: ">",
+    today: "Hoy",
+    month: "Mes",
+    week: "Semana",
+    day: "Día",
+    agenda: "Agenda",
+    date: "Fecha",
+    time: "Hora",
+    event: "Evento",
+    noEventsInRange: "No hay eventos en este rango",
+    showMore: (total) => `+ Ver más (${total})`,
+  };
+};
+```
+
+`src/calendar/pages/CalendarPage.jsx`
 
 ```jsx
+import { Calendar } from "react-big-calendar";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import { addHours } from "date-fns";
+import { Navbar } from "../components/Navbar";
+import { localizer } from "../../helpers/calendarLocalizer";
+import { getMessagesES } from "../../helpers/getMessages";
+
+const events = [
+  {
+    title: "The boss's birthday.",
+    notes: "Buy cake",
+    start: new Date(),
+    end: addHours(new Date(), 2),
+    bgColor: "#fafafa",
+    user: {
+      _id: "123",
+      name: "Ale",
+    },
+  },
+];
+
+export const CalendarPage = () => {
+  const eventStyleGetter = (
+    event,
+    start,
+    end,
+    isSelected
+  ) => {
+    console.log({ event, start, end, isSelected });
+
+    const style = {
+      backgroundColor: "#347CF7",
+      borderRadius: "0px",
+      opacity: "white",
+    };
+
+    return {
+      style,
+    };
+  };
+
+  return (
+    <>
+      <Navbar />
+      <Calendar
+        culture="es"
+        localizer={localizer}
+        events={events}
+        startAccessor="start"
+        endAccessor="end"
+        style={{ height: "calc(100vh - 80px)" }}
+        messages={getMessagesES()}
+        eventPropGetter={eventStyleGetter}
+      />
+    </>
+  );
+};
 ```
 
+`src/helpers/calendarLocalizer.js`
+
+```js
+import { dateFnsLocalizer } from "react-big-calendar";
+import { format, parse, startOfWeek, getDay } from "date-fns";
+import esES from "date-fns/locale/es";
+
+const locales = {
+  es: esES,
+};
+
+export const localizer = dateFnsLocalizer({
+  format,
+  parse,
+  startOfWeek,
+  getDay,
+  locales,
+});
+```
+
+[Calendar-messages-es.js](https://gist.github.com/Klerith/1658fc368898dd673fc5a9a01ccb12ff)
 
 ### 22.9
 
