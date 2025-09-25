@@ -29923,7 +29923,7 @@ export const CalendarApp = () => {
 };
 ```
 
-`Redux/State/Tree` ui `isDateModalOpen: false`
+Revisa en consola: `Redux/State/Tree` ui `isDateModalOpen: false`
 
 - [Redux Toolkit](https://redux-toolkit.js.org/)
 - [React Redux](https://react-redux.js.org/)
