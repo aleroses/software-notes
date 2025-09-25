@@ -29819,28 +29819,116 @@ export const CalendarModal = () => {
 
 [Sweetalert2](https://sweetalert2.github.io/)
 
-### 22.16
+### 22.16 Instalación y configuración de Redux
 
-`src/`
-
-```jsx
+```bash
+# Install
+npm install @reduxjs/toolkit
+npm install react-redux
 ```
 
-`src/`
+Estructura:
 
-```jsx
+```bash
+.
+├── eslint.config.js
+├── index.html
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+├── README.md
+├── src
+│   ├── auth
+│   │   └── pages
+│   │       ├── LoginPage.css
+│   │       └── LoginPage.jsx
+│   ├── calendar
+│   │   ├── components
+│   │   │   ├── CalendarEvent.jsx
+│   │   │   ├── CalendarModal.jsx
+│   │   │   └── Navbar.jsx
+│   │   └── pages
+│   │       └── CalendarPage.jsx
+│   ├── CalendarApp.jsx
+│   ├── helpers
+│   │   ├── calendarLocalizer.js
+│   │   └── getMessages.js
+│   ├── main.jsx
+│   ├── router
+│   │   └── AppRouter.jsx
+│   ├── store 👈👀👇
+│   │   ├── calendar
+│   │   ├── store.js
+│   │   └── ui
+│   │       └── uiSlice.js
+│   └── styles.css
+└── vite.config.js
 ```
 
+`src/store/ui/uiSlice.js`
 
-`src/`
+```js
+import { createSlice } from "@reduxjs/toolkit";
 
-```jsx
+export const uiSlice = createSlice({
+  name: "ui",
+  initialState: {
+    isDateModalOpen: false,
+  },
+  reducers: {
+    onOpenDateModal: (state) => {
+      state.isDateModalOpen = true;
+    },
+    onCloseDateModal: (state) => {
+      state.isDateModalOpen = false;
+    },
+  },
+});
+
+export const { onOpenDateModal, onCloseDateModal } =
+  uiSlice.actions;
 ```
 
+`src/store/store.js`
 
-👈👀👇
-👈👀☝️
-👈👀
+```js
+import { configureStore } from "@reduxjs/toolkit";
+import { uiSlice } from "./ui/uiSlice";
+
+export const store = configureStore({
+  reducer: {
+    ui: uiSlice.reducer,
+  },
+});
+```
+
+`src/CalendarApp.jsx`
+
+```jsx
+import { BrowserRouter } from "react-router";
+import { AppRouter } from "./router/AppRouter";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
+
+export const CalendarApp = () => {
+  return (
+    <Provider store={store}>
+      <BrowserRouter>
+        <AppRouter />
+      </BrowserRouter>
+    </Provider>
+  );
+};
+```
+
+`Redux/State/Tree` ui `isDateModalOpen: false`
+
+- [Redux Toolkit](https://redux-toolkit.js.org/)
+- [React Redux](https://react-redux.js.org/)
+- [Redux-thunk](https://www.npmjs.com/package/redux-thunk)
+- [Redux](https://es.redux.js.org/)
 
 ### 22.17
 
@@ -29860,6 +29948,9 @@ export const CalendarModal = () => {
 ```jsx
 ```
 
+👈👀👇
+👈👀☝️
+👈👀
 
 ### 22.18
 
