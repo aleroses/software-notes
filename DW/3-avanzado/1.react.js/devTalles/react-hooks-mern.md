@@ -29930,7 +29930,399 @@ Revisa en consola: `Redux/State/Tree` ui `isDateModalOpen: false`
 - [Redux-thunk](https://www.npmjs.com/package/redux-thunk)
 - [Redux](https://es.redux.js.org/)
 
-### 22.17
+### 22.17 Mostrar y ocultar modal en base al Store
+
+Estructura:
+
+```bash
+.
+├── eslint.config.js
+├── index.html
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+├── README.md
+├── src
+│   ├── auth
+│   │   └── pages
+│   │       ├── LoginPage.css
+│   │       └── LoginPage.jsx
+│   ├── calendar
+│   │   ├── components
+│   │   │   ├── CalendarEvent.jsx
+│   │   │   ├── CalendarModal.jsx
+│   │   │   └── Navbar.jsx
+│   │   └── pages
+│   │       └── CalendarPage.jsx
+│   ├── CalendarApp.jsx
+│   ├── helpers
+│   │   ├── calendarLocalizer.js
+│   │   └── getMessages.js
+│   ├── hooks 👈👀👇
+│   │   └── useUiStore.js
+│   ├── main.jsx
+│   ├── router
+│   │   └── AppRouter.jsx
+│   ├── store
+│   │   ├── calendar
+│   │   ├── store.js
+│   │   └── ui
+│   │       └── uiSlice.js
+│   └── styles.css
+└── vite.config.js
+```
+
+`src/hooks/useUiStore.js`
+
+```js
+import { useDispatch, useSelector } from "react-redux";
+import {
+  onCloseDateModal,
+  onOpenDateModal,
+} from "../store/ui/uiSlice";
+
+export const useUiStore = () => {
+  const dispatch = useDispatch();
+
+  const { isDateModalOpen } = useSelector(
+    (state) => state.ui
+  );
+
+  const openDateModal = () => {
+    dispatch(onOpenDateModal());
+  };
+
+  const closeDateModal = () => {
+    dispatch(onCloseDateModal());
+  };
+
+  // const toggleDateModal = () => {
+  //   isDateModalOpen ? openDateModal() : closeDateModal();
+  // };
+
+  return {
+    // Properties
+    isDateModalOpen,
+
+    // Methods
+    closeDateModal,
+    openDateModal,
+    // toggleDateModal,
+  };
+};
+```
+
+`src/calendar/components/CalendarModal.jsx`
+
+```jsx
+import { useMemo, useState } from "react";
+import { addHours, differenceInSeconds } from "date-fns";
+
+import Swal from "sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
+
+import Modal from "react-modal";
+import DatePicker, { registerLocale } from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import es from "date-fns/locale/es";
+import { useUiStore } from "../../hooks/useUiStore";
+
+registerLocale("es", es);
+
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
+
+Modal.setAppElement("#root");
+
+export const CalendarModal = () => {
+  const { isDateModalOpen, closeDateModal } = useUiStore();
+
+  const [isOpen, setIsOpen] = useState(true);
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
+  const [formValues, setFormValues] = useState({
+    title: "Ale",
+    notes: "Ghost",
+    start: new Date(),
+    end: addHours(new Date(), 2),
+  });
+
+  const titleClass = useMemo(() => {
+    if (!formSubmitted) return "";
+
+    return formValues.title.length > 0 ? "" : "is-invalid";
+  }, [formValues.title, formSubmitted]);
+
+  const onInputChanged = ({ target }) => {
+    setFormValues({
+      ...formValues,
+      [target.name]: target.value,
+    });
+  };
+
+  const onDateChanged = (event, changing = "") => {
+    setFormValues({
+      ...formValues,
+      [changing]: event,
+    });
+  };
+
+  const onCloseModal = () => {
+    closeDateModal();
+  };
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    setFormSubmitted(true);
+
+    const difference = differenceInSeconds(
+      formValues.end,
+      formValues.start
+    );
+
+    if (isNaN(difference) || difference <= 0) {
+      Swal.fire(
+        "Incorrect dates",
+        "Review the dates entered",
+        "error"
+      );
+      return;
+    }
+
+    if (formValues.title.length <= 0) return;
+
+    console.log(formValues);
+
+    // TODO:
+    // Close modal
+    // Remove errors on screen
+  };
+
+  return (
+    <Modal
+      isOpen={isDateModalOpen}
+      onRequestClose={onCloseModal}
+      style={customStyles}
+      contentLabel="Example Modal"
+      className="modal"
+      overlayClassName="modal-fondo"
+      closeTimeoutMS={200}
+    >
+      <h1> Nuevo evento </h1>
+      <hr />
+      <form className="container" onSubmit={onSubmit}>
+        <div className="form-group mb-2">
+          <label>Fecha y hora inicio</label>
+          <DatePicker
+            selected={formValues.start}
+            onChange={(event) =>
+              onDateChanged(event, "start")
+            }
+            className="form-control"
+            dateFormat="Pp"
+            showTimeSelect
+            locale="es"
+            timeCaption="Hora"
+          />
+        </div>
+
+        <div className="form-group mb-2">
+          <label>Fecha y hora fin</label>
+          <DatePicker
+            minDate={formValues.start}
+            selected={formValues.end}
+            onChange={(event) => onDateChanged(event, "end")}
+            className="form-control"
+            dateFormat="Pp"
+            showTimeSelect
+            locale="es"
+            timeCaption="Hora"
+          />
+        </div>
+
+        <hr />
+        <div className="form-group mb-2">
+          <label>Titulo y notas</label>
+          <input
+            type="text"
+            className={`form-control ${titleClass}`}
+            placeholder="Título del evento"
+            name="title"
+            autoComplete="off"
+            value={formValues.title}
+            onChange={onInputChanged}
+          />
+          <small
+            id="emailHelp"
+            className="form-text text-muted"
+          >
+            Una descripción corta
+          </small>
+        </div>
+
+        <div className="form-group mb-2">
+          <textarea
+            type="text"
+            className="form-control"
+            placeholder="Notas"
+            rows="5"
+            name="notes"
+            value={formValues.notes}
+            onChange={onInputChanged}
+          ></textarea>
+          <small
+            id="emailHelp"
+            className="form-text text-muted"
+          >
+            Información adicional
+          </small>
+        </div>
+
+        <button
+          type="submit"
+          className="btn btn-outline-primary btn-block"
+        >
+          <i className="far fa-save"></i>
+          <span> Guardar</span>
+        </button>
+      </form>
+    </Modal>
+  );
+};
+```
+
+`src/store/ui/uiSlice.js`
+
+```js
+import { createSlice } from "@reduxjs/toolkit";
+
+export const uiSlice = createSlice({
+  name: "ui",
+  initialState: {
+    isDateModalOpen: false,
+  },
+  reducers: {
+    onOpenDateModal: (state) => {
+      state.isDateModalOpen = true;
+    },
+    onCloseDateModal: (state) => {
+      state.isDateModalOpen = false;
+    },
+  },
+});
+
+export const { onOpenDateModal, onCloseDateModal } =
+  uiSlice.actions;
+```
+
+`src/calendar/pages/CalendarPage.jsx`
+
+```jsx
+import { useState } from "react";
+import { Calendar } from "react-big-calendar";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import { addHours } from "date-fns";
+import { Navbar } from "../components/Navbar";
+import { localizer } from "../../helpers/calendarLocalizer";
+import { getMessagesES } from "../../helpers/getMessages";
+import { CalendarEvent } from "../components/CalendarEvent";
+import { CalendarModal } from "../components/CalendarModal";
+import { useUiStore } from "../../hooks/useUiStore";
+
+const events = [
+  {
+    title: "The boss's birthday.",
+    notes: "Buy cake",
+    start: new Date(),
+    end: addHours(new Date(), 2),
+    bgColor: "#fafafa",
+    user: {
+      _id: "123",
+      name: "Ale",
+    },
+  },
+];
+
+export const CalendarPage = () => {
+  const { openDateModal } = useUiStore();
+
+  const [lastView, setLastView] = useState(
+    localStorage.getItem("lastView") || "week"
+  );
+
+  const eventStyleGetter = (
+    event,
+    start,
+    end,
+    isSelected
+  ) => {
+    // console.log({ event, start, end, isSelected });
+
+    const style = {
+      backgroundColor: "#347CF7",
+      borderRadius: "0px",
+      opacity: "white",
+    };
+
+    return {
+      style,
+    };
+  };
+
+  const onDoubleClick = (event) => {
+    console.log({ doubleClick: event });
+
+    openDateModal();
+  };
+
+  const onSelect = (event) => {
+    console.log({ click: event });
+  };
+
+  const onViewChanged = (event) => {
+    // console.log({ viewChanged: event });
+    localStorage.setItem("lastView", event);
+
+    setLastView(event);
+  };
+
+  return (
+    <>
+      <Navbar />
+      <Calendar
+        culture="es"
+        localizer={localizer}
+        events={events}
+        defaultView={lastView}
+        startAccessor="start"
+        endAccessor="end"
+        style={{ height: "calc(100vh - 80px)" }}
+        messages={getMessagesES()}
+        eventPropGetter={eventStyleGetter}
+        components={{
+          event: CalendarEvent,
+        }}
+        onDoubleClickEvent={onDoubleClick}
+        onSelectEvent={onSelect}
+        onView={onViewChanged}
+      />
+      <CalendarModal />
+    </>
+  );
+};
+```
+
+### 22.18 
 
 `src/`
 
@@ -29951,24 +30343,6 @@ Revisa en consola: `Redux/State/Tree` ui `isDateModalOpen: false`
 👈👀👇
 👈👀☝️
 👈👀
-
-### 22.18
-
-`src/`
-
-```jsx
-```
-
-`src/`
-
-```jsx
-```
-
-
-`src/`
-
-```jsx
-```
 
 ### 22.19
 
