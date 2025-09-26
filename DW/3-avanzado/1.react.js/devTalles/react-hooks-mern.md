@@ -30322,7 +30322,238 @@ export const CalendarPage = () => {
 };
 ```
 
-### 22.18 
+### 22.18 CalendarSlice
+
+Estructura:
+
+```bash
+.
+├── eslint.config.js
+├── index.html
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+├── README.md
+├── src
+│   ├── auth
+│   │   └── pages
+│   │       ├── LoginPage.css
+│   │       └── LoginPage.jsx
+│   ├── calendar
+│   │   ├── components
+│   │   │   ├── CalendarEvent.jsx
+│   │   │   ├── CalendarModal.jsx
+│   │   │   └── Navbar.jsx
+│   │   └── pages
+│   │       └── CalendarPage.jsx
+│   ├── CalendarApp.jsx
+│   ├── helpers
+│   │   ├── calendarLocalizer.js
+│   │   └── getMessages.js
+│   ├── hooks 👈👀👇
+│   │   ├── useCalendarStore.js
+│   │   └── useUiStore.js
+│   ├── main.jsx
+│   ├── router
+│   │   └── AppRouter.jsx
+│   ├── store
+│   │   ├── calendar 👈👀👇
+│   │   │   └── calendarSlice.js
+│   │   ├── store.js
+│   │   └── ui
+│   │       └── uiSlice.js
+│   └── styles.css
+└── vite.config.js
+```
+
+`src/store/calendar/calendarSlice.js`
+
+```js
+import { createSlice } from "@reduxjs/toolkit";
+import { addHours } from "date-fns";
+
+const tempEvent = {
+  title: "The boss's birthday.",
+  notes: "Buy cake",
+  start: new Date(),
+  end: addHours(new Date(), 2),
+  bgColor: "#fafafa",
+  user: {
+    _id: "123",
+    name: "Ale",
+  },
+};
+
+export const calendarSlice = createSlice({
+  name: "calendar",
+  initialState: {
+    events: [tempEvent],
+    activeEvent: null,
+  },
+  reducers: {
+    increment: (state /* action */) => {
+      state.counter += 1;
+    },
+  },
+});
+
+export const { increment } = calendarSlice.actions;
+```
+
+`src/hooks/useCalendarStore.js`
+
+```js
+import { useSelector } from "react-redux";
+
+export const useCalendarStore = () => {
+  const { events, activeEvent } = useSelector(
+    (state) => state.calendar
+  );
+  return {
+    // Properties
+    events,
+    activeEvent,
+
+    // Methods
+  };
+};
+```
+
+`src/store/store.js`
+
+```js
+import { configureStore } from "@reduxjs/toolkit";
+import { uiSlice } from "./ui/uiSlice";
+import { calendarSlice } from "./calendar/calendarSlice";
+
+export const store = configureStore({
+  reducer: {
+    calendar: calendarSlice.reducer,
+    ui: uiSlice.reducer,
+  },
+});
+```
+
+`src/calendar/pages/CalendarPage.jsx`
+
+```jsx
+import { useState } from "react";
+import { Calendar } from "react-big-calendar";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import { addHours } from "date-fns";
+import { Navbar } from "../components/Navbar";
+import { localizer } from "../../helpers/calendarLocalizer";
+import { getMessagesES } from "../../helpers/getMessages";
+import { CalendarEvent } from "../components/CalendarEvent";
+import { CalendarModal } from "../components/CalendarModal";
+import { useUiStore } from "../../hooks/useUiStore";
+import { useCalendarStore } from "../../hooks/useCalendarStore";
+
+/* const events = [
+  {
+    title: "The boss's birthday.",
+    notes: "Buy cake",
+    start: new Date(),
+    end: addHours(new Date(), 2),
+    bgColor: "#fafafa",
+    user: {
+      _id: "123",
+      name: "Ale",
+    },
+  },
+]; */
+
+export const CalendarPage = () => {
+  const { openDateModal } = useUiStore();
+  const { events } = useCalendarStore();
+
+  const [lastView, setLastView] = useState(
+    localStorage.getItem("lastView") || "week"
+  );
+
+  const eventStyleGetter = (
+    event,
+    start,
+    end,
+    isSelected
+  ) => {
+    // console.log({ event, start, end, isSelected });
+
+    const style = {
+      backgroundColor: "#347CF7",
+      borderRadius: "0px",
+      opacity: "white",
+    };
+
+    return {
+      style,
+    };
+  };
+
+  const onDoubleClick = (event) => {
+    console.log({ doubleClick: event });
+
+    openDateModal();
+  };
+
+  const onSelect = (event) => {
+    console.log({ click: event });
+  };
+
+  const onViewChanged = (event) => {
+    // console.log({ viewChanged: event });
+    localStorage.setItem("lastView", event);
+
+    setLastView(event);
+  };
+
+  return (
+    <>
+      <Navbar />
+      <Calendar
+        culture="es"
+        localizer={localizer}
+        events={events}
+        defaultView={lastView}
+        startAccessor="start"
+        endAccessor="end"
+        style={{ height: "calc(100vh - 80px)" }}
+        messages={getMessagesES()}
+        eventPropGetter={eventStyleGetter}
+        components={{
+          event: CalendarEvent,
+        }}
+        onDoubleClickEvent={onDoubleClick}
+        onSelectEvent={onSelect}
+        onView={onViewChanged}
+      />
+      <CalendarModal />
+    </>
+  );
+};
+```
+
+`redux-slice`
+
+#### Valor no serializable en Redux Toolkit
+
+En esta clase aparece este error pero la aplicación funciona bien. En la siguiente clase se habla mas al respecto.
+
+```bash
+installHook.js:1 A non-serializable value was detected in the state, in the path: `calendar.events.0.start`. Value: Fri Sep 26 2025 14:37:20 GMT-0500 (Ecuador Time) 
+Take a look at the reducer(s) handling this action type: ui/onOpenDateModal.
+(See https://redux.js.org/faq/organizing-state#can-i-put-functions-promises-or-other-non-serializable-items-in-my-store-state)
+```
+
+- Redux recomienda que **todo el estado sea serializable** (números, strings, booleanos, arrays u objetos planos).
+    
+- Los objetos `Date` no son serializables de forma segura (al convertirlos en JSON se pierden métodos como `.getFullYear()`).
+    
+- Por eso aparece el warning cuando intentas guardar `event.start` o `event.end` como `Date`.
+
+### 22.19
 
 `src/`
 
@@ -30343,24 +30574,6 @@ export const CalendarPage = () => {
 👈👀👇
 👈👀☝️
 👈👀
-
-### 22.19
-
-`src/`
-
-```jsx
-```
-
-`src/`
-
-```jsx
-```
-
-
-`src/`
-
-```jsx
-```
 
 ### 22.20
 
