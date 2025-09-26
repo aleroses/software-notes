@@ -30553,6 +30553,8 @@ Take a look at the reducer(s) handling this action type: ui/onOpenDateModal.
     
 - Por eso aparece el warning cuando intentas guardar `event.start` o `event.end` como `Date`.
 
+Ver Redux - serializableCheck](https://cursos.devtalles.com/courses/take/react-cero-experto/lessons/36252620-redux-serializablecheck)
+
 ### 22.19 Cargar un evento en el modal
 
 `src/store/calendar/calendarSlice.js`
