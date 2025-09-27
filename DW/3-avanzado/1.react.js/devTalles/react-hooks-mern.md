@@ -31418,27 +31418,111 @@ export const CalendarModal = () => {
 
 Revisa: `Redux/calendar/events/1/`
 
-### 22.22
+### 22.22 Editar el evento activo
 
-`src/`
+`src/store/calendar/calendarSlice.js`
 
-```jsx
+```js
+import { createSlice } from "@reduxjs/toolkit";
+import { addHours } from "date-fns";
+
+const tempEvent = {
+  _id: new Date().getTime(),
+  title: "The boss's birthday.",
+  notes: "Buy cake",
+  start: new Date(),
+  end: addHours(new Date(), 2),
+  bgColor: "#fafafa",
+  user: {
+    _id: "123",
+    name: "Ale",
+  },
+};
+
+export const calendarSlice = createSlice({
+  name: "calendar",
+  initialState: {
+    events: [tempEvent],
+    activeEvent: null,
+  },
+  reducers: {
+    onSetActiveEvent: (state, { payload }) => {
+      state.activeEvent = payload;
+    },
+    onAddNewEvent: (state, { payload }) => {
+      state.events.push(payload);
+      state.activeEvent = null;
+    },
+    onUpdateEvent: (state, { payload }) => {
+      state.events = state.events.map((event) => {
+        if (event._id === payload._id) {
+          return payload;
+        }
+
+        return event;
+      });
+    },
+  },
+});
+
+export const {
+  onSetActiveEvent,
+  onAddNewEvent,
+  onUpdateEvent,
+} = calendarSlice.actions;
 ```
 
-`src/`
+`src/hooks/useCalendarStore.js`
 
-```jsx
+```js
+import { useDispatch, useSelector } from "react-redux";
+import {
+  onAddNewEvent,
+  onSetActiveEvent,
+  onUpdateEvent,
+} from "../store/calendar/calendarSlice";
+
+export const useCalendarStore = () => {
+  const dispatch = useDispatch();
+
+  const { events, activeEvent } = useSelector(
+    (state) => state.calendar
+  );
+
+  const setActiveEvent = (calendarEvent) => {
+    dispatch(onSetActiveEvent(calendarEvent));
+  };
+
+  const startSavingEvent = async (calendarEvent) => {
+    // TODO: Access the backend
+    // TODO: OK
+    if (calendarEvent._id) {
+      // Uppdating
+      dispatch(onUpdateEvent({ ...calendarEvent }));
+    } else {
+      // Creating
+      dispatch(
+        onAddNewEvent({
+          ...calendarEvent,
+          _id: new Date().getTime(),
+        })
+      );
+    }
+  };
+
+  return {
+    // Properties
+    events,
+    activeEvent,
+
+    // Methods
+    setActiveEvent,
+    startSavingEvent,
+  };
+};
 ```
 
-
-`src/`
-
-```jsx
-```
-
-👈👀👇
-👈👀☝️
-👈👀
+Revisa: `Redux/calendar/events/1/`
 
 ### 22.23
 
@@ -31458,6 +31542,14 @@ Revisa: `Redux/calendar/events/1/`
 ```jsx
 ```
 
+
+
+👈👀👇
+👈👀☝️
+👈👀
+
+
+
 ⚙️
 ☝️👆
 👈👀
@@ -31472,6 +31564,8 @@ Revisa: `Redux/calendar/events/1/`
 🟡
 
 ### 22.24
+
+## 🟣 23
 
 `src/`
 
