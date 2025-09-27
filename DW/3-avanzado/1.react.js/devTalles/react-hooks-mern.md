@@ -31524,44 +31524,363 @@ export const useCalendarStore = () => {
 
 Revisa: `Redux/calendar/events/1/`
 
-### 22.23
+### 22.23 Eliminar evento
 
-`src/`
+Estructura:
 
-```jsx
+```bash
+.
+├── eslint.config.js
+├── index.html
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+├── README.md
+├── src
+│   ├── auth
+│   │   └── pages
+│   │       ├── LoginPage.css
+│   │       └── LoginPage.jsx
+│   ├── calendar
+│   │   ├── components
+│   │   │   ├── CalendarEvent.jsx
+│   │   │   ├── CalendarModal.jsx
+│   │   │   ├── FabAddNew.jsx
+│   │   │   ├── FabDelete.jsx 👈👀
+│   │   │   └── Navbar.jsx
+│   │   └── pages
+│   │       └── CalendarPage.jsx
+│   ├── CalendarApp.jsx
+│   ├── helpers
+│   │   ├── calendarLocalizer.js
+│   │   └── getMessages.js
+│   ├── hooks
+│   │   ├── useCalendarStore.js
+│   │   └── useUiStore.js
+│   ├── main.jsx
+│   ├── router
+│   │   └── AppRouter.jsx
+│   ├── store
+│   │   ├── calendar
+│   │   │   └── calendarSlice.js
+│   │   ├── store.js
+│   │   └── ui
+│   │       └── uiSlice.js
+│   └── styles.css
+└── vite.config.js
 ```
 
-`src/`
+`src/calendar/components/FabDelete.jsx`
 
 ```jsx
+import { useCalendarStore } from "../../hooks/useCalendarStore";
+
+export const FabDelete = () => {
+  const { startDeletingEvent, hasEventSelected } =
+    useCalendarStore();
+
+  const handleDelete = () => {
+    startDeletingEvent();
+  };
+
+  return (
+    <button
+      className="btn btn-danger fab-danger"
+      onClick={handleDelete}
+      style={{
+        display: hasEventSelected ? "" : "none",
+      }}
+    >
+      <i className="fas fa-trash-alt"></i>
+    </button>
+  );
+};
 ```
 
-
-`src/`
+`src/calendar/pages/CalendarPage.jsx`
 
 ```jsx
+import { useState } from "react";
+import { Calendar } from "react-big-calendar";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import { Navbar } from "../components/Navbar";
+import { localizer } from "../../helpers/calendarLocalizer";
+import { getMessagesES } from "../../helpers/getMessages";
+import { CalendarEvent } from "../components/CalendarEvent";
+import { CalendarModal } from "../components/CalendarModal";
+import { useUiStore } from "../../hooks/useUiStore";
+import { useCalendarStore } from "../../hooks/useCalendarStore";
+import { FabAddNew } from "../components/FabAddNew";
+import { FabDelete } from "../components/FabDelete";
+
+export const CalendarPage = () => {
+  const { openDateModal } = useUiStore();
+  const { events, setActiveEvent } = useCalendarStore();
+
+  const [lastView, setLastView] = useState(
+    localStorage.getItem("lastView") || "week"
+  );
+
+  const eventStyleGetter = (
+    event,
+    start,
+    end,
+    isSelected
+  ) => {
+    const style = {
+      backgroundColor: "#347CF7",
+      borderRadius: "0px",
+      opacity: "white",
+    };
+
+    return {
+      style,
+    };
+  };
+
+  const onDoubleClick = (event) => {
+    console.log({ doubleClick: event });
+
+    openDateModal();
+  };
+
+  const onSelect = (event) => {
+    setActiveEvent(event);
+  };
+
+  const onViewChanged = (event) => {
+    // console.log({ viewChanged: event });
+    localStorage.setItem("lastView", event);
+
+    setLastView(event);
+  };
+
+  return (
+    <>
+      <Navbar />
+      <Calendar
+        culture="es"
+        localizer={localizer}
+        events={events}
+        defaultView={lastView}
+        startAccessor="start"
+        endAccessor="end"
+        style={{ height: "calc(100vh - 80px)" }}
+        messages={getMessagesES()}
+        eventPropGetter={eventStyleGetter}
+        components={{
+          event: CalendarEvent,
+        }}
+        onDoubleClickEvent={onDoubleClick}
+        onSelectEvent={onSelect}
+        onView={onViewChanged}
+      />
+      <CalendarModal />
+      <FabAddNew />
+      <FabDelete />
+    </>
+  );
+};
 ```
 
+`src/store/calendar/calendarSlice.js`
 
+```js
+import { createSlice } from "@reduxjs/toolkit";
+import { addHours } from "date-fns";
 
-👈👀👇
-👈👀☝️
-👈👀
+const tempEvent = {
+  _id: new Date().getTime(),
+  title: "The boss's birthday.",
+  notes: "Buy cake",
+  start: new Date(),
+  end: addHours(new Date(), 2),
+  bgColor: "#fafafa",
+  user: {
+    _id: "123",
+    name: "Ale",
+  },
+};
 
+export const calendarSlice = createSlice({
+  name: "calendar",
+  initialState: {
+    events: [tempEvent],
+    activeEvent: null,
+  },
+  reducers: {
+    onSetActiveEvent: (state, { payload }) => {
+      state.activeEvent = payload;
+    },
+    onAddNewEvent: (state, { payload }) => {
+      state.events.push(payload);
+      state.activeEvent = null;
+    },
+    onUpdateEvent: (state, { payload }) => {
+      state.events = state.events.map((event) => {
+        if (event._id === payload._id) {
+          return payload;
+        }
 
+        return event;
+      });
+    },
+    onDeleteEvent: (state) => {
+      if (state.activeEvent) {
+        state.events = state.events.filter(
+          (event) => event._id !== state.activeEvent._id
+        );
+        state.activeEvent = null;
+      }
+    },
+  },
+});
 
-⚙️
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
-🔥
-🚫
-🔘
-🟣
-🟡
+export const {
+  onSetActiveEvent,
+  onAddNewEvent,
+  onUpdateEvent,
+  onDeleteEvent,
+} = calendarSlice.actions;
+```
+
+`src/hooks/useCalendarStore.js`
+
+```js
+import { useDispatch, useSelector } from "react-redux";
+import {
+  onAddNewEvent,
+  onDeleteEvent,
+  onSetActiveEvent,
+  onUpdateEvent,
+} from "../store/calendar/calendarSlice";
+
+export const useCalendarStore = () => {
+  const dispatch = useDispatch();
+
+  const { events, activeEvent } = useSelector(
+    (state) => state.calendar
+  );
+
+  const setActiveEvent = (calendarEvent) => {
+    dispatch(onSetActiveEvent(calendarEvent));
+  };
+
+  const startSavingEvent = async (calendarEvent) => {
+    // TODO: Access the backend
+    // TODO: OK
+    if (calendarEvent._id) {
+      // Uppdating
+      dispatch(onUpdateEvent({ ...calendarEvent }));
+    } else {
+      // Creating
+      dispatch(
+        onAddNewEvent({
+          ...calendarEvent,
+          _id: new Date().getTime(),
+        })
+      );
+    }
+  };
+
+  const startDeletingEvent = () => {
+    // TODO: Access the backend
+    dispatch(onDeleteEvent());
+  };
+
+  return {
+    // Properties
+    events,
+    activeEvent,
+    hasEventSelected: !!activeEvent,
+
+    // Methods
+    startDeletingEvent,
+    setActiveEvent,
+    startSavingEvent,
+  };
+};
+```
+
+`src/styles.css`
+
+```css
+/* Modal */
+.ReactModalPortal > div {
+  opacity: 0;
+}
+
+.ReactModalPortal .ReactModal__Overlay {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  transition: opacity 0.2s ease-in-out;
+  z-index: 999;
+}
+
+.modal-fondo {
+  background-color: rgba(0, 0, 0, 0.3);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  position: fixed;
+}
+
+.ReactModalPortal .ReactModal__Overlay--after-open {
+  opacity: 1;
+}
+
+.ReactModalPortal .ReactModal__Overlay--before-close {
+  opacity: 0;
+}
+
+.modal {
+  background: white;
+  border-radius: 5px;
+  color: rgb(51, 51, 51);
+  display: inline;
+  max-height: 620px;
+  max-width: 500px;
+  outline: none;
+  padding: 10px;
+}
+
+/* FABS */
+.fab {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 100%;
+  bottom: 25px;
+  font-size: 20px;
+  padding: 25px;
+  position: fixed;
+  right: 25px;
+}
+
+.fab-danger {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 100%;
+  bottom: 25px;
+  font-size: 20px;
+  padding: 25px;
+  position: fixed;
+  left: 25px;
+}
+```
 
 ### 22.24
 
@@ -31582,6 +31901,25 @@ Revisa: `Redux/calendar/events/1/`
 
 ```jsx
 ```
+
+👈👀👇
+👈👀☝️
+👈👀
+
+
+
+⚙️
+☝️👆
+👈👀
+❯
+👈👀👇
+👈👀☝️
+👈👀📌
+🔥
+🚫
+🔘
+🟣
+🟡
 
 ```bash
 npm install react@latest react-dom@latest
