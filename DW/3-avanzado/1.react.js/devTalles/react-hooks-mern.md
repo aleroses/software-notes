@@ -31903,7 +31903,11 @@ export const store = configureStore({
 });
 ```
 
-### 22.25
+### 22.25 Código fuente de la sección
+
+Aquí les dejo el repositorio por si lo necesitan comparar contra el mío o por si necesitan tenerlo en Github.
+
+[**Fin de la sección 22 - CalendarApp - Github**](https://github.com/Klerith/react-mern-calendar/tree/fin-seccion-22)
 
 ## 🟣 23
 
