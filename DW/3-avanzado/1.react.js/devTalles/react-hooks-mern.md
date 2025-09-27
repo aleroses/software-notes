@@ -31882,7 +31882,28 @@ export const useCalendarStore = () => {
 }
 ```
 
-### 22.24
+### 22.24 Redux - serializableCheck
+
+`src/store/store.js`
+
+```js
+import { configureStore } from "@reduxjs/toolkit";
+import { uiSlice } from "./ui/uiSlice";
+import { calendarSlice } from "./calendar/calendarSlice";
+
+export const store = configureStore({
+  reducer: {
+    calendar: calendarSlice.reducer,
+    ui: uiSlice.reducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
+});
+```
+
+### 22.25
 
 ## 🟣 23
 
