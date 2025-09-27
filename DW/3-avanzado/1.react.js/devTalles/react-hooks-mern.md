@@ -31909,7 +31909,17 @@ Aquí les dejo el repositorio por si lo necesitan comparar contra el mío o por 
 
 [**Fin de la sección 22 - CalendarApp - Github**](https://github.com/Klerith/react-mern-calendar/tree/fin-seccion-22)
 
-## 🟣 23
+## 🟣 23. CalendarApp - Backend - Node, Express, Mongo
+
+### 23.1 Introducción a la sección
+
+### 23.2
+
+### 23.3
+
+### 23.4
+
+### 23.5
 
 `src/`
 
@@ -31931,7 +31941,240 @@ Aquí les dejo el repositorio por si lo necesitan comparar contra el mío o por 
 👈👀☝️
 👈👀
 
+### 23.6
 
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+### 23.7
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+
+### 23.8
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+### 23.9
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+### 23.10
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+### 23.11
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+### 23.12
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+### 23.13
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+### 23.14
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+### 23.15
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+### 23.16
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+### 23.17
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+### 23.18
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
 
 ⚙️
 ☝️👆
