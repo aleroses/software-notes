@@ -30897,27 +30897,237 @@ export const CalendarModal = () => {
 };
 ```
 
-### 22.20
+### 22.20 Preparar la creación de un nuevo evento
 
-`src/`
+Estructura:
 
-```jsx
+```bash
+.
+├── eslint.config.js
+├── index.html
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+├── README.md
+├── src
+│   ├── auth
+│   │   └── pages
+│   │       ├── LoginPage.css
+│   │       └── LoginPage.jsx
+│   ├── calendar
+│   │   ├── components
+│   │   │   ├── CalendarEvent.jsx
+│   │   │   ├── CalendarModal.jsx
+│   │   │   ├── FabAddNew.jsx 👈👀
+│   │   │   └── Navbar.jsx
+│   │   └── pages
+│   │       └── CalendarPage.jsx
+│   ├── CalendarApp.jsx
+│   ├── helpers
+│   │   ├── calendarLocalizer.js
+│   │   └── getMessages.js
+│   ├── hooks
+│   │   ├── useCalendarStore.js
+│   │   └── useUiStore.js
+│   ├── main.jsx
+│   ├── router
+│   │   └── AppRouter.jsx
+│   ├── store
+│   │   ├── calendar
+│   │   │   └── calendarSlice.js
+│   │   ├── store.js
+│   │   └── ui
+│   │       └── uiSlice.js
+│   └── styles.css
+└── vite.config.js
 ```
 
-`src/`
+`src/calendar/components/FabAddNew.jsx`
 
 ```jsx
+import { addHours } from "date-fns";
+import { useCalendarStore } from "../../hooks/useCalendarStore";
+import { useUiStore } from "../../hooks/useUiStore";
+
+export const FabAddNew = () => {
+  const { openDateModal } = useUiStore();
+  const { setActiveEvent } = useCalendarStore();
+
+  const handleClickNew = () => {
+    setActiveEvent({
+      title: "",
+      notes: "",
+      start: new Date(),
+      end: addHours(new Date(), 2),
+      bgColor: "#fafafa",
+      user: {
+        _id: "123",
+        name: "Ale",
+      },
+    });
+    openDateModal();
+  };
+
+  return (
+    <button
+      className="btn btn-primary fab"
+      onClick={handleClickNew}
+    >
+      <i className="fas fa-plus"></i>
+    </button>
+  );
+};
 ```
 
-
-`src/`
+`src/calendar/pages/CalendarPage.jsx`
 
 ```jsx
+import { useState } from "react";
+import { Calendar } from "react-big-calendar";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import { Navbar } from "../components/Navbar";
+import { localizer } from "../../helpers/calendarLocalizer";
+import { getMessagesES } from "../../helpers/getMessages";
+import { CalendarEvent } from "../components/CalendarEvent";
+import { CalendarModal } from "../components/CalendarModal";
+import { useUiStore } from "../../hooks/useUiStore";
+import { useCalendarStore } from "../../hooks/useCalendarStore";
+import { FabAddNew } from "../components/FabAddNew";
+
+export const CalendarPage = () => {
+  const { openDateModal } = useUiStore();
+  const { events, setActiveEvent } = useCalendarStore();
+
+  const [lastView, setLastView] = useState(
+    localStorage.getItem("lastView") || "week"
+  );
+
+  const eventStyleGetter = (
+    event,
+    start,
+    end,
+    isSelected
+  ) => {
+    const style = {
+      backgroundColor: "#347CF7",
+      borderRadius: "0px",
+      opacity: "white",
+    };
+
+    return {
+      style,
+    };
+  };
+
+  const onDoubleClick = (event) => {
+    console.log({ doubleClick: event });
+
+    openDateModal();
+  };
+
+  const onSelect = (event) => {
+    setActiveEvent(event);
+  };
+
+  const onViewChanged = (event) => {
+    // console.log({ viewChanged: event });
+    localStorage.setItem("lastView", event);
+
+    setLastView(event);
+  };
+
+  return (
+    <>
+      <Navbar />
+      <Calendar
+        culture="es"
+        localizer={localizer}
+        events={events}
+        defaultView={lastView}
+        startAccessor="start"
+        endAccessor="end"
+        style={{ height: "calc(100vh - 80px)" }}
+        messages={getMessagesES()}
+        eventPropGetter={eventStyleGetter}
+        components={{
+          event: CalendarEvent,
+        }}
+        onDoubleClickEvent={onDoubleClick}
+        onSelectEvent={onSelect}
+        onView={onViewChanged}
+      />
+      <CalendarModal />
+      <FabAddNew />
+    </>
+  );
+};
 ```
 
-👈👀👇
-👈👀☝️
-👈👀
+`src/styles.css`
+
+```css
+/* Modal */
+.ReactModalPortal > div {
+  opacity: 0;
+}
+
+.ReactModalPortal .ReactModal__Overlay {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  transition: opacity 0.2s ease-in-out;
+  z-index: 999;
+}
+
+.modal-fondo {
+  background-color: rgba(0, 0, 0, 0.3);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  position: fixed;
+}
+
+.ReactModalPortal .ReactModal__Overlay--after-open {
+  opacity: 1;
+}
+
+.ReactModalPortal .ReactModal__Overlay--before-close {
+  opacity: 0;
+}
+
+.modal {
+  background: white;
+  border-radius: 5px;
+  color: rgb(51, 51, 51);
+  display: inline;
+  max-height: 620px;
+  max-width: 500px;
+  outline: none;
+  padding: 10px;
+}
+
+/* FABS */
+.fab {
+  width: 40px;
+  height: 40px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 100%;
+  bottom: 25px;
+  font-size: 30px;
+  padding: 25px;
+  position: fixed;
+  right: 25px;
+}
+```
+
+Revisa: `Redux/calendar/events/0/_id`
 
 ### 22.21
 
@@ -30954,6 +31164,10 @@ export const CalendarModal = () => {
 
 ```jsx
 ```
+
+👈👀👇
+👈👀☝️
+👈👀
 
 ### 22.23
 
