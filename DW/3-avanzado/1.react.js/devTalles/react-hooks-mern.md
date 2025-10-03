@@ -32142,27 +32142,98 @@ Ahora descomenta `res.json({ ok: true, })` verás en la web, también aparece en
 }
 ```
 
-### 23.6
+### 23.6 Variables de entorno y carpeta pública
 
-`src/`
+Estructura:
 
-```jsx
+```bash
+.
+├── .env 👈👀
+├── .git
+├── .gitignore
+├── index.html
+├── index.js
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+└── public 👈👀👇
+    ├── index.html
+    └── styles.css
 ```
 
-`src/`
-
-```jsx
+```bash
+npm i dotenv
 ```
 
+`public/index.html`
 
-`src/`
-
-```jsx
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>Demo App</title>
+  </head>
+  <body>
+    <h1>Blocked</h1>
+  </body>
+</html>
 ```
 
-👈👀👇
-👈👀☝️
-👈👀👉
+`public/styles.css`
+
+```css
+html,
+body {
+  background-color: grey;
+}
+```
+
+`.env`
+
+```
+PORT=4000
+```
+
+`index.js`
+
+```js
+import express from "express";
+import "dotenv/config";
+// import dotenv from "dotenv";
+
+// dotenv.config({ path: ".env" });
+
+console.log(process.env);
+
+// Create the Express server
+const app = express();
+
+// Rutes
+// Public directory
+app.use(express.static("public"));
+
+// app.get("/", (req, res) => {
+//   console.log("The / is required.");
+
+//   res.json({
+//     ok: true,
+//   });
+// });
+
+// Listen to requests
+app.listen(process.env.PORT, () => {
+  console.log(`Server running on port ${process.env.PORT}`);
+});
+```
+
+En la web `http://localhost:4000/` verás la web y en consola verás `PORT: '4000'`.
 
 ### 23.7
 
