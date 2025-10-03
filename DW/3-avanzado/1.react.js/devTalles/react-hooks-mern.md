@@ -32005,6 +32005,145 @@ npm run dev
 
 ### 23.5 Configurando Express
 
+Para esta clase Postman web no me funcionó así que lo instalaré.
+
+```bash
+# Install Postman
+## Download Postman
+https://www.postman.com/downloads/
+
+## Remove trash
+sudo rm -rf "/opt/Postman Agent"
+sudo rm -rf /opt/Postman
+
+## Unzip the entire Postman file
+cd ~/Downloads
+tar -xvzf postman-linux-x64.tar.gz
+
+## Move
+sudo mv Postman /opt/
+sudo mv ~/Downloads/Postman /opt/ 👈👀
+
+## Create a symbolic link to open it from anywhere
+sudo ln -s /opt/Postman/Postman /usr/bin/postman
+
+## Try running it
+postman
+```
+
+```bash
+# Create the .desktop file
+vim ~/.local/share/applications/postman.desktop
+
+# Paste: i
+[Desktop Entry]
+Encoding=UTF-8
+Name=Postman
+Exec=/opt/Postman/Postman
+Icon=/opt/Postman/app/resources/app/assets/icon.png
+Terminal=false
+Type=Application
+Categories=Development;
+
+# Save: :wq
+
+# Refresh the shortcut cache
+update-desktop-database ~/.local/share/applications/
+```
+
+```bash
+# Install
+npm i express
+```
+
+Para poder usar importaciones modernas debes cambiar el `"type": "module"` en el archivo `package.json` con esto podrás usar `import` sin problemas.
+
+`package.json`
+
+```js
+{
+  "name": "10-calendar-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --watch index.js",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  // "type": "commonjs",
+  "type": "module", 👈👀
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
+```
+
+`index.js`
+
+```js
+// const express = require("express");
+import express from "express";
+
+// Create the Express server
+const app = express();
+
+// Rutes
+app.get("/", (req, res) => { 👈👀👇
+  console.log("The / is required.");
+
+  res.json({
+    ok: true,
+  });
+});
+
+// Listen to requests
+app.listen(4000, () => {
+  console.log("Server running on port");
+});
+```
+
+Para hacer pruebas comenta `res.json({ ok: true, })`, ahora ingresa a `Postman/workspace/My-Workspace` y abre una pestaña nueva:
+
+`Get: localhost:4000/` **Send** En `Body` verás:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Error</title>
+  </head>
+
+  <body>
+    <pre>Cannot GET /</pre> 👈👀
+  </body>
+</html>
+```
+
+Esto también aparece en la web, si buscas `localhost:4000/` obtendrás `Cannot GET /`
+
+Si recargas la web o usas `Send`  de Postman, en consola obtenemos el mensaje:
+
+```bash
+Restarting 'index.js'
+Server running on port
+The / is required.
+```
+
+Ahora descomenta `res.json({ ok: true, })` verás en la web, también aparece en Postman:
+
+```bash
+{
+"ok": true
+}
+```
+
+### 23.6
+
 `src/`
 
 ```jsx
@@ -32025,24 +32164,6 @@ npm run dev
 👈👀☝️
 👈👀👉
 
-### 23.6
-
-`src/`
-
-```jsx
-```
-
-`src/`
-
-```jsx
-```
-
-
-`src/`
-
-```jsx
-```
-
 ### 23.7
 
 `src/`
@@ -32061,6 +32182,9 @@ npm run dev
 ```jsx
 ```
 
+👈👀👇
+👈👀☝️
+👈👀👉
 
 ### 23.8
 
