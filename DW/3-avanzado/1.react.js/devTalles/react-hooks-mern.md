@@ -31940,11 +31940,70 @@ El backend que haremos aquí es robusto y lo podrían utilizar en proyectos real
 
 Si quieren saber más sobre Node, recuerden que tengo un curso especializado en ese tema.
 
-### 23.3
+### 23.3 Objetivo al final de la sección
 
-### 23.4
+### 23.4 Inicio de proyecto - CalendarApp Node Backend
 
-### 23.5
+```bash
+10-calendar-frontend # Old
+10-calendar-backend  # New
+
+cd 10-calendar-backend
+npm init -y
+```
+
+Estructura:
+
+```bash
+.
+├── index.js
+└── package.json
+```
+
+`index.js`
+
+```js
+console.log("Hi world!!");
+console.log("Other message!!");
+```
+
+```bash
+node index.js
+node --watch index.js
+```
+
+`package.json`
+
+```js
+{
+  "name": "10-calendar-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --watch index.js", 👈👀
+    "start": "node index.js" 👈👀
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
+```
+
+Luego:
+
+```bash
+# Modo producción
+npm start
+# Modo desarrollo
+npm run dev
+```
+
+> 📌 Nota: Actualmente, ya no es necesario instalar `sudo npm i nodemon -g`, ya que existe una forma nativa de ver los cambios sin instalar dependencias 👉 `node --watch index.js`
+
+### 23.5 Configurando Express
 
 `src/`
 
@@ -31964,7 +32023,7 @@ Si quieren saber más sobre Node, recuerden que tengo un curso especializado en 
 
 👈👀👇
 👈👀☝️
-👈👀
+👈👀👉
 
 ### 23.6
 
