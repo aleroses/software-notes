@@ -32235,7 +32235,91 @@ app.listen(process.env.PORT, () => {
 
 En la web `http://localhost:4000/` verás la web y en consola verás `PORT: '4000'`.
 
-### 23.7
+### 23.7 Creando las rutas relacionadas a usuarios
+
+Estructura:
+
+```bash
+.
+├── .env
+├── .git
+├── .gitignore
+├── index.html
+├── index.js
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+│   ├── index.html
+│   └── styles.css
+└── routes 👈👀👇
+    └── auth.js
+```
+
+`routes/auth.js`
+
+```js
+/* 
+  User paths / Auth
+  host + /api/auth
+*/
+
+import { Router } from "express";
+
+const router = Router();
+
+router.get("/", (req, res) => {
+  console.log("The / is required.");
+
+  res.json({
+    ok: true,
+  });
+});
+
+// module.exports = router;
+export { router };
+```
+
+`index.js`
+
+```js
+import express from "express";
+import "dotenv/config";
+import { router as authRoutes } from "./routes/auth.js";
+
+// Create the Express server
+const app = express();
+
+// Public directory
+app.use(express.static("public"));
+
+// Rutes
+app.use("/api/auth", authRoutes);
+// TODO: CRUD: Events
+
+// Listen to requests
+app.listen(process.env.PORT, () => {
+  console.log(`Server running on port ${process.env.PORT}`);
+});
+```
+
+En consola seguimos viendo:
+
+```bash
+Restarting 'index.js'
+Server running on port 4000
+```
+
+Probamos `GET: localhost:4000/` y luego `GET: localhost:4000/api/auth` en Postman. Primero veremos el código de la web simple que implementamos, luego veremos esto: 
+
+```js
+{
+  "ok": true
+}
+```
+
+### 23.8
 
 `src/`
 
@@ -32257,24 +32341,6 @@ En la web `http://localhost:4000/` verás la web y en consola verás `PORT: '400
 👈👀☝️
 👈👀👉
 
-### 23.8
-
-`src/`
-
-```jsx
-```
-
-`src/`
-
-```jsx
-```
-
-
-`src/`
-
-```jsx
-```
-
 ### 23.9
 
 `src/`
@@ -32292,6 +32358,10 @@ En la web `http://localhost:4000/` verás la web y en consola verás `PORT: '400
 
 ```jsx
 ```
+
+👈👀👇
+👈👀☝️
+👈👀👉
 
 ### 23.10
 
@@ -32311,6 +32381,10 @@ En la web `http://localhost:4000/` verás la web y en consola verás `PORT: '400
 ```jsx
 ```
 
+👈👀👇
+👈👀☝️
+👈👀👉
+
 ### 23.11
 
 `src/`
@@ -32328,6 +32402,10 @@ En la web `http://localhost:4000/` verás la web y en consola verás `PORT: '400
 
 ```jsx
 ```
+
+👈👀👇
+👈👀☝️
+👈👀👉
 
 ### 23.12
 
@@ -32347,6 +32425,10 @@ En la web `http://localhost:4000/` verás la web y en consola verás `PORT: '400
 ```jsx
 ```
 
+👈👀👇
+👈👀☝️
+👈👀👉
+
 ### 23.13
 
 `src/`
@@ -32364,6 +32446,10 @@ En la web `http://localhost:4000/` verás la web y en consola verás `PORT: '400
 
 ```jsx
 ```
+
+👈👀👇
+👈👀☝️
+👈👀👉
 
 ### 23.14
 
