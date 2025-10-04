@@ -32398,27 +32398,125 @@ export const revalidateToken = (req, res) => {
 
 Probamos: `POST: localhost:4000/api/auth/new` `POST: localhost:4000/api/auth/` y `GET: localhost:4000/api/auth/new`.
 
-### 23.9
+### 23.9 Recuperar información de un posteo
 
-`src/`
+En Postman `POST: localhost:4000/api/auth/new` `Body/raw` y `Text/JSON`
 
-```jsx
+```json
+{
+  "name": "Ale Roses",
+  "email": "aleroses@gmail.com",
+  "password": "123456"
+}
 ```
 
-`src/`
+Como es `json` debe ir entre comillas. Dale a `Send` y revisa la consola:
 
-```jsx
+```bash
+  params: [Object: null prototype] {},
+  body: { 👈👀👇
+    name: 'Ale Roses',
+    email: 'aleroses@gmail.com',
+    password: '123456'
+  },
+  length: undefined,
+  _eventsCount: 0,
+  route: Route {
+    path: '/new',
+    stack: [ [Layer] ],
+    methods: [Object: null prototype] { post: true }
+  },
+  Symbol(shapeMode): true,
+  Symbol(kCapture): false,
+  Symbol(kHeaders): {
+    'content-type': 'application/json',
+    'user-agent': 'PostmanRuntime/7.48.0',
+    accept: '*/*',
+    'postman-token': 'df7759a2-d012-4660-80ad-f94d7ca816cd',
+    host: 'localhost:4000',
+    'accept-encoding': 'gzip, deflate, br',
+    connection: 'keep-alive',
+    'content-length': '82'
+  },
+  Symbol(kHeadersCount): 16,
+  Symbol(kTrailers): null,
+  Symbol(kTrailersCount): 0
+}
 ```
 
+`controllers/auth.js`
 
-`src/`
+```js
+import { response } from "express";
 
-```jsx
+export const createUser = (req, res = response) => {
+  // console.log(req.body);
+  const { name, email, password } = req.body;
+
+  if (name.length < 5) {
+    return res.status(400).json({
+      ok: false,
+      msg: "The name must be 5 letters long.",
+    });
+  }
+
+  res.json({
+    ok: true,
+    msg: "register",
+    name,
+    email,
+    password,
+  });
+};
+
+export const loginUser = (req, res = response) => {
+  const { email, password } = req.body;
+
+  res.json({
+    ok: true,
+    msg: "login",
+    email,
+    password,
+  });
+};
+
+export const revalidateToken = (req, res = response) => {
+  res.json({
+    ok: true,
+    msg: "renew",
+  });
+};
+
+// module.exports = { createUser };
 ```
 
-👈👀👇
-👈👀☝️
-👈👀👉
+`index.js`
+
+```js
+import express from "express";
+import "dotenv/config";
+import { router as authRoutes } from "./routes/auth.js";
+
+// Create the Express server
+const app = express();
+
+// Public directory
+app.use(express.static("public"));
+
+// Reading and parsing the body
+app.use(express.json()); 👈👀
+
+// Rutes
+app.use("/api/auth", authRoutes);
+// TODO: CRUD: Events
+
+// Listen to requests
+app.listen(process.env.PORT, () => {
+  console.log(`Server running on port ${process.env.PORT}`);
+});
+```
+
+[Estándar Códigos de Error](https://www.restapitutorial.com/httpstatuscodes)
 
 ### 23.10
 
