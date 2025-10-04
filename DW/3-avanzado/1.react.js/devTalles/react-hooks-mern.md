@@ -32319,27 +32319,84 @@ Probamos `GET: localhost:4000/` y luego `GET: localhost:4000/api/auth` en Postma
 }
 ```
 
-### 23.8
+### 23.8 Endpoints de remover, crear y login
 
-`src/`
+Estructura:
 
-```jsx
+```bash
+.
+├── controllers 👈👀
+│   └── auth.js
+├── .env
+├── .git
+├── .gitignore
+├── index.html
+├── index.js
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+│   ├── index.html
+│   └── styles.css
+└── routes
+    └── auth.js
 ```
 
-`src/`
+`routes/auth.js`
 
-```jsx
+```js
+/* 
+  User paths / Auth
+  host + /api/auth
+*/
+
+import { Router } from "express";
+import {
+  createUser,
+  loginUser,
+  revalidateToken,
+} from "../controllers/auth.js";
+
+const router = Router();
+
+router.post("/new", createUser);
+router.post("/", loginUser);
+router.get("/renew", revalidateToken);
+
+export { router };
 ```
 
+`controllers/auth.js`
 
-`src/`
+```js
+import { response } from "express";
 
-```jsx
+export const createUser = (req, res = response) => {
+  res.json({
+    ok: true,
+    msg: "register",
+  });
+};
+
+export const loginUser = (req, res) => {
+  res.json({
+    ok: true,
+    msg: "login",
+  });
+};
+
+export const revalidateToken = (req, res) => {
+  res.json({
+    ok: true,
+    msg: "renew",
+  });
+};
+
+// module.exports = { createUser };
 ```
 
-👈👀👇
-👈👀☝️
-👈👀👉
+Probamos: `POST: localhost:4000/api/auth/new` `POST: localhost:4000/api/auth/` y `GET: localhost:4000/api/auth/new`.
 
 ### 23.9
 
