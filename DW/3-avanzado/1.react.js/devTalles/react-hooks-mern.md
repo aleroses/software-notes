@@ -32646,27 +32646,139 @@ Prueba `POST: localhost:4000/api/auth/new` quitando y añadiendo las `keys` y su
 
 Prueba también `POST: localhost:4000/api/auth/`.
 
-### 23.11
+### 23.11 Custom Middlewares
 
-`src/`
+Estructura:
 
-```jsx
+```bash
+.
+├── controllers
+│   └── auth.js
+├── .env
+├── .git
+├── .gitignore
+├── index.html
+├── index.js
+├── LICENSE
+├── middlewares
+│   └── validate-fields.js
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+│   ├── index.html
+│   └── styles.css
+└── routes
+    └── auth.js
 ```
 
-`src/`
+`middlewares/validate-fields.js`
 
-```jsx
+```js
+import { response } from "express";
+import { validationResult } from "express-validator";
+
+export const validateFields = (req, res = response, next) => {
+  // Error handling
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      ok: false,
+      errors: errors.mapped(),
+    });
+  }
+
+  next();
+};
 ```
 
+`controllers/auth.js`
 
-`src/`
+```js
+import { response } from "express";
 
-```jsx
+export const createUser = (req, res = response) => {
+  const { name, email, password } = req.body;
+
+  res.status(201).json({
+    ok: true,
+    msg: "register",
+    name,
+    email,
+    password,
+  });
+};
+
+export const loginUser = (req, res = response) => {
+  const { email, password } = req.body;
+
+  res.json({
+    ok: true,
+    msg: "login",
+    email,
+    password,
+  });
+};
+
+export const revalidateToken = (req, res = response) => {
+  res.json({
+    ok: true,
+    msg: "renew",
+  });
+};
 ```
 
-👈👀👇
-👈👀☝️
-👈👀👉
+`routes/auth.js`
+
+```js
+/* 
+  User paths / Auth
+  host + /api/auth
+*/
+
+import { Router } from "express";
+import { check } from "express-validator";
+import { validateFields } from "../middlewares/validate-fields.js";
+import {
+  createUser,
+  loginUser,
+  revalidateToken,
+} from "../controllers/auth.js";
+
+const router = Router();
+
+router.post(
+  "/new",
+  [
+    // Middlewares
+    check("name", "The name is mandatory.").not().isEmpty(),
+    check("email", "The email is mandatory.").isEmail(),
+    check(
+      "password",
+      "The password must be 6 characters long."
+    ).isLength({ min: 6 }),
+    validateFields,
+  ],
+  createUser
+);
+router.post(
+  "/",
+  [
+    check("email", "The email is mandatory.").isEmail(),
+    check(
+      "password",
+      "The password must be 6 characterslong."
+    ).isLength({ min: 6 }),
+    validateFields,
+  ],
+  loginUser
+);
+router.get("/renew", revalidateToken);
+
+// module.exports = router;
+export { router };
+```
 
 ### 23.12
 
