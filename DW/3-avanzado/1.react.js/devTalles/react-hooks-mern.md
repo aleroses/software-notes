@@ -32518,27 +32518,133 @@ app.listen(process.env.PORT, () => {
 
 [Estándar Códigos de Error](https://www.restapitutorial.com/httpstatuscodes)
 
-### 23.10
+### 23.10 Express Validator
 
-`src/`
+Instalar [Express validator](https://www.npmjs.com/package/express-validator)
 
-```jsx
+```bash
+npm i express-validator
 ```
 
-`src/`
+`routes/auth.js`
 
-```jsx
+```js
+/* 
+  User paths / Auth
+  host + /api/auth
+*/
+
+import { Router } from "express";
+import { check } from "express-validator";
+import {
+  createUser,
+  loginUser,
+  revalidateToken,
+} from "../controllers/auth.js";
+
+const router = Router();
+
+router.post(
+  "/new",
+  [
+    // Middlewares
+    check("name", "The name is mandatory.").not().isEmpty(),
+    check("email", "The email is mandatory.").isEmail(),
+    check(
+      "password",
+      "The password must be 6 characters long."
+    ).isLength({ min: 6 }),
+  ],
+  createUser
+);
+router.post(
+  "/",
+  [
+    check("email", "The email is mandatory.").isEmail(),
+    check(
+      "password",
+      "The password must be 6 characterslong."
+    ).isLength({ min: 6 }),
+  ],
+  loginUser
+);
+router.get("/renew", revalidateToken);
+
+// module.exports = router;
+export { router };
 ```
 
+`controllers/auth.js`
 
-`src/`
+```js
+import { response } from "express";
+import { validationResult } from "express-validator";
 
-```jsx
+export const createUser = (req, res = response) => {
+  // console.log(req.body);
+  const { name, email, password } = req.body;
+
+  // Error handling
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      ok: false,
+      errors: errors.mapped(),
+    });
+  }
+
+  res.status(201).json({
+    ok: true,
+    msg: "register",
+    name,
+    email,
+    password,
+  });
+};
+
+export const loginUser = (req, res = response) => {
+  // Error handling
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({
+      ok: false,
+      errors: errors.mapped(),
+    });
+  }
+
+  const { email, password } = req.body;
+
+  res.json({
+    ok: true,
+    msg: "login",
+    email,
+    password,
+  });
+};
+
+export const revalidateToken = (req, res = response) => {
+  res.json({
+    ok: true,
+    msg: "renew",
+  });
+};
+
+// module.exports = { createUser };
 ```
 
-👈👀👇
-👈👀☝️
-👈👀👉
+Prueba `POST: localhost:4000/api/auth/new` quitando y añadiendo las `keys` y sus `valores` deberían aparecer los mensajes de error:
+
+```bash
+{
+  "name": "Ale Roses",
+  "email": "aleroses@gmail.com",
+  "password": "123456"
+}
+```
+
+Prueba también `POST: localhost:4000/api/auth/`.
 
 ### 23.11
 
