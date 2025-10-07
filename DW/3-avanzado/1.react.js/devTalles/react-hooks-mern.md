@@ -32780,27 +32780,128 @@ router.get("/renew", revalidateToken);
 export { router };
 ```
 
-### 23.12
+### 23.12 Configuración de base de datos
 
-`src/`
+Crea una cuenta:
 
-```jsx
+- [Mongodb - Atlas](https://account.mongodb.com/account/login)  
+- [MongooseJS.com](https://mongoosejs.com/)
+
+#### Crear un Cluster
+
+Dentro de la pestaña `Clusters`:
+
+`Create a closter/Free` lo demás dejarlo por defecto.
+
+- Cluster Name: `CalendarDB`
+
+Credenciales de Administrador:
+
+- **Username** alevrs_db_user
+- **Password** AA22fr4jfpZyqX7L
+
+#### Conectarnos a MongoBD Compass
+
+Dentro de la pestaña `Clusters`:
+
+🟢 `calendarDB`: Conectar
+
+Access your data through tools:
+
+	- Elige `Compass`
+
+Connecting with MongoDB Compass:
+
+	Si ya tienes instalado `Compass` elige esa opción si no, instálalo. 
+	
+	1. Elije la ultima versión.
+
+**Pasos para instalar MongoDB Compass en Linux Mint**
+
+Una vez descargado el archivo `mongodb-compass_1.46.11_amd64.deb` en la carpeta  `Descargas`.
+
+🧭 PASO 1: Abre una terminal
+
+Presiona **Ctrl + Alt + T** o búscala como “Terminal”.
+
+🗂️ PASO 2: Navega hasta el directorio donde está el archivo
+
+```bash
+cd ~/Descargas
 ```
 
-`src/`
+_(Si está en otra carpeta, cambia la ruta según corresponda.)_
 
-```jsx
+⚙️ PASO 3: Instala el paquete `.deb`
+
+Ejecuta el siguiente comando con privilegios de administrador:
+
+```bash
+sudo dpkg -i mongodb-compass_1.46.11_amd64.deb
 ```
 
+⚠️ PASO 4: Corrige dependencias si aparecen errores
 
-`src/`
+A veces `dpkg` muestra errores de dependencias. En ese caso, ejecútalo:
 
-```jsx
+```bash
+sudo apt -f install
 ```
 
-👈👀👇
-👈👀☝️
-👈👀👉
+Esto descargará e instalará los paquetes faltantes.
+
+🧩 PASO 5: Verifica la instalación
+
+Puedes verificar si se instaló correctamente ejecutando:
+
+```bash
+mongodb-compass
+```
+
+O buscándolo en el menú de inicio como **“MongoDB Compass”**.
+
+🧹 OPCIONAL: Si deseas desinstalarlo después
+
+```bash
+sudo apt remove mongodb-compass
+```
+
+2. Copy the connection string, then open MongoDB Compass
+
+	Use this connection string in your application:
+	
+	`mongodb+srv://alevrs_db_user:<db_password>@calendardb.l8x2lf4.mongodb.net/`
+
+Queda algo así:
+
+`mongodb+srv://alevrs_db_user:AA22fr4jfpZyqX7L@calendardb.l8x2lf4.mongodb.net/`
+
+Lo pegamos en la **Mongo Compass**
+
+![mongo](https://i.postimg.cc/L5wnJ0cg/23-12-mongo.png)
+
+Para el ejemplo vamos a crear un usuario y una contraseña:
+
+Pestaña `Database Access` y `+Add New Database User`
+
+Authentication Method:
+
+	- Password
+
+Password Authentication
+
+	- DB user: mern-user
+	- Password: HAzCB7Tw4gQ3ln1m
+
+Built-in Role: Select one built-in role for this user.
+
+	Read and Write to any database
+
+El enlace que usaremos queda algo así:
+
+`mongodb+srv://mern-user:HAzCB7Tw4gQ3ln1m@calendardb.l8x2lf4.mongodb.net/`
+
+En `MongoDB Compass` añádelo a favoritos.
 
 ### 23.13
 
