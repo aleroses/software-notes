@@ -32903,27 +32903,98 @@ El enlace que usaremos queda algo así:
 
 En `MongoDB Compass` añádelo a favoritos.
 
-### 23.13
+### 23.13 Conectar Node a Mongo Atlas
 
-`src/`
-
-```jsx
+```bash
+# Install Mongoose
+npm i mongoose
 ```
 
-`src/`
+Estructura:
 
-```jsx
+```bash
+.
+├── controllers
+│   └── auth.js
+├── database
+│   └── config.js
+├── .env
+├── .git
+├── .gitignore
+├── index.html
+├── index.js
+├── LICENSE
+├── middlewares
+│   └── validate-fields.js
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+│   ├── index.html
+│   └── styles.css
+└── routes
+    └── auth.js
 ```
 
+`.env`
 
-`src/`
-
-```jsx
+```
+PORT=4000
+DB_CNN=mongodb+srv://mern-user:HAzCB7Tw4gQ3ln1m@calendardb.l8x2lf4.mongodb.net/mern_calendar
 ```
 
-👈👀👇
-👈👀☝️
-👈👀👉
+`index.js`
+
+```js
+import express from "express";
+import "dotenv/config";
+import { router as authRoutes } from "./routes/auth.js";
+import { dbConnection } from "./database/config.js";
+
+// Create the Express server
+const app = express();
+
+// Data Base
+dbConnection();
+
+// Public directory
+app.use(express.static("public"));
+
+// Reading and parsing the body
+app.use(express.json());
+
+// Rutes
+app.use("/api/auth", authRoutes);
+// TODO: CRUD: Events
+
+// Listen to requests
+app.listen(process.env.PORT, () => {
+  console.log(`Server running on port ${process.env.PORT}`);
+});
+```
+
+`database/config.js`
+
+```js
+import mongoose from "mongoose";
+
+export const dbConnection = async () => {
+  try {
+    await mongoose.connect(process.env.DB_CNN);
+
+    console.log("DB Online");
+  } catch (error) {
+    console.log(error);
+    throw new Error("Error initializing the database.");
+  }
+};
+
+// { This is no longer necessary. 👈👀 
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+//   useCreateIndex: true,
+// };
+```
 
 ### 23.14
 
