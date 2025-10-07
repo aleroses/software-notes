@@ -32996,23 +32996,114 @@ export const dbConnection = async () => {
 // };
 ```
 
-### 23.14
+### 23.14 Crear un usuario en nuestra Base de Datos
 
-`src/`
+Estructura:
 
-```jsx
+```bash
+.
+├── controllers
+│   └── auth.js
+├── database
+│   └── config.js
+├── .env
+├── .git
+├── .gitignore
+├── index.html
+├── index.js
+├── LICENSE
+├── middlewares
+│   └── validate-fields.js
+├── models 👈👀👇
+│   └── User.js
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+│   ├── index.html
+│   └── styles.css
+└── routes
+    └── auth.js
 ```
 
-`src/`
+`models/User.js`
 
-```jsx
+```js
+import { Schema, model } from "mongoose";
+
+const UserSchema = Schema({
+  name: {
+    type: String,
+    require: true,
+  },
+  email: {
+    type: String,
+    require: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    require: true,
+  },
+});
+
+export const User = model("User", UserSchema);
 ```
 
+`controllers/auth.js`
 
-`src/`
+```js
+import { response } from "express";
+import { User } from "../models/User.js";
 
-```jsx
+export const createUser = async (req, res = response) => {
+  // const { name, email, password } = req.body;
+
+  try {
+    const user = new User(req.body);
+
+    await user.save();
+
+    res.status(201).json({
+      ok: true,
+      msg: "register",
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      ok: false,
+      msg: "Please speak to the manager!",
+    });
+  }
+};
+
+export const loginUser = (req, res = response) => {
+  const { email, password } = req.body;
+
+  res.json({
+    ok: true,
+    msg: "login",
+    email,
+    password,
+  });
+};
+
+export const revalidateToken = (req, res = response) => {
+  res.json({
+    ok: true,
+    msg: "renew",
+  });
+};
+
+// module.exports = { createUser };
 ```
+
+Esto hace aparecer el `mern_calendar` en MongoDB Compass. Dentro de este encontramos `users`
+
+![users](https://i.postimg.cc/hjJ7JNSM/23-14-users.png)
+
+No podrás grabar nuevamente los mismos datos, si lo intentas marcará un error en consola.
 
 ### 23.15
 
@@ -33032,6 +33123,13 @@ export const dbConnection = async () => {
 ```jsx
 ```
 
+☝️👆
+👈👀
+❯
+👈👀👇
+👈👀☝️
+👈👀📌
+
 ### 23.16
 
 `src/`
@@ -33049,6 +33147,13 @@ export const dbConnection = async () => {
 
 ```jsx
 ```
+
+☝️👆
+👈👀
+❯
+👈👀👇
+👈👀☝️
+👈👀📌
 
 ### 23.17
 
