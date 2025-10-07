@@ -33105,7 +33105,7 @@ Esto hace aparecer el `mern_calendar` en MongoDB Compass. Dentro de este encontr
 
 No podrás grabar nuevamente los mismos datos, si lo intentas marcará un error en consola.
 
-### 23.15
+### 23.15 Validaciones del usuario
 
 `src/`
 
