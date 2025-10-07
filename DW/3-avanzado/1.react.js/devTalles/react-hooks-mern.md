@@ -33235,13 +33235,121 @@ export const revalidateToken = (req, res = response) => {
 // module.exports = { createUser };
 ```
 
-Guardar el servicio en Postman `localhost:4000/api/auth/new`:
+Guardar el servicio en Postman `Post: localhost:4000/api/auth/new`:
 
 - `Ctrl + S`
 - `Auth - Create user`
 - New folder: `MERN Calendar`
 
-### 23.17
+### 23.17 Login de usuario
+
+En Postman saca un duplicado de `Auth - Create user` y nómbralo como `Auth - Login`. Queda así `Post: localhost:4000/api/auth/`.
+
+Usaremos los siguientes datos:
+
+```bash
+{
+  "email": "aleroses@gmail.com",
+  "password": "123456"
+}
+```
+
+`controllers/auth`
+
+```js
+import { response } from "express";
+import bcrypt from "bcryptjs";
+import { User } from "../models/User.js";
+
+export const createUser = async (req, res = response) => {
+  const { email, password } = req.body;
+
+  try {
+    let user = await User.findOne({ email });
+
+    if (user) {
+      return res.status(400).json({
+        ok: false,
+        msg: "This email address is already in use.",
+      });
+    }
+
+    user = new User(req.body);
+
+    // Encrypt password
+    const salt = bcrypt.genSaltSync();
+    user.password = bcrypt.hashSync(password, salt);
+
+    await user.save();
+
+    res.status(201).json({
+      ok: true,
+      uid: user.id,
+      name: user.name,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      ok: false,
+      msg: "Please speak to the manager!",
+    });
+  }
+};
+
+export const loginUser = async (req, res = response) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(400).json({
+        ok: false,
+        msg: "The user doesn't exist with that email address.",
+      });
+    }
+
+    // Confirm passwords
+    const validPassword = bcrypt.compareSync(
+      password,
+      user.password
+    );
+
+    if (!validPassword) {
+      return res.status(400).json({
+        ok: false,
+        msg: "Incorrect password",
+      });
+    }
+
+    // Generate our JWT (JSON Web Token)
+    res.json({
+      ok: true,
+      uid: user.id,
+      name: user.name,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      ok: false,
+      msg: "Please speak to the manager!",
+    });
+  }
+};
+
+export const revalidateToken = (req, res = response) => {
+  res.json({
+    ok: true,
+    msg: "renew",
+  });
+};
+```
+
+En Postman siempre usa `Ctrl + S` para guardar los cambios.
+
+### 23.18
 
 `src/`
 
@@ -33266,7 +33374,7 @@ Guardar el servicio en Postman `localhost:4000/api/auth/new`:
 👈👀☝️
 👈👀📌
 
-### 23.18
+### 23.19
 
 `src/`
 
@@ -33283,6 +33391,114 @@ Guardar el servicio en Postman `localhost:4000/api/auth/new`:
 
 ```jsx
 ```
+
+☝️👆
+👈👀
+❯
+👈👀👇
+👈👀☝️
+👈👀📌
+
+### 23.20
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+☝️👆
+👈👀
+❯
+👈👀👇
+👈👀☝️
+👈👀📌
+
+### 23.21
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+☝️👆
+👈👀
+❯
+👈👀👇
+👈👀☝️
+👈👀📌
+
+### 23.22
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+☝️👆
+👈👀
+❯
+👈👀👇
+👈👀☝️
+👈👀📌
+
+### 23.23
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+☝️👆
+👈👀
+❯
+👈👀👇
+👈👀☝️
+👈👀📌
+
 
 ⚙️
 ☝️👆
