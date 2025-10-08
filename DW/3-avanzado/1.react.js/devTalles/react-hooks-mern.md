@@ -33899,7 +33899,28 @@ Si necesitan tener en POSTMAN los endpoints creados hasta el momento, pueden des
 
 > - MERN+Calendar.postman_collection.json [Descargar](https://import.cdn.thinkific.com/643563/courses/1901683/MERNCalendarpostman_collection-220624-165026.json)
 
-## 24. 
+## 24. Backend - Eventos del calendario - CRUD
+
+### 24.1 Introducción a la sección
+
+### 24.2 Temas puntuales de la sección
+
+**¿Qué veremos en esta sección?**
+
+- CRUD completo de eventos de calendario
+- Modelos
+- Validaciones automáticas
+- Validaciones personalizadas
+
+Aquí trabajaremos creando todo lo necesario para que podamos insertar, actualiza y eliminar información relacionada a los eventos que nuestra aplicación del calendario necesitará.
+
+### 24.3
+
+### 24.4
+
+### 24.5
+
+### 24.6
 
 `src/`
 
