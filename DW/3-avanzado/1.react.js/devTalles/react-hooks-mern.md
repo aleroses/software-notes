@@ -33349,30 +33349,211 @@ export const revalidateToken = (req, res = response) => {
 
 En Postman siempre usa `Ctrl + S` para guardar los cambios.
 
-### 23.18
+### 23.18 Generar un Json Web Token
 
-`src/`
+Estructura:
 
-```jsx
+```bash
+.
+├── controllers
+│   └── auth.js
+├── database
+│   └── config.js
+├── .env
+├── .git
+├── .gitignore
+├── helpers 👈👀👇
+│   └── jwt.js
+├── index.html
+├── index.js
+├── LICENSE
+├── middlewares
+│   └── validate-fields.js
+├── models
+│   └── User.js
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+│   ├── index.html
+│   └── styles.css
+└── routes
+    └── auth.js
 ```
 
-`src/`
-
-```jsx
+```bash
+# Install https://www.npmjs.com/package/jsonwebtoken
+npm i jsonwebtoken
 ```
 
+`.env`
 
-`src/`
-
-```jsx
+```
+PORT=4000
+DB_CNN=mongodb+srv://mern-user:HAzCB7Tw4gQ3ln1m@calendardb.l8x2lf4.mongodb.net/mern_calendar
+SECRET_JWT_SEED=This-is-@-secret-Word
 ```
 
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
+`helpers/jwt.js`
+
+```js
+import jwt from "jsonwebtoken";
+
+export const generateJWT = (uid, name) => {
+  return new Promise((resolve, reject) => {
+    const payload = { uid, name };
+
+    jwt.sign(
+      payload,
+      process.env.SECRET_JWT_SEED,
+      {
+        expiresIn: "2h",
+      },
+      (err, token) => {
+        if (err) {
+          console.log(err);
+
+          reject("The token couldn't be generated!!!");
+        }
+
+        resolve(token);
+      }
+    );
+  });
+};
+```
+
+También funciona:
+
+```js
+import jwt from "jsonwebtoken";
+
+export const generateJWT = async (uid, name) => {
+  const payload = { uid, name };
+  const secret = process.env.SECRET_JWT_SEED;
+
+  try {
+    const token = await jwt.sign(payload, secret, {
+      expiresIn: "2h",
+    });
+    return token;
+  } catch (error) {
+    console.error("Error generating token:", error.message);
+    throw new Error("The token couldn't be generated!!!");
+  }
+};
+```
+
+`controllers/auth.js`
+
+```js
+import { response } from "express";
+import bcrypt from "bcryptjs";
+import { User } from "../models/User.js";
+import { generateJWT } from "../helpers/jwt.js";
+
+export const createUser = async (req, res = response) => {
+  const { email, password } = req.body;
+
+  try {
+    let user = await User.findOne({ email });
+
+    if (user) {
+      return res.status(400).json({
+        ok: false,
+        msg: "This email address is already in use.",
+      });
+    }
+
+    user = new User(req.body);
+
+    // Encrypt password
+    const salt = bcrypt.genSaltSync();
+    user.password = bcrypt.hashSync(password, salt);
+
+    await user.save();
+
+    // Generate our JWT (JSON Web Token)
+    const token = await generateJWT(user.id, user.name);
+
+    res.status(201).json({
+      ok: true,
+      uid: user.id,
+      name: user.name,
+      token,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      ok: false,
+      msg: "Please speak to the manager!",
+    });
+  }
+};
+
+export const loginUser = async (req, res = response) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(400).json({
+        ok: false,
+        msg: "The user doesn't exist with that email address.",
+      });
+    }
+
+    // Confirm passwords
+    const validPassword = bcrypt.compareSync(
+      password,
+      user.password
+    );
+
+    if (!validPassword) {
+      return res.status(400).json({
+        ok: false,
+        msg: "Incorrect password",
+      });
+    }
+
+    // Generate our JWT (JSON Web Token)
+    const token = await generateJWT(user.id, user.name);
+
+    res.json({
+      ok: true,
+      uid: user.id,
+      name: user.name,
+      token,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      ok: false,
+      msg: "Please speak to the manager!",
+    });
+  }
+};
+
+export const revalidateToken = (req, res = response) => {
+  res.json({
+    ok: true,
+    msg: "renew",
+  });
+};
+```
+
+En Postman:
+
+Prueba el login: `Post: localhost:4000/api/auth/` copia el token y pégalo en la web JWT para verificarla.
+
+`eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2OGU1MWIxMGY1YjFmNDJkOGZjM2RmMGEiLCJuYW1lIjoiQWxlIFJvc2VzIiwiaWF0IjoxNzU5OTQ0NTkyLCJleHAiOjE3NTk5NTE3OTJ9.1_laKPHRVzNxQUYwVrncH-oDjsvH2oBwgmoSx-hg-Jo`
+
+Prueba el create: `Post: localhost:4000/api/auth/new` solo cambia los datos, copia el token y pégalo en la web JWT para verificarla.
+
+[Json Web Token](https://www.jwt.io/)
 
 ### 23.19
 
