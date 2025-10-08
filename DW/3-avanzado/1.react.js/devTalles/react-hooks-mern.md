@@ -33883,32 +33883,23 @@ Guarda los cambios en Postman `Ctrl + S`.
 
 [npm - cors](https://www.npmjs.com/package/cors)
 
-### 23.21
+### 23.21 Código de la sección
 
-`src/`
+Aquí les dejo el código fuente de la sección por si lo quieren clonar. Recuerden que puede no funcionarles la conexión a la base de datos porque es algo que en cualquier momento yo puedo cambiar, recuerden utilizar su cadena de conexión a Mongo Atlas
 
-```jsx
-```
+[MERN-Calendar-Backend - Autenticación](https://github.com/Klerith/MERN-Calendar-Backend/releases/tag/v1.0.0)
 
-`src/`
+**POSTMAN Backup**
 
-```jsx
-```
+Si necesitan tener en POSTMAN los endpoints creados hasta el momento, pueden descargar y cargar el archivo JSON que está adjunto a la clase mediante el botón de importación en Postman.
 
+![](https://files.cdn.thinkific.com/file_uploads/643563/images/d0d/dfb/a57/1656111035885.jpg)
 
-`src/`
+**Recursos de la lección:**
 
-```jsx
-```
+> - MERN+Calendar.postman_collection.json [Descargar](https://import.cdn.thinkific.com/643563/courses/1901683/MERNCalendarpostman_collection-220624-165026.json)
 
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
-
-### 23.22
+## 24. 
 
 `src/`
 
