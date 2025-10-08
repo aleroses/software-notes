@@ -33914,7 +33914,40 @@ Si necesitan tener en POSTMAN los endpoints creados hasta el momento, pueden des
 
 Aquí trabajaremos creando todo lo necesario para que podamos insertar, actualiza y eliminar información relacionada a los eventos que nuestra aplicación del calendario necesitará.
 
-### 24.3
+### 24.3 Continuación del proyecto - Calendar Backend
+
+Estructura:
+
+```bash
+.
+├── controllers 👀👇
+│   ├── auth.js
+│   └── events.js 👈👀
+├── database
+│   └── config.js
+├── .env
+├── .git
+├── .gitignore
+├── helpers
+│   └── jwt.js
+├── index.html
+├── index.js
+├── LICENSE
+├── middlewares
+│   ├── validate-fields.js
+│   └── validate-jwt.js
+├── models
+│   └── User.js
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+│   ├── index.html
+│   └── styles.css
+└── routes 👀👇
+    ├── auth.js
+    └── events.js 👈👀
+```
 
 ### 24.4
 
