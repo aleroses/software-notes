@@ -33555,30 +33555,293 @@ Prueba el create: `Post: localhost:4000/api/auth/new` solo cambia los datos, cop
 
 [Json Web Token](https://www.jwt.io/)
 
-### 23.19
+### 23.19 Revalidar JWT
 
-`src/`
+Estructura:
 
-```jsx
+```bash
+.
+├── controllers
+│   └── auth.js
+├── database
+│   └── config.js
+├── .env
+├── .git
+├── .gitignore
+├── helpers
+│   └── jwt.js
+├── index.html
+├── index.js
+├── LICENSE
+├── middlewares 👈👀👇
+│   ├── validate-fields.js
+│   └── validate-jwt.js
+├── models
+│   └── User.js
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+│   ├── index.html
+│   └── styles.css
+└── routes
+    └── auth.js
 ```
 
-`src/`
+`middlewares/validate-jwt.js`
 
-```jsx
+```js
+import { response } from "express";
+import jwt from "jsonwebtoken";
+
+export const validateJWT = (req, res = response, next) => {
+  // x-token headers
+  const token = req.header("x-token");
+
+  // console.log(token);
+
+  if (!token) {
+    return res.status(401).json({
+      ok: false,
+      msg: "There isn't token in the request.",
+    });
+  }
+
+  try {
+    const { uid, name } = jwt.verify(
+      token,
+      process.env.SECRET_JWT_SEED
+    );
+
+    // console.log(payload);
+
+    req.uid = uid;
+    req.name = name;
+  } catch (error) {
+    return res.status(401).json({
+      ok: false,
+      msg: "Invalid token.",
+    });
+  }
+
+  next();
+};
 ```
 
+`controllers/auth.js`
 
-`src/`
+```js
+import { response } from "express";
+import bcrypt from "bcryptjs";
+import { User } from "../models/User.js";
+import { generateJWT } from "../helpers/jwt.js";
 
-```jsx
+export const createUser = async (req, res = response) => {
+  const { email, password } = req.body;
+
+  try {
+    let user = await User.findOne({ email });
+
+    if (user) {
+      return res.status(400).json({
+        ok: false,
+        msg: "This email address is already in use.",
+      });
+    }
+
+    user = new User(req.body);
+
+    // Encrypt password
+    const salt = bcrypt.genSaltSync();
+    user.password = bcrypt.hashSync(password, salt);
+
+    await user.save();
+
+    // Generate our JWT (JSON Web Token)
+    const token = await generateJWT(user.id, user.name);
+
+    res.status(201).json({
+      ok: true,
+      uid: user.id,
+      name: user.name,
+      token,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      ok: false,
+      msg: "Please speak to the manager!",
+    });
+  }
+};
+
+export const loginUser = async (req, res = response) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(400).json({
+        ok: false,
+        msg: "The user doesn't exist with that email address.",
+      });
+    }
+
+    // Confirm passwords
+    const validPassword = bcrypt.compareSync(
+      password,
+      user.password
+    );
+
+    if (!validPassword) {
+      return res.status(400).json({
+        ok: false,
+        msg: "Incorrect password",
+      });
+    }
+
+    // Generate our JWT (JSON Web Token)
+    const token = await generateJWT(user.id, user.name);
+
+    res.json({
+      ok: true,
+      uid: user.id,
+      name: user.name,
+      token,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      ok: false,
+      msg: "Please speak to the manager!",
+    });
+  }
+};
+
+export const revalidateToken = async (
+  req,
+  res = response
+) => {
+  const { uid, name } = req;
+
+  // Generate a new JWT and return it in this request.
+  const token = await generateJWT(uid, name);
+
+  res.json({
+    ok: true,
+    // uid,
+    // name,
+    token,
+  });
+};
 ```
 
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
+`routes/auth.js`
+
+```js
+/* 
+  User paths / Auth
+  host + /api/auth
+*/
+
+import { Router } from "express";
+import { check } from "express-validator";
+import { validateFields } from "../middlewares/validate-fields.js";
+import {
+  createUser,
+  loginUser,
+  revalidateToken,
+} from "../controllers/auth.js";
+import { validateJWT } from "../middlewares/validate-jwt.js";
+
+const router = Router();
+
+router.post(
+  "/new",
+  [
+    // Middlewares
+    check("name", "The name is mandatory.").not().isEmpty(),
+    check("email", "The email is mandatory.").isEmail(),
+    check(
+      "password",
+      "The password must be 6 characters long."
+    ).isLength({ min: 6 }),
+    validateFields,
+  ],
+  createUser
+);
+
+router.post(
+  "/",
+  [
+    check("email", "The email is mandatory.").isEmail(),
+    check(
+      "password",
+      "The password must be 6 characterslong."
+    ).isLength({ min: 6 }),
+    validateFields,
+  ],
+  loginUser
+);
+
+router.get("/renew", validateJWT, revalidateToken);
+
+// module.exports = router;
+export { router };
+```
+
+En Postman duplicar `Login` y renombrar como `Auth - Revalidate JWT`. Ejecutamos `GET: localhost:4000/api/auth/renew`
+
+Entramos a los `Headers`
+
+- Key: `x-token`
+- Value: `ABC123`
+
+```json
+{
+    "ok": true,
+    "msg": "renew"
+}
+```
+
+En consola:
+
+```bash
+❯ npm run dev
+
+> 10-calendar-backend@1.0.0 dev
+> node --watch index.js
+
+Server running on port 4000
+DB Online
+ABC123
+```
+
+Validemos un Token:
+
+Entramos en `Login`, damos en `SEND` y copiamos el token. Entramos en `Revalidate JWT`, pegamos en el campo `Value` y le damos en `SEND`.
+
+- Key: `x-token`
+- Value: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2OGU1MWIxMGY1YjFmNDJkOGZjM2RmMGEiLCJuYW1lIjoiQWxlIFJvc2VzIiwiaWF0IjoxNzU5OTQ5MzQyLCJleHAiOjE3NTk5NTY1NDJ9.CcWNXqe_epjbUGQbZbgJA_7N-vmk_tACmPMW9-tRl4M`
+
+En consola debe aparecer el token.
+
+`Auth - Revalidate JWT` damos en `SEND` y revisamos la consola:
+
+```bash
+Restarting 'index.js'
+Server running on port 4000
+DB Online
+{
+  uid: '68e51b10f5b1f42d8fc3df0a',
+  name: 'Ale Roses',
+  iat: 1759949342,
+  exp: 1759956542
+}
+```
 
 ### 23.20
 
