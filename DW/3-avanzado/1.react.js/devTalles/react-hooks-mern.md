@@ -34083,30 +34083,136 @@ Debe aparecer:
 
  > 📌 Nota: Esto no requiere un `Body` así que lo puedes quitar. Usa `Ctrl + S` para guardar y `Ctrl + E` para renombrar.
 
-### 24.5
+### 24.5 Modelo Evento
 
-`src/`
+Estructura:
 
-```jsx
+```bash
+.
+├── controllers
+│   ├── auth.js
+│   └── events.js
+├── database
+│   └── config.js
+├── .env
+├── .git
+├── .gitignore
+├── helpers
+│   └── jwt.js
+├── index.html
+├── index.js
+├── LICENSE
+├── middlewares
+│   ├── validate-fields.js
+│   └── validate-jwt.js
+├── models 👈👀👇
+│   ├── Event.js
+│   └── User.js
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+│   ├── index.html
+│   └── styles.css
+└── routes
+    ├── auth.js
+    └── events.js
 ```
 
-`src/`
+`models/Event.js`
 
-```jsx
+```js
+import { Schema, model } from "mongoose";
+
+const EventSchema = Schema({
+  title: {
+    type: String,
+    required: true,
+  },
+  notes: {
+    type: String,
+  },
+  start: {
+    type: Date,
+    required: true,
+  },
+  end: {
+    type: Date,
+    required: true,
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
+});
+
+export const User = model("Event", EventSchema);
 ```
 
+`controllers/events.js`
 
-`src/`
+```js
+import { response } from "express";
 
-```jsx
+export const getEvent = (req, res = response) => {
+  res.json({
+    ok: true,
+    msg: "Get events",
+  });
+};
+
+export const createEvent = (req, res = response) => {
+  // Verify that it have the event
+  console.log(req.body);
+
+  res.json({
+    ok: true,
+    msg: "Create event",
+  });
+};
+
+export const updateEvent = (req, res = response) => {
+  res.json({
+    ok: true,
+    msg: "Update event",
+  });
+};
+
+export const deleteEvent = (req, res = response) => {
+  res.json({
+    ok: true,
+    msg: "Delete event",
+  });
+};
 ```
 
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
+En `Event - createEvent` `POST: localhost:4000/api/events` enviamos en `Body`:
+
+```json
+{
+  "title": "The boss's birthday",
+  "start": 0,
+  "end": 100000
+}
+```
+
+Si te da error debes renovar el Token, luego te debe salir:
+
+```json
+{
+    "ok": true,
+    "msg": "Create event"
+}
+```
+
+En consola:
+
+```json
+Restarting 'index.js'
+Server running on port 4000
+DB Online
+{ title: "The boss's birthday", start: 0, end: 100000 }
+```
 
 ### 24.6
 
