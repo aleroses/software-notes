@@ -33034,16 +33034,16 @@ import { Schema, model } from "mongoose";
 const UserSchema = Schema({
   name: {
     type: String,
-    require: true,
+    required: true,
   },
   email: {
     type: String,
-    require: true,
+    required: true,
     unique: true,
   },
   password: {
     type: String,
-    require: true,
+    required: true,
   },
 });
 
@@ -34143,10 +34143,11 @@ const EventSchema = Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: "User",
+    required: true,
   },
 });
 
-export const User = model("Event", EventSchema);
+export const Event = model("Event", EventSchema);
 ```
 
 `controllers/events.js`
@@ -34358,30 +34359,151 @@ Debe salir:
 
 [NPM - Moment ](https://www.npmjs.com/package/moment)
 
-### 23.7
+### 23.7 Grabar el evento en la base de datos
 
-`src/`
+`controllers/events.js`
 
-```jsx
+```js
+import { response } from "express";
+import { Event } from "../models/Event.js";
+
+export const getEvent = (req, res = response) => {
+  res.json({
+    ok: true,
+    msg: "Get events",
+  });
+};
+
+export const createEvent = async (req, res = response) => {
+  // Verify that it have the event
+  // console.log(req.body);
+
+  const event = new Event(req.body);
+
+  try {
+    event.user = req.uid;
+    const savedEvent = await event.save();
+
+    res.json({
+      ok: true,
+      event: savedEvent,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      ok: false,
+      msg: "Talk to the administrator.",
+    });
+  }
+};
+
+export const updateEvent = (req, res = response) => {
+  res.json({
+    ok: true,
+    msg: "Update event",
+  });
+};
+
+export const deleteEvent = (req, res = response) => {
+  res.json({
+    ok: true,
+    msg: "Delete event",
+  });
+};
 ```
 
-`src/`
+`models/Event.js`
 
-```jsx
+```js
+import { Schema, model } from "mongoose";
+
+const EventSchema = Schema({
+  title: {
+    type: String,
+    required: true,
+  },
+  notes: {
+    type: String,
+  },
+  start: {
+    type: Date,
+    required: true,
+  },
+  end: {
+    type: Date,
+    required: true,
+  },
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+});
+
+EventSchema.method("toJSON", function () {
+  const { __v, _id, ...object } = this.toObject();
+  object.id = _id;
+
+  return object;
+});
+
+export const Event = model("Event", EventSchema);
 ```
 
+`models/User.js` Verifica que realmente estés usando `required`
 
-`src/`
+```js
+import { Schema, model } from "mongoose";
 
-```jsx
+const UserSchema = Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+});
+
+export const User = model("User", UserSchema);
 ```
 
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
+`Body`: aunque envíes `ABC` en Postman esto será ignorado, ya que no está especificado:
+
+```json
+{
+  "title": "The boss's birthday",
+  "start": 1,
+  "end": 100000,
+  "notes": "Buy cake.",
+  "ABC": 123
+}
+```
+
+Obtenemos:
+
+```json
+{
+    "ok": true,
+    "event": {
+        "title": "The boss's birthday",
+        "notes": "Buy cake.",
+        "start": "1970-01-01T00:00:00.001Z",
+        "end": "1970-01-01T00:01:40.000Z",
+        "user": "68e51b10f5b1f42d8fc3df0a",
+        "id": "68e80f38517f9aa9e0bf3041"
+    }
+}
+```
+
+Abrimos MongoDB Compass `mern_calendar/events`, debemos ver el objeto almacenado.
 
 ### 23.8
 
