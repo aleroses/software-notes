@@ -34191,7 +34191,7 @@ En `Event - createEvent` `POST: localhost:4000/api/events` enviamos en `Body`:
 ```json
 {
   "title": "The boss's birthday",
-  "start": 0,
+  "start": 1,
   "end": 100000
 }
 ```
@@ -34214,7 +34214,151 @@ DB Online
 { title: "The boss's birthday", start: 0, end: 100000 }
 ```
 
-### 24.6
+### 24.6 Validar campos necesarios
+
+Estructura:
+
+```bash
+.
+├── controllers
+│   ├── auth.js
+│   └── events.js
+├── database
+│   └── config.js
+├── .env
+├── .git
+├── .gitignore
+├── helpers 👈👀👇
+│   ├── isDate.js
+│   └── jwt.js
+├── index.html
+├── index.js
+├── LICENSE
+├── middlewares
+│   ├── validate-fields.js
+│   └── validate-jwt.js
+├── models
+│   ├── Event.js
+│   └── User.js
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+│   ├── index.html
+│   └── styles.css
+└── routes
+    ├── auth.js
+    └── events.js
+```
+
+```bash
+# Install
+npm i moment
+```
+
+`routes/events.js`
+
+```js
+/* 
+  Event Routes
+  /api/events
+*/
+
+import { Router } from "express";
+import { check } from "express-validator";
+import { isDate } from "../helpers/isDate.js";
+import { validateJWT } from "../middlewares/validate-jwt.js";
+import {
+  getEvent,
+  createEvent,
+  updateEvent,
+  deleteEvent,
+} from "../controllers/events.js";
+import { validateFields } from "../middlewares/validate-fields.js";
+
+const router = Router();
+
+// All of them must undergo JWT validation.
+router.use(validateJWT); // Everything is protected.
+
+// Get events
+router.get("/", getEvent);
+
+// Create a new event
+router.post(
+  "/",
+  [
+    check("title", "The title is mandatory!").not().isEmpty(),
+    check("start", "The start date is mandatory!").custom(
+      isDate
+    ),
+    check("end", "The completion date is mandatory!").custom(
+      isDate
+    ),
+    validateFields,
+  ],
+  createEvent
+);
+
+// Update event
+router.put("/:id", updateEvent);
+
+// Delete event
+router.delete("/:id", deleteEvent);
+
+export { router };
+```
+
+`helpers/isDate.js`
+
+```js
+import moment from "moment";
+
+export const isDate = (value, { req, location, path }) => {
+  // console.log({ value, req, location, path });
+
+  if (!value) {
+    return false;
+  }
+
+  const date = moment(value);
+
+  if (date.isValid()) {
+    return true;
+  } else {
+    return false;
+  }
+};
+```
+
+Al intentar enviar sin `title`...
+
+```bash
+{
+  "start": 1,
+  "end": 100000
+}
+```
+
+Debe salir:
+
+```bash
+{
+    "ok": false,
+    "errors": {
+        "title": {
+            "type": "field",
+            "msg": "The title is mandatory!",
+            "path": "title",
+            "location": "body"
+        }
+    }
+}
+```
+
+[NPM - Moment ](https://www.npmjs.com/package/moment)
+
+### 23.7
 
 `src/`
 
@@ -34239,7 +34383,7 @@ DB Online
 👈👀☝️
 👈👀📌
 
-### 23.23
+### 23.8
 
 `src/`
 
@@ -34264,6 +34408,80 @@ DB Online
 👈👀☝️
 👈👀📌
 
+### 23.9
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+☝️👆
+👈👀
+❯
+👈👀👇
+👈👀☝️
+👈👀📌
+
+### 23.10
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+☝️👆
+👈👀
+❯
+👈👀👇
+👈👀☝️
+👈👀📌
+
+### 23.11
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+☝️👆
+👈👀
+❯
+👈👀👇
+👈👀☝️
+👈👀📌
 
 ⚙️
 ☝️👆
