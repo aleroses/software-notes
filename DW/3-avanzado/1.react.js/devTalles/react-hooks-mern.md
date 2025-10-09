@@ -33949,9 +33949,164 @@ Estructura:
     └── events.js 👈👀
 ```
 
-### 24.4
+### 24.4 Resolución de la tarea - CRUD
+
+`routes/events.js`
+
+```js
+/* 
+  Event Routes
+  /api/events
+*/
+
+import { Router } from "express";
+import { validateJWT } from "../middlewares/validate-jwt.js";
+import {
+  getEvent,
+  createEvent,
+  updateEvent,
+  deleteEvent,
+} from "../controllers/events.js";
+
+const router = Router();
+
+// All of them must undergo JWT validation.
+router.use(validateJWT); // Everything is protected.
+
+// Get events
+router.get("/", getEvent);
+
+// Create a new event
+router.post("/", createEvent);
+
+// Update event
+router.put("/:id", updateEvent);
+
+// Delete event
+router.delete("/:id", deleteEvent);
+
+export { router };
+```
+
+`controllers/events.js`
+
+```js
+import { response } from "express";
+
+export const getEvent = (req, res = response) => {
+  res.json({
+    ok: true,
+    msg: "Get events",
+  });
+};
+
+export const createEvent = (req, res = response) => {
+  res.json({
+    ok: true,
+    msg: "Create event",
+  });
+};
+
+export const updateEvent = (req, res = response) => {
+  res.json({
+    ok: true,
+    msg: "Update event",
+  });
+};
+
+export const deleteEvent = (req, res = response) => {
+  res.json({
+    ok: true,
+    msg: "Delete event",
+  });
+};
+```
+
+`index.js`
+
+```js
+import express from "express";
+import cors from "cors";
+import "dotenv/config";
+import { router as authRoutes } from "./routes/auth.js";
+import { dbConnection } from "./database/config.js";
+import { router as eventRoutes } from "./routes/events.js";
+
+// Create the Express server
+const app = express();
+
+// Data Base
+dbConnection();
+
+// CORS
+app.use(cors());
+
+// Public directory
+app.use(express.static("public"));
+
+// Reading and parsing the body
+app.use(express.json());
+
+// Rutes
+app.use("/api/auth", authRoutes);
+// TODO: CRUD: Events
+app.use("/api/events", eventRoutes);
+
+// Listen to requests
+app.listen(process.env.PORT, () => {
+  console.log(`Server running on port ${process.env.PORT}`);
+});
+```
+
+Duplicar 4 veces `Revalidate JWT` y renombrar como:
+
+- `Event - getEvent` y la petición es `GET: localhost:4000/api/events`.
+- `Event - createEvent` y la petición es `POST: localhost:4000/api/events`.
+- `Event - updateEvent` y la petición es `PUT: localhost:4000/api/events/123456`.
+- `Event - deleteEvent` y la petición es `DELETE: localhost:4000/api/events/123456`.
+
+Verifica que el token aún sea válido. Para obtener uno nuevo revisa la clase [[#23.19 Revalidar JWT]]
+
+Entramos en `Auth - Create Login`, damos en `SEND` y copiamos el token. Entramos en `Auth - Revalidate JWT` y luego en `Event - getEvents`, pegamos en el campo `Value` y le damos en `SEND`.
+
+- Key: `x-token`
+- Value: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2OGU1MWIxMGY1YjFmNDJkOGZjM2RmMGEiLCJuYW1lIjoiQWxlIFJvc2VzIiwiaWF0IjoxNzU5OTQ5MzQyLCJleHAiOjE3NTk5NTY1NDJ9.CcWNXqe_epjbUGQbZbgJA_7N-vmk_tACmPMW9-tRl4M`
+
+Debe aparecer:
+
+```bash
+{
+    "ok": true,
+    "msg": "Get events"
+}
+```
+
+ > 📌 Nota: Esto no requiere un `Body` así que lo puedes quitar. Usa `Ctrl + S` para guardar y `Ctrl + E` para renombrar.
 
 ### 24.5
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+☝️👆
+👈👀
+❯
+👈👀👇
+👈👀☝️
+👈👀📌
 
 ### 24.6
 
