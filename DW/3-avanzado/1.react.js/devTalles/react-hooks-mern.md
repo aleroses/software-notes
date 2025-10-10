@@ -34921,7 +34921,31 @@ DB Online
 
 Ver la configuración usada en `database/config.js` [[#23.13 Conectar Node a Mongo Atlas]] nota que hay cosas que no usamos en ese momento porque ya no eran necesarias.
 
-### 25.5
+### 25.5 Desplegar a Railway
+
+Crea una cuenta en [Railway](https://railway.com/) preferiblemente usar una cuenta de **GitHub**.
+
+`New project/GitHub Repository/calendar-app-backend`
+
+Nos vamos a `Variables`
+
+Abre el archivo `.env` y copia casi todo, luego solo pegalo en `Row editor/Paste` 
+
+```json
+DB_CNN=mongodb+srv://mern-user:HAzCB7Tw4gQ3ln1m@calendardb.l8x2lf4.mongodb.net/mern_calendar
+SECRET_JWT_SEED=This-is-@-secret-Word
+```
+
+`Deploy`
+
+`Settings/Generate Domain/4000`
+
+Esto te debe dar un enlace: `calendar-app-backend-production-2d97.up.railway.app`
+
+> Nota: Si no aparecen tus proyectos o repositorios, intenta activando `Profile Visibity` y dándole acceso a todo:
+> `Account Settings/Public Profile/Profile Visibility (activar) permitir todos los proyectos.`
+
+Luego de que todo haya funcionado puedes ir a Postman `Auth - Login` y en `POST: pegar enlace`
 
 ### 25.6
 
