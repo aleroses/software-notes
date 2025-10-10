@@ -34947,7 +34947,17 @@ Esto te debe dar un enlace: `calendar-app-backend-production-2d97.up.railway.app
 
 Luego de que todo haya funcionado puedes ir a Postman `Auth - Login` y en `POST: pegar enlace`
 
-### 25.6
+### 25.6 Código fuente de la sección
+
+Aquí les dejo el código fuente con los pocos cambios que hicimos en la sección de despliegues.
+
+[Fin-seccion-25 - Despliegue a Railway](https://github.com/DevTalles-corp/React-MERN-backend/tree/fin-seccion-25)
+
+**Importante:**
+
+Recuerden cambiar sus variables de entorno.
+
+## 🟣 26. 
 
 `src/`
 
