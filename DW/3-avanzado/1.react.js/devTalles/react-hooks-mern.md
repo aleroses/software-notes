@@ -34864,7 +34864,29 @@ Recuerda eliminar los eventos con el usuario que los creó.
 > `const EventSchema = new Schema({ ... ])` 👈👀
 > Esto debería ayudar a que aparezcan las sugerencias.
 
-### 23.11 
+### 23.11 Código fuente de la sección
+
+Les dejo el código fuente de la sección por si lo llegan a necesitar, y el enlace al repositorio de GitHub para que lo puedan clonar o tener a la mano en un futuro.
+
+[MERN-Calendar-Backend - Autenticación y CRUD](https://github.com/Klerith/MERN-Calendar-Backend/releases/tag/v2.0.0)
+
+**POSTMAN Endpoints - Backups**
+
+Pueden descargar todos los endpoints creados en esta sección del material adjunto a esta clase y cargarlos en Postman.
+
+**Nota:**
+
+> Por favor, no se olviden de dejar un comentario en el curso en las reseñas y si pueden ayúdenme a poder llegar a más personas hablando de este curso o invitándolos a tomarlo, recuerden que es un curso que tienen acceso de por vida y no hay más cobros o suscripciones, por lo que si me ayudan a que más personas lo tomen, me ayudan a que pueda seguir trabajando en la enseñanza en línea.
+
+¡Esa era toda la publicidad que quería hacer… comencemos a desplegar nuestro back-end!
+
+**Recursos de la Lección:**
+
+- MERN-Calendar-Backend-2.0.0.zip [Descargar](https://import.cdn.thinkific.com/643563/courses/1901683/MERNCalendarBackend200-220626-160933.zip)
+    
+- MERN+Calendar.postman_collection.json [Descargar](https://import.cdn.thinkific.com/643563/courses/1901683/MERNCalendarpostman_collection-220626-160946.json)
+
+## 🟣 24.
 
 `src/`
 
