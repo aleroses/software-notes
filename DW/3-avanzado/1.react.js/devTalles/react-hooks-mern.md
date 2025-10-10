@@ -34905,7 +34905,21 @@ En esta clase, nos enfocaremos en desplegar nuestro back-end a Railway, el cual 
 
 Mi Repo [calendar-app-backend](https://github.com/aleroses/calendar-app-backend)
 
-### 25.4
+### 25.4 Pruebas antes de desplegar
+
+```bash
+# Make sure everything is okay...
+npm run dev
+
+# It must run without errors.
+> 10-calendar-backend@1.0.0 dev
+> node --watch index.js
+
+Server running on port 4000
+DB Online
+```
+
+Ver la configuración usada en `database/config.js` [[#23.13 Conectar Node a Mongo Atlas]] nota que hay cosas que no usamos en ese momento porque ya no eran necesarias.
 
 ### 25.5
 
