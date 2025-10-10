@@ -34901,7 +34901,9 @@ En esta clase, nos enfocaremos en desplegar nuestro back-end a Railway, el cual 
 3. Configuración de variables de entorno
 4. Prueba del back-end en la nube
 
-### 25.3
+### 25.3 Subir proyecto a GitHub
+
+Mi Repo [calendar-app-backend](https://github.com/aleroses/calendar-app-backend)
 
 ### 25.4
 
