@@ -34957,7 +34957,38 @@ Aquí les dejo el código fuente con los pocos cambios que hicimos en la secció
 
 Recuerden cambiar sus variables de entorno.
 
-## 🟣 26. 
+## 🟣 26. MERN - Calendario + Backend
+
+### 26.1 Introducción a la sección
+
+### 26.2 Temas puntuales de la sección
+
+**¿Qué veremos en esta sección?**
+
+- Conexión de nuestro Backend con el Frontend
+    
+
+Esta sección trabajaremos integrando nuestro back-end con el front-end hecho en React, que ya tenemos casi terminado, solo debemos de llamar los servicios y disparar las acciones respectivas que ya tenemos en nuestra aplicación del calendario.
+
+¡Toda esta sección está enfocada en la parte de la autenticación y manejo del JWT, hay que guardar y estar actualizando el token de autenticación y realizar las pruebas respectivas!
+
+Estamos llegando al final del curso :'(... pero aún falta mucho :D
+
+### 26.3 Continuación de proyecto - Calendar + Backend
+
+```bash
+cd FH/10-calendar-backend
+code .
+npm run dev
+```
+
+```bash
+cd FH/10-calendar
+code .
+npm run dev
+```
+
+### 26.4
 
 `src/`
 
@@ -34981,6 +35012,291 @@ Recuerden cambiar sus variables de entorno.
 👈👀👇
 👈👀☝️
 👈👀📌
+
+
+### 26.5
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+☝️👆
+👈👀
+❯
+👈👀👇
+👈👀☝️
+👈👀📌
+
+### 26.6
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+☝️👆
+👈👀
+❯
+👈👀👇
+👈👀☝️
+👈👀📌
+
+### 26.7
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+☝️👆
+👈👀
+❯
+👈👀👇
+👈👀☝️
+👈👀📌
+
+### 26.8
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+☝️👆
+👈👀
+❯
+👈👀👇
+👈👀☝️
+👈👀📌
+
+### 26.9
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+☝️👆
+👈👀
+❯
+👈👀👇
+👈👀☝️
+👈👀📌
+
+### 26.10
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+☝️👆
+👈👀
+❯
+👈👀👇
+👈👀☝️
+👈👀📌
+
+### 26.11
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+☝️👆
+👈👀
+❯
+👈👀👇
+👈👀☝️
+👈👀📌
+
+### 26.12
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+☝️👆
+👈👀
+❯
+👈👀👇
+👈👀☝️
+👈👀📌
+
+### 26.13
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+☝️👆
+👈👀
+❯
+👈👀👇
+👈👀☝️
+👈👀📌
+
+### 26.14
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+☝️👆
+👈👀
+❯
+👈👀👇
+👈👀☝️
+👈👀📌
+
+### 26.15
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+☝️👆
+👈👀
+❯
+👈👀👇
+👈👀☝️
+👈👀📌
+
+
+
+
+
+
+
+
+
 
 ⚙️
 ☝️👆
@@ -34989,6 +35305,9 @@ Recuerden cambiar sus variables de entorno.
 👈👀👇
 👈👀☝️
 👈👀📌
+
+
+
 🔥
 🚫
 🔘
