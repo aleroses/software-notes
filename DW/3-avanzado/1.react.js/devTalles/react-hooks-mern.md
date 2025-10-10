@@ -34574,30 +34574,154 @@ En `Event - createEvent` `POST: localhost:4000/api/events` enviamos en `Body`:
 
 En `Event - getEvents` `GET: localhost:4000/api/events` obtenemos lo anteriormente enviado.
 
-### 23.9
+### 23.9 Actualizar un Evento
 
-`src/`
+`controllers/events.js`
 
-```jsx
+```js
+import { response } from "express";
+import { Event } from "../models/Event.js";
+
+export const getEvent = async (req, res = response) => {
+  const events = await Event.find().populate("user", "name");
+
+  res.json({
+    ok: true,
+    msg: "Get events",
+    events,
+  });
+};
+
+export const createEvent = async (req, res = response) => {
+  // Verify that it have the event
+  // console.log(req.body);
+
+  const event = new Event(req.body);
+
+  try {
+    event.user = req.uid;
+    const savedEvent = await event.save();
+
+    res.json({
+      ok: true,
+      event: savedEvent,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      ok: false,
+      msg: "Talk to the administrator.",
+    });
+  }
+};
+
+export const updateEvent = async (req, res = response) => {
+  const eventId = req.params.id;
+  const uid = req.uid;
+
+  try {
+    const event = await Event.findById(eventId);
+
+    if (!event) {
+      res.status(404).json({
+        ok: false,
+        msg: "The event doesn't exist for that ID",
+      });
+    }
+
+    if (event.user.toString() !== uid) {
+      return res.status(401).json({
+        ok: false,
+        msg: "You don't have privileges to edit this event.",
+      });
+    }
+
+    const newEvent = {
+      ...req.body,
+      user: uid,
+    };
+
+    const updatedEvent = await Event.findByIdAndUpdate(
+      eventId,
+      newEvent,
+      { new: true }
+    );
+
+    res.json({
+      ok: true,
+      event: updatedEvent,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      ok: false,
+      msg: "Talk to the administrator.",
+    });
+  }
+};
+
+export const deleteEvent = (req, res = response) => {
+  res.json({
+    ok: true,
+    msg: "Delete event",
+  });
+};
 ```
 
-`src/`
+En `Event - updateEvent` `PUT: localhost:4000/api/events/68e51b10f5b1f42d8fc3df0a` debemos añadir un `id` obtenido de `Event - getEvents`.
 
-```jsx
+`Body`:
+
+```json
+{
+  "title": "Work pending!!!",
+  "start": 1000,
+  "end": 200000,
+  "notes": "Hi world..."
+}
 ```
 
+Obtenemos:
 
-`src/`
-
-```jsx
+```json
+{
+    "ok": true,
+    "msg": "Update event"
+}
 ```
 
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
+Ahora en **MongoDB Compass** escogemos el `email` de un usuario diferente. Ingresamos en `Auth - Create Login` y generamos un nuevo token. Para esto inserta los datos en el `Body`.
+
+```json
+{
+  "email": "alesmith@gmail.com",
+  "password": "123456"
+}
+```
+
+Obtenemos:
+
+```json
+{
+    "ok": true,
+    "uid": "68e6a33c804f66fa3bde0406",
+    "name": "Ale Smith",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2OGU2YTMzYzgwNGY2NmZhM2JkZTA0MDYiLCJuYW1lIjoiQWxlIFNtaXRoIiwiaWF0IjoxNzYwMTAzOTcxLCJleHAiOjE3NjAxMTExNzF9.zGQqNDqL0_etxf9TbzECnXr9KARJgHkyHQmFMlqWpkg"
+}
+```
+
+Regresamos a `Event - updateEvent` y pegamos el token en `Headers`.
+
+Obtenemos:
+
+```json
+{
+    "ok": false,
+    "msg": "You don't have privileges to edit this event."
+}
+```
 
 ### 23.10
 
