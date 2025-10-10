@@ -34505,30 +34505,74 @@ Obtenemos:
 
 Abrimos MongoDB Compass `mern_calendar/events`, debemos ver el objeto almacenado.
 
-### 23.8
+### 23.8 Obtener el listado de los Eventos
 
-`src/`
+`controllers/events.js`
 
-```jsx
+```js
+import { response } from "express";
+import { Event } from "../models/Event.js";
+
+export const getEvent = async (req, res = response) => {
+  const events = await Event.find().populate("user", "name");
+
+  res.json({
+    ok: true,
+    msg: "Get events",
+    events,
+  });
+};
+
+export const createEvent = async (req, res = response) => {
+  // Verify that it have the event
+  // console.log(req.body);
+
+  const event = new Event(req.body);
+
+  try {
+    event.user = req.uid;
+    const savedEvent = await event.save();
+
+    res.json({
+      ok: true,
+      event: savedEvent,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      ok: false,
+      msg: "Talk to the administrator.",
+    });
+  }
+};
+
+export const updateEvent = (req, res = response) => {
+  res.json({
+    ok: true,
+    msg: "Update event",
+  });
+};
+
+export const deleteEvent = (req, res = response) => {
+  res.json({
+    ok: true,
+    msg: "Delete event",
+  });
+};
 ```
 
-`src/`
+En `Event - createEvent` `POST: localhost:4000/api/events` enviamos en `Body`:
 
-```jsx
+```json
+{
+  "title": "Work pending",
+  "start": 1000,
+  "end": 200000
+}
 ```
 
-
-`src/`
-
-```jsx
-```
-
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
+En `Event - getEvents` `GET: localhost:4000/api/events` obtenemos lo anteriormente enviado.
 
 ### 23.9
 
