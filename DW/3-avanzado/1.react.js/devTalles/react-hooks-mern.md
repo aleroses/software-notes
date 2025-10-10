@@ -34860,6 +34860,10 @@ En `Event - deleteEvent` debe quedar algo así `DELETE: localhost:4000/api/event
 
 Recuerda eliminar los eventos con el usuario que los creó.
 
+> Nota: Si no te aparecen las sugerencias, puedes tratar de ir al modelo y colocar la palabra `new` justo antes de `Schema`, te quedaría algo como lo siguiente.
+> `const EventSchema = new Schema({ ... ])` 👈👀
+> Esto debería ayudar a que aparezcan las sugerencias.
+
 ### 23.11 
 
 `src/`
