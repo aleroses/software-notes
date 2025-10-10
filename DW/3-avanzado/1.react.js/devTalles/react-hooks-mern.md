@@ -33899,7 +33899,7 @@ Si necesitan tener en POSTMAN los endpoints creados hasta el momento, pueden des
 
 > - MERN+Calendar.postman_collection.json [Descargar](https://import.cdn.thinkific.com/643563/courses/1901683/MERNCalendarpostman_collection-220624-165026.json)
 
-## 24. Backend - Eventos del calendario - CRUD
+## 🟣 24. Backend - Eventos del calendario - CRUD
 
 ### 24.1 Introducción a la sección
 
@@ -34359,7 +34359,7 @@ Debe salir:
 
 [NPM - Moment ](https://www.npmjs.com/package/moment)
 
-### 23.7 Grabar el evento en la base de datos
+### 24.7 Grabar el evento en la base de datos
 
 `controllers/events.js`
 
@@ -34505,7 +34505,7 @@ Obtenemos:
 
 Abrimos MongoDB Compass `mern_calendar/events`, debemos ver el objeto almacenado.
 
-### 23.8 Obtener el listado de los Eventos
+### 24.8 Obtener el listado de los Eventos
 
 `controllers/events.js`
 
@@ -34574,7 +34574,7 @@ En `Event - createEvent` `POST: localhost:4000/api/events` enviamos en `Body`:
 
 En `Event - getEvents` `GET: localhost:4000/api/events` obtenemos lo anteriormente enviado.
 
-### 23.9 Actualizar un Evento
+### 24.9 Actualizar un Evento
 
 `controllers/events.js`
 
@@ -34723,7 +34723,7 @@ Obtenemos:
 }
 ```
 
-### 23.10 Eliminar Eventos
+### 24.10 Eliminar Eventos
 
 `controllers/events.js`
 
@@ -34864,7 +34864,7 @@ Recuerda eliminar los eventos con el usuario que los creó.
 > `const EventSchema = new Schema({ ... ])` 👈👀
 > Esto debería ayudar a que aparezcan las sugerencias.
 
-### 23.11 Código fuente de la sección
+### 24.11 Código fuente de la sección
 
 Les dejo el código fuente de la sección por si lo llegan a necesitar, y el enlace al repositorio de GitHub para que lo puedan clonar o tener a la mano en un futuro.
 
@@ -34886,7 +34886,28 @@ Pueden descargar todos los endpoints creados en esta sección del material adjun
     
 - MERN+Calendar.postman_collection.json [Descargar](https://import.cdn.thinkific.com/643563/courses/1901683/MERNCalendarpostman_collection-220626-160946.json)
 
-## 🟣 24.
+## 🟣 25. Despliegue del backend a la nube
+
+### 25.1 Introducción a la sección
+
+### 25.2 Temas puntuales de la sección
+
+En esta clase, nos enfocaremos en desplegar nuestro back-end a Railway, el cual es un servicio en la nube que nos permite desplegar fácilmente aplicaciones de Node.
+
+**Puntualmente veremos:**
+
+1. Configuración de Railway
+2. Subida a GitHub
+3. Configuración de variables de entorno
+4. Prueba del back-end en la nube
+
+### 25.3
+
+### 25.4
+
+### 25.5
+
+### 25.6
 
 `src/`
 
