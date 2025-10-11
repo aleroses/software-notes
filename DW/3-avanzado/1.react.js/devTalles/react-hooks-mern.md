@@ -35241,30 +35241,312 @@ export const store = configureStore({
 
 > Nota: Recuerda usar el atajo `redux slice` para crear `slices` rápido.
 
-### 26.6
+### 26.6 useForm - Login y Registro
 
-`src/`
+Estructura:
 
-```jsx
+```bash
+.
+├── .env
+├── .env.template
+├── eslint.config.js
+├── .git
+├── .gitignore
+├── index.html
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+├── README.md
+├── src
+│   ├── auth
+│   │   └── pages
+│   │       ├── LoginPage.css
+│   │       └── LoginPage.jsx
+│   ├── calendar
+│   │   ├── components
+│   │   │   ├── CalendarEvent.jsx
+│   │   │   ├── CalendarModal.jsx
+│   │   │   ├── FabAddNew.jsx
+│   │   │   ├── FabDelete.jsx
+│   │   │   └── Navbar.jsx
+│   │   └── pages
+│   │       └── CalendarPage.jsx
+│   ├── CalendarApp.jsx
+│   ├── helpers
+│   │   ├── calendarLocalizer.js
+│   │   ├── getEnvVariables.js
+│   │   └── getMessages.js
+│   ├── hooks
+│   │   ├── useCalendarStore.js
+│   │   ├── useForm.js 👈👀
+│   │   └── useUiStore.js
+│   ├── main.jsx
+│   ├── router
+│   │   └── AppRouter.jsx
+│   ├── store
+│   │   ├── auth
+│   │   │   └── authSlice.js
+│   │   ├── calendar
+│   │   │   └── calendarSlice.js
+│   │   ├── store.js
+│   │   └── ui
+│   │       └── uiSlice.js
+│   └── styles.css
+└── vite.config.js
 ```
 
-`src/`
+`src/hooks/useForm.js`
 
-```jsx
+```js
+import { useEffect, useMemo, useState } from "react";
+
+export const useForm = (
+  initialForm = {},
+  formValidations = {}
+) => {
+  const [formState, setFormState] = useState(initialForm);
+  const [formValidation, setFormValidation] = useState({});
+
+  // const { value, name, password } = formState;
+
+  useEffect(() => {
+    createValidators();
+  }, [formState]);
+
+  useEffect(() => {
+    setFormState(initialForm);
+  }, [initialForm]);
+
+  const isFormValid = useMemo(() => {
+    for (const formValue of Object.keys(formValidation)) {
+      if (formValidation[formValue] !== null) return false;
+    }
+
+    return true;
+  }, [formValidation]);
+
+  const handleInputChange = ({ target }) => {
+    const { value, name } = target;
+
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
+  };
+
+  const handleResetForm = () => {
+    setFormState(initialForm);
+  };
+
+  const createValidators = () => {
+    const formCheckedValues = {};
+
+    for (const formField of Object.keys(formValidations)) {
+      // xd = fn
+      const [
+        fn,
+        errorMessage, //= "This field is required",
+      ] = formValidations[formField];
+
+      formCheckedValues[`${formField}Valid`] = fn(
+        formState[formField]
+      )
+        ? null
+        : errorMessage;
+    }
+
+    setFormValidation(formCheckedValues);
+  };
+
+  return {
+    ...formState,
+    formState,
+    handleInputChange,
+    handleResetForm,
+    ...formValidation,
+    isFormValid,
+  };
+};
 ```
 
-
-`src/`
+`src/router/AppRouter.jsx`
 
 ```jsx
+import { Navigate, Route, Routes } from "react-router";
+import { LoginPage } from "../auth/pages/LoginPage";
+import { CalendarPage } from "../calendar/pages/CalendarPage";
+import { getEnvVariables } from "../helpers/getEnvVariables";
+
+export const AppRouter = () => {
+  const authStatus = "not-authenticated"; 👈👀
+
+  console.log(getEnvVariables());
+  return (
+    <Routes>
+      {authStatus === "not-authenticated" ? (
+        <Route path="/auth/*" element={<LoginPage />} />
+      ) : (
+        <Route path="/*" element={<CalendarPage />} />
+      )}
+
+      <Route
+        path="/*"
+        element={<Navigate to="/auth/login" />}
+      />
+    </Routes>
+  );
+};
 ```
 
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
+`src/auth/pages/LoginPage.jsx`
+
+```jsx
+import { useForm } from "../../hooks/useForm";
+import "./LoginPage.css";
+
+const loginFormFields = {
+  loginEmail: "",
+  loginPassword: "",
+};
+
+const registerFormFields = {
+  registerName: "",
+  registerEmail: "",
+  registerPassword: "",
+  registerPassword2: "",
+};
+
+export const LoginPage = () => {
+  const {
+    loginEmail,
+    loginPassword,
+    handleInputChange: onLoginInputChange,
+  } = useForm(loginFormFields);
+
+  const {
+    registerEmail,
+    registerName,
+    registerPassword,
+    registerPassword2,
+    handleInputChange: onRegisterInputChange,
+  } = useForm(registerFormFields);
+
+  const loginSubmit = (event) => {
+    event.preventDefault();
+
+    console.log({ loginEmail, loginPassword });
+  };
+
+  const registerSubmit = (event) => {
+    event.preventDefault();
+
+    console.log({
+      registerName,
+      registerEmail,
+      registerPassword,
+      registerPassword2,
+    });
+  };
+
+  return (
+    <div className="container login-container">
+      <div className="row">
+        <div className="col-md-6 login-form-1">
+          <h3>Ingreso</h3>
+          <form onSubmit={loginSubmit}>
+            <div className="form-group mb-2">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Correo"
+                name="loginEmail"
+                value={loginEmail}
+                onChange={onLoginInputChange}
+              />
+            </div>
+            <div className="form-group mb-2">
+              <input
+                type="password"
+                className="form-control"
+                placeholder="Contraseña"
+                name="loginPassword"
+                value={loginPassword}
+                onChange={onLoginInputChange}
+              />
+            </div>
+            <div className="form-group mb-2">
+              <input
+                type="submit"
+                className="btnSubmit"
+                value="Login"
+              />
+            </div>
+          </form>
+        </div>
+
+        <div className="col-md-6 login-form-2">
+          <h3>Registro</h3>
+          <form onSubmit={registerSubmit}>
+            <div className="form-group mb-2">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Nombre"
+                name="registerName"
+                value={registerName}
+                onChange={onRegisterInputChange}
+              />
+            </div>
+            <div className="form-group mb-2">
+              <input
+                type="email"
+                className="form-control"
+                placeholder="Correo"
+                name="registerEmail"
+                value={registerEmail}
+                onChange={onRegisterInputChange}
+              />
+            </div>
+            <div className="form-group mb-2">
+              <input
+                type="password"
+                className="form-control"
+                placeholder="Contraseña"
+                name="registerPassword"
+                value={registerPassword}
+                onChange={onRegisterInputChange}
+              />
+            </div>
+
+            <div className="form-group mb-2">
+              <input
+                type="password"
+                className="form-control"
+                placeholder="Repita la contraseña"
+                name="registerPassword2"
+                value={registerPassword2}
+                onChange={onRegisterInputChange}
+              />
+            </div>
+
+            <div className="form-group mb-2">
+              <input
+                type="submit"
+                className="btnSubmit"
+                value="Crear cuenta"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
+```
+
+[useForm - Gist](https://gist.github.com/Klerith/09dede50a8a397231744d4545b771408)
 
 ### 26.7
 
