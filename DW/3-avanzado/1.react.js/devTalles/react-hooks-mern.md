@@ -35002,29 +35002,137 @@ npm run dev
 
 ### 26.4 Creando variables de entorno
 
-`src/`
+Estructura:
 
-```jsx
+```bash
+.
+├── .env 👈👀👇
+├── .env.template
+├── eslint.config.js
+├── .git
+├── .gitignore
+├── index.html
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+├── README.md 👈👀
+├── src
+│   ├── auth
+│   │   └── pages
+│   │       ├── LoginPage.css
+│   │       └── LoginPage.jsx
+│   ├── calendar
+│   │   ├── components
+│   │   │   ├── CalendarEvent.jsx
+│   │   │   ├── CalendarModal.jsx
+│   │   │   ├── FabAddNew.jsx
+│   │   │   ├── FabDelete.jsx
+│   │   │   └── Navbar.jsx
+│   │   └── pages
+│   │       └── CalendarPage.jsx
+│   ├── CalendarApp.jsx
+│   ├── helpers
+│   │   ├── calendarLocalizer.js
+│   │   ├── getEnvVariables.js 👈👀
+│   │   └── getMessages.js
+│   ├── hooks
+│   │   ├── useCalendarStore.js
+│   │   └── useUiStore.js
+│   ├── main.jsx
+│   ├── router
+│   │   └── AppRouter.jsx
+│   ├── store
+│   │   ├── calendar
+│   │   │   └── calendarSlice.js
+│   │   ├── store.js
+│   │   └── ui
+│   │       └── uiSlice.js
+│   └── styles.css
+└── vite.config.js
 ```
 
-`src/`
+`src/helpers/getEnvVariables.js`
 
-```jsx
+```js
+export const getEnvVariables = () => {
+  import.meta.env;
+
+  return {
+    ...import.meta.env,
+  };
+};
 ```
 
+`.env`
 
-`src/`
-
-```jsx
+```
+VITE_API_URL=http://localhost:4000/api
 ```
 
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
+`.env.template`
 
+```
+VITE_API_URL=http://localhost:4000/api
+```
+
+`src/router/AppRouter.jsx`
+
+```jsx
+import { Navigate, Route, Routes } from "react-router";
+import { LoginPage } from "../auth/pages/LoginPage";
+import { CalendarPage } from "../calendar/pages/CalendarPage";
+import { getEnvVariables } from "../helpers/getEnvVariables";
+
+export const AppRouter = () => {
+  const authStatus = "authenticated";
+
+  console.log(getEnvVariables()); 👈👀
+  return (
+    <Routes>
+      {authStatus === "not-authenticated" ? (
+        <Route path="/auth/*" element={<LoginPage />} />
+      ) : (
+        <Route path="/*" element={<CalendarPage />} />
+      )}
+
+      <Route
+        path="/*"
+        element={<Navigate to="/auth/login" />}
+      />
+    </Routes>
+  );
+};
+```
+
+En consola se muestra:
+
+```js
+Object = {
+  BASE_URL: "/",
+  DEV: true,
+  MODE: "development",
+  PROD: false,
+  SSR: false,
+  VITE_API_URL: "http://localhost:4000/api",
+};
+```
+
+`README.md`
+
+```md
+# Calendar App
+
+## Development steps
+
+1. Rename the .env.template file to .env
+2. Make the respective changes to the environment variables.
+
+VITE_API_URL=http://localhost:4000/api
+```
+
+Los archivos `.env` no se subirán al repositorio, pero aquí se podrá ver su contenido.
 
 ### 26.5
 
