@@ -35134,30 +35134,112 @@ VITE_API_URL=http://localhost:4000/api
 
 Los archivos `.env` no se subirán al repositorio, pero aquí se podrá ver su contenido.
 
-### 26.5
+### 26.5 AuthSlice
 
-`src/`
+Estructura:
 
-```jsx
+```bash
+.
+├── .env
+├── .env.template
+├── eslint.config.js
+├── .git
+├── .gitignore
+├── index.html
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+├── README.md
+├── src
+│   ├── auth
+│   │   └── pages
+│   │       ├── LoginPage.css
+│   │       └── LoginPage.jsx
+│   ├── calendar
+│   │   ├── components
+│   │   │   ├── CalendarEvent.jsx
+│   │   │   ├── CalendarModal.jsx
+│   │   │   ├── FabAddNew.jsx
+│   │   │   ├── FabDelete.jsx
+│   │   │   └── Navbar.jsx
+│   │   └── pages
+│   │       └── CalendarPage.jsx
+│   ├── CalendarApp.jsx
+│   ├── helpers
+│   │   ├── calendarLocalizer.js
+│   │   ├── getEnvVariables.js
+│   │   └── getMessages.js
+│   ├── hooks
+│   │   ├── useCalendarStore.js
+│   │   └── useUiStore.js
+│   ├── main.jsx
+│   ├── router
+│   │   └── AppRouter.jsx
+│   ├── store
+│   │   ├── auth 👈👀👇
+│   │   │   └── authSlice.js
+│   │   ├── calendar
+│   │   │   └── calendarSlice.js
+│   │   ├── store.js
+│   │   └── ui
+│   │       └── uiSlice.js
+│   └── styles.css
+└── vite.config.js
 ```
 
-`src/`
+`src/store/auth/authSlice.js`
 
-```jsx
+```js
+import { createSlice } from "@reduxjs/toolkit";
+
+export const authSlice = createSlice({
+  name: "auth",
+  initialState: {
+    status: "checking", // authenticated not-authenticated
+    user: {},
+    errorMessage: undefined,
+  },
+  reducers: {
+    onChecking: (state) => {
+      state.status = "checking";
+      state.user = {};
+      state.errorMessage = undefined;
+    },
+    onLogin: (state, { payload }) => {
+      state.status = "authenticated";
+      state.user = payload;
+      state.errorMessage = undefined;
+    },
+  },
+});
+
+export const { onChecking, onLogin } = authSlice.actions;
 ```
 
+`src/store/store.js`
 
-`src/`
+```js
+import { configureStore } from "@reduxjs/toolkit";
+import { uiSlice } from "./ui/uiSlice";
+import { calendarSlice } from "./calendar/calendarSlice";
+import { authSlice } from "./auth/authSlice";
 
-```jsx
+export const store = configureStore({
+  reducer: {
+    auth: authSlice.reducer,
+    calendar: calendarSlice.reducer,
+    ui: uiSlice.reducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
+});
 ```
 
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
+> Nota: Recuerda usar el atajo `redux slice` para crear `slices` rápido.
 
 ### 26.6
 
