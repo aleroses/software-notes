@@ -35548,30 +35548,87 @@ export const LoginPage = () => {
 
 [useForm - Gist](https://gist.github.com/Klerith/09dede50a8a397231744d4545b771408)
 
-### 26.7
+### 26.7 Axios - Configurar cliente para peticiones HTTP
 
-`src/`
+Estructura:
 
-```jsx
+```bash
+.
+├── .env
+├── .env.template
+├── eslint.config.js
+├── .git
+├── .gitignore
+├── index.html
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+├── README.md
+├── src
+│   ├── api 👈👀👇
+│   │   └── calendarApi.js
+│   ├── auth
+│   │   └── pages
+│   │       ├── LoginPage.css
+│   │       └── LoginPage.jsx
+│   ├── calendar
+│   │   ├── components
+│   │   │   ├── CalendarEvent.jsx
+│   │   │   ├── CalendarModal.jsx
+│   │   │   ├── FabAddNew.jsx
+│   │   │   ├── FabDelete.jsx
+│   │   │   └── Navbar.jsx
+│   │   └── pages
+│   │       └── CalendarPage.jsx
+│   ├── CalendarApp.jsx
+│   ├── helpers
+│   │   ├── calendarLocalizer.js
+│   │   ├── getEnvVariables.js
+│   │   └── getMessages.js
+│   ├── hooks
+│   │   ├── useCalendarStore.js
+│   │   ├── useForm.js
+│   │   └── useUiStore.js
+│   ├── main.jsx
+│   ├── router
+│   │   └── AppRouter.jsx
+│   ├── store
+│   │   ├── auth
+│   │   │   └── authSlice.js
+│   │   ├── calendar
+│   │   │   └── calendarSlice.js
+│   │   ├── store.js
+│   │   └── ui
+│   │       └── uiSlice.js
+│   └── styles.css
+└── vite.config.js
 ```
 
-`src/`
-
-```jsx
+```bash
+# Install axios
+npm i axios
 ```
 
+`src/api/calendarApi.js`
 
-`src/`
+```js
+import axios from "axios";
+import { getEnvVariables } from "../helpers/getEnvVariables";
 
-```jsx
+const { VITE_API_URL } = getEnvVariables();
+
+const calendarApi = axios.create({
+  baseURL: VITE_API_URL,
+});
+
+// Todo: Configure interceptors
+
+export default calendarApi;
 ```
 
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
+Verifica los usuarios que tienes creados en Postman o crea uno `Auth - Create user`.
 
 ### 26.8
 
