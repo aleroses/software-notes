@@ -34923,6 +34923,8 @@ Ver la configuración usada en `database/config.js` [[#23.13 Conectar Node a Mon
 
 ### 25.5 Desplegar a Railway
 
+#### Railway 👎
+
 Crea una cuenta en [Railway](https://railway.com/) preferiblemente usar una cuenta de **GitHub**.
 
 `New project/GitHub Repository/calendar-app-backend`
@@ -34946,6 +34948,16 @@ Esto te debe dar un enlace: `calendar-app-backend-production-2d97.up.railway.app
 > `Account Settings/Public Profile/Profile Visibility (activar) permitir todos los proyectos.`
 
 Luego de que todo haya funcionado puedes ir a Postman `Auth - Login` y en `POST: pegar enlace`
+
+#### Render 👍
+
+Crea una cuenta en [Render](https://render.com/) preferiblemente usar una cuenta de **GitHub**.
+
+`Projects/Add new/Web Service/GitHub/All repositories/calendar-app-backend`
+
+Añade `Environment Variables` y `Deploy Web Service`
+
+Deberías obtener un enlace como este [Calendar Backend](https://calendar-app-backend-smi8.onrender.com/)
 
 ### 25.6 Código fuente de la sección
 
@@ -34988,7 +35000,7 @@ code .
 npm run dev
 ```
 
-### 26.4
+### 26.4 Creando variables de entorno
 
 `src/`
 
