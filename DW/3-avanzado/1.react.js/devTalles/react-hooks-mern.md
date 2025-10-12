@@ -35930,30 +35930,108 @@ Debemos obtener:
 
 > Nota: No olvides ejecutar `npm run dev` en el back-end `10-calendar-backend` para que todo funcione.
 
-### 26.9
+### 26.9 Despachar acciones respectivas
 
-`src/`
+`src/hooks/useAuthStore.js`
 
-```jsx
+```js
+import { useDispatch, useSelector } from "react-redux";
+import calendarApi from "../api/calendarApi";
+import {
+  clearErrorMessage,
+  onChecking,
+  onLogin,
+  onLogout,
+} from "../store/auth/authSlice";
+
+export const useAuthStore = () => {
+  const { status, user, errorMessage } = useSelector(
+    (state) => state.auth
+  );
+  const dispatch = useDispatch();
+
+  const startLogin = async ({ email, password }) => {
+    dispatch(onChecking());
+
+    try {
+      const { data } = await calendarApi.post("/auth", {
+        email,
+        password,
+      });
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem(
+        "token-init-date",
+        new Date().getTime()
+      );
+
+      dispatch(onLogin({ name: data.name, uid: data.uid }));
+    } catch (error) {
+      dispatch(onLogout("Incorrect credentials."));
+
+      setTimeout(() => {
+        dispatch(clearErrorMessage());
+      }, 10);
+    }
+  };
+
+  return {
+    // Properties
+    errorMessage,
+    status,
+    user,
+
+    // Methods
+    startLogin,
+  };
+};
 ```
 
-`src/`
+`src/store/auth/authSlice.js`
 
-```jsx
+```js
+import { createSlice } from "@reduxjs/toolkit";
+
+export const authSlice = createSlice({
+  name: "auth",
+  initialState: {
+    status: "checking", // authenticated not-authenticated
+    user: {},
+    errorMessage: undefined,
+  },
+  reducers: {
+    onChecking: (state) => {
+      state.status = "checking";
+      state.user = {};
+      state.errorMessage = undefined;
+    },
+    onLogin: (state, { payload }) => {
+      state.status = "authenticated";
+      state.user = payload;
+      state.errorMessage = undefined;
+    },
+    onLogout: (state, { payload }) => {
+      state.status = "not-authenticated";
+      state.user = {};
+      state.errorMessage = payload;
+    },
+    clearErrorMessage: (state) => {
+      state.errorMessage = undefined;
+    },
+  },
+});
+
+export const {
+  onChecking,
+  onLogin,
+  onLogout,
+  clearErrorMessage,
+} = authSlice.actions;
 ```
 
+Nuevamente probamos un usuario existente en login dentro de la web. En consola `Redux` debemos ver la información de este usuario.
 
-`src/`
-
-```jsx
-```
-
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
+Si haces pruebas con usuarios y contraseñas incorrectas debes ver el mensaje: `Incorrect credentials.`
 
 ### 26.10
 
