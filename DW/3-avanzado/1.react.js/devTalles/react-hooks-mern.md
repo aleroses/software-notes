@@ -35630,30 +35630,305 @@ export default calendarApi;
 
 Verifica los usuarios que tienes creados en Postman o crea uno `Auth - Create user`.
 
-### 26.8
+### 26.8 Realizar login de usuario
 
-`src/`
+Estructura:
 
-```jsx
+```bash
+.
+├── .env
+├── .env.template
+├── eslint.config.js
+├── .git
+├── .gitignore
+├── index.html
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+├── README.md
+├── src
+│   ├── api
+│   │   └── calendarApi.js
+│   ├── auth
+│   │   └── pages
+│   │       ├── LoginPage.css
+│   │       └── LoginPage.jsx
+│   ├── calendar
+│   │   ├── components
+│   │   │   ├── CalendarEvent.jsx
+│   │   │   ├── CalendarModal.jsx
+│   │   │   ├── FabAddNew.jsx
+│   │   │   ├── FabDelete.jsx
+│   │   │   └── Navbar.jsx
+│   │   └── pages
+│   │       └── CalendarPage.jsx
+│   ├── CalendarApp.jsx
+│   ├── helpers
+│   │   ├── calendarLocalizer.js
+│   │   ├── getEnvVariables.js
+│   │   └── getMessages.js
+│   ├── hooks 👈👀👇
+│   │   ├── useAuthStore.js
+│   │   ├── useCalendarStore.js
+│   │   ├── useForm.js
+│   │   └── useUiStore.js
+│   ├── main.jsx
+│   ├── router
+│   │   └── AppRouter.jsx
+│   ├── store
+│   │   ├── auth
+│   │   │   └── authSlice.js
+│   │   ├── calendar
+│   │   │   └── calendarSlice.js
+│   │   ├── store.js
+│   │   └── ui
+│   │       └── uiSlice.js
+│   └── styles.css
+└── vite.config.js
 ```
 
-`src/`
+`src/hooks/useAuthStore.js`
 
-```jsx
+```js
+import { useDispatch, useSelector } from "react-redux";
+import calendarApi from "../api/calendarApi";
+
+export const useAuthStore = () => {
+  const { status, user, errorMessage } = useSelector(
+    (state) => state.auth
+  );
+  const dispatch = useDispatch();
+  const startLogin = async ({ email, password }) => {
+    console.log({ email, password });
+
+    try {
+      const resp = await calendarApi.post("/auth", {
+        email,
+        password,
+      });
+
+      console.log({ resp });
+    } catch (error) {
+      console.log({ error });
+    }
+  };
+
+  return {
+    // Properties
+    errorMessage,
+    status,
+    user,
+
+    // Methods
+    startLogin,
+  };
+};
 ```
 
-
-`src/`
+`src/auth/pages/LoginPage.jsx`
 
 ```jsx
+import { useAuthStore } from "../../hooks/useAuthStore";
+import { useForm } from "../../hooks/useForm";
+import "./LoginPage.css";
+
+const loginFormFields = {
+  loginEmail: "",
+  loginPassword: "",
+};
+
+const registerFormFields = {
+  registerName: "",
+  registerEmail: "",
+  registerPassword: "",
+  registerPassword2: "",
+};
+
+export const LoginPage = () => {
+  const { startLogin } = useAuthStore();
+
+  const {
+    loginEmail,
+    loginPassword,
+    handleInputChange: onLoginInputChange,
+  } = useForm(loginFormFields);
+
+  const {
+    registerEmail,
+    registerName,
+    registerPassword,
+    registerPassword2,
+    handleInputChange: onRegisterInputChange,
+  } = useForm(registerFormFields);
+
+  const loginSubmit = (event) => {
+    event.preventDefault();
+
+    startLogin({
+      email: loginEmail,
+      password: loginPassword,
+    });
+  };
+
+  const registerSubmit = (event) => {
+    event.preventDefault();
+
+    console.log({
+      registerName,
+      registerEmail,
+      registerPassword,
+      registerPassword2,
+    });
+  };
+
+  return (
+    <div className="container login-container">
+      <div className="row">
+        <div className="col-md-6 login-form-1">
+          <h3>Ingreso</h3>
+          <form onSubmit={loginSubmit}>
+            <div className="form-group mb-2">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Correo"
+                name="loginEmail"
+                value={loginEmail}
+                onChange={onLoginInputChange}
+              />
+            </div>
+            <div className="form-group mb-2">
+              <input
+                type="password"
+                className="form-control"
+                placeholder="Contraseña"
+                name="loginPassword"
+                value={loginPassword}
+                onChange={onLoginInputChange}
+              />
+            </div>
+            <div className="form-group mb-2">
+              <input
+                type="submit"
+                className="btnSubmit"
+                value="Login"
+              />
+            </div>
+          </form>
+        </div>
+
+        <div className="col-md-6 login-form-2">
+          <h3>Registro</h3>
+          <form onSubmit={registerSubmit}>
+            <div className="form-group mb-2">
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Nombre"
+                name="registerName"
+                value={registerName}
+                onChange={onRegisterInputChange}
+              />
+            </div>
+            <div className="form-group mb-2">
+              <input
+                type="email"
+                className="form-control"
+                placeholder="Correo"
+                name="registerEmail"
+                value={registerEmail}
+                onChange={onRegisterInputChange}
+              />
+            </div>
+            <div className="form-group mb-2">
+              <input
+                type="password"
+                className="form-control"
+                placeholder="Contraseña"
+                name="registerPassword"
+                value={registerPassword}
+                onChange={onRegisterInputChange}
+              />
+            </div>
+
+            <div className="form-group mb-2">
+              <input
+                type="password"
+                className="form-control"
+                placeholder="Repita la contraseña"
+                name="registerPassword2"
+                value={registerPassword2}
+                onChange={onRegisterInputChange}
+              />
+            </div>
+
+            <div className="form-group mb-2">
+              <input
+                type="submit"
+                className="btnSubmit"
+                value="Crear cuenta"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
 ```
 
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
+Probamos un usuario existente en login dentro de la web:
+
+```json
+{
+  "_id": {
+    "$oid": "68e51b10f5b1f42d8fc3df0a"
+  },
+  "name": "Ale Roses",
+  "email": "aleroses@gmail.com", 👈👀👇
+  "password": "$2b$10$ksiho8LccWueikYxskCasesAABwltJ6/jMq1Rt.q345z7xCbP.sp.",
+  "__v": 0
+}
+```
+
+Debemos obtener:
+
+```json
+{
+  email: "aleroses@gmail.com",
+  password: "123456"
+}
+
+{
+  data: {
+    ok: true,
+    uid: "68e51b10f5b1f42d8fc3df0a",
+    name: "Ale Roses",
+    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2OGU1MWIxMGY1YjFmNDJkOGZjM2RmMGEiLCJuYW1lIjoiQWxlIFJvc2VzIiwiaWF0IjoxNzYwMzA2ODE4LCJleHAiOjE3NjAzMTQwMTh9.Odf4iOPPLOWVIIG1qduGOnDqzPi9viWed8ow8rQMzUw"
+  },
+  status: 200,
+  statusText: "OK",
+  headers: {
+    "content-length": "271",
+    "content-type": "application/json; charset=utf-8"
+  },
+  config: {
+    method: "post",
+    url: "http://localhost:4000/api/auth",
+    timeout: 0,
+    transformRequest: [null],
+    transformResponse: [null]
+  },
+  request: {
+    responseURL: "http://localhost:4000/api/auth",
+    status: 200
+  }
+}
+```
+
+> Nota: No olvides ejecutar `npm run dev` en el back-end `10-calendar-backend` para que todo funcione.
 
 ### 26.9
 
