@@ -36949,7 +36949,24 @@ export const Navbar = () => {
 };
 ```
 
-### 26.15
+### 26.15 Código fuente de la sección
+
+Aquí les dejo mi código fuente por si lo llegan a necesitar para compararlo contra el suyo:
+
+[Github - Frontend - React CalendarApp](https://github.com/Klerith/react-mern-calendar/tree/fin-seccion-26)
+
+[Github - Backend con las modificaciones de UID y Name](https://github.com/Klerith/MERN-Calendar-Backend)
+
+**Nota:**
+
+Por favor, no se les olvide calificar o actualizar la reseña del curso, esto me ayuda a poder mantener el curso entre las mejores opciones para aprender React y así poder mantener los co-instructores activos y el curso actualizado lo más posible.
+
+Atte:
+
+Fernando Herrera
+
+## 27.
+
 
 `src/`
 
