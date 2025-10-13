@@ -36961,12 +36961,28 @@ Aquí les dejo mi código fuente por si lo llegan a necesitar para compararlo co
 
 Por favor, no se les olvide calificar o actualizar la reseña del curso, esto me ayuda a poder mantener el curso entre las mejores opciones para aprender React y así poder mantener los co-instructores activos y el curso actualizado lo más posible.
 
-Atte:
+Atte.
 
 Fernando Herrera
 
-## 27.
+## 🟣 27. MERN CRUD - Eventos del calendario
 
+### 27.1 Introducción a la sección
+
+### 27.2 Temas puntuales de la sección
+
+**¿Qué veremos en esta sección?**
+
+- Eventos del calendario + backend
+    
+
+Toda esta sección está enfocada en hacer persistentes nuestros cambios y eventos del calendario utilizando nuestro backend, disparando acciones asíncronas que terminan ejecutando las acciones síncronas que habíamos definido anteriormente.
+
+### 27.3
+
+### 27.4
+
+### 27.5
 
 `src/`
 
@@ -36984,6 +37000,95 @@ Fernando Herrera
 ```jsx
 ```
 
+### 27.6
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+### 27.7
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+### 27.8
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+### 27.9
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
+
+### 27.10
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
 ☝️👆
 👈👀
 ❯
@@ -36991,6 +37096,24 @@ Fernando Herrera
 👈👀☝️
 👈👀📌
 
+
+### 27.1
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+`src/`
+
+```jsx
+```
 
 
 
