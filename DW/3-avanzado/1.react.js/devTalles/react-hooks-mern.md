@@ -36762,30 +36762,52 @@ export const AppRouter = () => {
 };
 ```
 
-### 26.13
+### 26.13 Cambiar el URL después de una autenticación
 
-`src/`
-
-```jsx
-```
-
-`src/`
+`src/router/AppRouter.jsx`
 
 ```jsx
+import { Navigate, Route, Routes } from "react-router";
+import { LoginPage } from "../auth/pages/LoginPage";
+import { CalendarPage } from "../calendar/pages/CalendarPage";
+import { getEnvVariables } from "../helpers/getEnvVariables";
+import { useAuthStore } from "../hooks/useAuthStore";
+import { useEffect } from "react";
+
+export const AppRouter = () => {
+  const { status, checkAuthToken } = useAuthStore();
+
+  // const authStatus = "not-authenticated";
+
+  useEffect(() => {
+    checkAuthToken();
+  }, []);
+
+  if (status === "checking") {
+    return <h3>Loading...</h3>;
+  }
+
+  console.log(getEnvVariables());
+  return (
+    <Routes>
+      {status === "not-authenticated" ? (
+        <>
+          <Route path="/auth/*" element={<LoginPage />} />
+          <Route
+            path="/*"
+            element={<Navigate to="/auth/login" />}
+          />
+        </>
+      ) : (
+        <>
+          <Route path="/" element={<CalendarPage />} />
+          <Route path="/*" element={<Navigate to="/" />} />
+        </>
+      )}
+    </Routes>
+  );
+};
 ```
-
-
-`src/`
-
-```jsx
-```
-
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
 
 ### 26.14
 
