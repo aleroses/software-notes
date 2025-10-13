@@ -33732,8 +33732,8 @@ export const revalidateToken = async (
 
   res.json({
     ok: true,
-    // uid,
-    // name,
+    uid,
+    name,
     token,
   });
 };
@@ -36460,30 +36460,307 @@ Intenta ingresar en `Registro` un usuario y contraseña que ya existe. Luego reg
 
 Recuerda que en `Application/Local storage` aún tenemos el token.
 
-### 26.12
+### 26.12 Mantener el estado de la autenticación
 
-`src/`
+#### Back-end
 
-```jsx
+`controllers/auth.js`
+
+```js
+import { response } from "express";
+import bcrypt from "bcryptjs";
+import { User } from "../models/User.js";
+import { generateJWT } from "../helpers/jwt.js";
+
+export const createUser = async (req, res = response) => {
+  const { email, password } = req.body;
+
+  try {
+    let user = await User.findOne({ email });
+
+    if (user) {
+      return res.status(400).json({
+        ok: false,
+        msg: "This email address is already in use.",
+      });
+    }
+
+    user = new User(req.body);
+
+    // Encrypt password
+    const salt = bcrypt.genSaltSync();
+    user.password = bcrypt.hashSync(password, salt);
+
+    await user.save();
+
+    // Generate our JWT (JSON Web Token)
+    const token = await generateJWT(user.id, user.name);
+
+    res.status(201).json({
+      ok: true,
+      uid: user.id,
+      name: user.name,
+      token,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      ok: false,
+      msg: "Please speak to the manager!",
+    });
+  }
+};
+
+export const loginUser = async (req, res = response) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(400).json({
+        ok: false,
+        msg: "The user doesn't exist with that email address.",
+      });
+    }
+
+    // Confirm passwords
+    const validPassword = bcrypt.compareSync(
+      password,
+      user.password
+    );
+
+    if (!validPassword) {
+      return res.status(400).json({
+        ok: false,
+        msg: "Incorrect password",
+      });
+    }
+
+    // Generate our JWT (JSON Web Token)
+    const token = await generateJWT(user.id, user.name);
+
+    res.json({
+      ok: true,
+      uid: user.id,
+      name: user.name,
+      token,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      ok: false,
+      msg: "Please speak to the manager!",
+    });
+  }
+};
+
+export const revalidateToken = async (
+  req,
+  res = response
+) => {
+  const { uid, name } = req;
+
+  // Generate a new JWT and return it in this request.
+  const token = await generateJWT(uid, name);
+
+  res.json({
+    ok: true,
+    uid, 👈👀
+    name, 👈👀
+    token,
+  });
+};
 ```
 
-`src/`
+En Postman creamos un nuevo token en `Auth - Create login` cópialo y pégalo en `Auth - Revalidate JWT`.
 
-```jsx
+```json
+{
+    "ok": true,
+    "uid": "68e51b10f5b1f42d8fc3df0a",
+    "name": "Ale Roses",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2OGU1MWIxMGY1YjFmNDJkOGZjM2RmMGEiLCJuYW1lIjoiQWxlIFJvc2VzIiwiaWF0IjoxNzYwMzc0NTI5LCJleHAiOjE3NjAzODE3Mjl9.NuTjogLBY-pDNFUP53TSDfQYi5A4f7zP5FBCnDGeN1k"
+}
 ```
 
+Verifica que  `uid` y `name` dentro de `controllers/auth.js` en el Back-end estén siendo mostrados. [[#23.19 Revalidar JWT]] 
 
-`src/`
+#### Front-end
 
-```jsx
+`src/api/calendarApi.js`
+
+```js
+import axios from "axios";
+import { getEnvVariables } from "../helpers/getEnvVariables";
+
+const { VITE_API_URL } = getEnvVariables();
+
+const calendarApi = axios.create({
+  baseURL: VITE_API_URL,
+});
+
+// Todo: Configure interceptors
+calendarApi.interceptors.request.use((config) => {
+  config.headers = {
+    ...config.headers,
+    "x-token": localStorage.getItem("token"),
+  };
+
+  return config;
+});
+
+export default calendarApi;
 ```
 
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
+`src/hooks/useAuthStore.js`
+
+```js
+import { useDispatch, useSelector } from "react-redux";
+import calendarApi from "../api/calendarApi";
+import {
+  clearErrorMessage,
+  onChecking,
+  onLogin,
+  onLogout,
+} from "../store/auth/authSlice";
+import { useEffect } from "react";
+
+export const useAuthStore = () => {
+  const { status, user, errorMessage } = useSelector(
+    (state) => state.auth
+  );
+  const dispatch = useDispatch();
+
+  const startLogin = async ({ email, password }) => {
+    dispatch(onChecking());
+
+    try {
+      const { data } = await calendarApi.post("/auth", {
+        email,
+        password,
+      });
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem(
+        "token-init-date",
+        new Date().getTime()
+      );
+
+      dispatch(onLogin({ name: data.name, uid: data.uid }));
+    } catch (error) {
+      dispatch(onLogout("Incorrect credentials."));
+
+      setTimeout(() => {
+        dispatch(clearErrorMessage());
+      }, 10);
+    }
+  };
+
+  const startRegister = async ({ email, password, name }) => {
+    dispatch(onChecking());
+
+    try {
+      const { data } = await calendarApi.post("/auth/new", {
+        email,
+        password,
+        name,
+      });
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem(
+        "token-init-date",
+        new Date().getTime()
+      );
+
+      dispatch(onLogin({ name: data.name, uid: data.uid }));
+    } catch (error) {
+      dispatch(onLogout(error.response.data?.msg) || "--");
+
+      setTimeout(() => {
+        dispatch(clearErrorMessage());
+      }, 10);
+    }
+  };
+
+  const checkAuthToken = async () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) return dispatch(onLogout());
+
+    try {
+      const { data } = await calendarApi.get("auth/renew");
+      console.log(data);
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem(
+        "token-init-date",
+        new Date().getTime()
+      );
+
+      dispatch(onLogin({ name: data.name, uid: data.uid }));
+    } catch (error) {
+      localStorage.clear();
+      dispatch(onLogout());
+    }
+  };
+
+  return {
+    // Properties
+    errorMessage,
+    status,
+    user,
+
+    // Methods
+    checkAuthToken,
+    startLogin,
+    startRegister,
+  };
+};
+```
+
+`src/router/AppRouter.jsx`
+
+```jsx
+import { Navigate, Route, Routes } from "react-router";
+import { LoginPage } from "../auth/pages/LoginPage";
+import { CalendarPage } from "../calendar/pages/CalendarPage";
+import { getEnvVariables } from "../helpers/getEnvVariables";
+import { useAuthStore } from "../hooks/useAuthStore";
+import { useEffect } from "react";
+
+export const AppRouter = () => {
+  const { status, checkAuthToken } = useAuthStore();
+
+  // const authStatus = "not-authenticated";
+
+  useEffect(() => {
+    checkAuthToken();
+  }, []);
+
+  if (status === "checking") {
+    return <h3>Loading...</h3>;
+  }
+
+  console.log(getEnvVariables());
+  return (
+    <Routes>
+      {status === "not-authenticated" ? (
+        <Route path="/auth/*" element={<LoginPage />} />
+      ) : (
+        <Route path="/*" element={<CalendarPage />} />
+      )}
+
+      <Route
+        path="/*"
+        element={<Navigate to="/auth/login" />}
+      />
+    </Routes>
+  );
+};
+```
 
 ### 26.13
 
