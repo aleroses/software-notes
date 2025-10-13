@@ -36809,30 +36809,145 @@ export const AppRouter = () => {
 };
 ```
 
-### 26.14
+### 26.14 Logout y nombre de usuario
 
-`src/`
+`src/hooks/useAuthStore.js`
 
-```jsx
+```js
+import { useDispatch, useSelector } from "react-redux";
+import calendarApi from "../api/calendarApi";
+import {
+  clearErrorMessage,
+  onChecking,
+  onLogin,
+  onLogout,
+} from "../store/auth/authSlice";
+import { useEffect } from "react";
+
+export const useAuthStore = () => {
+  const { status, user, errorMessage } = useSelector(
+    (state) => state.auth
+  );
+  const dispatch = useDispatch();
+
+  const startLogin = async ({ email, password }) => {
+    dispatch(onChecking());
+
+    try {
+      const { data } = await calendarApi.post("/auth", {
+        email,
+        password,
+      });
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem(
+        "token-init-date",
+        new Date().getTime()
+      );
+
+      dispatch(onLogin({ name: data.name, uid: data.uid }));
+    } catch (error) {
+      dispatch(onLogout("Incorrect credentials."));
+
+      setTimeout(() => {
+        dispatch(clearErrorMessage());
+      }, 10);
+    }
+  };
+
+  const startRegister = async ({ email, password, name }) => {
+    dispatch(onChecking());
+
+    try {
+      const { data } = await calendarApi.post("/auth/new", {
+        email,
+        password,
+        name,
+      });
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem(
+        "token-init-date",
+        new Date().getTime()
+      );
+
+      dispatch(onLogin({ name: data.name, uid: data.uid }));
+    } catch (error) {
+      dispatch(onLogout(error.response.data?.msg) || "--");
+
+      setTimeout(() => {
+        dispatch(clearErrorMessage());
+      }, 10);
+    }
+  };
+
+  const checkAuthToken = async () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) return dispatch(onLogout());
+
+    try {
+      const { data } = await calendarApi.get("auth/renew");
+      console.log(data);
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem(
+        "token-init-date",
+        new Date().getTime()
+      );
+
+      dispatch(onLogin({ name: data.name, uid: data.uid }));
+    } catch (error) {
+      localStorage.clear();
+      dispatch(onLogout());
+    }
+  };
+
+  const startLogout = () => {
+    localStorage.clear();
+
+    dispatch(onLogout());
+  };
+
+  return {
+    // Properties
+    errorMessage,
+    status,
+    user,
+
+    // Methods
+    checkAuthToken,
+    startLogin,
+    startLogout,
+    startRegister,
+  };
+};
 ```
 
-`src/`
+`src/calendar/components/Navbar.jsx`
 
 ```jsx
+import { useAuthStore } from "../../hooks/useAuthStore";
+
+export const Navbar = () => {
+  const { startLogout, user } = useAuthStore();
+
+  return (
+    <div className="navbar navbar-dark bg-dark mb-4 px-4">
+      <span className="navbar-brand">
+        <i className="fas fa-calendar-alt"></i> {user.name}
+      </span>
+      <button
+        className="btn btn-outline-danger"
+        onClick={startLogout}
+      >
+        <i className="fas fa-sign-out-alt"></i>
+        <span>Exit</span>
+      </button>
+    </div>
+  );
+};
 ```
-
-
-`src/`
-
-```jsx
-```
-
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
 
 ### 26.15
 
