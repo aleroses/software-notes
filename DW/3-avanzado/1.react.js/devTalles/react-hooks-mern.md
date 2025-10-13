@@ -36978,7 +36978,27 @@ Fernando Herrera
 
 Toda esta sección está enfocada en hacer persistentes nuestros cambios y eventos del calendario utilizando nuestro backend, disparando acciones asíncronas que terminan ejecutando las acciones síncronas que habíamos definido anteriormente.
 
-### 27.3
+### 27.3 Continuación de proyecto - Calendar CRUD de Eventos
+
+```bash
+# Back-end: 10-calendar-backend
+npm run dev
+
+# Front-end: 10-calendar
+code .
+npm run dev
+```
+
+Ingresa usando un usuario válido y existente:
+
+```
+aleroses@gmail.com
+123456
+```
+
+Prueba `Auth - Create login` en Postman:
+
+`Post: localhost:4000/api/auth`
 
 ### 27.4
 
