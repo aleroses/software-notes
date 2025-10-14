@@ -36989,7 +36989,7 @@ code .
 npm run dev
 ```
 
-Ingresa usando un usuario válido y existente:
+Ingresa a la web usando un usuario válido y existente:
 
 ```
 aleroses@gmail.com
