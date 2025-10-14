@@ -37487,29 +37487,191 @@ export const useCalendarStore = () => {
 };
 ```
 
-### 27.7
+### 27.7 Actualizar el evento
 
-`src/`
+`src/store/calendar/calendarSlice.js`
 
-```jsx
+```js
+import { createSlice } from "@reduxjs/toolkit";
+// import { addHours } from "date-fns";
+
+// const tempEvent = {
+//   _id: new Date().getTime(),
+//   title: "The boss's birthday.",
+//   notes: "Buy cake",
+//   start: new Date(),
+//   end: addHours(new Date(), 2),
+//   bgColor: "#fafafa",
+//   user: {
+//     _id: "123",
+//     name: "Ale",
+//   },
+// };
+
+export const calendarSlice = createSlice({
+  name: "calendar",
+  initialState: {
+    isLoadingEvents: true,
+    events: [
+      // tempEvent
+    ],
+    activeEvent: null,
+  },
+  reducers: {
+    onSetActiveEvent: (state, { payload }) => {
+      state.activeEvent = payload;
+    },
+    onAddNewEvent: (state, { payload }) => {
+      state.events.push(payload);
+      state.activeEvent = null;
+    },
+    onUpdateEvent: (state, { payload }) => {
+      state.events = state.events.map((event) => {
+        if (event.id === payload.id) {
+          return payload;
+        }
+
+        return event;
+      });
+    },
+    onDeleteEvent: (state) => {
+      if (state.activeEvent) {
+        state.events = state.events.filter(
+          (event) => event.id !== state.activeEvent.id
+        );
+        state.activeEvent = null;
+      }
+    },
+    onLoadEvents: (state, { payload = [] }) => {
+      state.isLoadingEvents = false;
+      // state.events = payload;
+      payload.forEach((event) => {
+        const exists = state.events.some(
+          (dbEvents) => dbEvents.id === event.id
+        );
+
+        if (!exists) {
+          state.events.push(event);
+        }
+      });
+    },
+  },
+});
+
+export const {
+  onSetActiveEvent,
+  onAddNewEvent,
+  onUpdateEvent,
+  onDeleteEvent,
+  onLoadEvents,
+} = calendarSlice.actions;
 ```
 
-`src/`
+`src/hooks/useCalendarStore.js`
 
-```jsx
+```js
+import { useDispatch, useSelector } from "react-redux";
+import {
+  onAddNewEvent,
+  onDeleteEvent,
+  onLoadEvents,
+  onSetActiveEvent,
+  onUpdateEvent,
+} from "../store/calendar/calendarSlice";
+import calendarApi from "../api/calendarApi";
+import { convertEventsToDateEvents } from "../helpers/convertEventsToDateEvents";
+import Swal from "sweetalert2";
+
+export const useCalendarStore = () => {
+  const dispatch = useDispatch();
+
+  const { events, activeEvent } = useSelector(
+    (state) => state.calendar
+  );
+  const { user } = useSelector((state) => state.auth);
+
+  const setActiveEvent = (calendarEvent) => {
+    dispatch(onSetActiveEvent(calendarEvent));
+  };
+
+  const startSavingEvent = async (calendarEvent) => {
+    try {
+      if (calendarEvent.id) {
+        // Updating
+        await calendarApi.put(
+          `/events/${calendarEvent.id}`,
+          calendarEvent
+        );
+
+        dispatch(onUpdateEvent({ ...calendarEvent, user }));
+
+        return;
+      }
+      // Creating
+      const { data } = await calendarApi.post(
+        "/events",
+        calendarEvent
+      );
+      // console.log({data});
+
+      dispatch(
+        onAddNewEvent({
+          ...calendarEvent,
+          id: data.event.id,
+          user,
+        })
+      );
+    } catch (error) {
+      console.log(error);
+      Swal.fire(
+        "Error saving.",
+        error.response.data.msg,
+        "error"
+      );
+    }
+  };
+
+  const startDeletingEvent = () => {
+    // TODO: Access the backend
+    dispatch(onDeleteEvent());
+  };
+
+  const startLoadingEvents = async () => {
+    try {
+      const { data } = await calendarApi.get("/events");
+      const events = convertEventsToDateEvents(data.events);
+
+      dispatch(onLoadEvents(events));
+
+      // console.log({ data, events });
+    } catch (error) {
+      console.log("Error loading events.");
+      console.log(error);
+    }
+  };
+
+  return {
+    // Properties
+    events,
+    activeEvent,
+    hasEventSelected: !!activeEvent,
+
+    // Methods
+    setActiveEvent,
+    startDeletingEvent,
+    startLoadingEvents,
+    startSavingEvent,
+  };
+};
 ```
 
+Al ingresar con un usuario que no fue el que creo los eventos, debe dar un error al tratar de editar algún evento del calendario.
 
-`src/`
-
-```jsx
 ```
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
+alebundy@gmail.com
+123456
+```
+
 ### 27.8
 
 `src/`
@@ -37528,6 +37690,13 @@ export const useCalendarStore = () => {
 ```jsx
 ```
 
+
+☝️👆
+👈👀
+❯
+👈👀👇
+👈👀☝️
+👈👀📌
 ### 27.9
 
 `src/`
