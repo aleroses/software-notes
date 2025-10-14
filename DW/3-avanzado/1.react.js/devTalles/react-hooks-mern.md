@@ -37322,29 +37322,171 @@ export const CalendarPage = () => {
 };
 ```
 
-### 27.6
+### 27.6 Cargar los eventos al store
 
-`src/`
+`src/store/calendar/calendarSlice.js`
 
-```jsx
+```js
+import { createSlice } from "@reduxjs/toolkit";
+// import { addHours } from "date-fns";
+
+// const tempEvent = {
+//   _id: new Date().getTime(),
+//   title: "The boss's birthday.",
+//   notes: "Buy cake",
+//   start: new Date(),
+//   end: addHours(new Date(), 2),
+//   bgColor: "#fafafa",
+//   user: {
+//     _id: "123",
+//     name: "Ale",
+//   },
+// };
+
+export const calendarSlice = createSlice({
+  name: "calendar",
+  initialState: {
+    isLoadingEvents: true,
+    events: [
+      // tempEvent
+    ],
+    activeEvent: null,
+  },
+  reducers: {
+    onSetActiveEvent: (state, { payload }) => {
+      state.activeEvent = payload;
+    },
+    onAddNewEvent: (state, { payload }) => {
+      state.events.push(payload);
+      state.activeEvent = null;
+    },
+    onUpdateEvent: (state, { payload }) => {
+      state.events = state.events.map((event) => {
+        if (event._id === payload._id) {
+          return payload;
+        }
+
+        return event;
+      });
+    },
+    onDeleteEvent: (state) => {
+      if (state.activeEvent) {
+        state.events = state.events.filter(
+          (event) => event._id !== state.activeEvent._id
+        );
+        state.activeEvent = null;
+      }
+    },
+    onLoadEvents: (state, { payload = [] }) => {
+      state.isLoadingEvents = false;
+      // state.events = payload;
+      payload.forEach((event) => {
+        const exists = state.events.some(
+          (dbEvents) => dbEvents.id === event.id
+        );
+
+        if (!exists) {
+          state.events.push(event);
+        }
+      });
+    },
+  },
+});
+
+export const {
+  onSetActiveEvent,
+  onAddNewEvent,
+  onUpdateEvent,
+  onDeleteEvent,
+  onLoadEvents,
+} = calendarSlice.actions;
 ```
 
-`src/`
+`src/hooks/useCalendarStore.js`
 
-```jsx
+```js
+import { useDispatch, useSelector } from "react-redux";
+import {
+  onAddNewEvent,
+  onDeleteEvent,
+  onLoadEvents,
+  onSetActiveEvent,
+  onUpdateEvent,
+} from "../store/calendar/calendarSlice";
+import calendarApi from "../api/calendarApi";
+import { convertEventsToDateEvents } from "../helpers/convertEventsToDateEvents";
+
+export const useCalendarStore = () => {
+  const dispatch = useDispatch();
+
+  const { events, activeEvent } = useSelector(
+    (state) => state.calendar
+  );
+  const { user } = useSelector((state) => state.auth);
+
+  const setActiveEvent = (calendarEvent) => {
+    dispatch(onSetActiveEvent(calendarEvent));
+  };
+
+  const startSavingEvent = async (calendarEvent) => {
+    // TODO: Access the backend
+
+    // TODO: Update event
+    if (calendarEvent._id) {
+      // Uppdating
+      dispatch(onUpdateEvent({ ...calendarEvent }));
+    } else {
+      // Creating
+      const { data } = await calendarApi.post(
+        "/events",
+        calendarEvent
+      );
+      // console.log({data});
+
+      dispatch(
+        onAddNewEvent({
+          ...calendarEvent,
+          id: data.event.id,
+          user,
+        })
+      );
+    }
+  };
+
+  const startDeletingEvent = () => {
+    // TODO: Access the backend
+    dispatch(onDeleteEvent());
+  };
+
+  const startLoadingEvents = async () => {
+    try {
+      const { data } = await calendarApi.get("/events");
+      const events = convertEventsToDateEvents(data.events);
+
+      dispatch(onLoadEvents(events));
+
+      // console.log({ data, events });
+    } catch (error) {
+      console.log("Error loading events.");
+      console.log(error);
+    }
+  };
+
+  return {
+    // Properties
+    events,
+    activeEvent,
+    hasEventSelected: !!activeEvent,
+
+    // Methods
+    setActiveEvent,
+    startDeletingEvent,
+    startLoadingEvents,
+    startSavingEvent,
+  };
+};
 ```
 
-
-`src/`
-
-```jsx
-```
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
 ### 27.7
 
 `src/`
