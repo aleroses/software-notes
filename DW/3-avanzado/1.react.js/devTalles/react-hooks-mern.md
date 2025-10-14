@@ -37074,22 +37074,252 @@ Copiamos el token de `Auth - Create login` y lo pegamos en `Event - Create event
 
 Revisa `Events - getEvents`, deben aparecer las notas creadas en la web.
 
-### 27.5
+### 27.5 Mostrar eventos de la base de datos
 
-`src/`
+Estructura:
 
-```jsx
+```bash
+.
+├── .env
+├── .env.template
+├── eslint.config.js
+├── .git
+├── .gitignore
+├── index.html
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+├── README.md
+├── src
+│   ├── api
+│   │   └── calendarApi.js
+│   ├── auth
+│   │   └── pages
+│   │       ├── LoginPage.css
+│   │       └── LoginPage.jsx
+│   ├── calendar
+│   │   ├── components
+│   │   │   ├── CalendarEvent.jsx
+│   │   │   ├── CalendarModal.jsx
+│   │   │   ├── FabAddNew.jsx
+│   │   │   ├── FabDelete.jsx
+│   │   │   └── Navbar.jsx
+│   │   └── pages
+│   │       └── CalendarPage.jsx
+│   ├── CalendarApp.jsx
+│   ├── helpers
+│   │   ├── calendarLocalizer.js
+│   │   ├── convertEventsToDateEvents.js 👈👀
+│   │   ├── getEnvVariables.js
+│   │   └── getMessages.js
+│   ├── hooks
+│   │   ├── useAuthStore.js
+│   │   ├── useCalendarStore.js
+│   │   ├── useForm.js
+│   │   └── useUiStore.js
+│   ├── main.jsx
+│   ├── router
+│   │   └── AppRouter.jsx
+│   ├── store
+│   │   ├── auth
+│   │   │   └── authSlice.js
+│   │   ├── calendar
+│   │   │   └── calendarSlice.js
+│   │   ├── store.js
+│   │   └── ui
+│   │       └── uiSlice.js
+│   └── styles.css
+└── vite.config.js
 ```
 
-`src/`
+`src/helpers/convertEventsToDateEvents.js`
 
-```jsx
+```js
+import { parseISO } from "date-fns";
+
+export const convertEventsToDateEvents = (events = []) => {
+  return events.map((event) => {
+    event.end = parseISO(event.end);
+    event.start = parseISO(event.start);
+
+    return event;
+  });
+};
 ```
 
+`src/hooks/useCalendarStore.js`
 
-`src/`
+```js
+import { useDispatch, useSelector } from "react-redux";
+import {
+  onAddNewEvent,
+  onDeleteEvent,
+  onSetActiveEvent,
+  onUpdateEvent,
+} from "../store/calendar/calendarSlice";
+import calendarApi from "../api/calendarApi";
+import { convertEventsToDateEvents } from "../helpers/convertEventsToDateEvents";
+
+export const useCalendarStore = () => {
+  const dispatch = useDispatch();
+
+  const { events, activeEvent } = useSelector(
+    (state) => state.calendar
+  );
+  const { user } = useSelector((state) => state.auth);
+
+  const setActiveEvent = (calendarEvent) => {
+    dispatch(onSetActiveEvent(calendarEvent));
+  };
+
+  const startSavingEvent = async (calendarEvent) => {
+    // TODO: Access the backend
+
+    // TODO: Update event
+    if (calendarEvent._id) {
+      // Uppdating
+      dispatch(onUpdateEvent({ ...calendarEvent }));
+    } else {
+      // Creating
+      const { data } = await calendarApi.post(
+        "/events",
+        calendarEvent
+      );
+      // console.log({data});
+
+      dispatch(
+        onAddNewEvent({
+          ...calendarEvent,
+          id: data.event.id,
+          user,
+        })
+      );
+    }
+  };
+
+  const startDeletingEvent = () => {
+    // TODO: Access the backend
+    dispatch(onDeleteEvent());
+  };
+
+  const startLoadingEvents = async () => {
+    try {
+      const { data } = await calendarApi.get("/events");
+
+      const events = convertEventsToDateEvents(data.events);
+      console.log({ data, events });
+    } catch (error) {
+      console.log("Error loading events.");
+      console.log(error);
+    }
+  };
+
+  return {
+    // Properties
+    events,
+    activeEvent,
+    hasEventSelected: !!activeEvent,
+
+    // Methods
+    setActiveEvent,
+    startDeletingEvent,
+    startLoadingEvents,
+    startSavingEvent,
+  };
+};
+```
+
+`src/calendar/pages/CalendarPage.jsx`
 
 ```jsx
+import { useEffect, useState } from "react";
+import { Calendar } from "react-big-calendar";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import { Navbar } from "../components/Navbar";
+import { localizer } from "../../helpers/calendarLocalizer";
+import { getMessagesES } from "../../helpers/getMessages";
+import { CalendarEvent } from "../components/CalendarEvent";
+import { CalendarModal } from "../components/CalendarModal";
+import { useUiStore } from "../../hooks/useUiStore";
+import { useCalendarStore } from "../../hooks/useCalendarStore";
+import { FabAddNew } from "../components/FabAddNew";
+import { FabDelete } from "../components/FabDelete";
+
+export const CalendarPage = () => {
+  const { openDateModal } = useUiStore();
+  const { events, setActiveEvent, startLoadingEvents } =
+    useCalendarStore();
+
+  const [lastView, setLastView] = useState(
+    localStorage.getItem("lastView") || "week"
+  );
+
+  const eventStyleGetter = (
+    event,
+    start,
+    end,
+    isSelected
+  ) => {
+    const style = {
+      backgroundColor: "#347CF7",
+      borderRadius: "0px",
+      opacity: "white",
+    };
+
+    return {
+      style,
+    };
+  };
+
+  const onDoubleClick = (event) => {
+    console.log({ doubleClick: event });
+
+    openDateModal();
+  };
+
+  const onSelect = (event) => {
+    setActiveEvent(event);
+  };
+
+  const onViewChanged = (event) => {
+    // console.log({ viewChanged: event });
+    localStorage.setItem("lastView", event);
+
+    setLastView(event);
+  };
+
+  useEffect(() => {
+    startLoadingEvents();
+  }, []);
+
+  return (
+    <>
+      <Navbar />
+      <Calendar
+        culture="es"
+        localizer={localizer}
+        events={events}
+        defaultView={lastView}
+        startAccessor="start"
+        endAccessor="end"
+        style={{ height: "calc(100vh - 80px)" }}
+        messages={getMessagesES()}
+        eventPropGetter={eventStyleGetter}
+        components={{
+          event: CalendarEvent,
+        }}
+        onDoubleClickEvent={onDoubleClick}
+        onSelectEvent={onSelect}
+        onView={onViewChanged}
+      />
+      <CalendarModal />
+      <FabAddNew />
+      <FabDelete />
+    </>
+  );
+};
 ```
 
 ### 27.6
@@ -37109,7 +37339,12 @@ Revisa `Events - getEvents`, deben aparecer las notas creadas en la web.
 
 ```jsx
 ```
-
+☝️👆
+👈👀
+❯
+👈👀👇
+👈👀☝️
+👈👀📌
 ### 27.7
 
 `src/`
@@ -37127,7 +37362,12 @@ Revisa `Events - getEvents`, deben aparecer las notas creadas en la web.
 
 ```jsx
 ```
-
+☝️👆
+👈👀
+❯
+👈👀👇
+👈👀☝️
+👈👀📌
 ### 27.8
 
 `src/`
@@ -37163,7 +37403,12 @@ Revisa `Events - getEvents`, deben aparecer las notas creadas en la web.
 
 ```jsx
 ```
-
+☝️👆
+👈👀
+❯
+👈👀👇
+👈👀☝️
+👈👀📌
 ### 27.10
 
 `src/`
