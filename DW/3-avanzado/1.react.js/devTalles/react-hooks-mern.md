@@ -37883,30 +37883,205 @@ export const useCalendarStore = () => {
 };
 ```
 
-### 27.10
+### 27.10 Limpiar información del calendario
 
-`src/`
+`src/store/calendar/calendarSlice.js`
 
-```jsx
+```js
+import { createSlice } from "@reduxjs/toolkit";
+// import { addHours } from "date-fns";
+
+// const tempEvent = {
+//   _id: new Date().getTime(),
+//   title: "The boss's birthday.",
+//   notes: "Buy cake",
+//   start: new Date(),
+//   end: addHours(new Date(), 2),
+//   bgColor: "#fafafa",
+//   user: {
+//     _id: "123",
+//     name: "Ale",
+//   },
+// };
+
+export const calendarSlice = createSlice({
+  name: "calendar",
+  initialState: {
+    isLoadingEvents: true,
+    events: [
+      // tempEvent
+    ],
+    activeEvent: null,
+  },
+  reducers: {
+    onSetActiveEvent: (state, { payload }) => {
+      state.activeEvent = payload;
+    },
+    onAddNewEvent: (state, { payload }) => {
+      state.events.push(payload);
+      state.activeEvent = null;
+    },
+    onUpdateEvent: (state, { payload }) => {
+      state.events = state.events.map((event) => {
+        if (event.id === payload.id) {
+          return payload;
+        }
+
+        return event;
+      });
+    },
+    onDeleteEvent: (state) => {
+      if (state.activeEvent) {
+        state.events = state.events.filter(
+          (event) => event.id !== state.activeEvent.id
+        );
+        state.activeEvent = null;
+      }
+    },
+    onLoadEvents: (state, { payload = [] }) => {
+      state.isLoadingEvents = false;
+      // state.events = payload;
+      payload.forEach((event) => {
+        const exists = state.events.some(
+          (dbEvents) => dbEvents.id === event.id
+        );
+
+        if (!exists) {
+          state.events.push(event);
+        }
+      });
+    },
+    onLogoutCalendar: (state) => {
+      state.isLoadingEvents = true;
+      state.events = [];
+      state.activeEvent = null;
+    },
+  },
+});
+
+export const {
+  onAddNewEvent,
+  onDeleteEvent,
+  onLoadEvents,
+  onLogoutCalendar,
+  onSetActiveEvent,
+  onUpdateEvent,
+} = calendarSlice.actions;
 ```
 
-`src/`
+`src/hooks/useAuthStore.js`
 
-```jsx
+```js
+import { useDispatch, useSelector } from "react-redux";
+import calendarApi from "../api/calendarApi";
+import {
+  clearErrorMessage,
+  onChecking,
+  onLogin,
+  onLogout,
+} from "../store/auth/authSlice";
+import { onLogoutCalendar } from "../store/calendar/calendarSlice";
+
+export const useAuthStore = () => {
+  const { status, user, errorMessage } = useSelector(
+    (state) => state.auth
+  );
+  const dispatch = useDispatch();
+
+  const startLogin = async ({ email, password }) => {
+    dispatch(onChecking());
+
+    try {
+      const { data } = await calendarApi.post("/auth", {
+        email,
+        password,
+      });
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem(
+        "token-init-date",
+        new Date().getTime()
+      );
+
+      dispatch(onLogin({ name: data.name, uid: data.uid }));
+    } catch (error) {
+      dispatch(onLogout("Incorrect credentials."));
+
+      setTimeout(() => {
+        dispatch(clearErrorMessage());
+      }, 10);
+    }
+  };
+
+  const startRegister = async ({ email, password, name }) => {
+    dispatch(onChecking());
+
+    try {
+      const { data } = await calendarApi.post("/auth/new", {
+        email,
+        password,
+        name,
+      });
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem(
+        "token-init-date",
+        new Date().getTime()
+      );
+
+      dispatch(onLogin({ name: data.name, uid: data.uid }));
+    } catch (error) {
+      dispatch(onLogout(error.response.data?.msg) || "--");
+
+      setTimeout(() => {
+        dispatch(clearErrorMessage());
+      }, 10);
+    }
+  };
+
+  const checkAuthToken = async () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) return dispatch(onLogout());
+
+    try {
+      const { data } = await calendarApi.get("auth/renew");
+      console.log(data);
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem(
+        "token-init-date",
+        new Date().getTime()
+      );
+
+      dispatch(onLogin({ name: data.name, uid: data.uid }));
+    } catch (error) {
+      localStorage.clear();
+      dispatch(onLogout());
+    }
+  };
+
+  const startLogout = () => {
+    localStorage.clear();
+
+    dispatch(onLogoutCalendar());
+    dispatch(onLogout());
+  };
+
+  return {
+    // Properties
+    errorMessage,
+    status,
+    user,
+
+    // Methods
+    checkAuthToken,
+    startLogin,
+    startLogout,
+    startRegister,
+  };
+};
 ```
-
-
-`src/`
-
-```jsx
-```
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
-
 
 ### 27.1
 
