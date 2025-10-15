@@ -38099,7 +38099,7 @@ Por favor, ¡no se olviden de calificar el curso y dejar una reseña! Eso me ayu
 
 ### 28.2 Temas puntuales de la sección
 
-En esta sección vamos a trabajar desplegando nuevamente nuestro backend, pero esta vez incluiremos nuestro frontend hecho en React.
+En esta sección vamos a trabajar desplegando nuevamente nuestro back-end, pero esta vez incluiremos nuestro front-end hecho en React.
 
 **Puntualmente veremos:**
 
@@ -38108,7 +38108,7 @@ En esta sección vamos a trabajar desplegando nuevamente nuestro backend, pero e
 3. Variables de entorno en React
 4. Manejo de todas las rutas desde el backend
 
-### 28.3 
+### 28.3 Levantar proyectos localmente
 
 
 `src/`
