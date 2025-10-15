@@ -38093,7 +38093,23 @@ Aquí les dejo el código fuente de la sección terminada y lista, en la próxim
 
 Por favor, ¡no se olviden de calificar el curso y dejar una reseña! Eso me ayudaría mucho a poder llegar a más alumnos!
 
-## 🟣 28. 
+## 🟣 28. Fin el MERN - Desplegarlo a producción
+
+### 28.1 Introducción a la sección
+
+### 28.2 Temas puntuales de la sección
+
+En esta sección vamos a trabajar desplegando nuevamente nuestro backend, pero esta vez incluiremos nuestro frontend hecho en React.
+
+**Puntualmente veremos:**
+
+1. Build de producción
+2. Desplegar cambios a Railway
+3. Variables de entorno en React
+4. Manejo de todas las rutas desde el backend
+
+### 28.3 
+
 
 `src/`
 
