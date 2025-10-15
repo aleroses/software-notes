@@ -38110,6 +38110,178 @@ En esta sección vamos a trabajar desplegando nuevamente nuestro back-end, pero 
 
 ### 28.3 Levantar proyectos localmente
 
+```bash
+# Back-end: 10-calendar-backend
+code .
+npm run dev
+
+# Front-end: 10-calendar
+code .
+npm run build # 👈👀
+npm run dev
+```
+
+Tendremos la siguiente estructura en el Front-end:
+
+```bash
+.
+├── dist 👈👀👇
+│   ├── assets
+│   │   ├── index-DKl8h0Et.js
+│   │   └── index-DvHiiMvh.css
+│   └── index.html
+├── .env
+├── .env.template
+├── eslint.config.js
+├── .git
+├── .gitignore
+├── index.html
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── README.md
+├── src
+│   ├── api
+│   │   └── calendarApi.js
+│   ├── auth
+│   │   └── pages
+│   │       ├── LoginPage.css
+│   │       └── LoginPage.jsx
+│   ├── calendar
+│   │   ├── components
+│   │   │   ├── CalendarEvent.jsx
+│   │   │   ├── CalendarModal.jsx
+│   │   │   ├── FabAddNew.jsx
+│   │   │   ├── FabDelete.jsx
+│   │   │   └── Navbar.jsx
+│   │   └── pages
+│   │       └── CalendarPage.jsx
+│   ├── CalendarApp.jsx
+│   ├── helpers
+│   │   ├── calendarLocalizer.js
+│   │   ├── convertEventsToDateEvents.js
+│   │   ├── getEnvVariables.js
+│   │   └── getMessages.js
+│   ├── hooks
+│   │   ├── useAuthStore.js
+│   │   ├── useCalendarStore.js
+│   │   ├── useForm.js
+│   │   └── useUiStore.js
+│   ├── main.jsx
+│   ├── router
+│   │   └── AppRouter.jsx
+│   ├── store
+│   │   ├── auth
+│   │   │   └── authSlice.js
+│   │   ├── calendar
+│   │   │   └── calendarSlice.js
+│   │   ├── store.js
+│   │   └── ui
+│   │       └── uiSlice.js
+│   └── styles.css
+└── vite.config.js
+```
+
+Copiamos el contenido de la carpeta `dist` del **Front-end** y lo pegamos dentro de la carpeta `public` en el Back-end reemplazando el contenido anterior.
+
+Tendremos la siguiente estructura en el Back-end:
+
+```bash
+.
+├── controllers
+│   ├── auth.js
+│   └── events.js
+├── database
+│   └── config.js
+├── .env
+├── .git
+├── .gitignore
+├── helpers
+│   ├── isDate.js
+│   └── jwt.js
+├── index.html
+├── index.js
+├── LICENSE
+├── middlewares
+│   ├── validate-fields.js
+│   └── validate-jwt.js
+├── models
+│   ├── Event.js
+│   └── User.js
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public 👈👀👇
+│   ├── assets
+│   │   ├── index-DKl8h0Et.js
+│   │   └── index-DvHiiMvh.css
+│   └── index.html
+└── routes
+    ├── auth.js
+    └── events.js
+```
+
+`10-calendar-backend/index.js`
+
+```js
+import path from "path"; // 👈👀👇
+import { fileURLToPath } from "url";
+
+import express from "express";
+import cors from "cors";
+import "dotenv/config";
+import { router as authRoutes } from "./routes/auth.js";
+import { dbConnection } from "./database/config.js";
+import { router as eventRoutes } from "./routes/events.js";
+
+// ✅ This replaces __dirname in ESM. 👈👀👇
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Create the Express server
+const app = express();
+
+// Data Base
+dbConnection();
+
+// CORS
+app.use(cors());
+
+// Public directory
+// app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
+
+// Reading and parsing the body
+app.use(express.json());
+
+// Rutes
+app.use("/api/auth", authRoutes);
+// TODO: CRUD: Events
+app.use("/api/events", eventRoutes);
+
+app.get("/*splat", (req, res) => { // 👈👀👇
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+// Listen to requests
+app.listen(process.env.PORT, () => {
+  console.log(`Server running on port ${process.env.PORT}`);
+});
+```
+
+Ingresa a la web usando un usuario válido y existente:
+
+```
+aleroses@gmail.com
+123456
+```
+
+Ruta: `http://localhost:4000`
+
+> Nota: Tanto Front-end como Back-end estarán en el mismo servidor.
+
+### 28.4
 
 `src/`
 
@@ -38127,13 +38299,23 @@ En esta sección vamos a trabajar desplegando nuevamente nuestro back-end, pero 
 ```jsx
 ```
 
+### 28.5
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
 
 
+`src/`
 
-
-
-
-
+```jsx
+```
 
 ⚙️
 ☝️👆
