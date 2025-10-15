@@ -38083,7 +38083,17 @@ export const useAuthStore = () => {
 };
 ```
 
-### 27.1
+### 27.11 Código fuente de la sección
+
+**Código de la sección**
+
+Aquí les dejo el código fuente de la sección terminada y lista, en la próxima sección lo desplegaremos todo a Heroku para dejarlo trabajando en internet.
+
+[MERN Completo - Calendar App](https://github.com/Klerith/react-mern-calendar/tree/fin-seccion-27)
+
+Por favor, ¡no se olviden de calificar el curso y dejar una reseña! Eso me ayudaría mucho a poder llegar a más alumnos!
+
+## 🟣 28. 
 
 `src/`
 
