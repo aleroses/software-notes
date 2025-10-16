@@ -38695,33 +38695,77 @@ describe("Tests in the CalendarApi", () => {
 });
 ```
 
-### 29.5
+### 29.5 Pruebas en uiSlice
 
-`tests/`
+Estructura `10-calendar`:
 
-```jsx
-```
-
-`tests/`
-
-```jsx
-```
-
-
-`tests/`
-
-```jsx
-```
-
-⚙️
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
 ```bash
-tree -a -L 5 -I "node_modules|.git"
+.
+├── babel.config.cjs
+├── dist
+├── .env
+├── .env.production
+├── .env.template
+├── .env.test
+├── eslint.config.js
+├── .git
+├── .gitignore
+├── index.html
+├── jest.config.cjs
+├── jest.setup.js
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── README.md
+├── src
+├── tests
+│   ├── api
+│   │   └── calendarApi.test.js
+│   ├── mocks
+│   │   └── styleMock.js
+│   └── store 👈👀👇
+│       ├── auth
+│       ├── calendar
+│       └── ui
+│           └── uiSlice.test.js
+└── vite.config.js
+```
+
+`tests/store/ui/uiSlice.test.js`
+
+```js
+import {
+  onCloseDateModal,
+  onOpenDateModal,
+  uiSlice,
+} from "../../../src/store/ui/uiSlice";
+
+describe("Tests in the uiSlice", () => {
+  test("It should return to the default state.", () => {
+    // console.log(uiSlice.getInitialState());
+
+    // Two ways of doing the same thing
+    expect(uiSlice.getInitialState()).toEqual({
+      isDateModalOpen: false,
+    });
+
+    expect(
+      uiSlice.getInitialState().isDateModalOpen
+    ).toBeFalsy();
+  });
+
+  test("You must change isDateModalOpen correctly.", () => {
+    let state = uiSlice.getInitialState();
+    state = uiSlice.reducer(state, onOpenDateModal());
+
+    // console.log(state);
+    expect(state.isDateModalOpen).toBeTruthy();
+
+    state = uiSlice.reducer(state, onCloseDateModal());
+    expect(state.isDateModalOpen).toBeFalsy();
+  });
+});
 ```
 
 ### 29.6
@@ -38855,18 +38899,13 @@ tree -a -L 5 -I "node_modules|.git"
 
 ### 29.10
 
-`src/`
-
-```jsx
-```
-
-`src/`
+`tests/`
 
 ```jsx
 ```
 
 
-`src/`
+`tests/`
 
 ```jsx
 ```
@@ -38878,21 +38917,20 @@ tree -a -L 5 -I "node_modules|.git"
 👈👀👇
 👈👀☝️
 👈👀📌
+```bash
+tree -a -L 5 -I "node_modules|.git"
+```
+
 
 ### 29.11
 
-`src/`
-
-```jsx
-```
-
-`src/`
+`tests/`
 
 ```jsx
 ```
 
 
-`src/`
+`tests/`
 
 ```jsx
 ```
@@ -38904,6 +38942,10 @@ tree -a -L 5 -I "node_modules|.git"
 👈👀👇
 👈👀☝️
 👈👀📌
+```bash
+tree -a -L 5 -I "node_modules|.git"
+```
+
 
 ### 29.12
 
