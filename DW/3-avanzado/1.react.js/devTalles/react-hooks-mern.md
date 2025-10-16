@@ -38345,11 +38345,11 @@ Esto provoca:
 1. Entra a tu cuenta de **MongoDB Atlas**  
 	👉 [Cloud Mongodb](https://cloud.mongodb.com/)
 	
-2. Agrega IP Address
+2. Agrega IP Address  
 	Ingresa a `SECURITY/Database & Network Access/IP Access List/Add IP Address`
 	
-	Tienes 2 opciones:
-	🔹 Opción segura: Agrega solo la IP pública de Render: [Outbound IP](https://render.com/docs/outbound-ip-addresses)
+	Tienes 2 opciones:  
+	🔹 Opción segura: Agrega solo la IP pública de Render: [Outbound IP](https://render.com/docs/outbound-ip-addresses)  
 	🔹 Opción rápida (para desarrollo): Haz clic en **“Allow Access from Anywhere”**, lo que añade: `0.0.0.0/0`
 	
 	👉 Esto permite que Render se conecte desde cualquier IP.  
@@ -38357,7 +38357,7 @@ Esto provoca:
 	
 	Después de esto MongoDB tomará unos segundos para aplicar la regla (puede demorar 1–2 minutos).
 	
-3. Verifica tu conexión string en Render
+1. Verifica tu conexión string en Render  
 	En tu servicio **Render Backend → Environment → Environment Variables**, asegúrate de tener algo así:
 	
 	```
@@ -38367,8 +38367,8 @@ Esto provoca:
 	SECRET_JWT_SEED=This-is-@-secret-Word
 	```
 	
-4. Re-deploy en Render
-	Después de guardar los cambios, entra al:
+1. Re-deploy en Render  
+	Después de guardar los cambios, entra al:  
 	Dashboard de Render → selecciona tu servicio back-end →  haz clic en **“Manual Deploy → Deploy latest commit”**.
 	
 	Render levantará el servidor otra vez y verás en el log algo como:
