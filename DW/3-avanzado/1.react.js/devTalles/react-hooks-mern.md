@@ -38378,8 +38378,13 @@ Esto provoca:
 	Server running on port 4000
 	```
 
+### 28.5 Código fuente de la sección
 
-### 28.5
+Aquí les dejo el código fuente de la sección con los cambios que hicimos en el backend.
+
+[React-MERN-backend - Código final](https://github.com/DevTalles-corp/React-MERN-backend)
+
+## 🟣 29. 
 
 `src/`
 
