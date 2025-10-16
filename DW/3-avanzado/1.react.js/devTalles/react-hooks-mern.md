@@ -38404,31 +38404,238 @@ Aquí les dejo el código fuente de la sección con los cambios que hicimos en e
 
 Esta es la sección de pruebas más complicada de todas, pero no imposible, nuevamente el objetivo de la misma es darles a ustedes todo el repertorio de pruebas que podrán necesitar en sus aplicaciones hechas o futuras.
 
-### 29.3 
+### 29.3 Inicio de pruebas - CalendarApp
 
-`src/`
+Estructura:
 
-```jsx
+```bash
+.
+├── babel.config.cjs 👈👀
+├── dist
+│   ├── assets
+│   │   ├── index-DvHiiMvh.css
+│   │   └── index-zBZwJyn8.js
+│   └── index.html
+├── .env 👈👀👇
+├── .env.production
+├── .env.template
+├── .env.test 👈👀☝️
+├── eslint.config.js
+├── .git
+├── .gitignore
+├── index.html
+├── jest.config.cjs 👈👀
+├── jest.setup.js 👈👀
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── README.md
+├── src
+│   ├── api
+│   │   └── calendarApi.js
+│   ├── auth
+│   │   └── pages
+│   │       ├── LoginPage.css
+│   │       └── LoginPage.jsx
+│   ├── calendar
+│   │   ├── components
+│   │   │   ├── CalendarEvent.jsx
+│   │   │   ├── CalendarModal.jsx
+│   │   │   ├── FabAddNew.jsx
+│   │   │   ├── FabDelete.jsx
+│   │   │   └── Navbar.jsx
+│   │   └── pages
+│   │       └── CalendarPage.jsx
+│   ├── CalendarApp.jsx
+│   ├── helpers
+│   │   ├── calendarLocalizer.js
+│   │   ├── convertEventsToDateEvents.js
+│   │   ├── getEnvVariables.js
+│   │   └── getMessages.js
+│   ├── hooks
+│   │   ├── useAuthStore.js
+│   │   ├── useCalendarStore.js
+│   │   ├── useForm.js
+│   │   └── useUiStore.js
+│   ├── main.jsx
+│   ├── router
+│   │   └── AppRouter.jsx
+│   ├── store
+│   │   ├── auth
+│   │   │   └── authSlice.js
+│   │   ├── calendar
+│   │   │   └── calendarSlice.js
+│   │   ├── store.js
+│   │   └── ui
+│   │       └── uiSlice.js
+│   └── styles.css
+├── tests 👈👀👇
+│   └── mocks
+│       └── styleMock.js
+└── vite.config.js
 ```
 
-`src/`
+```bash
+# Backend
+code .
+npm run dev
 
-```jsx
+# Frontend
+code .
+npm test # First, install everything you need
 ```
 
+#### Postman
 
-`src/`
+Crea un usuario en `Auth - Create user` con los siguientes datos:
 
-```jsx
+```json
+{
+  "name": "Test User",
+  "email": "test@gmail.com",
+  "password": "123456"
+}
 ```
 
-⚙️
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
+Ahora en `Auth - Create login` autentícate con ese mismo usuario:
+
+```json
+{
+  "email": "test@gmail.com",
+  "password": "123456"
+}
+```
+
+#### Pasos previos al testing
+
+Ver [[#8.3 Configurar el ambiente de pruebas]]
+
+1. Instalaciones:
+```bash
+# Jest/Introduction/Getting Started
+npm install --save-dev @types/jest
+
+# Jest/Framework Guides/Testing React App/Setup without Create React App
+npm install --save-dev jest babel-jest @babel/preset-env @babel/preset-react react-test-renderer
+
+# Jest/Framework Guides/Testing React App/DOM Testing
+npm install --save-dev @testing-library/react # 👈👀
+
+# Jest/Guides/DOM Manipulation
+npm install --save-dev jest-environment-jsdom
+
+# Testing Library/Frameworks/React Testing Library/Introduction 👈👀
+npm install --save-dev @testing-library/react @testing-library/dom
+```
+
+2. Opcional: Si usamos Fetch API en el proyecto:
+```bash
+npm install --save-dev whatwg-fetch
+npm i -D whatwg-fetch
+```
+
+3. Actualizar los scripts del `package.json`
+```js
+"scripts: {
+  ...
+  "test": "jest --watchAll"
+```
+
+4. Crear la configuración de babel `babel.config.cjs`
+```js
+module.exports = {
+  presets: [
+    ["@babel/preset-env", { targets: { esmodules: true } }],
+    ["@babel/preset-react", { runtime: "automatic" }],
+  ],
+};
+```
+
+5. Para componentes que importen CSS, crear un archivo llamado: `tests/mocks/styleMock.js`
+
+```
+module.exports = {};
+```
+
+6. Opcional, pero eventualmente necesario, crear Jest config y setup:
+
+`jest.config.cjs`
+```jsx
+module.exports = {
+  testEnvironment: "jest-environment-jsdom",
+  setupFiles: ["./jest.setup.js"],
+  transformIgnorePatterns: [],
+
+  // ModuleNameMapper sólo si necesitas importar CSS en nuestros componentes para el testing
+  moduleNameMapper: {
+    "\\.(css|less)$": "<rootDir>/tests/mocks/styleMock.js",
+  },
+};
+```
+
+`jest.setup.js`
+```js
+// En caso de necesitar la implementación del FetchAPI
+import 'whatwg-fetch'; // yarn add -D whatwg-fetch
+
+// En caso de encontrar paquetes que lo requieran 
+// yarn add -D setimmediate
+// import 'setimmediate';
+
+// En caso de tener variables de entorno y aún no soporta el import.meta.env
+// yarn add -D dotenv / npm i dotenv --save-dev / npm i dotenv -D
+require("dotenv").config({
+  path: ".env.test",
+});
+
+// Realizar el mock completo de las variables de entorno
+jest.mock("./src/helpers/getEnvVariables", () => ({
+  getEnvVariables: () => ({ ...process.env }),
+}));
+```
+
+`.env`
+
+```
+# We changed the link from the deployed database to localhost.
+VITE_MODE=dev
+VITE_API_URL=http://localhost:4000/api
+
+# VITE_API_URL=https://calendar-app-backend-wutn.onrender.com/api
+```
+
+`.env.test`
+
+```
+# We copy the same link from .env (localhost)
+VITE_MODE=test
+VITE_API_URL=http://localhost:4000/api
+
+#VITE_API_URL=https://calendar-app-backend-wutn.onrender.com/api
+```
+
+`.env.production` ok
+
+```
+VITE_MODE=prod
+VITE_API_URL=https://calendar-app-backend-wutn.onrender.com/api
+```
+
+`.env.template` ok
+
+```
+VITE_MODE=dev
+VITE_API_URL=http://localhost:4000/api
+```
+
+`10-calendar/`
+
+```bash
+npm test
+```
+
+[Vite + Jest + Testing Library + CSS](https://gist.github.com/Klerith/b2eafa2a5fb9f09d6d043781be976e06)
 
 ### 29.4
 
@@ -38506,7 +38713,8 @@ Esta es la sección de pruebas más complicada de todas, pero no imposible, nuev
 👈👀👇
 👈👀☝️
 👈👀📌
-
+🐞
+🐛
 ### 29.7
 
 `src/`
