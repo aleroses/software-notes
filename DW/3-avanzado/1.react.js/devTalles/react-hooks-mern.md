@@ -38406,7 +38406,7 @@ Esta es la sección de pruebas más complicada de todas, pero no imposible, nuev
 
 ### 29.3 Inicio de pruebas - CalendarApp
 
-Estructura:
+Estructura `10-calendar`:
 
 ```bash
 .
@@ -38637,46 +38637,78 @@ npm test
 
 [Vite + Jest + Testing Library + CSS](https://gist.github.com/Klerith/b2eafa2a5fb9f09d6d043781be976e06)
 
-### 29.4
+### 29.4 Pruebas con la configuración de Axios
 
-`src/`
+Estructura `10-calendar`:
 
-```jsx
+```bash
+.
+├── babel.config.cjs
+├── dist
+├── .env
+├── .env.production
+├── .env.template
+├── .env.test
+├── eslint.config.js
+├── .git
+├── .gitignore
+├── index.html
+├── jest.config.cjs
+├── jest.setup.js
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── README.md
+├── src
+├── tests
+│   ├── api 👈👀👇
+│   │   └── calendarApi.test.js
+│   └── mocks
+│       └── styleMock.js
+└── vite.config.js
 ```
 
-`src/`
+`tests/api/calendarApi.test.js`
 
-```jsx
+```js
+import calendarApi from "../../src/api/calendarApi";
+
+describe("Tests in the CalendarApi", () => {
+  test("It should have the defaul settings", () => {
+    // console.log(calendarApi);
+    // console.log(process.env);
+
+    expect(calendarApi.defaults.baseURL).toBe(
+      process.env.VITE_API_URL
+    );
+  });
+
+  test("It must have the x-token in the header of all requests.", async () => {
+    const token = "ABC-123-XYZ";
+    localStorage.setItem("token", token);
+
+    const res = await calendarApi.get("/auth");
+
+    expect(res.config.headers["x-token"]).toBe(token);
+  });
+});
 ```
-
-
-`src/`
-
-```jsx
-```
-
-⚙️
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
 
 ### 29.5
 
-`src/`
+`tests/`
 
 ```jsx
 ```
 
-`src/`
+`tests/`
 
 ```jsx
 ```
 
 
-`src/`
+`tests/`
 
 ```jsx
 ```
@@ -38688,22 +38720,49 @@ npm test
 👈👀👇
 👈👀☝️
 👈👀📌
+```bash
+tree -a -L 5 -I "node_modules|.git"
+```
+
 ### 29.6
 
-`src/`
+`tests/`
 
 ```jsx
 ```
 
-`src/`
+`tests/`
 
 ```jsx
 ```
 
 
-`src/`
+`tests/`
 
 ```jsx
+```
+
+`tests/`
+
+```jsx
+```
+
+
+`tests/`
+
+```jsx
+```
+
+⚙️
+☝️👆
+👈👀
+❯
+👈👀👇
+👈👀☝️
+👈👀📌
+
+```bash
+tree -a -L 5 -I "node_modules|.git"
 ```
 
 ⚙️
@@ -38717,18 +38776,18 @@ npm test
 🐛
 ### 29.7
 
-`src/`
+`tests/`
 
 ```jsx
 ```
 
-`src/`
+`tests/`
 
 ```jsx
 ```
 
 
-`src/`
+`tests/`
 
 ```jsx
 ```
@@ -38743,18 +38802,18 @@ npm test
 
 ### 29.8
 
-`src/`
+`tests/`
 
 ```jsx
 ```
 
-`src/`
+`tests/`
 
 ```jsx
 ```
 
 
-`src/`
+`tests/`
 
 ```jsx
 ```
@@ -38769,18 +38828,18 @@ npm test
 
 ### 29.9
 
-`src/`
+`tests/`
 
 ```jsx
 ```
 
-`src/`
+`tests/`
 
 ```jsx
 ```
 
 
-`src/`
+`tests/`
 
 ```jsx
 ```
@@ -39258,3 +39317,7 @@ yarn add react@latest react-dom@latest
 ```
 
 resaltado de rutas...
+
+```bash
+tree -a -L 5 -I "node_modules|.git"
+```
