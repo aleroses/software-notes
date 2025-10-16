@@ -38281,23 +38281,39 @@ Ruta: `http://localhost:4000`
 
 > Nota: Tanto Front-end como Back-end estarán en el mismo servidor.
 
-### 28.4
+### 28.4 Desplegar backend y frontend a la nube
 
-`src/`
-
-```jsx
+```bash
+# Push the changes to the main/master branch
+git add . && git commit -am "update" && git push origin master
 ```
 
-`src/`
+**Render** no me funcionaba así que borré y subí nuevamente el proyecto usando GitHub. Esto tarda un rato, mientras tanto aparece `error 502 Bad Gateway`.
 
-```jsx
+Ver [[#25.5 Desplegar a Railway#Render 👍]]
+
+`10-calendar/.env`
+
+```
+# VITE_API_URL=http://localhost:4000/api
+VITE_API_URL=https://calendar-app-backend-6dds.onrender.com/api
 ```
 
-
-`src/`
-
-```jsx
+```bash
+# Front-end: 10-calendar
+npm run build
 ```
+
+Nuevamente, copiamos el contenido de la carpeta `dist` del Front-end y lo pegamos en `public` dentro del Back-end.
+
+```bash
+# Back-end: Push the changes to the main/master branch
+git add . && git commit -am "update public folder" && git push origin master
+```
+
+Mi código Front-end [Calendar-app](https://github.com/aleroses/calendar-app) y Back-end [Calendar-app-backend](https://github.com/aleroses/calendar-app-backend).
+
+Despliegue: [Blender: Calendar App](https://calendar-app-backend-wutn.onrender.com/auth/login)
 
 ### 28.5
 
