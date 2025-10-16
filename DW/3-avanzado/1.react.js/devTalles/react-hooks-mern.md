@@ -38296,7 +38296,7 @@ Ver [[#25.5 Desplegar a Railway#Render 👍]]
 
 ```
 # VITE_API_URL=http://localhost:4000/api
-VITE_API_URL=https://calendar-app-backend-6dds.onrender.com/api
+VITE_API_URL=https://calendar-app-backend-wutn.onrender.com/api
 ```
 
 ```bash
@@ -38314,6 +38314,70 @@ git add . && git commit -am "update public folder" && git push origin master
 Mi código Front-end [Calendar-app](https://github.com/aleroses/calendar-app) y Back-end [Calendar-app-backend](https://github.com/aleroses/calendar-app-backend).
 
 Despliegue: [Blender: Calendar App](https://calendar-app-backend-wutn.onrender.com/auth/login)
+
+> Nota importante❗ Si eliminaste el primer despliegue para volverlo a desplegar debes volver a copiar el enlace dentro de `10-calendar/.env` y seguir los demás pasos.
+> Si solo hiciste cambios en `10-calendar-backend` debes hacer `push` y en Render actualiza en `Manual Deploy/Deploy latest commit`.
+
+#### Error MongoDB Atlas
+
+Si al desplegar en Render te aparece un `log` como este:
+
+```
+MongooseServerSelectionError: Could not connect to any servers in your MongoDB Atlas cluster.
+One common reason is that you're trying to access the database from an IP that isn't whitelisted.
+Make sure your current IP address is on your Atlas cluster's IP whitelist:
+https://www.mongodb.com/docs/atlas/security-whitelist/
+```
+
+La causa es que Render está **intentando conectarse a la base de datos MongoDB Atlas**,  pero MongoDB **rechaza la conexión** porque **la IP de Render no está permitida** en la configuración de seguridad del cluster.
+
+Esto provoca:
+
+- `MongooseServerSelectionError` → no puede conectarse.
+    
+- `Error initializing the database.` → tu `dbConnection()` lanza el `throw new Error(...)`.
+    
+- El back-end falla al iniciar → Render devuelve `502 Bad Gateway` al front-end.
+    
+
+✅ Solución:
+
+1. Entra a tu cuenta de **MongoDB Atlas**  
+	👉 [Cloud Mongodb](https://cloud.mongodb.com/)
+	
+2. Agrega IP Address
+	Ingresa a `SECURITY/Database & Network Access/IP Access List/Add IP Address`
+	
+	Tienes 2 opciones:
+	🔹 Opción segura: Agrega solo la IP pública de Render: [Outbound IP](https://render.com/docs/outbound-ip-addresses)
+	🔹 Opción rápida (para desarrollo): Haz clic en **“Allow Access from Anywhere”**, lo que añade: `0.0.0.0/0`
+	
+	👉 Esto permite que Render se conecte desde cualquier IP.  
+	(⚠️ No recomendado para producción con datos reales, pero perfecto para proyectos personales o en prueba.)
+	
+	Después de esto MongoDB tomará unos segundos para aplicar la regla (puede demorar 1–2 minutos).
+	
+3. Verifica tu conexión string en Render
+	En tu servicio **Render Backend → Environment → Environment Variables**, asegúrate de tener algo así:
+	
+	```
+	DB_CNN=mongodb+srv://<usuario>:<contraseña>@<cluster>.mongodb.net/<nombre_db>
+	DB_CNN=mongodb+srv://mern-user:HAzCB7Tw4gQ3ln1m@calendardb.l8x2lf4.mongodb.net/mern_calendar
+	PORT: 4000
+	SECRET_JWT_SEED=This-is-@-secret-Word
+	```
+	
+4. Re-deploy en Render
+	Después de guardar los cambios, entra al:
+	Dashboard de Render → selecciona tu servicio back-end →  haz clic en **“Manual Deploy → Deploy latest commit”**.
+	
+	Render levantará el servidor otra vez y verás en el log algo como:
+	
+	```
+	DB Online
+	Server running on port 4000
+	```
+
 
 ### 28.5
 
