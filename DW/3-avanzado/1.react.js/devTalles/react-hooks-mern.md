@@ -38384,7 +38384,7 @@ Aquí les dejo el código fuente de la sección con los cambios que hicimos en e
 
 [React-MERN-backend - Código final](https://github.com/DevTalles-corp/React-MERN-backend)
 
-## 🟣 29. Pruebas unitarias y de integración - MERN
+## 🟡 29. Pruebas unitarias y de integración - MERN
 
 ### 29.1 Introducción a la sección
 
@@ -38768,56 +38768,102 @@ describe("Tests in the uiSlice", () => {
 });
 ```
 
-### 29.6
+### 29.6 Pruebas en authSlice
 
-`tests/`
-
-```jsx
-```
-
-`tests/`
-
-```jsx
-```
-
-
-`tests/`
-
-```jsx
-```
-
-`tests/`
-
-```jsx
-```
-
-
-`tests/`
-
-```jsx
-```
-
-⚙️
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
+Estructura `10-calendar`:
 
 ```bash
-tree -a -L 5 -I "node_modules|.git"
+.
+├── babel.config.cjs
+├── dist
+├── .env
+├── .env.production
+├── .env.template
+├── .env.test
+├── eslint.config.js
+├── .git
+├── .gitignore
+├── index.html
+├── jest.config.cjs
+├── jest.setup.js
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── README.md
+├── src
+├── tests
+│   ├── api
+│   │   └── calendarApi.test.js
+│   ├── fixtures 👈👀👇
+│   │   ├── authStates.js
+│   │   └── testUser.js
+│   ├── mocks
+│   │   └── styleMock.js
+│   └── store
+│       ├── auth 👈👀👇
+│       │   └── authSlice.test.js
+│       ├── calendar
+│       └── ui
+│           └── uiSlice.test.js
+└── vite.config.js
 ```
 
-⚙️
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
-🐞
-🐛
+`tests/store/auth/authSlice.test.js`
+
+```js
+import { authSlice } from "../../../src/store/auth/authSlice";
+import { initialState } from "../../fixtures/authStates";
+
+describe("Test in authSlice", () => {
+  test("It must return to the initial state.", () => {
+    expect(authSlice.getInitialState()).toEqual(initialState);
+  });
+});
+```
+
+`tests/fixtures/authStates.js`
+
+```js
+export const initialState = {
+  status: "checking",
+  user: {},
+  errorMessage: undefined,
+};
+
+export const authenticatedState = {
+  status: "authenticated",
+  user: {
+    uid: "abc",
+    name: "Ale",
+  },
+  errorMessage: undefined,
+};
+
+export const notAuthenticatedState = {
+  status: "not-authenticated",
+  user: {},
+  errorMessage: undefined,
+};
+```
+
+`tests/fixtures/testUser.js`
+
+```js
+export const testUserCredentials = {
+  email: "test@gmail.com",
+  password: "123456",
+  uid: "68f0eab1486246c8bcd69137",
+  name: "Test User",
+};
+```
+
+Estos datos los copiamos del `Auth - Create Login`:
+- `uid`
+- `name`
+- `email`
+- `password`
+
 ### 29.7
 
 `tests/`
@@ -38998,6 +39044,8 @@ tree -a -L 5 -I "node_modules|.git"
 👈👀👇
 👈👀☝️
 👈👀📌
+🐞
+🐛
 
 ### 29.14
 
@@ -39024,7 +39072,8 @@ tree -a -L 5 -I "node_modules|.git"
 👈👀👇
 👈👀☝️
 👈👀📌
-
+🐞
+🐛
 
 ### 29.15
 
@@ -39051,6 +39100,8 @@ tree -a -L 5 -I "node_modules|.git"
 👈👀👇
 👈👀☝️
 👈👀📌
+🐞
+🐛
 
 ### 29.16
 
@@ -39077,6 +39128,8 @@ tree -a -L 5 -I "node_modules|.git"
 👈👀👇
 👈👀☝️
 👈👀📌
+🐞
+🐛
 
 ### 29.17
 
