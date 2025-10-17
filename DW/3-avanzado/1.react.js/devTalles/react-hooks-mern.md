@@ -38864,33 +38864,99 @@ Estos datos los copiamos del `Auth - Create Login`:
 - `email`
 - `password`
 
-### 29.7
+### 29.7 Probando estados y acciones del authSlice
 
-`tests/`
+`tests/store/auth/authSlice.test.js`
 
-```jsx
+```js
+import {
+  authSlice,
+  clearErrorMessage,
+  onLogin,
+  onLogout,
+} from "../../../src/store/auth/authSlice";
+import {
+  authenticatedState,
+  initialState,
+} from "../../fixtures/authStates";
+import { testUserCredentials } from "../../fixtures/testUser";
+
+describe("Test in authSlice", () => {
+  test("It must return to the initial state.", () => {
+    expect(authSlice.getInitialState()).toEqual(initialState);
+  });
+
+  test("It must log in.", () => {
+    const state = authSlice.reducer(
+      initialState,
+      onLogin(testUserCredentials)
+    );
+    // console.log(state);
+
+    expect(state).toEqual({
+      status: "authenticated",
+      user: testUserCredentials,
+      errorMessage: undefined,
+    });
+  });
+
+  test("It must log out.", () => {
+    const state = authSlice.reducer(
+      authenticatedState,
+      onLogout()
+    );
+
+    expect(state).toEqual({
+      status: "not-authenticated",
+      user: {},
+      errorMessage: undefined,
+    });
+  });
+
+  test("It must log out.", () => {
+    const errorMessage = "Invalid credentials.";
+    const state = authSlice.reducer(
+      authenticatedState,
+      onLogout(errorMessage)
+    );
+    // console.log(state);
+
+    expect(state).toEqual({
+      status: "not-authenticated",
+      user: {},
+      errorMessage: errorMessage,
+    });
+  });
+
+  test("It must clear the error message.", () => {
+    const errorMessage = "Invalid credentials.";
+    const state = authSlice.reducer(
+      authenticatedState,
+      onLogout(errorMessage)
+    );
+    // console.log(state);
+
+    const newState = authSlice.reducer(
+      state,
+      clearErrorMessage()
+    );
+
+    expect(newState.errorMessage).toBe(undefined);
+  });
+});
 ```
 
-`tests/`
+Nota: Si te aparece algo como esto al correr las pruebas:
 
-```jsx
+```bash
+Error: connect ECONNREFUSED 127.0.0.1:4000
 ```
 
+Es debido a que **Jest intentó conectarse al backend `http://127.0.0.1:4000` durante las pruebas, pero **no había ningún servidor escuchando en ese puerto**.
 
-`tests/`
+Para solucionarlo solo ejecuta `npm run dev` en `10-calendar-backend`.
 
-```jsx
-```
-
-⚙️
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
-
-### 29.8
+### 29.8 
 
 `tests/`
 
