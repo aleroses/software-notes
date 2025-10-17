@@ -39251,7 +39251,7 @@ describe("Tests in the calendarSlice", () => {
       state,
       onLoadEvents(events)
     );
-    expect(state.events.length).toBe(events.length);
+    expect(newState.events.length).toBe(events.length);
   });
 
   test("onLogoutCalendar should clear the state.", () => {
