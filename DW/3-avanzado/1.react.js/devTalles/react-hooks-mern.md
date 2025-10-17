@@ -39039,32 +39039,119 @@ export const calendarWithActiveEventState = {
 };
 ```
 
-### 29.9
+### 29.9 Pruebas en el calendarSlice
 
-`tests/`
+Estructura:
 
-```jsx
+```bash
+.
+├── babel.config.cjs
+├── dist
+├── .env
+├── .env.production
+├── .env.template
+├── .env.test
+├── eslint.config.js
+├── .git
+├── .gitignore
+├── index.html
+├── jest.config.cjs
+├── jest.setup.js
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── README.md
+├── src
+├── tests
+│   ├── api
+│   │   └── calendarApi.test.js
+│   ├── fixtures
+│   │   ├── authStates.js
+│   │   ├── calendarStates.js
+│   │   └── testUser.js
+│   ├── mocks
+│   │   └── styleMock.js
+│   └── store
+│       ├── auth
+│       │   └── authSlice.test.js
+│       ├── calendar 👈👀👇
+│       │   └── calendarSlice.test.js
+│       └── ui
+│           └── uiSlice.test.js
+└── vite.config.js
 ```
 
-`tests/`
+`tests/store/calendar/calendarSlice.test.js`
 
-```jsx
+```js
+import {
+  calendarSlice,
+  onAddNewEvent,
+  onSetActiveEvent,
+  onUpdateEvent,
+} from "../../../src/store/calendar/calendarSlice";
+import {
+  calendarWithEventsState,
+  events,
+  initialState,
+} from "../../fixtures/calendarStates";
+
+describe("Tests in the calendarSlice", () => {
+  test("Should return the default state.", () => {
+    const state = calendarSlice.getInitialState();
+
+    expect(state).toEqual(initialState);
+  });
+
+  test("onSetActiveEvent should activate the event.", () => {
+    const state = calendarSlice.reducer(
+      calendarWithEventsState,
+      onSetActiveEvent(events[0])
+    );
+
+    // console.log(state);
+
+    expect(state.activeEvent).toEqual(events[0]);
+  });
+
+  test("onAddNewEvent should add the event.", () => {
+    const newEvent = {
+      id: "3",
+      start: new Date("2020-10-21 13:00:00"),
+      end: new Date("2020-10-21 15:00:00"),
+      title: "Ale's birthday!!!",
+      notes: "Buy cake...",
+    };
+
+    const state = calendarSlice.reducer(
+      calendarWithEventsState,
+      onAddNewEvent(newEvent)
+    );
+    // console.log(state);
+
+    expect(state.events).toEqual([...events, newEvent]);
+  });
+
+  test("onUpdateEvent should update the event.", () => {
+    const updatedEvent = {
+      id: "1",
+      start: new Date("2020-10-21 13:00:00"),
+      end: new Date("2020-10-21 15:00:00"),
+      title: "Ale's birthday updated!!!",
+      notes: "Buy cake...updated",
+    };
+
+    const state = calendarSlice.reducer(
+      calendarWithEventsState,
+      onUpdateEvent(updatedEvent)
+    );
+    // console.log(state);
+
+    expect(state.events).toContain(updatedEvent);
+  });
+});
 ```
-
-
-`tests/`
-
-```jsx
-```
-
-⚙️
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
-
 
 ### 29.10
 
