@@ -38956,31 +38956,88 @@ Es debido a que **Jest intentó conectarse al backend `http://127.0.0.1:4000` du
 
 Para solucionarlo solo ejecuta `npm run dev` en `10-calendar-backend`.
 
-### 29.8 
+### 29.8 Calendar Fixtures
 
-`tests/`
+Estructura:
 
-```jsx
+```bash
+.
+├── babel.config.cjs
+├── dist
+├── .env
+├── .env.production
+├── .env.template
+├── .env.test
+├── eslint.config.js
+├── .git
+├── .gitignore
+├── index.html
+├── jest.config.cjs
+├── jest.setup.js
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── README.md
+├── src
+├── tests
+│   ├── api
+│   │   └── calendarApi.test.js
+│   ├── fixtures
+│   │   ├── authStates.js
+│   │   ├── calendarStates.js 👈👀
+│   │   └── testUser.js
+│   ├── mocks
+│   │   └── styleMock.js
+│   └── store
+│       ├── auth
+│       │   └── authSlice.test.js
+│       ├── calendar
+│       └── ui
+│           └── uiSlice.test.js
+└── vite.config.js
 ```
 
-`tests/`
+`tests/fixtures/calendarStates.js`
 
-```jsx
+```js
+export const events = [
+  {
+    id: "1",
+    start: new Date("2022-10-21 13:00:00"),
+    end: new Date("2022-10-21 15:00:00"),
+    title: "The Ale's birthday.",
+    notes: "Buy cake and gift.",
+  },
+  {
+    id: "2",
+    start: new Date("2022-11-21 13:00:00"),
+    end: new Date("2022-11-21 15:00:00"),
+    title: "The Ivo's birthday.",
+    notes: "Buy cake and gift.",
+  },
+];
+
+export const initialState = {
+  isLoadingEvents: true,
+  events: [],
+  activeEvent: null,
+};
+
+export const calendarWithEventsState = {
+  isLoadingEvents: false,
+  events: [...events],
+  activeEvent: null,
+};
+
+export const calendarWithActiveEventState = {
+  isLoadingEvents: false,
+  events: [...events],
+  activeEvent: {
+    ...events[0],
+  },
+};
 ```
-
-
-`tests/`
-
-```jsx
-```
-
-⚙️
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
 
 ### 29.9
 
