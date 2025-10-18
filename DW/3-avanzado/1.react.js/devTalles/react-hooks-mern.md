@@ -39265,30 +39265,114 @@ describe("Tests in the calendarSlice", () => {
 });
 ```
 
-### 29.11
+### 29.11 Pruebas en FabDelete - incompleta
 
-`tests/`
+Estructura:
 
-```jsx
-```
-
-
-`tests/`
-
-```jsx
-```
-
-⚙️
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
 ```bash
-tree -a -L 5 -I "node_modules|.git"
+.
+├── babel.config.cjs
+├── dist
+├── .env
+├── .env.production
+├── .env.template
+├── .env.test
+├── eslint.config.js
+├── .git
+├── .gitignore
+├── index.html
+├── jest.config.cjs
+├── jest.setup.js
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── README.md
+├── src
+├── tests
+│   ├── api
+│   │   └── calendarApi.test.js
+│   ├── calendar 👈👀👇
+│   │   └── components
+│   │       └── FabDelete.test.jsx
+│   ├── fixtures
+│   │   ├── authStates.js
+│   │   ├── calendarStates.js
+│   │   └── testUser.js
+│   ├── mocks
+│   │   └── styleMock.js
+│   └── store
+│       ├── auth
+│       │   └── authSlice.test.js
+│       ├── calendar
+│       │   └── calendarSlice.test.js
+│       └── ui
+│           └── uiSlice.test.js
+└── vite.config.js
 ```
 
+`tests/calendar/components/FabDelete.test.jsx`
+
+```jsx
+import { Provider } from "react-redux";
+import { render, screen } from "@testing-library/react";
+import { FabDelete } from "../../../src/calendar/components/FabDelete";
+import { store } from "../../../src/store/store";
+
+describe("Tests in the FabDelete", () => {
+  test("Should display the component correctly.", () => {
+    render(
+      <Provider store={store}>
+        <FabDelete />
+      </Provider>
+    );
+    screen.debug();
+  });
+});
+```
+
+#### Error en versiones de paquetes
+
+Ocasionalmente, cuando hago testing aparece un error relacionado con las versiones de los paquetes usados. Si estos no están alineados, algo falla.
+
+El error principal es este:
+
+```bash
+Incompatible React versions: The "react" and "react-dom" packages must have the exact same version. Instead got:
+  - react:      19.2.0
+  - react-dom:  19.1.1
+```
+
+👉 Esto significa que Jest detectó **React 19.2.0 instalado en algún paquete**, aunque tu `package.json` diga `"react": "^19.1.1"`.
+
+El símbolo `^` permite actualizaciones **dentro de la misma versión mayor** (por ejemplo, puede instalar 19.2.0 aunque declares 19.1.1).  
+Entonces, probablemente uno de tus paquetes (como `react-test-renderer`) trajo una versión diferente (19.2.0), generando el conflicto.
+
+Solución rápida
+
+Para que todo funcione correctamente, **haz que las versiones de `react`, `react-dom` y `react-test-renderer` sean _exactamente iguales_.**
+
+```bash
+# Run this command in your project:
+npm install react@19.1.1 react-dom@19.1.1 react-test-renderer@19.1.1 --save-dev
+#  Clear your cache and reinstall (optional, but recommended)
+rm -rf node_modules package-lock.json npm cache clean --force npm install
+# Check the installed versions
+npm list react react-dom react-test-renderer
+
+# and make sure you see something like: (package.json)
+react@19.1.1 react-dom@19.1.1 react-test-renderer@19.1.1
+```
+
+Esto **forzará** a que las tres versiones estén alineadas (19.1.1).
+
+Ahora vuelve a correr los tests:
+
+```bash
+npm test
+```
+
+Debería correr sin el error de incompatibilidad.
 
 ### 29.12
 
@@ -39315,6 +39399,10 @@ tree -a -L 5 -I "node_modules|.git"
 👈👀👇
 👈👀☝️
 👈👀📌
+
+```bash
+tree -a -L 5 -I "node_modules|.git"
+```
 
 ### 29.13
 
@@ -39344,6 +39432,10 @@ tree -a -L 5 -I "node_modules|.git"
 🐞
 🐛
 
+```bash
+tree -a -L 5 -I "node_modules|.git"
+```
+
 ### 29.14
 
 `src/`
@@ -39372,6 +39464,9 @@ tree -a -L 5 -I "node_modules|.git"
 🐞
 🐛
 
+```bash
+tree -a -L 5 -I "node_modules|.git"
+```
 ### 29.15
 
 `src/`
@@ -39399,7 +39494,9 @@ tree -a -L 5 -I "node_modules|.git"
 👈👀📌
 🐞
 🐛
-
+```bash
+tree -a -L 5 -I "node_modules|.git"
+```
 ### 29.16
 
 `src/`
@@ -39427,6 +39524,9 @@ tree -a -L 5 -I "node_modules|.git"
 👈👀📌
 🐞
 🐛
+```bash
+tree -a -L 5 -I "node_modules|.git"
+```
 
 ### 29.17
 
@@ -39453,6 +39553,9 @@ tree -a -L 5 -I "node_modules|.git"
 👈👀👇
 👈👀☝️
 👈👀📌
+```bash
+tree -a -L 5 -I "node_modules|.git"
+```
 
 ### 29.18
 
@@ -39479,6 +39582,9 @@ tree -a -L 5 -I "node_modules|.git"
 👈👀👇
 👈👀☝️
 👈👀📌
+```bash
+tree -a -L 5 -I "node_modules|.git"
+```
 
 
 ### 29.19
@@ -39506,6 +39612,9 @@ tree -a -L 5 -I "node_modules|.git"
 👈👀👇
 👈👀☝️
 👈👀📌
+```bash
+tree -a -L 5 -I "node_modules|.git"
+```
 
 ### 29.20
 
@@ -39532,6 +39641,9 @@ tree -a -L 5 -I "node_modules|.git"
 👈👀👇
 👈👀☝️
 👈👀📌
+```bash
+tree -a -L 5 -I "node_modules|.git"
+```
 
 ### 29.21
 
@@ -39558,6 +39670,9 @@ tree -a -L 5 -I "node_modules|.git"
 👈👀👇
 👈👀☝️
 👈👀📌
+```bash
+tree -a -L 5 -I "node_modules|.git"
+```
 
 ### 29.22
 
@@ -39584,6 +39699,9 @@ tree -a -L 5 -I "node_modules|.git"
 👈👀👇
 👈👀☝️
 👈👀📌
+```bash
+tree -a -L 5 -I "node_modules|.git"
+```
 
 ### 29.23
 
@@ -39610,6 +39728,9 @@ tree -a -L 5 -I "node_modules|.git"
 👈👀👇
 👈👀☝️
 👈👀📌
+```bash
+tree -a -L 5 -I "node_modules|.git"
+```
 
 ### 29.24
 
@@ -39636,6 +39757,9 @@ tree -a -L 5 -I "node_modules|.git"
 👈👀👇
 👈👀☝️
 👈👀📌
+```bash
+tree -a -L 5 -I "node_modules|.git"
+```
 
 ### 29.25
 
@@ -39662,6 +39786,9 @@ tree -a -L 5 -I "node_modules|.git"
 👈👀👇
 👈👀☝️
 👈👀📌
+```bash
+tree -a -L 5 -I "node_modules|.git"
+```
 
 ### 29.26
 
