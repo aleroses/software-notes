@@ -39374,34 +39374,97 @@ npm test
 
 Debería correr sin el error de incompatibilidad.
 
-### 29.12
+### 29.12 Pruebas en el useUiStore
 
-`src/`
-
-```jsx
-```
-
-`src/`
-
-```jsx
-```
-
-
-`src/`
-
-```jsx
-```
-
-⚙️
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
+Estructura:
 
 ```bash
-tree -a -L 5 -I "node_modules|.git"
+```bash
+.
+├── babel.config.cjs
+├── dist
+├── .env
+├── .env.production
+├── .env.template
+├── .env.test
+├── eslint.config.js
+├── .git
+├── .gitignore
+├── index.html
+├── jest.config.cjs
+├── jest.setup.js
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── README.md
+├── src
+├── tests
+│   ├── api
+│   │   └── calendarApi.test.js
+│   ├── calendar
+│   │   └── components
+│   │       └── FabDelete.test.jsx
+│   ├── fixtures
+│   │   ├── authStates.js
+│   │   ├── calendarStates.js
+│   │   └── testUser.js
+│   ├── hooks 👈👀👇
+│   │   └── useUiStore.test.js
+│   ├── mocks
+│   │   └── styleMock.js
+│   └── store
+│       ├── auth
+│       │   └── authSlice.test.js
+│       ├── calendar
+│       │   └── calendarSlice.test.js
+│       └── ui
+│           └── uiSlice.test.js
+└── vite.config.js
+```
+
+`tests/hooks/useUiStore.test.js`
+
+```js
+import { renderHook } from "@testing-library/react";
+import { useUiStore } from "../../src/hooks/useUiStore";
+import { Provider } from "react-redux";
+import { store } from "../../src/store/store";
+import { configureStore } from "@reduxjs/toolkit";
+import { uiSlice } from "../../src/store/ui/uiSlice";
+
+const getMockStore = (initialState) => {
+  return configureStore({
+    reducer: {
+      ui: uiSlice.reducer,
+    },
+    preloadedState: {
+      ui: { ...initialState },
+    },
+  });
+};
+
+describe("Tests in the useUiStore", () => {
+  test("Should return the default values.", () => {
+    const mockStore = getMockStore({
+      isDateModalOpen: false,
+    });
+
+    const { result } = renderHook(() => useUiStore(), {
+      wrapper: ({ children }) => (
+        <Provider store={mockStore}>{children}</Provider>
+      ),
+    });
+
+    // console.log(result.current);
+    expect(result.current).toEqual({
+      isDateModalOpen: false,
+      closeDateModal: expect.any(Function),
+      openDateModal: expect.any(Function),
+      // toggleDateModal: expect.any(Function),
+    });
+  });
+});
 ```
 
 ### 29.13
