@@ -39681,36 +39681,99 @@ describe("Tests in the useUiStore", () => {
 });
 ```
 
-### 29.15
+### 29.15 Inicio de pruebas en useAuthStore
 
-`src/`
+Estructura:
 
-```jsx
-```
-
-`src/`
-
-```jsx
-```
-
-
-`src/`
-
-```jsx
-```
-22.17
-⚙️
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
-🐞
-🐛
 ```bash
-tree -a -L 5 -I "node_modules|.git"
+.
+├── babel.config.cjs
+├── dist
+├── .env
+├── .env.production
+├── .env.template
+├── .env.test
+├── eslint.config.js
+├── .git
+├── .gitignore
+├── index.html
+├── jest.config.cjs
+├── jest.setup.js
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── README.md
+├── src
+├── tests
+│   ├── api
+│   │   └── calendarApi.test.js
+│   ├── calendar
+│   │   └── components
+│   │       └── FabDelete.test.jsx
+│   ├── fixtures
+│   │   ├── authStates.js
+│   │   ├── calendarStates.js
+│   │   └── testUser.js
+│   ├── hooks 👈👀👇
+│   │   ├── useAuthStore.test.js
+│   │   └── useUiStore.test.js
+│   ├── mocks
+│   │   └── styleMock.js
+│   └── store
+│       ├── auth
+│       │   └── authSlice.test.js
+│       ├── calendar
+│       │   └── calendarSlice.test.js
+│       └── ui
+│           └── uiSlice.test.js
+└── vite.config.js
 ```
+
+`tests/hooks/useAuthStore.test.js`
+
+```js
+import { configureStore } from "@reduxjs/toolkit";
+import { authSlice } from "../../src/store/auth/authSlice";
+import { initialState } from "../fixtures/authStates";
+import { renderHook } from "@testing-library/react";
+import { useAuthStore } from "../../src/hooks/useAuthStore";
+import { Provider } from "react-redux";
+
+const getMockStore = (initialState) => {
+  return configureStore({
+    reducer: {
+      auth: authSlice.reducer,
+    },
+    preloadedState: {
+      auth: { ...initialState },
+    },
+  });
+};
+
+describe("Tests in useAuthStore", () => {
+  test("Should return the default values.", () => {
+    const mockStore = getMockStore({ ...initialState });
+    const { result } = renderHook(() => useAuthStore(), {
+      wrapper: ({ children }) => (
+        <Provider store={mockStore}>{children}</Provider>
+      ),
+    });
+
+    // console.log(result.current);
+    expect(result.current).toEqual({
+      errorMessage: undefined,
+      status: "checking",
+      user: {},
+      checkAuthToken: expect.any(Function),
+      startLogin: expect.any(Function),
+      startLogout: expect.any(Function),
+      startRegister: expect.any(Function),
+    });
+  });
+});
+```
+
 ### 29.16
 
 `src/`
