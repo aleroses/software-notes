@@ -39860,38 +39860,133 @@ describe("Tests in useAuthStore", () => {
 });
 ```
 
-### 29.17
+### 29.17 startLogin debe de fallar la autenticación
 
-`src/`
+`tests/hooks/useAuthStore.test.js`
 
-```jsx
-```
+```js
+import { configureStore } from "@reduxjs/toolkit";
+import { authSlice } from "../../src/store/auth/authSlice";
+import {
+  initialState,
+  notAuthenticatedState,
+} from "../fixtures/authStates";
+import {
+  act,
+  renderHook,
+  waitFor,
+} from "@testing-library/react";
+import { useAuthStore } from "../../src/hooks/useAuthStore";
+import { Provider } from "react-redux";
+import { testUserCredentials } from "../fixtures/testUser";
 
-`src/`
+const getMockStore = (initialState) => {
+  return configureStore({
+    reducer: {
+      auth: authSlice.reducer,
+    },
+    preloadedState: {
+      auth: { ...initialState },
+    },
+  });
+};
 
-```jsx
-```
+describe("Tests in useAuthStore", () => {
+  test("Should return the default values.", () => {
+    const mockStore = getMockStore({ ...initialState });
+    const { result } = renderHook(() => useAuthStore(), {
+      wrapper: ({ children }) => (
+        <Provider store={mockStore}>{children}</Provider>
+      ),
+    });
 
+    // console.log(result.current);
+    expect(result.current).toEqual({
+      errorMessage: undefined,
+      status: "checking",
+      user: {},
+      checkAuthToken: expect.any(Function),
+      startLogin: expect.any(Function),
+      startLogout: expect.any(Function),
+      startRegister: expect.any(Function),
+    });
+  });
 
-`src/`
+  test("startLogin should login correctly.", async () => {
+    localStorage.clear();
 
-```jsx
-```
+    const mockStore = getMockStore({
+      ...notAuthenticatedState,
+    });
+    const { result } = renderHook(() => useAuthStore(), {
+      wrapper: ({ children }) => (
+        <Provider store={mockStore}>{children}</Provider>
+      ),
+    });
 
-⚙️
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
-```bash
-tree -a -L 5 -I "node_modules|.git"
+    await act(async () => {
+      await result.current.startLogin(testUserCredentials);
+    });
+
+    const { errorMessage, status, user } = result.current;
+    // console.log(result.current);
+
+    expect({ errorMessage, status, user }).toEqual({
+      errorMessage: undefined,
+      status: "authenticated",
+      user: {
+        name: "Test User",
+        uid: "68f0eab1486246c8bcd69137",
+      },
+    });
+
+    expect(localStorage.getItem("token")).toEqual(
+      expect.any(String)
+    );
+    expect(localStorage.getItem("token-init-date")).toEqual(
+      expect.any(String)
+    );
+  });
+
+  test("StartLogin should display login errors.", async () => {
+    localStorage.clear();
+    const mockStore = getMockStore({
+      ...notAuthenticatedState,
+    });
+    const { result } = renderHook(() => useAuthStore(), {
+      wrapper: ({ children }) => (
+        <Provider store={mockStore}>{children}</Provider>
+      ),
+    });
+
+    await act(async () => {
+      await result.current.startLogin({
+        email: "algo@google.com",
+        password: "123456",
+      });
+    });
+
+    const { errorMessage, status, user } = result.current;
+    // console.log(localStorage.getItem("token"));
+    // console.log({ errorMessage, status, user });
+
+    expect(localStorage.getItem("token")).toBe(null);
+    expect({ errorMessage, status, user }).toEqual({
+      errorMessage: "Incorrect credentials.",
+      status: "not-authenticated",
+      user: {},
+    });
+
+    await waitFor(() =>
+      expect(result.current.errorMessage).toBe(undefined)
+    );
+  });
+});
 ```
 
 ### 29.18
 
-`src/`
+`tests/`
 
 ```jsx
 ```
@@ -39921,18 +40016,18 @@ tree -a -L 5 -I "node_modules|.git"
 
 ### 29.19
 
-`src/`
+`tests/`
 
 ```jsx
 ```
 
-`src/`
+`tests/`
 
 ```jsx
 ```
 
 
-`src/`
+`tests/`
 
 ```jsx
 ```
@@ -39950,12 +40045,12 @@ tree -a -L 5 -I "node_modules|.git"
 
 ### 29.20
 
-`src/`
+`tests/`
 
 ```jsx
 ```
 
-`src/`
+`tests/`
 
 ```jsx
 ```
@@ -39979,18 +40074,18 @@ tree -a -L 5 -I "node_modules|.git"
 
 ### 29.21
 
-`src/`
+`tests/`
 
 ```jsx
 ```
 
-`src/`
+`tests/`
 
 ```jsx
 ```
 
 
-`src/`
+`tests/`
 
 ```jsx
 ```
@@ -40008,18 +40103,18 @@ tree -a -L 5 -I "node_modules|.git"
 
 ### 29.22
 
-`src/`
+`tests/`
 
 ```jsx
 ```
 
-`src/`
+`tests/`
 
 ```jsx
 ```
 
 
-`src/`
+`tests/`
 
 ```jsx
 ```
@@ -40037,12 +40132,12 @@ tree -a -L 5 -I "node_modules|.git"
 
 ### 29.23
 
-`src/`
+`tests/`
 
 ```jsx
 ```
 
-`src/`
+`tests/`
 
 ```jsx
 ```
