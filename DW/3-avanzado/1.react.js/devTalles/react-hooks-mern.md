@@ -41165,7 +41165,25 @@ Aquí les dejo el código fuente de la sección, no se les olvide que deben de l
 
 [GitHub - Fin Sección 29](https://github.com/Klerith/react-mern-calendar/tree/fin-seccion-29)
 
-## 🟣 30. 
+## 🟣 30. React 19+: Hooks y Apis nuevas
+
+### 30.1 Introducción
+
+### 30.2 Temas puntuales
+
+Esta sección está totalmente basada en funcionalidades nuevas de React, que fueron incluidas en la versión 19.
+
+Puntualmente veremos:
+
+- use - Nueva API
+- ErrorBOundaries
+- useActionState - Nuevo Hook
+- useFormStatus - Nuevo Hook
+- useOptimistic - Nuevo Hook
+
+Adicionalmente, pasaremos por varias optimizaciones donde podamos apreciar el uso de estos elementos en una aplicación real con implementaciones comunes que los nuevos objetos nos ayudan a simplificar.
+
+### 30.3
 
 `src/`
 
