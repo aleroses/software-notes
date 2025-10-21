@@ -41159,7 +41159,13 @@ describe("Tests in AppRouter", () => {
 
 Probar componentes de terceros es su responsabilidad, no nuestra.
 
-### 29.26
+### 29.26 Código fuente de la sección
+
+Aquí les dejo el código fuente de la sección, no se les olvide que deben de leer el `README` y cambiar las variables de entorno. (Además de correr el backend server)
+
+[GitHub - Fin Sección 29](https://github.com/Klerith/react-mern-calendar/tree/fin-seccion-29)
+
+## 🟣 30. 
 
 `src/`
 
