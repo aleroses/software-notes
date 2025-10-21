@@ -41030,33 +41030,129 @@ export const CalendarModal = () => {
 
 📌 Nota: para esta clase no me hizo falta editar el archivo `src/helpers/getEnvVariables.js`
 
-### 29.24
+### 29.24 Debe de mostrar el login en caso de no estar autenticado
 
-`src/`
+Estructura:
 
-```jsx
-```
-
-`src/`
-
-```jsx
-```
-
-
-`src/`
-
-```jsx
-```
-
-⚙️
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
 ```bash
-tree -a -L 5 -I "node_modules|.git"
+.
+├── babel.config.cjs
+├── dist
+├── .env
+├── .env.production
+├── .env.template
+├── .env.test
+├── eslint.config.js
+├── .git
+├── .gitignore
+├── index.html
+├── jest.config.cjs
+├── jest.setup.js
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── README.md
+├── src
+├── tests
+│   ├── api
+│   │   └── calendarApi.test.js
+│   ├── calendar
+│   │   └── components
+│   │       └── FabDelete.test.jsx
+│   ├── fixtures
+│   │   ├── authStates.js
+│   │   ├── calendarStates.js
+│   │   └── testUser.js
+│   ├── hooks
+│   │   ├── useAuthStore.test.js
+│   │   └── useUiStore.test.js
+│   ├── mocks
+│   │   └── styleMock.js
+│   ├── router
+│   │   ├── AppRouter.test.jsx
+│   │   └── __snapshots__ 👈👀👇
+│   │       └── AppRouter.test.jsx.snap
+│   └── store
+│       ├── auth
+│       │   └── authSlice.test.js
+│       ├── calendar
+│       │   └── calendarSlice.test.js
+│       └── ui
+│           └── uiSlice.test.js
+└── vite.config.js
+```
+
+`tests/router/AppRouter.test.jsx`
+
+```jsx
+import { render, screen } from "@testing-library/react";
+import { useAuthStore } from "../../src/hooks/useAuthStore";
+import { AppRouter } from "../../src/router/AppRouter";
+import { MemoryRouter } from "react-router";
+import { CalendarPage } from "../../src/calendar/pages/CalendarPage";
+
+jest.mock("../../src/hooks/useAuthStore");
+jest.mock("../../src/calendar/pages/CalendarPage", () => ({
+  CalendarPage: () => <h1>CalendarPage</h1>,
+}));
+
+describe("Tests in AppRouter", () => {
+  const mockCheckAuthToken = jest.fn();
+
+  beforeEach(() => jest.clearAllMocks());
+
+  test("Should display the loading screen and call checkAuthToken.", () => {
+    useAuthStore.mockReturnValue({
+      status: "checking",
+      checkAuthToken: mockCheckAuthToken,
+    });
+
+    render(<AppRouter />);
+
+    // screen.debug();
+    expect(screen.getByText("Loading...")).toBeTruthy();
+    expect(mockCheckAuthToken).toHaveBeenCalled();
+  });
+
+  test("Should display the login if you aren't authenticated.", () => {
+    useAuthStore.mockReturnValue({
+      status: "not-authenticated",
+      checkAuthToken: mockCheckAuthToken,
+    });
+
+    const { container } = render(
+      <MemoryRouter
+        initialEntries={["/auth/something/somethingElse"]}
+      >
+        <AppRouter />
+      </MemoryRouter>
+    );
+
+    // screen.debug()
+
+    expect(screen.getByText("Ingreso")).toBeTruthy();
+    expect(container).toMatchSnapshot(); 👈👀
+  });
+
+  test("Should display the calendar if we're authenticated.", () => {
+    useAuthStore.mockReturnValue({
+      status: "authenticated",
+      checkAuthToken: mockCheckAuthToken,
+    });
+
+    render(
+      <MemoryRouter
+      // initialEntries={["/auth/something/somethingElse"]}
+      >
+        <AppRouter />
+      </MemoryRouter>
+    );
+
+    // screen.debug();
+    expect(screen.getByText("CalendarPage")).toBeTruthy();
+  });
+});
 ```
 
 ### 29.25
