@@ -40611,33 +40611,62 @@ describe("Tests in useAuthStore", () => {
 });
 ```
 
-### 29.21
+### 29.21 Pruebas en el componente FabDelete
 
-`tests/`
-
-```jsx
-```
-
-`tests/`
+`tests/calendar/components/FabDelete.test.jsx`
 
 ```jsx
+import { render, screen } from "@testing-library/react";
+import { FabDelete } from "../../../src/calendar/components/FabDelete";
+import { useCalendarStore } from "../../../src/hooks/useCalendarStore";
+
+jest.mock("../../../src/hooks/useCalendarStore");
+
+describe("Tests in the FabDelete", () => {
+  test("Should display the component correctly.", () => {
+    // tip: jest.fn().mockReturnValue
+    useCalendarStore.mockReturnValue({
+      hasEventSelected: false,
+    });
+    render(<FabDelete />);
+    // screen.debug();
+
+    const btn = screen.getByLabelText("btn-delete");
+
+    expect(btn.classList).toContain("btn");
+    expect(btn.classList).toContain("btn-danger");
+    expect(btn.classList).toContain("fab-danger");
+    expect(btn.style.display).toBe("none");
+  });
+});
 ```
 
-
-`tests/`
+`src/calendar/components/FabDelete.jsx`
 
 ```jsx
-```
+import { useCalendarStore } from "../../hooks/useCalendarStore";
 
-⚙️
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
-```bash
-tree -a -L 5 -I "node_modules|.git"
+export const FabDelete = () => {
+  const { startDeletingEvent, hasEventSelected } =
+    useCalendarStore();
+
+  const handleDelete = () => {
+    startDeletingEvent();
+  };
+
+  return (
+    <button
+      aria-label="btn-delete"
+      className="btn btn-danger fab-danger"
+      onClick={handleDelete}
+      style={{
+        display: hasEventSelected ? "" : "none",
+      }}
+    >
+      <i className="fas fa-trash-alt"></i>
+    </button>
+  );
+};
 ```
 
 ### 29.22
