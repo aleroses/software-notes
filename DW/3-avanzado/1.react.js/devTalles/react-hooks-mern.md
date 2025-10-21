@@ -41155,7 +41155,11 @@ describe("Tests in AppRouter", () => {
 });
 ```
 
-### 29.25
+### 29.25 Pruebas con componentes de terceros
+
+Probar componentes de terceros es su responsabilidad, no nuestra.
+
+### 29.26
 
 `src/`
 
@@ -41184,7 +41188,7 @@ describe("Tests in AppRouter", () => {
 tree -a -L 5 -I "node_modules|.git"
 ```
 
-### 29.26
+
 
 `src/`
 
