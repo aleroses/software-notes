@@ -68,6 +68,16 @@ ffprobe -v error -select_streams v:0 -show_entries stream=r_frame_rate -of defau
 ffprobe -v error -show_format -show_streams nombre_video.mp4
 ```
 
+Más detalles:
+
+```bash
+ffprobe -hide_banner -show_format -show_streams "name.mkv"
+ffprobe -v error -select_streams v:0 -show_entries stream=codec_name,profile,width,height,bit_rate,avg_frame_rate,color_space,color_transfer,color_primaries -of default=noprint_wrappers=1:nokey=0 "name.mkv"
+
+ffprobe -v error -show_entries format=size,duration,bit_rate -of default=noprint_wrappers=1:nokey=0 "name.mp4"
+ffprobe -v error -select_streams a:0 -show_entries stream=codec_name,channels,bit_rate,language -of default=noprint_wrappers=1:nokey=0 "name.mp4"
+```
+
 ## Detectar y borrar automáticamente los videos con calidad ≤ 480p:
 
 ### Buscar y listar los videos de ≤ 480p
