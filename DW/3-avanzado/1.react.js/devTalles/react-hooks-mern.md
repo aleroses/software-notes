@@ -41185,6 +41185,70 @@ Adicionalmente, pasaremos por varias optimizaciones donde podamos apreciar el us
 
 ### 30.3 Inicio de proyecto - PlanetsApp
 
+1. Clonar e instalar Bun
+
+```bash
+# Clone: https://github.com/Klerith/react-19-use-api-forms/tree/main
+git clone git@github.com:Klerith/react-19-use-api-forms.git
+# Rename: mv <old_name> <new_name>
+mv react-19-use-api-forms 11-react-19-use-api-forms
+
+cd 11-react-19-use-api-forms 
+code-insiders .
+```
+
+```bash
+# Install Bun
+curl -fsSL https://bun.com/install | bash
+source ~/.zshrc
+bun --version
+bun --revision
+```
+
+2. Instalar dependencias
+
+```bash
+# Install dependencies
+bun install
+
+# Others
+npm install
+yarn install
+```
+
+3. Levantar API de planetas
+
+```bash
+# With Bun
+bun run json-server
+
+# Others
+npm run json-server
+yarn run json-server
+```
+
+4. Levantar el servidor de desarrollo
+
+```bash
+bun run dev
+
+# Others
+npm run dev
+yarn run dev
+```
+
+5. Ver el resultado en el navegador
+
+```bash
+http://localhost:5173/
+http://localhost:3100/planets
+http://localhost:3100/planets/a1b2c3
+```
+
+[Proyecto Base - React19-Planets](https://github.com/Klerith/react-19-use-api-forms/tree/main)
+
+### 30.4
+
 `src/`
 
 ```jsx
@@ -41195,7 +41259,142 @@ Adicionalmente, pasaremos por varias optimizaciones donde podamos apreciar el us
 ```jsx
 ```
 
-[Projecto Base - React19-Planets](https://github.com/Klerith/react-19-use-api-forms/tree/main)
+`src/`
+
+```jsx
+```
+
+### 30.5
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+### 30.6
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+### 30.7
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+### 30.8
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+### 30.9
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+### 30.10
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
+### 30.11
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+## 🟣 31
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
 
 `src/`
 
