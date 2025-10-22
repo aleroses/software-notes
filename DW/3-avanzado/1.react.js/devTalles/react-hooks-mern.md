@@ -41247,22 +41247,156 @@ http://localhost:3100/planets/a1b2c3
 
 [Proyecto Base - React19-Planets](https://github.com/Klerith/react-19-use-api-forms/tree/main)
 
-### 30.4
+### 30.4 use - Nueva API
 
-`src/`
+Estructura:
 
-```jsx
+```bash
+.
+├── bun.lockb
+├── data
+├── eslint.config.js
+├── .git
+├── .gitignore
+├── index.html
+├── LICENSE
+├── node_modules
+├── package.json
+├── postcss.config.js
+├── public
+├── README.md
+├── src
+│   ├── actions 👈👀👇
+│   │   └── get-planets.action.ts
+│   ├── api
+│   │   └── planetsApi.ts
+│   ├── App.tsx
+│   ├── assets
+│   │   └── react.svg
+│   ├── index.css
+│   ├── interfaces
+│   │   └── planet.interface.ts
+│   ├── main.tsx
+│   ├── pages
+│   │   ├── Planets.tsx
+│   │   └── ui
+│   │       ├── EditPlanetForm.tsx
+│   │       └── PlanetList.tsx
+│   └── vite-env.d.ts
+├── tailwind.config.js
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
 ```
 
-`src/`
+`src/actions/get-planets.action.ts`
 
-```jsx
+```ts
+import { planetsApi } from "../api/planetsApi";
+import type { Planet } from "../interfaces/planet.interface";
+
+export const getPlanets = async (): Promise<Planet[]> => {
+  console.log("Making an https request.");
+  const res = await planetsApi.get<Planet[]>("/");
+
+  return res.data;
+};
 ```
 
-`src/`
+`src/pages/Planets.tsx`
 
-```jsx
+```tsx
+import { FC, use } from "react";
+import { Planet } from "../interfaces/planet.interface";
+import { EditPlanetForm } from "./ui/EditPlanetForm";
+import { PlanetList } from "./ui/PlanetList";
+
+interface Props {
+  getPlanets: Promise<Planet[]>;
+}
+
+const Planets: FC<Props> = ({ getPlanets }) => {
+  const planets = use(getPlanets);
+
+  // const [isLoading, setIsLoading] = useState(true);
+  // const [error, setError] = useState<string | null>(null);
+  // const [planets, setPlanets] = useState<Planet[]>([]);
+
+  // useEffect(() => {
+  //   getPlanets()
+  //     .then((res) => {
+  //       setPlanets(res);
+  //       setIsLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       setError(error.message);
+  //       setIsLoading(false);
+  //     });
+  // }, []);
+
+  const handleAddPlanet = (planet: Partial<Planet>) => {
+    console.log(planet);
+  };
+
+  return (
+    <>
+      <h4 className="text-2xl font-thin mb-4">
+        Agregar y mantener planetas
+      </h4>
+      <hr className="border-gray-300 mb-4" />
+      {/* Formulario para agregar un planeta */}
+      <EditPlanetForm onAddPlanet={handleAddPlanet} />
+
+      {/* {error && (
+        <p>
+          Error al cargar los planetas -{" "}
+          <small className="text-red-500">{error}</small>
+        </p>
+      )} */}
+
+      {/* Lista de planetas Grid*/}
+      {
+        // isLoading ? (
+        //   <p>Cargando...</p>
+        // ) : (
+        //   <PlanetList planets={planets} />
+        // )
+      }
+      <PlanetList planets={planets} />
+    </>
+  );
+};
+
+export default Planets;
 ```
+
+`src/App.tsx`
+
+```tsx
+import { Suspense } from "react";
+import { getPlanets } from "./actions/get-planets.action";
+import Planets from "./pages/Planets";
+
+function App() {
+  return (
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">
+        Planetas del Sistema Solar
+      </h1>
+
+      <Suspense fallback={<div>Loading Planets...</div>}>
+        <Planets getPlanets={getPlanets()} />
+      </Suspense>
+    </div>
+  );
+}
+
+export default App;
+```
+
+Nota: `Ctrl + .` **Add all missing imports** para importar.
+
 
 ### 30.5
 
@@ -41297,7 +41431,13 @@ http://localhost:3100/planets/a1b2c3
 
 ```jsx
 ```
-
+⚙️
+☝️👆
+👈👀
+❯
+👈👀👇
+👈👀☝️
+👈👀📌
 ### 30.7
 
 `src/`
@@ -41331,7 +41471,13 @@ http://localhost:3100/planets/a1b2c3
 
 ```jsx
 ```
-
+⚙️
+☝️👆
+👈👀
+❯
+👈👀👇
+👈👀☝️
+👈👀📌
 ### 30.9
 
 `src/`
@@ -41365,7 +41511,13 @@ http://localhost:3100/planets/a1b2c3
 
 ```jsx
 ```
-
+⚙️
+☝️👆
+👈👀
+❯
+👈👀👇
+👈👀☝️
+👈👀📌
 
 ### 30.11
 
