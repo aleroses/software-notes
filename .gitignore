@@ -234,7 +234,7 @@ $RECYCLE.BIN/
 
 ### Others
 
-*.png
+# *.png
 *.jpg
 *.gif
 *.pdf

@@ -41183,7 +41183,7 @@ Puntualmente veremos:
 
 Adicionalmente, pasaremos por varias optimizaciones donde podamos apreciar el uso de estos elementos en una aplicación real con implementaciones comunes que los nuevos objetos nos ayudan a simplificar.
 
-### 30.3
+### 30.3 Inicio de proyecto - PlanetsApp
 
 `src/`
 
@@ -41195,6 +41195,7 @@ Adicionalmente, pasaremos por varias optimizaciones donde podamos apreciar el us
 ```jsx
 ```
 
+[Projecto Base - React19-Planets](https://github.com/Klerith/react-19-use-api-forms/tree/main)
 
 `src/`
 
