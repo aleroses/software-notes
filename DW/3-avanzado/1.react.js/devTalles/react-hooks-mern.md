@@ -41397,25 +41397,152 @@ export default App;
 
 Nota: `Ctrl + .` **Add all missing imports** para importar.
 
+### 30.5 ErrorBoundary
 
-### 30.5
+Estructura:
 
-`src/`
-
-```jsx
+```bash
+.
+├── bun.lockb
+├── data
+├── eslint.config.js
+├── .git
+├── .gitignore
+├── index.html
+├── LICENSE
+├── node_modules
+├── package.json
+├── postcss.config.js
+├── public
+├── README.md
+├── src
+│   ├── actions
+│   │   └── get-planets.action.ts
+│   ├── api
+│   │   └── planetsApi.ts
+│   ├── App.tsx
+│   ├── assets
+│   │   └── react.svg
+│   ├── index.css
+│   ├── interfaces
+│   │   └── planet.interface.ts
+│   ├── main.tsx
+│   ├── pages
+│   │   ├── Planets.tsx
+│   │   └── ui
+│   │       ├── EditPlanetForm.tsx
+│   │       └── PlanetList.tsx
+│   ├── shared 👈👀👇
+│   │   └── ErrorBoundary.tsx
+│   └── vite-env.d.ts
+├── tailwind.config.js
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
 ```
 
-`src/`
+`src/shared/ErrorBoundary.tsx`
 
-```jsx
+```tsx
+import React, { Component, ReactNode } from "react";
+
+interface Props {
+  fallback: ReactNode;
+  children: ReactNode;
+}
+
+export class ErrorBoundary extends Component<Props> {
+  state: { hasError: boolean } = { hasError: false };
+
+  constructor(props: Props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error: React.ErrorInfo) {
+    // Update state so the next render will show the fallback UI.
+    console.log(error);
+
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: Error, info: React.ErrorInfo) {
+    // logErrorToMyService(
+    //   error,
+    //   // Example "componentStack":
+    //   //   in ComponentThatThrows (created by App)
+    //   //   in ErrorBoundary (created by App)
+    //   //   in div (created by App)
+    //   //   in App
+    //   info.componentStack,
+    //   // Warning: `captureOwnerStack` is not available in production.
+    //   React.captureOwnerStack()
+    // );
+    console.log({ error, info });
+  }
+
+  render() {
+    if (this.state.hasError) {
+      // You can render any custom fallback UI
+      return this.props.fallback;
+    }
+
+    return this.props.children;
+  }
+}
 ```
 
-`src/`
+`src/api/planetsApi.ts`
 
-```jsx
+```ts
+import axios from "axios";
+
+export const planetsApi = axios.create({
+  baseURL: "http://localhost:3100/planets",
+});
+
+//! Interceptor para simular una espera de 2 segundos
+planetsApi.interceptors.request.use((config) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve(config);
+      // reject(new Error('Error de prueba desde interceptor'));
+    }, 2000);
+  });
+});
 ```
 
-### 30.6
+`src/App.tsx`
+
+```tsx
+import { Suspense } from "react";
+import { getPlanets } from "./actions/get-planets.action";
+import Planets from "./pages/Planets";
+import { ErrorBoundary } from "./shared/ErrorBoundary";
+
+function App() {
+  return (
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">
+        Planetas del Sistema Solar
+      </h1>
+
+      <ErrorBoundary fallback={<div>General error!</div>}>
+        <Suspense fallback={<div>Loading Planets...</div>}>
+          <Planets getPlanets={getPlanets()} />
+        </Suspense>
+      </ErrorBoundary>
+    </div>
+  );
+}
+
+export default App;
+```
+
+[React.dev - Error Boundary](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary) Ingresamos y copiamos el código de ejemplo, luego lo dejamos como se muestra en esta clase.
+
+### 30.6 
 
 `src/`
 
