@@ -41542,29 +41542,180 @@ export default App;
 
 [React.dev - Error Boundary](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary) Ingresamos y copiamos el código de ejemplo, luego lo dejamos como se muestra en esta clase.
 
-### 30.6 
+### 30.6 useActionState - Nuevo Hook
 
-`src/`
+Estructura:
 
-```jsx
+```bash
+.
+├── bun.lockb
+├── data
+├── eslint.config.js
+├── .git
+├── .gitignore
+├── index.html
+├── LICENSE
+├── node_modules
+├── package.json
+├── postcss.config.js
+├── public
+├── README.md
+├── src
+│   ├── actions 👈👀👇
+│   │   ├── create-planet.action.ts
+│   │   └── get-planets.action.ts
+│   ├── api
+│   │   └── planetsApi.ts
+│   ├── App.tsx
+│   ├── assets
+│   │   └── react.svg
+│   ├── index.css
+│   ├── interfaces
+│   │   └── planet.interface.ts
+│   ├── main.tsx
+│   ├── pages
+│   │   ├── Planets.tsx
+│   │   └── ui
+│   │       ├── EditPlanetForm.tsx
+│   │       └── PlanetList.tsx
+│   ├── shared
+│   │   └── ErrorBoundary.tsx
+│   └── vite-env.d.ts
+├── tailwind.config.js
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
 ```
 
-`src/`
+`src/actions/create-planet.action.ts`
 
-```jsx
+```ts
+import { planetsApi } from "../api/planetsApi";
+import type { Planet } from "../interfaces/planet.interface";
+
+export const createPlanetAction = async (
+  planet: Partial<Planet>
+) => {
+  try {
+    const response = await planetsApi.post<Planet>(
+      "/",
+      planet
+    );
+
+    return response.data;
+  } catch (error) {
+    console.log(error);
+
+    return error;
+  }
+};
 ```
 
-`src/`
+`src/pages/Planets.tsx`
 
-```jsx
+```tsx
+import { FC, use } from "react";
+import { Planet } from "../interfaces/planet.interface";
+import { EditPlanetForm } from "./ui/EditPlanetForm";
+import { PlanetList } from "./ui/PlanetList";
+import { createPlanetAction } from "../actions/create-planet.action";
+
+interface Props {
+  getPlanets: Promise<Planet[]>;
+}
+
+const Planets: FC<Props> = ({ getPlanets }) => {
+  const planets = use(getPlanets);
+
+  const handleAddPlanet = async (planet: Partial<Planet>) => {
+    const newPlanet = await createPlanetAction(planet);
+
+    console.log("Success.", newPlanet);
+  };
+
+  return (
+    <>
+      <h4 className="text-2xl font-thin mb-4">
+        Agregar y mantener planetas
+      </h4>
+      <hr className="border-gray-300 mb-4" />
+      {/* Formulario para agregar un planeta */}
+      <EditPlanetForm onAddPlanet={handleAddPlanet} />
+
+      <PlanetList planets={planets} />
+    </>
+  );
+};
+
+export default Planets;
 ```
-⚙️
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
+
+`src/pages/ui/EditPlanetForm.tsx`
+
+```tsx
+import { useActionState, useState } from "react";
+import { Planet } from "../../interfaces/planet.interface";
+
+interface Props {
+  onAddPlanet: (planet: Partial<Planet>) => void;
+}
+
+export const EditPlanetForm = ({ onAddPlanet }: Props) => {
+  const [state, formAction, isPending] = useActionState(
+    (prevState: unknown, queryData: FormData) => {
+      console.log({ prevState, queryData });
+
+      return {
+        id: 123,
+        name: "Ale",
+      };
+    },
+    null
+  );
+
+  // const [name, setName] = useState('');
+  // const [type, setType] = useState('');
+  // const [distanceFromSun, setDistanceFromSun] = useState('');
+
+  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   onAddPlanet({ name, type, distanceFromSun });
+  // };
+
+  return (
+    <form
+      className="mb-4 flex flex-col md:flex-row"
+      // onSubmit={handleSubmit}
+      action={formAction}
+    >
+      <h1>{isPending ? "Pending" : "No pending"}</h1>
+      <input
+        type="text"
+        placeholder="Nombre del planeta"
+        className="mb-2 md:mb-0 md:mr-2 p-2 border border-gray-300 rounded flex-1"
+      />
+      <input
+        type="text"
+        placeholder="Tipo de astro"
+        className="mb-2 md:mb-0 md:mr-2 p-2 border border-gray-300 rounded flex-1"
+      />
+      <input
+        type="text"
+        placeholder="Distancia del sol"
+        className="mb-2 md:mb-0 md:mr-2 p-2 border border-gray-300 rounded flex-1"
+      />
+      <button
+        type="submit"
+        className="bg-blue-500 text-white p-2 rounded flex-1 sm:flex-none"
+      >
+        Agregar planeta
+      </button>
+    </form>
+  );
+};
+```
+
 ### 30.7
 
 `src/`
@@ -41582,6 +41733,13 @@ export default App;
 ```jsx
 ```
 
+⚙️
+☝️👆
+👈👀
+❯
+👈👀👇
+👈👀☝️
+👈👀📌
 ### 30.8
 
 `src/`
