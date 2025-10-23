@@ -41875,29 +41875,139 @@ const Planets: FC<Props> = ({ getPlanets }) => {
 export default Planets;
 ```
 
-### 30.8
+### 30.8 useFormStatus - Estado del formulario padre
 
-`src/`
+Estructura:
 
-```jsx
+```bash
+.
+├── bun.lockb
+├── data
+├── eslint.config.js
+├── .git
+├── .gitignore
+├── index.html
+├── LICENSE
+├── node_modules
+├── package.json
+├── postcss.config.js
+├── public
+├── README.md
+├── src
+│   ├── actions
+│   │   ├── create-planet.action.ts
+│   │   └── get-planets.action.ts
+│   ├── api
+│   │   └── planetsApi.ts
+│   ├── App.tsx
+│   ├── assets
+│   │   └── react.svg
+│   ├── index.css
+│   ├── interfaces
+│   │   └── planet.interface.ts
+│   ├── main.tsx
+│   ├── pages
+│   │   ├── Planets.tsx
+│   │   └── ui
+│   │       ├── EditPlanetForm.tsx
+│   │       ├── PlanetList.tsx
+│   │       └── SubmitButton.tsx 👈👀
+│   ├── shared
+│   │   └── ErrorBoundary.tsx
+│   └── vite-env.d.ts
+├── tailwind.config.js
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
 ```
 
-`src/`
+`src/pages/ui/SubmitButton.tsx`
 
-```jsx
+```tsx
+import { useFormStatus } from "react-dom";
+
+export const SubmitButton = () => {
+  const status = useFormStatus();
+
+  return (
+    <button
+      type="submit"
+      className="bg-blue-500 disabled:bg-gray-500 text-white p-2 rounded flex-1 sm:flex-none"
+      disabled={status.pending}
+    >
+      Agregar planeta
+    </button>
+  );
+};
 ```
 
-`src/`
+`src/pages/ui/EditPlanetForm.tsx`
 
-```jsx
+```tsx
+import { useActionState } from "react";
+import { Planet } from "../../interfaces/planet.interface";
+import { createPlanetActionForm } from "../../actions/create-planet.action";
+import { SubmitButton } from "./SubmitButton";
+
+interface Props {
+  onAddPlanet: (planet: Planet) => void;
+}
+
+export const EditPlanetForm = ({ onAddPlanet }: Props) => {
+  const [state, formAction, isPending] = useActionState(
+    async (prevState: unknown, queryData: FormData) => {
+      const planet = await createPlanetActionForm(
+        prevState,
+        queryData
+      );
+      onAddPlanet(planet);
+    },
+    null
+  );
+
+  return (
+    <form
+      className="mb-4 flex flex-col md:flex-row"
+      // onSubmit={handleSubmit}
+      action={formAction}
+    >
+      {/* <h1>{isPending ? "Pending" : "No pending"}</h1> */}
+      <input
+        type="text"
+        placeholder="Nombre del planeta"
+        className="mb-2 md:mb-0 md:mr-2 p-2 border border-gray-300 rounded flex-1"
+        name="name"
+        required
+      />
+      <input
+        type="text"
+        placeholder="Tipo de astro"
+        className="mb-2 md:mb-0 md:mr-2 p-2 border border-gray-300 rounded flex-1"
+        name="type"
+        required
+      />
+      <input
+        type="text"
+        placeholder="Distancia del sol"
+        className="mb-2 md:mb-0 md:mr-2 p-2 border border-gray-300 rounded flex-1"
+        name="distanceFromSun"
+        required
+      />
+
+      <SubmitButton />
+      {/*   <button
+        type="submit"
+        className="bg-blue-500 disabled:bg-gray-500 text-white p-2 rounded flex-1 sm:flex-none"
+        disabled={isPending}
+      >
+        Agregar planeta
+      </button> */}
+    </form>
+  );
+};
 ```
-⚙️
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
+
 ### 30.9
 
 `src/`
