@@ -41716,30 +41716,165 @@ export const EditPlanetForm = ({ onAddPlanet }: Props) => {
 };
 ```
 
-### 30.7
+### 30.7 Crear planeta usando useActionState
 
-`src/`
-
-```jsx
-```
-
-`src/`
+`src/pages/ui/EditPlanetForm.tsx`
 
 ```jsx
+import { useActionState, useState } from "react";
+import { Planet } from "../../interfaces/planet.interface";
+import { createPlanetActionForm } from "../../actions/create-planet.action";
+
+interface Props {
+  onAddPlanet: (planet: Planet) => void;
+}
+
+export const EditPlanetForm = ({ onAddPlanet }: Props) => {
+  const [state, formAction, isPending] = useActionState(
+    async (prevState: unknown, queryData: FormData) => {
+      const planet = await createPlanetActionForm(
+        prevState,
+        queryData
+      );
+      onAddPlanet(planet);
+    },
+    null
+  );
+
+  // const [name, setName] = useState('');
+  // const [type, setType] = useState('');
+  // const [distanceFromSun, setDistanceFromSun] = useState('');
+
+  // const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   onAddPlanet({ name, type, distanceFromSun });
+  // };
+
+  return (
+    <form
+      className="mb-4 flex flex-col md:flex-row"
+      // onSubmit={handleSubmit}
+      action={formAction}
+    >
+      <h1>{isPending ? "Pending" : "No pending"}</h1>
+      <input
+        type="text"
+        placeholder="Nombre del planeta"
+        className="mb-2 md:mb-0 md:mr-2 p-2 border border-gray-300 rounded flex-1"
+        name="name"
+        required
+      />
+      <input
+        type="text"
+        placeholder="Tipo de astro"
+        className="mb-2 md:mb-0 md:mr-2 p-2 border border-gray-300 rounded flex-1"
+        name="type"
+        required
+      />
+      <input
+        type="text"
+        placeholder="Distancia del sol"
+        className="mb-2 md:mb-0 md:mr-2 p-2 border border-gray-300 rounded flex-1"
+        name="distanceFromSun"
+        required
+      />
+      <button
+        type="submit"
+        className="bg-blue-500 disabled:bg-gray-500 text-white p-2 rounded flex-1 sm:flex-none"
+        disabled={isPending}
+      >
+        Agregar planeta
+      </button>
+    </form>
+  );
+};
 ```
 
-`src/`
+`src/actions/create-planet.action.ts`
 
-```jsx
+```ts
+import { planetsApi } from "../api/planetsApi";
+import type { Planet } from "../interfaces/planet.interface";
+
+export const createPlanetAction = async (
+  planet: Partial<Planet>
+) => {
+  try {
+    const response = await planetsApi.post<Planet>(
+      "/",
+      planet
+    );
+
+    return response.data;
+  } catch (error) {
+    console.log(error);
+
+    return error;
+  }
+};
+
+export const createPlanetActionForm = async (
+  prevState: unknown,
+  queryData: FormData
+) => {
+  const formData = Object.fromEntries(queryData.entries());
+  try {
+    const response = await planetsApi.post<Planet>(
+      "/",
+      formData
+    );
+
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw new Error(
+      "The planet could not be added or created."
+    );
+    // return null;
+  }
+};
 ```
 
-⚙️
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
+`src/pages/Planets.tsx`
+
+```tsx
+import { FC, use, useState } from "react";
+import { Planet } from "../interfaces/planet.interface";
+import { EditPlanetForm } from "./ui/EditPlanetForm";
+import { PlanetList } from "./ui/PlanetList";
+
+interface Props {
+  getPlanets: Promise<Planet[]>;
+}
+
+const Planets: FC<Props> = ({ getPlanets }) => {
+  const originalPlanets = use(getPlanets);
+  const [planets, setPlanets] =
+    useState<Planet[]>(originalPlanets);
+
+  const handleAddPlanet = async (planet: Planet) => {
+    // const newPlanet = await createPlanetAction(planet);
+    // console.log("Success.", newPlanet);
+    setPlanets([...planets, planet]);
+  };
+
+  return (
+    <>
+      <h4 className="text-2xl font-thin mb-4">
+        Agregar y mantener planetas
+      </h4>
+      <hr className="border-gray-300 mb-4" />
+      {/* Formulario para agregar un planeta */}
+      <EditPlanetForm onAddPlanet={handleAddPlanet} />
+
+      <PlanetList planets={planets} />
+    </>
+  );
+};
+
+export default Planets;
+```
+
 ### 30.8
 
 `src/`
