@@ -42242,24 +42242,34 @@ export const PlanetList = ({ planets }: Props) => {
 };
 ```
 
-### 30.11 
+### 30.11 Código fuente
 
-`src/`
+Aquí les dejo el código fuente de la sección
 
-```jsx
-```
+[GitHub - Código fuente](https://github.com/Klerith/react-19-use-api-forms/tree/02-fin)
 
-`src/`
+Aquí les dejo un video de mi Podcast hablando sobre React 19, como material adicional
 
-```jsx
-```
-
-`src/`
-
-```jsx
-```
+[Podcast - React 19 - Canal estable](https://www.youtube.com/watch?v=zBtJS-KLOx8)
 
 ## 🟣 31
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+`src/`
+
+```jsx
+```
+
+
 
 `src/`
 
