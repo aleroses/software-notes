@@ -42252,7 +42252,82 @@ Aquí les dejo un video de mi Podcast hablando sobre React 19, como material adi
 
 [Podcast - React 19 - Canal estable](https://www.youtube.com/watch?v=zBtJS-KLOx8)
 
-## 🟣 31
+## 🟣 31. Fin del curso
+
+### 31.1 Presentaciones utilizadas
+
+Material de soporte
+
+En el material adjunto de la clase, tienen un PDF que contiene la presentación completa que utilice en el curso, puede que les sirva, recuerden que si la usaran fuera de este curso para cualquier cosa, hagan mención que la obtuvieron de este curso por favor.
+
+Y si la quieren ver animada, aquí les dejo el enlace, es algo pesada, por lo cual tengan paciencia mientras carga:
+
+[Presentación React - Web](https://devtalles.com/files/presentations/react/react/#0)
+
+**Recursos de la lección:**
+
+- [Presentacion.pdf](https://import.cdn.thinkific.com/643563/courses/1901683/presentacion-220626-180651.pdf)
+
+### 31.2 Más información para seguir aprendiendo
+
+¡Llegamos al final del curso!
+
+Pero quiero darles un par de documentaciones extra que pueden hacer para seguir aprendiendo React:
+
+- [React Redux - QuickStart Oficial](https://react-redux.js.org/introduction/quick-start)
+- [QuickStart - Jest](https://jestjs.io/docs/en/getting-started)
+- [Introducción a Firestore](https://firebase.google.com/docs/firestore/?gclid=CjwKCAjw_qb3BRAVEiwAvwq6Vmr_iWcEeIUaQkR59-lfBTnTw5mhiJlb0nS21uwcNUM54NnBLwFhFhoCTG4QAvD_BwE)
+- [10 Librerías de React interesantes](https://blog.logrocket.com/top-10-react-component-libraries-for-2020/)
+- [Tutorial oficial de React](https://es.reactjs.org/tutorial/tutorial.html)
+
+Recuerden, pueden seguir aprendiendo y entre más usen React, más lo dominarán!
+
+### 31.3 Youtube playlist de React + TypeScript
+
+**React + TypeScript:**
+
+En mi canal de YouTube estoy subiendo una playlist para aprender a trabajar con React y TypeScript en conjunto:
+
+[React + TypeScript - Fernando Herrera Playlist](https://www.youtube.com/watch?v=dNxaP_BTtwQ&list=PLCKuOXG0bPi26-eawizqyLOgM7j66H_4M)
+
+**Nota:**
+
+Si pueden, darle un like al canal y suscribirse, eso me ayuda mucho :)
+
+### 31.4 ¿Quieres seguir aprendiendo más de React?
+
+Si quieres continuar aprendiendo React conmigo, tengo dos cursos adicionales que les pueden servir mucho sobre React y otros indirectamente relacionados, los pueden encontrar aquí:
+
+[Fernando-Herrera.com](https://fernando-herrera.com/#/search/react)
+
+Es mi sitio web y pueden encontrar información adicional ahí
+
+### 31.5 Más información sobre nuestros otros cursos
+
+Idealmente, para que puedas seguir aprendiendo, te invitamos a que revises nuestro plan de estudio para guiarte y así continuar desarrollándote en estas tecnologías.
+
+- [DevTalles - Programas de estudio](https://cursos.devtalles.com/pages/programas-fundamentos)
+- 🔗 Mi Web personal: [Sitio web con cupones y descuentos](https://fernando-herrera.com/)
+- 🎙️ Mi Podcast: [PodCast](https://anchor.fm/fernando-her85)
+- 👥 Mi Twitter: [@fernando_her85](https://twitter.com/Fernando_Her85)
+- 👨🏻‍🏫 Perfil de instructor | Udemy: [Perfil de Udemy](https://www.udemy.com/user/550c38655ec11/)
+- 👨🏻‍💻 {d/t} DevTalles: [Cursos](https://cursos.devtalles.com/)
+- 👨🏻‍🎓 {d/t} DevTalles LinkedIn: [Linkedin](https://www.linkedin.com/company/devtalles/)
+- 📱 {d/t} DevTalles Twitter: [Twitter oficial de DevTalles](https://twitter.com/DevTalles)
+- 🚀 {d/t} DevTalles Comunidad Discord: [Discord](https://discord.gg/pBjEVYTC7t)
+
+### 31.6 Despedida del curso
+
+Este curso lo hice en 2 años... 🙂
+
+## 🟣 32. 
+
+
+
+
+
+
+
 
 `src/`
 
