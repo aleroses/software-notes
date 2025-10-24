@@ -42320,46 +42320,19 @@ Idealmente, para que puedas seguir aprendiendo, te invitamos a que revises nuest
 
 Este curso lo hice en 2 años... 🙂
 
-## 🟣 32. 
+## 🟣 32. Archivado - Heroes App - Router Versión 5
 
+Versión en desuso.
 
+## 🟣 33: Archivado - Rutas Protegidas - Router Versión 5
 
+Versión en desuso.
 
+## 🟣 34 Archivado - Pruebas con Router V5
 
+Versión en desuso.
 
-
-
-`src/`
-
-```jsx
-```
-
-`src/`
-
-```jsx
-```
-
-`src/`
-
-```jsx
-```
-
-
-
-`src/`
-
-```jsx
-```
-
-`src/`
-
-```jsx
-```
-
-`src/`
-
-```jsx
-```
+## Emojis usados:
 
 ⚙️
 ☝️👆
@@ -42368,56 +42341,13 @@ Este curso lo hice en 2 años... 🙂
 👈👀👇
 👈👀☝️
 👈👀📌
-```bash
-tree -a -L 5 -I "node_modules|.git"
-```
-
-
-
-`src/`
-
-```jsx
-```
-
-`src/`
-
-```jsx
-```
-
-
-`src/`
-
-```jsx
-```
-
-⚙️
-☝️👆
-👈👀
-❯
-👈👀👇
-👈👀☝️
-👈👀📌
-
+🙂
 
 🔥
 🚫
 🔘
 🟣
 🟡
-
-```bash
-npm install react@latest react-dom@latest
-# o
-yarn add react@latest react-dom@latest
-```
-
-```bash
-npm install react@latest react-dom@latest
-# o
-yarn add react@latest react-dom@latest
-```
-
-resaltado de rutas...
 
 ```bash
 tree -a -L 5 -I "node_modules|.git"
