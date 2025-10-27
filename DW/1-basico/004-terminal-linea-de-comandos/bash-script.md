@@ -1,6 +1,6 @@
 # Curso de Bash Script
 
-Usando en sistemas Linux. 
+Usado en sistemas Linux. 
 
 Comprobar shells disponibles
 
