@@ -160,3 +160,56 @@ Agente IA:
 ```
 
 [🔥 Tutorial: Configurar autocompletado JSX](https://www.youtube.com/watch?v=jIjws68ATY8)
+
+## Resumen
+
+Esta es la misma configuración de arriba más la configuración de Prettier ver [[prettier]].
+
+```json
+{
+  "editor.wordWrap": "on",
+  "editor.tabSize": 2,
+  "workbench.sideBar.location": "right",
+  "editor.minimap.enabled": false,
+  "editor.scrollbar.vertical": "auto",
+  "editor.overviewRulerBorder": false,
+  "editor.hideCursorInOverviewRuler": true,
+  "editor.glyphMargin": false,
+  "editor.lineNumbers": "off",
+  "editor.parameterHints.enabled": false,
+  "workbench.activityBar.location": "hidden",
+
+  "editor.cursorBlinking": "expand",
+  "breadcrumbs.enabled": false,
+  "editor.stickyScroll.enabled": true,
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.linkedEditing": true,
+
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  },
+
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  "prettier.arrowParens": "always",
+  "prettier.bracketSameLine": false,
+  "prettier.bracketSpacing": true,
+  "prettier.embeddedLanguageFormatting": "auto",
+  "prettier.htmlWhitespaceSensitivity": "css",
+  "prettier.insertPragma": false,
+  "prettier.jsxSingleQuote": false,
+  "prettier.printWidth": 80,
+  "prettier.proseWrap": "preserve",
+  "prettier.quoteProps": "as-needed",
+  "prettier.requirePragma": false,
+  "prettier.semi": true,
+  "prettier.singleAttributePerLine": false,
+  "prettier.singleQuote": false,
+  "prettier.tabWidth": 2,
+  "prettier.trailingComma": "es5",
+  "prettier.useTabs": false,
+  "prettier.vueIndentScriptAndStyle": false,
+  "workbench.secondarySideBar.defaultVisibility": "visible"
+}
+```
