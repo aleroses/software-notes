@@ -129,6 +129,10 @@ Atajos para acceder a la barra de actividades:
 - `Ctrl` + `Shift` + `D` 
 - `Ctrl` + `Shift` + `X`
 
+Agente IA:
+
+- `Ctrl + Alt + I` Abrir y ocultar 
+
 [🔥 Tutorial: Cómo configurar VSCode](https://www.youtube.com/watch?v=HiVnGgYudLY)
 
 ## Otros 
