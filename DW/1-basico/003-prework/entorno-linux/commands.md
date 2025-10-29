@@ -24,6 +24,15 @@ dpkg -l | grep <nombre_del_programa>
 # Eliminar el programa y sus archivos asociados
 sudo apt remove --purge <nombre_del_programa>
 sudo apt autoremove --purge <nombre_del_programa>
+
+# También en Debian:
+sudo apt purge --auto-remove google-chrome-stable
+```
+
+## Instalar un programa
+
+```bash
+sudo apt install ./google-chrome-stable_current_amd64.deb
 ```
 
 ## Abrir el administrador de archivos
