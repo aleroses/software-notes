@@ -320,6 +320,10 @@ Para copiar la línea actual hacía arriba o abajo.
 
 `⌥` + `Shift` + `↓` / `↑`
 
+**Linux** Nuevo 👈🏼👀
+
+`Ctrl` + `Alt` + `↓` / `↑`
+
 ### Borrar línea
 
 Parra borrar la línea actual.
