@@ -145,6 +145,16 @@ Agrega la fuente en la terminal que estés usando en mi caso en "Konsole". Esto 
 
 > Nota: Si hiciste alguno de estos pasos y los cambios no se ven reflejados, solo reinicia tu ordenador. 👈🏼👀
 
+## Visual Studio Code
+
+Para que el `font` funcione dentro de la terminal de VSC debes entrar a los `settings.json` y añadir esto:
+
+```json
+"terminal.integrated.fontFamily": "MesloLGM Nerd Font",
+```
+
+---
+
 ```
   --first-color: #090b10;
   --second-color: #0f111a;
