@@ -12,7 +12,7 @@
 
 ```json
 {
-  "editor.wordWrap": "on", //👈👀
+  "editor.wordWrap": "on",
 }
 ```
 
@@ -20,10 +20,11 @@ Si no quieres configurar esto, solo usa control z cada vez que quieras tener tod
 
 ## Configurar indentación del código 
 
-Estilo de sangrado. 
+Estilo de sangrado.
+
 ```json
 {
-  "editor.tabSize": 2, //👈👀
+  "editor.tabSize": 2,
 }
 ```
 
@@ -35,19 +36,30 @@ Adicional puedes buscar `Convert Indentation to Spaces` para que cada indentaci�
 
 ```json
 {
-  "terminal.integrated.defaultProfile.windows": "Git Bash", //👈👀
+  "terminal.integrated.defaultProfile.windows": "Git Bash",
 }
 ```
 
-Otra opción 
+Otra opción:
+
 ```json
 {
-  "terminal.integrated.defaultProfile.windows": "PowerShell" //👈👀
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
 }
 ```
 
-Para ver la terminal usar:  
-- `Ctrl` + `ñ`
+Si estás usando Oh My Posh:
+
+```json
+{
+  "terminal.integrated.fontFamily": "MesloLGM Nerd Font",
+}
+```
+
+Para ver la terminal usar:
+
+- `Ctrl` + `Ñ`
+- `Ctrl` + `J`
 
 También:   
 - View: Ver
@@ -57,7 +69,7 @@ También:
 
 ```json
 {
-  "workbench.sideBar.location": "right", //👈👀
+  "workbench.sideBar.location": "right",
 }
 ```
 
@@ -65,7 +77,7 @@ También:
 
 ```json
 {
-  "editor.minimap.enabled": false, //👈👀
+  "editor.minimap.enabled": false,
 }
 ```
 
@@ -73,17 +85,17 @@ También:
 
 ```json
 {
-  "editor.scrollbar.vertical": "auto", //👈👀
-  "editor.overviewRulerBorder": false, //👈👀
-  "editor.hideCursorInOverviewRuler": true, //👈👀
+  "editor.scrollbar.vertical": "auto",
+  "editor.overviewRulerBorder": false,
+  "editor.hideCursorInOverviewRuler": true,
 }
 ```
 
-## Ocultar Debugging 🔴
+## Ocultar Debugging 🐞
 
 ```json
 {
-  "editor.glyphMargin": false, //👈👀
+  "editor.glyphMargin": false,
 }
 ```
 
@@ -91,7 +103,7 @@ También:
 
 ```json
 {
-  "editor.lineNumbers": "off", //👈👀
+  "editor.lineNumbers": "off",
 }
 ```
 
@@ -99,15 +111,17 @@ En caso de necesitar los números ocasionalmente, puedes instalar la extensión 
 
 Usando `Ctrl + Shift + L` podrás cambiar entre `off / on` fácilmente.
 
+> Nota: Puedes ver exactamente la línea donde estás ubicado en la **Barra de Estados** que se encuentra en la parte inferior. Si no ves algo como `Ln 131, Col 20` asegúrate de dar clic derecho sobre esta barra y activar `Editor Selection`.
+
 ## Ocultar Documentación Emergente MDN
 
 ```json
 {
-  "editor.parameterHints.enabled": false //👈👀
+  "editor.parameterHints.enabled": false,
 }
 ```
 
-Tambien puedes buscar `pop-up` dentro de la configuración y desactivar la casilla:
+También puedes buscar `pop-up` dentro de la configuración y desactivar la casilla:
 
 ⚙ `Editor > Parameter Hints: Enabled`
 
@@ -117,13 +131,14 @@ Tambien puedes buscar `pop-up` dentro de la configuración y desactivar la casil
 
 ```json
 {
-  "workbench.activityBar.location": "hidden", //👈👀
+  "workbench.activityBar.location": "hidden",
 }
 ```
 
 Atajos para acceder a la barra de actividades: 
+
+- `Ctrl` + `B`: Abrir y ocultar 
 - `Ctrl` + `Shift` + `E` 
-	- `Ctrl` + `B`: Abrir y ocultar 
 - `Ctrl` + `Shift` + `F` 
 - `Ctrl` + `Shift` + `G` 
 - `Ctrl` + `Shift` + `D` 
@@ -190,6 +205,7 @@ Esta es la misma configuración de arriba más la configuración de Prettier ver
   },
 
   "editor.formatOnSave": true,
+  "terminal.integrated.fontFamily": "MesloLGM Nerd Font",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
 
   "prettier.arrowParens": "always",
