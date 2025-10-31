@@ -290,4 +290,88 @@ nombreusuario ALL=(ALL:ALL) ALL
 exit
 ```
 
+## Swap file
+
+```bash
+sudo apt install util-linux
+
+# Capacidad de memoria en uso y disponible
+free -h
+
+# Ver que memoria de intercambio tenemos
+cat /proc/swaps
+
+# Crear el archivo 👀👇🏻
+sudo fallocte -l 4G /swapfile
+
+# Si falla ejecutar este
+sudo dd if=/dev/zero of=/swapfile bs=1M count=4096 status=progress
+
+
+# Cambiar permisos (solo root debe acceder)
+sudo chmod 600 /swapfile
+ls -la /
+
+# Convierte el archivo en espacio swap
+sudo mkswap /swapfile
+
+# Activa el archivo swap
+sudo swapon /swapfile
+# Verifica
+sudo swapon --show
+
+free -h
+
+# Activar automáticamente al arrancar (vim o nano)
+sudo vim /etc/fstab # Edita el archivo /etc/fstab
+
+# Añadir al final
+/swapfile    swap    swap    defaults 0 0
+
+# Probar
+/swapfile none swap sw 0 0
+
+# Reiniciar
+sudo reboot
+
+free -h
+cat /proc/swaps
+```
+
+En caso de querer eliminarlo:
+
+```bash
+# Desactivar
+sudo swapoff -v /swapfile
+# Modificar
+sudo nano /etc/fstab
+
+# Quitamos
+/swapfile    swap    swap    defaults 0 0
+
+# Eliminar
+sudo rm /swapfile
+
+cat /proc/swaps
+```
+
+Ajusta el “swappiness” (Opcional) 
+
+Esto controla cuánto usa Linux la swap (por defecto suele ser 60).  
+Puedes reducirlo para usar más la RAM y menos la swap:
+
+```bash
+sudo sysctl vm.swappiness=10
+
+# Hazlo permanente
+sudo vim /etc/sysctl.conf
+
+# Agregar al final
+vm.swappiness=10
+```
+
+**Listo:** tienes un archivo swap configurado y persistente, sin necesidad de partición extra ni desgaste excesivo del SSD.
+
+[Swap file en Linux - Como crearlo, activarlo o eliminarlo](https://www.youtube.com/watch?v=cfT7d7IAwsw)
+
 https://github.com/aleroses/software-notes/blob/master/DW/1-basico/003-prework/entorno-windows/remove-linux-dualboot.md
