@@ -690,7 +690,13 @@ El `README.md` es el archivo que veremos por defecto al entrar a un repositorio.
 🔥 **Clonar un repositorio desde GitHub**        
 Para clonar un repositorio desde GitHub (o cualquier otro servidor remoto) debemos copiar la URL (por ahora, usando HTTPS) y ejecutar el comando `git clone "url-https"`. Esto descargara la versión de nuestro proyecto que se encuentra en GitHub.
 
-Sin embargo, esto solo funciona para las personas que quieren empezar a contribuir en el proyecto. 
+Sin embargo, esto solo funciona para las personas que quieren empezar a contribuir en el proyecto.
+
+> Nota: Si quieres clonar **la última versión (el estado actual del código)** sin todo el historial de _commits_, puedes hacerlo con una **clonación superficial** (_shallow clone_).
+
+```bash
+git clone --depth 1 <URL-del-repositorio>
+```
 
 🔥 **Conectar repositorios**     
 Si queremos conectar el repositorio de GitHub con nuestro repositorio local, el que creamos con `git init`, debemos ejecutar las siguientes instrucciones:     
