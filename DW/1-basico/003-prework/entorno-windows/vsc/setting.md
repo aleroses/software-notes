@@ -16,7 +16,7 @@
 }
 ```
 
-Si no quieres configurar esto, solo usa control z cada vez que quieras tener todo en una sola vista sin necesidad de hacer scroll. 
+Si no quieres configurar esto, solo usa `Ctrl + Z` cada vez que quieras tener todo en una sola vista sin necesidad de hacer scroll. 
 
 ## Configurar indentación del código 
 
@@ -135,7 +135,15 @@ También puedes buscar `pop-up` dentro de la configuración y desactivar la casi
 }
 ```
 
-Atajos para acceder a la barra de actividades: 
+## Cambiar tamaño de fuente
+
+```json
+{
+  "editor.fontSize": 12,
+}
+```
+
+## Atajos para acceder a la barra de actividades: 
 
 - `Ctrl` + `B`: Abrir y ocultar 
 - `Ctrl` + `Shift` + `E` 
@@ -184,7 +192,6 @@ Esta es la misma configuración de arriba más la configuración de Prettier ver
 {
   "editor.wordWrap": "on",
   "editor.tabSize": 2,
-  "workbench.sideBar.location": "right",
   "editor.minimap.enabled": false,
   "editor.scrollbar.vertical": "auto",
   "editor.overviewRulerBorder": false,
@@ -192,19 +199,38 @@ Esta es la misma configuración de arriba más la configuración de Prettier ver
   "editor.glyphMargin": false,
   "editor.lineNumbers": "off",
   "editor.parameterHints.enabled": false,
-  "workbench.activityBar.location": "hidden",
 
   "editor.cursorBlinking": "expand",
-  "breadcrumbs.enabled": false,
   "editor.stickyScroll.enabled": true,
   "editor.cursorSmoothCaretAnimation": "on",
   "editor.linkedEditing": true,
+  "editor.formatOnSave": true,
+  "editor.fontSize": 12,
+  "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+  "breadcrumbs.enabled": false,
+  "files.autoSave": "afterDelay",
+
+  "reactSnippets.settings.importReactOnTop": false,
+  "workbench.sideBar.location": "right",
+  "workbench.activityBar.location": "hidden",
+  "workbench.secondarySideBar.defaultVisibility": "visible",
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.colorTheme": "Tokyo Night",
+
+  "workbench.colorCustomizations": {
+    "editorBracketHighlight.foreground1": "#fafafa",
+    "editorBracketHighlight.foreground2": "#9F51B6",
+    "editorBracketHighlight.foreground3": "#F7C244",
+    "editorBracketHighlight.foreground4": "#F07850",
+    "editorBracketHighlight.foreground5": "#97c26c",
+    "editorBracketHighlight.foreground6": "#C497D4",
+    "editorBracketHighlight.unexpectedBracket.foreground": "#fb6165"
+  },
 
   "emmet.includeLanguages": {
     "javascript": "javascriptreact"
   },
 
-  "editor.formatOnSave": true,
   "terminal.integrated.fontFamily": "MesloLGM Nerd Font",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
 
@@ -215,7 +241,7 @@ Esta es la misma configuración de arriba más la configuración de Prettier ver
   "prettier.htmlWhitespaceSensitivity": "css",
   "prettier.insertPragma": false,
   "prettier.jsxSingleQuote": true,
-  "prettier.printWidth": 80,
+  "prettier.printWidth": 62,
   "prettier.proseWrap": "preserve",
   "prettier.quoteProps": "as-needed",
   "prettier.requirePragma": false,
@@ -225,7 +251,6 @@ Esta es la misma configuración de arriba más la configuración de Prettier ver
   "prettier.tabWidth": 2,
   "prettier.trailingComma": "es5",
   "prettier.useTabs": false,
-  "prettier.vueIndentScriptAndStyle": false,
-  "workbench.secondarySideBar.defaultVisibility": "visible"
+  "prettier.vueIndentScriptAndStyle": false
 }
 ```

@@ -388,3 +388,126 @@ unrar l "material cambridge.rar"
 unzip -l "material cambridge.zip"
 ```
 
+---
+
+## ImageMagick
+
+**ImageMagick** es una herramienta **de línea de comandos** (CLI) que sirve para **crear, editar, convertir y optimizar imágenes**.  
+Admite **más de 200 formatos** (PNG, JPG, GIF, SVG, PDF, etc.) y es muy usada por desarrolladores, diseñadores y servidores web.
+
+👉 Puedes:
+
+- Cambiar tamaño (resize)
+- Convertir de formato (jpg → webp, etc.)
+- Optimizar o comprimir
+- Aplicar efectos o filtros
+- Procesar imágenes por lotes (muchas a la vez)
+
+---
+
+## ⚙️ Instalación
+
+### 🔸 En Debian / Ubuntu / Linux Mint:
+
+```bash
+sudo apt install imagemagick -y
+```
+
+### 🔸 En macOS (con Homebrew):
+
+```bash
+brew install imagemagick
+```
+
+### 🔸 En Windows:
+
+- Descarga el instalador desde 👉 [https://imagemagick.org/script/download.php](https://imagemagick.org/script/download.php)
+    
+- Durante la instalación, **marca la opción “Add to PATH”**.
+
+## Uso básico
+
+El comando principal es **`convert`** o, en versiones nuevas, **`magick`**.
+
+> 🔸 En sistemas modernos, se usa así:  
+> `magick [entrada] [opciones] [salida]`
+
+### 1. Redimensionar una imagen
+
+Por ejemplo, para crear versiones **responsive** (como querías para desktop, tablet y móvil):
+
+```bash
+magick imagen.png -resize 1024x494 imagen-desktop.png
+magick imagen.png -resize 768x371 imagen-tablet.png
+magick imagen.png -resize 480x232 imagen-mobile.png
+```
+
+💡 Si solo pones un valor (por ejemplo `-resize 480`), mantiene la proporción automáticamente:
+
+```bash
+magick imagen.png -resize 480 imagen-mobile.png
+```
+
+### 2. Convertir de formato
+
+```bash
+magick imagen.png imagen.webp
+magick imagen.jpg imagen.png
+```
+
+Esto es útil para **optimizar tu web**, ya que formatos como `.webp` o `.avif` pesan mucho menos que `.png` o `.jpg`.
+
+### 3. Comprimir una imagen
+
+Reducir tamaño del archivo sin cambiar sus dimensiones:
+
+```bash
+magick imagen.png -quality 85 imagen-optimizada.jpg
+```
+
+_(El valor 85 es el porcentaje de calidad, ideal entre 70 y 90 para web.)_
+
+### 4. Procesar varias imágenes a la vez
+
+Por ejemplo, reducir todas las imágenes PNG en una carpeta:
+
+```bash
+for file in *.png; do
+  magick "$file" -resize 800 "reducidas/$file"
+done
+```
+
+## 🧰 Comandos útiles
+
+|Acción|Comando ejemplo|
+|---|---|
+|Ver información de imagen|`identify imagen.png`|
+|Crear miniatura|`magick imagen.png -thumbnail 200x200 thumb.png`|
+|Agregar texto|`magick imagen.png -pointsize 20 -draw "text 10,50 'Hola'" salida.png`|
+|Convertir a blanco y negro|`magick imagen.png -colorspace Gray salida.png`|
+|Combinar imágenes|`magick input1.png input2.png +append salida.png`|
+
+## 📦 Consejo para proyectos web
+
+Puedes crear un pequeño script (por ejemplo, `resize.sh`) para generar automáticamente las tres versiones que usarás en HTML con `<picture>`:
+
+```bash
+#!/bin/bash
+magick $1 -resize 1024 "desktop-$1"
+magick $1 -resize 768 "tablet-$1"
+magick $1 -resize 480 "mobile-$1"
+```
+
+Luego lo ejecutas así:
+
+```bash
+bash resize.sh imagen.png
+```
+
+Y tendrás:
+
+```
+desktop-imagen.png
+tablet-imagen.png
+mobile-imagen.png
+```
