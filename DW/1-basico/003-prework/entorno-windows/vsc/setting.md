@@ -205,7 +205,7 @@ Esta es la misma configuración de arriba más la configuración de Prettier ver
   "editor.cursorSmoothCaretAnimation": "on",
   "editor.linkedEditing": true,
   "editor.formatOnSave": true,
-  "editor.fontSize": 12,
+  // "editor.fontSize": 12,
   "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
   "breadcrumbs.enabled": false,
   "files.autoSave": "afterDelay",
@@ -226,6 +226,8 @@ Esta es la misma configuración de arriba más la configuración de Prettier ver
     "editorBracketHighlight.foreground6": "#C497D4",
     "editorBracketHighlight.unexpectedBracket.foreground": "#fb6165"
   },
+
+  "window.zoomLevel": -1,
 
   "emmet.includeLanguages": {
     "javascript": "javascriptreact"
