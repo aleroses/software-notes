@@ -188,11 +188,26 @@ También notamos que se añadieron algunas cosas en `app.js`.
 
 ```js
 'use strict';
-// Object.defineProperty(exports, '__esModule', { value: true });
+Object.defineProperty(exports, '__esModule', { value: true });
 const msg = 'Hi world';
 console.log(msg);
 //# sourceMappingURL=app.js.map
 ```
+
+🐞 Si tienes este error:
+
+```bash
+Uncaught ReferenceError: exports is not defined
+    <anonymous> http://127.0.0.1:5500/bases/app.js:2
+```
+
+Lo solucioné de la siguiente manera:
+
+1. Edité el `tsconfig.json` cambiando solo:
+	`"module": "nodenext",` por `"module": "esnext",`
+	
+2. Dentro del `index.html` añadí `type="module"` al `script`.
+	`<script src="./app.js" type="module"></script>`
 
 ### 2.5 Modo observador - Watch mode
 
