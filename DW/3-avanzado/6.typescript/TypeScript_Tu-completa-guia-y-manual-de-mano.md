@@ -293,9 +293,112 @@ Si desean tener más información, pueden ver la documentación oficial de TypeS
 
 [Documentación Oficial](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html)
 
+### 3.4 Inferir tipos y modo estricto
 
+`tsconfig.json`
+
+```json
+{
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    // File Layout
+    // "rootDir": "./src",
+    // "outDir": "./dist",
+
+    // Environment Settings
+    // See also https://aka.ms/tsconfig/module
+    // "module": "nodenext",
+    "module": "esnext",
+    "target": "esnext",
+    "types": [],
+    // For nodejs:
+    // "lib": ["esnext"],
+    // "types": ["node"],
+    // and npm install -D @types/node
+
+    // Other Outputs
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+
+    // Stricter Typechecking Options
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+
+    // Style Options
+    // "noImplicitReturns": true,
+    // "noImplicitOverride": true,
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
+    // "noFallthroughCasesInSwitch": true,
+    // "noPropertyAccessFromIndexSignature": true,
+
+    // Recommended Options
+    "strict": true,
+    "noImplicitAny": true, 👈🏼👀
+    "jsx": "react-jsx",
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true
+  }
+}
+```
+
+### 3.5 
+
+`./bases/app.ts`
+
+```ts
+(() => {
+  const a: number = 10;
+  let b: string;
+
+  console.log(a);
+})();
+```
+
+`./bases/app.ts`
+
+```ts
 
 ```
+
+`./bases/app.ts`
+
+```ts
+
+```
+
+`./bases/app.ts`
+
+```ts
+
+```
+
+`./bases/app.ts`
+
+```ts
+
+```
+
+`./bases/app.ts`
+
+```ts
+
+```
+
+`./bases/app.ts`
+
+```ts
+
+```
+
+`./bases/app.ts`
+
+```ts
+
 ```
 
 ```
