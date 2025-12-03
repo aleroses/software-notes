@@ -102,13 +102,141 @@ En esta sección estaremos hablando y haciendo ejercicios sobre:
 
 Esta sección procura que empecemos a escribir código que sea fácil de leer por nosotros y otros desarrolladores.
 
-### 2.3 
+### 2.3 Breve exposición - Deuda técnica y Clean Code
+
+Deuda Técnica
+
+Es la falta de calidad en el código, que genera una deuda que repercutirá en costos futuros.
+
+Costos económicos:
+
+- Tiempo en realizar mantenimientos.
+- Tiempo en refactorizar código.
+- Tiempo en comprender el código.
+- Tiempo adicional en la transferencia del código.
+
+Esquema de deuda técnica de Martin Fowler
+
+- Imprudente: No hay tiempo, solo copia y pega eso de nuevo.
+- Inadvertido: ¿Qué son patrones de diseños?
+- Prudente: Tenemos que entregar rápido ya refactorizaremos.
+- Ahora sabemos cómo lo deberíamos haber hecho.
+
+> Caer en deuda técnica es normal y a menudo es inevitable.
+
+Refactorización
+
+Es simplemente un proceso que tiene como objetivo mejorar el código sin alterar su comportamiento para que sea más entendible y tolerante a cambios.
+
+Usualmente, para que una refactorización fuerte tenga el objetivo esperado, es imprescindible contar con pruebas automáticas.
+
+> "Código Limpio es aquel que se ha escrito con la intención de que otra persona (o tú mismo en el futuro) lo entienda". - Carlos Blé  
+
+> "Nuestro código tiene que ser simple y directo, debería leerse con la misma facilidad que un texto bien escrito". - Grady Booch  
+
+> "Programar es el arte de decirle a otro humano lo que quieres que la computadora haga". - Donald Knuth
+
+### 2.4
+
+### 2.5
+
+### 2.6
 
 ```
 ```
 
 ```
 ```
+
+### 2.7
+
+```
+```
+
+```
+```
+
+### 2.8
+
+```
+```
+
+```
+```
+
+### 2.9
+
+```
+```
+
+```
+```
+
+### 2.10
+
+```
+```
+
+```
+```
+
+### 2.11
+
+```
+```
+
+```
+```
+
+### 2.12
+
+```
+```
+
+```
+```
+
+### 2.13
+
+```
+```
+
+```
+```
+
+### 2.14
+
+```
+```
+
+```
+```
+
+### 2.15
+
+```
+```
+
+```
+```
+
+### 2.16
+
+```
+```
+
+```
+```
+
+### 2.17
+
+```
+```
+
+```
+```
+
+### 2.18
 
 ```
 ```
