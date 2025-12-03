@@ -357,6 +357,57 @@ Si desean tener más información, pueden ver la documentación oficial de TypeS
 })();
 ```
 
+📌 Nota: Para evitar que se creen archivos como `.d.ts`, `.d.ts.map` o similares, cambia esto en el archivo `tsconfig.json`.
+
+```json
+{
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    // File Layout
+    // "rootDir": "./src",
+    // "outDir": "./dist",
+
+    // Environment Settings
+    // See also https://aka.ms/tsconfig/module
+    // "module": "nodenext",
+    "module": "esnext",
+    "target": "esnext",
+    "types": [],
+    // For nodejs:
+    // "lib": ["esnext"],
+    // "types": ["node"],
+    // and npm install -D @types/node
+
+    // Other Outputs
+    "sourceMap": false, 👈🏼👀
+    "declaration": false, 👈🏼👀
+    "declarationMap": false, 👈🏼👀
+
+    // Stricter Typechecking Options
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+
+    // Style Options
+    // "noImplicitReturns": true,
+    // "noImplicitOverride": true,
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
+    // "noFallthroughCasesInSwitch": true,
+    // "noPropertyAccessFromIndexSignature": true,
+
+    // Recommended Options
+    "strict": true,
+    // "noImplicitAny": true,
+    "jsx": "react-jsx",
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true
+  }
+}
+```
+
 ### 3.5 Booleans - Booleanos
 
 Estructura:
@@ -411,7 +462,7 @@ Estructura:
 
 📌 Nota: Es importante que dentro del `src` llamemos al archivo `.js` de lo contrario no funcionará.
 
-### 3.6
+### 3.6 Numbers - Números
 
 `./bases/tipos/booleans.ts`
 
@@ -424,6 +475,9 @@ Estructura:
 ```ts
 
 ```
+
+
+
 👈🏼👀
 🔥
 📌
