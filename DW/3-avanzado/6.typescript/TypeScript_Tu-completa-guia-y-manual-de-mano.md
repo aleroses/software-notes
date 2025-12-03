@@ -70,7 +70,7 @@ typescript
 
 `./bases/app.ts`
 
-```jsx
+```ts
 const msg: string = 'Hi world';
 
 console.log(msg);
@@ -78,7 +78,7 @@ console.log(msg);
 
 `./bases/index.html`
 
-```jsx
+```html
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -196,6 +196,50 @@ console.log(msg);
 
 ### 2.5 Modo observador - Watch mode
 
+Transpilar automáticamente:
+
+```bash
+# Within bases
+tsc --watch
+
+# Also
+tsc -w
+```
+
+`./bases/app.ts`
+
+```ts
+const msg: string = 'Hi world';
+
+const hero = {
+  name: 'Ironman',
+  age: 45,
+};
+
+// Detects the change in data type.
+// hero.age = '50'; 👈🏼👀
+
+console.log(hero.age);
+```
+
+---
+
+## 3. 
+
+### 3.1
+
+```
+```
+
+```
+```
+
+```
+```
+
+```
+```
+
 ```
 ```
 
@@ -212,21 +256,3 @@ console.log(msg);
 ```
 
 👈🏼👀
-### 2.6
-
-### 2.7
-
-```
-```
-
-```
-```
-
-```
-```
-
-```
-```
-
-```
-```
