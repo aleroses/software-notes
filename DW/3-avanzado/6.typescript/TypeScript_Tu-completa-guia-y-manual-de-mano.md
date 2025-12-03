@@ -102,15 +102,24 @@ cd bases
 tsc app
 ```
 
+`./bases/app.js`
+
+```js
+var msg = 'Hi world';
+
+console.log(msg);
+```
+
 `Ctrl + Shift + I`
 
 Al inicio referenciamos el archivo `app.ts` dentro de la etiqueta `script` lo que da un error, pero al crearse el archivo `app.js` e invocándolo se soluciona mostrándonos el mensaje en consola.
 
+### 2.4 TSConfig.json
+
+
 👈🏼👀
-### 2.
+### 2.5
 
-### 2.
+### 2.6
 
-### 2.
-
-### 2.
+### 2.7
