@@ -464,23 +464,43 @@ Estructura:
 
 ### 3.6 Numbers - Números
 
-`./bases/tipos/booleans.ts`
+`./bases/tipos/numbers.ts`
 
 ```ts
+(() => {
+  let avengers: number = 10;
 
+  console.log(avengers);
+
+  const villians: number = 20;
+
+  avengers < villians
+    ? console.log("We're in trouble")
+    : console.log("We're salved");
+})();
 ```
 
-`./bases/tipos/booleans.ts`
+`./bases/index.html`
 
-```ts
-
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Bases de TypeScript</title>
+  </head>
+  <body>
+    <script src="./tipos/numbers.js" type="module"></script>
+  </body>
+</html>
 ```
 
 
 
-👈🏼👀
-🔥
-📌
 ### 3.7
 
 `./bases/tipos/booleans.ts`
@@ -495,6 +515,10 @@ Estructura:
 
 ```
 
+
+👈🏼👀
+🔥
+📌
 ### 3.8
 
 `./bases/tipos/booleans.ts`
@@ -516,6 +540,10 @@ Estructura:
 ```
 ```
 
+
+👈🏼👀
+🔥
+📌
 ### 3.10
 
 `./bases/app.ts`
