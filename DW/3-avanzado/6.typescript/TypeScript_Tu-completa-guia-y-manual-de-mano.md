@@ -357,43 +357,85 @@ Si desean tener más información, pueden ver la documentación oficial de TypeS
 })();
 ```
 
-### 3.5 
+### 3.5 Booleans - Booleanos
 
-`./bases/app.ts`
+Estructura:
 
-```ts
-
+```bash
+.
+└── bases
+    ├── app.d.ts
+    ├── app.d.ts.map
+    ├── app.js
+    ├── app.js.map
+    ├── app.ts
+    ├── index.html
+    ├── tipos
+    │   ├── booleans.d.ts
+    │   ├── booleans.d.ts.map
+    │   ├── booleans.js 🔥
+    │   ├── booleans.js.map
+    │   └── booleans.ts 👈🏼👀 # We create
+    └── tsconfig.json
 ```
 
-`./bases/app.ts`
+`./bases/tipos/booleans.ts`
 
 ```ts
+(() => {
+  let isSuperman: boolean = true;
+  isSuperman = true && false;
 
+  console.log({ isSuperman });
+})();
 ```
+
+`./bases/index.html`
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Bases de TypeScript</title>
+  </head>
+  <body>
+    <script src="./tipos/booleans.js" type="module"></script>
+  </body>
+</html>
+```
+
+📌 Nota: Es importante que dentro del `src` llamemos al archivo `.js` de lo contrario no funcionará.
 
 ### 3.6
 
-`./bases/app.ts`
+`./bases/tipos/booleans.ts`
 
 ```ts
 
 ```
 
-`./bases/app.ts`
+`./bases/tipos/booleans.ts`
 
 ```ts
 
 ```
-
+👈🏼👀
+🔥
+📌
 ### 3.7
 
-`./bases/app.ts`
+`./bases/tipos/booleans.ts`
 
 ```ts
 
 ```
 
-`./bases/app.ts`
+`./bases/tipos/booleans.ts`
 
 ```ts
 
@@ -401,12 +443,14 @@ Si desean tener más información, pueden ver la documentación oficial de TypeS
 
 ### 3.8
 
-`./bases/app.ts`
+`./bases/tipos/booleans.ts`
 
 ```ts
 
 ```
-
+👈🏼👀
+🔥
+📌
 ### 3.9
 
 `./bases/app.ts`
@@ -425,7 +469,9 @@ Si desean tener más información, pueden ver la documentación oficial de TypeS
 ```ts
 
 ```
-
+👈🏼👀
+🔥
+📌
 ### 3.11
 
 `./bases/app.ts`
@@ -452,7 +498,7 @@ Si desean tener más información, pueden ver la documentación oficial de TypeS
 
 ```
 ```
-
+👈🏼👀
 ### 3.14
 
 `./bases/app.ts`
@@ -479,7 +525,7 @@ Si desean tener más información, pueden ver la documentación oficial de TypeS
 ```ts
 
 ```
-
+👈🏼👀
 ### 3.17
 
 `./bases/app.ts`
