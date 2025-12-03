@@ -116,10 +116,117 @@ Al inicio referenciamos el archivo `app.ts` dentro de la etiqueta `script` lo qu
 
 ### 2.4 TSConfig.json
 
+Estructura:
+
+```bash
+typescript
+└── bases
+    ├── app.d.ts
+    ├── app.d.ts.map
+    ├── app.js
+    ├── app.js.map
+    ├── app.ts
+    ├── index.html
+    └── tsconfig.json 👈🏼👀
+```
+
+```bash
+tsc --init
+tsc # Transpile everything
+```
+
+Esto crea automáticamente varios archivo `.map` y `.d.ts`, pero esto no afecta en nada.
+
+```json
+{
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    // File Layout
+    // "rootDir": "./src",
+    // "outDir": "./dist",
+
+    // Environment Settings
+    // See also https://aka.ms/tsconfig/module
+    "module": "nodenext",
+    "target": "esnext",
+    "types": [],
+    // For nodejs:
+    // "lib": ["esnext"],
+    // "types": ["node"],
+    // and npm install -D @types/node
+
+    // Other Outputs
+    "sourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+
+    // Stricter Typechecking Options
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+
+    // Style Options
+    // "noImplicitReturns": true,
+    // "noImplicitOverride": true,
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
+    // "noFallthroughCasesInSwitch": true,
+    // "noPropertyAccessFromIndexSignature": true,
+
+    // Recommended Options
+    "strict": true,
+    "jsx": "react-jsx",
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true
+  }
+}
+```
+
+También notamos que se añadieron algunas cosas en `app.js`.
+
+```js
+'use strict';
+// Object.defineProperty(exports, '__esModule', { value: true });
+const msg = 'Hi world';
+console.log(msg);
+//# sourceMappingURL=app.js.map
+```
+
+### 2.5 Modo observador - Watch mode
+
+```
+```
+
+```
+```
+
+```
+```
+
+```
+```
+
+```
+```
 
 👈🏼👀
-### 2.5
-
 ### 2.6
 
 ### 2.7
+
+```
+```
+
+```
+```
+
+```
+```
+
+```
+```
+
+```
+```
