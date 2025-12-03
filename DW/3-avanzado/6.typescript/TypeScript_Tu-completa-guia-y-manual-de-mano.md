@@ -239,9 +239,29 @@ console.log(hero.age);
 
 ---
 
-## 3. 
+## 3. Tipos básicos
 
-### 3.1
+### 3.1 ¿Qué veremos en esta sección?
+
+En esta sección aprenderemos:
+
+1. ¿Qué son los tipos de datos?
+2. Una introducción a los diferentes tipos de datos que existen en TypeScript.
+3. Booleanos.
+4. Números.
+5. Strings.
+6. Tipo Any.
+7. Arreglos.
+8. Tuplas.
+9. Enumeraciones
+10. Retorno void
+11. Null
+12. Undefined
+
+Y al final un exámen práctico y seguidamente un examen teórico.
+
+### 3.2 Introducción a los tipos de datos
+
 
 ```
 ```
