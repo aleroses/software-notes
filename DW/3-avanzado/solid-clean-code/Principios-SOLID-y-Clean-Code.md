@@ -33,6 +33,34 @@ Entre otros sitios web con referencias en las presentaciones que verán un poco 
 
 ### 1.7 Preparación del laboratorio de ejercicios
 
+```bash
+git clone git@github.com:Klerith/clean-course.git
+mv clean-course clean-solid
+```
+
+Si quieres trabajar con `npm` en lugar de `yarn` primero elimina el archivo `yarn.lock`.
+
+```bash
+# Run
+npm i
+```
+
+Cada sección tiene su rama: 
+
+[Clean - SOLID - CodeSmells - Repo](https://github.com/Klerith/clean-course/tree/main)
+
 ### 1.8
 
+
+```
+```
 ### 1.9
+
+```
+```
+
+```
+```
+
+```
+```
