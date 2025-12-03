@@ -637,7 +637,7 @@ Number.isNaN(Number("x")) // true
 |`[5]`       |5                    |
 |`{}`        |NaN                  |
 
-### 3.7
+### 3.7 Strings - Cadenas de caracteresc
 
 `./bases/tipos/booleans.ts`
 
