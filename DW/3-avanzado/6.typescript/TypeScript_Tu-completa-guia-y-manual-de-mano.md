@@ -285,7 +285,14 @@ Permite:
 - Genéricos
 - Tuplas
 
-### 3.3 
+### 3.3 Más información sobre los tipos de datos
+
+A continuación explicaremos todos los tipos de datos que soporta TypeScript uno por uno.
+
+Si desean tener más información, pueden ver la documentación oficial de TypeScript sobre los tipos de datos aquí:
+
+[Documentación Oficial](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html)
+
 
 
 ```
