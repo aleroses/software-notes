@@ -477,6 +477,11 @@ Estructura:
   avengers < villians
     ? console.log("We're in trouble")
     : console.log("We're salved");
+
+  avengers = Number('123A'); // NaN
+  console.log({ avengers });
+
+  // NaN is considered a number.
 })();
 ```
 
@@ -499,7 +504,138 @@ Estructura:
 </html>
 ```
 
+####  ☢️ Cuidado con `Number()` en JavaScript ☣️
 
+`Number()` es una **función global** que **convierte cualquier valor** a un **número**.
+
+👉 Se usa para transformar cadenas, booleanos, o incluso `null` y `undefined` en un valor numérico.
+
+Cuando llamas a `Number(valor)`, JavaScript intenta convertir ese valor siguiendo reglas específicas.
+
+##### Conversión de valores comunes
+
+1. **Strings → Número**
+
+Si la cadena representa un número válido:
+
+```js
+Number("123")   // 123
+Number("3.14")  // 3.14
+```
+
+Si la cadena NO representa un número válido:
+
+```js
+Number("hola")  // NaN
+Number("123abc") // NaN
+```
+
+2. **Booleanos**
+
+```js
+Number(true)  // 1
+Number(false) // 0
+```
+
+3. **null**
+
+```js
+Number(null) // 0
+```
+
+4. **undefined**
+
+```js
+Number(undefined) // NaN
+```
+
+5. **Arreglos**
+
+Reglas especiales:
+
+- Un array vacío → **0**
+- Un array con 1 elemento numérico → ese número
+- Otros casos → **NaN**
+
+```js
+Number([])        // 0
+Number([5])       // 5
+Number([1,2,3])   // NaN
+Number(["10"])    // 10
+```
+
+6. **Objetos**
+
+Casi siempre devuelven `NaN`:
+
+```js
+Number({})        // NaN
+Number({ a: 1 })  // NaN
+```
+
+📌 ¿Qué pasa si ya es un número?
+
+No lo cambia:
+
+```js
+Number(10)   // 10
+Number(3.5)  // 3.5
+```
+
+📌 ¿Qué pasa si lo usas sin argumentos?
+
+```js
+Number() // 0
+```
+
+##### ¿Para qué se usa normalmente?
+
+✔ Convertir valores del input (que vienen como string)
+
+```js
+const edad = Number("25");  // 25
+```
+
+✔ Evitar concatenación de strings
+
+```js
+"2" + 2      // "22"
+Number("2") + 2 // 4
+```
+
+✔ Validar datos
+
+```js
+if (Number(valor) === NaN) { ... }  // (aunque NaN se compara diferente)
+```
+
+⚠ IMPORTANTE: `NaN` es “Not-a-Number”
+
+Si la conversión falla:
+
+```js
+Number("x") // NaN
+```
+
+Para comprobarlo:
+
+```js
+Number.isNaN(Number("x")) // true
+```
+
+##### 🎯 Resumen corto
+
+|Valor        |Resultado de Number() |
+|-------------|----------------------|
+|`"10"`      |10                   |
+|`"10a"`     |NaN                  |
+|`true`      |1                    |
+|`false`     |0                    |
+|`null`      |0                    |
+|`undefined` |NaN                  |
+|`[]`        |0                    |
+|`[5]`       |5                    |
+|`{}`        |NaN                  |
 
 ### 3.7
 
@@ -519,6 +655,7 @@ Estructura:
 👈🏼👀
 🔥
 📌
+☢️
 ### 3.8
 
 `./bases/tipos/booleans.ts`
@@ -529,6 +666,7 @@ Estructura:
 👈🏼👀
 🔥
 📌
+☢️
 ### 3.9
 
 `./bases/app.ts`
