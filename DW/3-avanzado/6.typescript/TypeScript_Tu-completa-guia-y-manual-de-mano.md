@@ -346,8 +346,6 @@ Si desean tener más información, pueden ver la documentación oficial de TypeS
 }
 ```
 
-### 3.5 
-
 `./bases/app.ts`
 
 ```ts
@@ -359,11 +357,7 @@ Si desean tener más información, pueden ver la documentación oficial de TypeS
 })();
 ```
 
-`./bases/app.ts`
-
-```ts
-
-```
+### 3.5 
 
 `./bases/app.ts`
 
@@ -377,11 +371,7 @@ Si desean tener más información, pueden ver la documentación oficial de TypeS
 
 ```
 
-`./bases/app.ts`
-
-```ts
-
-```
+### 3.6
 
 `./bases/app.ts`
 
@@ -395,6 +385,30 @@ Si desean tener más información, pueden ver la documentación oficial de TypeS
 
 ```
 
+### 3.7
+
+`./bases/app.ts`
+
+```ts
+
+```
+
+`./bases/app.ts`
+
+```ts
+
+```
+
+### 3.8
+
+`./bases/app.ts`
+
+```ts
+
+```
+
+### 3.9
+
 `./bases/app.ts`
 
 ```ts
@@ -404,13 +418,85 @@ Si desean tener más información, pueden ver la documentación oficial de TypeS
 ```
 ```
 
+### 3.10
+
+`./bases/app.ts`
+
+```ts
+
 ```
+
+### 3.11
+
+`./bases/app.ts`
+
+```ts
+
+```
+
+### 3.12
+
+`./bases/app.ts`
+
+```ts
+
+```
+
+### 3.13
+
+`./bases/app.ts`
+
+```ts
+
 ```
 
 ```
 ```
 
+### 3.14
+
+`./bases/app.ts`
+
+```ts
+
 ```
+
+```
+```
+
+### 3.15
+
+`./bases/app.ts`
+
+```ts
+
+```
+
+### 3.16
+
+`./bases/app.ts`
+
+```ts
+
+```
+
+### 3.17
+
+`./bases/app.ts`
+
+```ts
+
+```
+
+```
+```
+
+### 3.18
+
+`./bases/app.ts`
+
+```ts
+
 ```
 
 ```
