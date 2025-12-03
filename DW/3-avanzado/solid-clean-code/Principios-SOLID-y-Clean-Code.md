@@ -49,12 +49,43 @@ Cada sección tiene su rama:
 
 [Clean - SOLID - CodeSmells - Repo](https://github.com/Klerith/clean-course/tree/main)
 
-### 1.8
+### 1.8 Nota importante
 
+Importante
+
+Al finalizar el curso, les agradeceré que se tomen unos minutos para responder una corta encuesta y asi poder contar su retroalimentación de lo que les pareció el contenido del curso. Porqué al finalizarlo? Bueno, porque al calificarlo muy temprano o de forma prematura, es muy poco tiempo para tener una idea sobre lo que haremos y aprenderemos en el curso.
+
+Sin más, espero difruten el contenido. 
+
+Gracias!
+
+atte:
+
+Fernando Herrera
+
+### 1.9 ¡Únete a Nuestra Comunidad de DevTalles en Discord!
+
+![](https://files.cdn.thinkific.com/file_uploads/643563/images/c4f/52b/ecc/HOME-BANNER-COMUNIDAD-discord.jpg)
+
+Te invitamos a que formes parte de nuestra comunidad de DevTalles en Discord, un espacio donde tendrás la oportunidad de establecer conexiones con otros estudiantes, compartir y colaborar.
+
+**¿Cómo unirse?**
+
+- Haz clic en el siguiente enlace de invitación: [Comunidad DevTalles](https://discord.gg/pBjEVYTC7t)
+- Una vez dentro, cuéntanos un poco de ti en el canal de bienvenida(#presentate).  
+
+Estamos entusiasmados de tener nuevos miembros y crecer juntos como comunidad.
+
+¡Esperamos verte pronto en Discord!
+
+Atentamente,
+
+El equipo de DevTalles
+
+## 2. 
 
 ```
 ```
-### 1.9
 
 ```
 ```
