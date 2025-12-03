@@ -262,6 +262,31 @@ Y al final un exámen práctico y seguidamente un examen teórico.
 
 ### 3.2 Introducción a los tipos de datos
 
+Tipos de datos:
+
+Primitivos:
+
+- String
+- Number
+- Boolean
+- Symbol
+
+Compuestos:
+
+- Objetos literales
+- Funciones
+- Clases
+- Arreglos
+
+Permite:
+
+- Crear nuevos tipos
+- Interfaces
+- Genéricos
+- Tuplas
+
+### 3.3 
+
 
 ```
 ```
