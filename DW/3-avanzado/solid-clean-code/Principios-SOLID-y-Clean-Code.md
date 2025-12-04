@@ -136,27 +136,227 @@ Usualmente, para que una refactorización fuerte tenga el objetivo esperado, es 
 
 > "Programar es el arte de decirle a otro humano lo que quieres que la computadora haga". - Donald Knuth
 
-### 2.4
+### 2.4 Nombres pronunciables y expresivos
 
-### 2.5
+Al crear variables:
+
+- Tienen que estar en inglés
+- Tienen que ser pronunciables
+- Sin guiones bajos
+- No ahorrar caracteres
+
+```js
+// Bad ❌
+const n = 53;
+const tx = 0.15;
+const cat = 'T-Shirts';
+const ddmmyyyy = new Date('August 15, 1965 00:00:00');
+```
+
+```js
+// Better 👍
+const numberOfUnits = 53;
+const tax = 0.15;
+const category = 'T-Shirts';
+const birthDate = new Date('August 15, 1965 00:00:00');
+```
+
+```js
+// Bad ❌
+class AbstractUser {}
+class UserMinin {}
+class UserImplementation {}
+interface UserInterface {}
+```
+
+```js
+// Better 👍
+class User {}
+interface User {}
+```
+
+#### Ejercicio
+
+```js
+(() => {
+  // Ejemplo
+  // Archivos a evaluar - files to evaluate
+  const filesToEvaluate = [
+    { id: 1, flagged: false },
+    { id: 2, flagged: false },
+    { id: 3, flagged: true },
+    { id: 4, flagged: false },
+    { id: 5, flagged: false },
+    { id: 7, flagged: true },
+  ];
+
+  // Archivos marcados para borrar - files to delete
+  const filesToDelete = filesToEvaluate.map(
+    (file) => file.flagged
+  );
+
+  // Bad
+  class AbstractUser {}
+  class UserMixin {}
+  class UserImplementation {}
+  interface IUser {}
+
+  // Better
+  class User {}
+  interface User {}
+
+  // Todo: Tarea
+
+  // día de hoy - today
+  const today = new Date();
+
+  // días transcurridos - elapsed time in days
+  const timeElapsedInDays: number = 23;
+
+  // número de archivos en un directorio - number of files in directory
+  const numberOfFilesInDirectory = 33;
+
+  // primer nombre - first name
+  const firstName = 'Fernando';
+
+  // primer apellido - last name
+  const lastName = 'Herrera';
+
+  // días desde la última modificación - days since modification
+  const daysSinceLastModification = 12;
+
+  // cantidad máxima de clases por estudiante - max classes per student
+  const maxClassesPerStudent = 6;
+})();
+```
+
+[01- Ejercicio](https://gist.github.com/Klerith/625ef0d0a501f716ed5e3dbdf88396db)
+
+### 2.5 Nombres según el tipo de dato
+
+Arrays:
+
+```js
+// Bad ❌
+const fruit = ["apple", "banana", "strawberry"];
+```
+
+```js
+// Regular 👍
+const fruitList = ["apple", "banana", "strawberry"];
+```
+
+```js
+// Good ✅
+const fruits = ["apple", "banana", "strawberry"];
+```
+
+```js
+// Better 🐦‍🔥
+const fruitName = ["apple", "banana", "strawberry"];
+```
+
+Booleans:
+
+```js
+// Bad ❌
+const open = true;
+const write = true;
+const fruit = true;
+const active = false;
+const noValues = true;
+const notEmpty = true;
+```
+
+```js
+// Better 🐦‍🔥
+const isOpen = true;
+const canWrite = true;
+const hasFruit = true;
+const isActive = false;
+const hasValues = false;
+const isEmpty = false;
+```
+
+Number.
+
+```js
+// Bad ❌
+const fruits = 3;
+const cars = 10;
+```
+
+```js
+// Better 🐦‍🔥
+const maxFruits = 5;
+const minFruits = 1;
+const totalFruits = 3;
+const totalOfCars = 5;
+```
+
+Functions:
+
+```js
+// Bad ❌
+createUserIfNotExists();
+updateUserIfNotEmpty();
+sendEmailIfFieldsValid();
+```
+
+```js
+// Better 🐦‍🔥
+createUser();
+updateUser();
+sendEmail();
+```
 
 ### 2.6
 
-```
+```js
+// Bad ❌
 ```
 
+```js
+// Better 🐦‍🔥
+
 ```
+
+```js
+// Good ✅
+
 ```
+
+🐦‍🔥
 
 ### 2.7
 
+```js
+// Bad ❌
 ```
+
+```js
+// Better 🐦‍🔥
+
+```
+
+```js
+// Good ✅
+
 ```
 
 ```
 ```
 
 ### 2.8
+
+```js
+// Bad ❌
+```
+
+```js
+// Better 🐦‍🔥
+
+```
 
 ```
 ```
@@ -166,6 +366,16 @@ Usualmente, para que una refactorización fuerte tenga el objetivo esperado, es 
 
 ### 2.9
 
+
+```js
+// Bad ❌
+```
+
+```js
+// Better 👍
+
+```
+
 ```
 ```
 
@@ -173,6 +383,15 @@ Usualmente, para que una refactorización fuerte tenga el objetivo esperado, es 
 ```
 
 ### 2.10
+
+```js
+// Bad ❌
+```
+
+```js
+// Better 👍
+
+```
 
 ```
 ```
@@ -182,6 +401,15 @@ Usualmente, para que una refactorización fuerte tenga el objetivo esperado, es 
 
 ### 2.11
 
+```js
+// Bad ❌
+```
+
+```js
+// Better 👍
+
+```
+
 ```
 ```
 
@@ -189,6 +417,15 @@ Usualmente, para que una refactorización fuerte tenga el objetivo esperado, es 
 ```
 
 ### 2.12
+
+```js
+// Bad ❌
+```
+
+```js
+// Better 👍
+
+```
 
 ```
 ```
@@ -198,6 +435,15 @@ Usualmente, para que una refactorización fuerte tenga el objetivo esperado, es 
 
 ### 2.13
 
+```js
+// Bad ❌
+```
+
+```js
+// Better 👍
+
+```
+
 ```
 ```
 
@@ -205,6 +451,15 @@ Usualmente, para que una refactorización fuerte tenga el objetivo esperado, es 
 ```
 
 ### 2.14
+
+```js
+// Bad ❌
+```
+
+```js
+// Better 👍
+
+```
 
 ```
 ```
@@ -214,6 +469,15 @@ Usualmente, para que una refactorización fuerte tenga el objetivo esperado, es 
 
 ### 2.15
 
+```js
+// Bad ❌
+```
+
+```js
+// Better 👍
+
+```
+
 ```
 ```
 
@@ -221,6 +485,15 @@ Usualmente, para que una refactorización fuerte tenga el objetivo esperado, es 
 ```
 
 ### 2.16
+
+```js
+// Bad ❌
+```
+
+```js
+// Better 👍
+
+```
 
 ```
 ```
@@ -230,6 +503,15 @@ Usualmente, para que una refactorización fuerte tenga el objetivo esperado, es 
 
 ### 2.17
 
+```js
+// Bad ❌
+```
+
+```js
+// Better 👍
+
+```
+
 ```
 ```
 
@@ -237,6 +519,15 @@ Usualmente, para que una refactorización fuerte tenga el objetivo esperado, es 
 ```
 
 ### 2.18
+
+```js
+// Bad ❌
+```
+
+```js
+// Better 👍
+
+```
 
 ```
 ```
