@@ -817,17 +817,77 @@ Cuándo usar casteo
 
 Una tupla en TypeScript es una colección ordenada de elementos que puede almacenar diferentes tipos de datos, y donde tanto el tamaño como el tipo de cada elemento son conocidos de antemano. A diferencia de los arrays convencionales, que típicamente contienen elementos del mismo tipo, las tuplas permiten mezclar tipos y garantizan el orden en que se deben encontrar. 
 
-### 3.11
+### 3.11 Enum - Enumeraciones
 
-`./bases/app.ts`
+`./bases/tipos/enums.ts`
 
 ```ts
+(() => {
+  enum AudioLevel {
+    min,
+    medium,
+    max,
+  }
 
+  const currentAudio = AudioLevel.medium;
+  // const currentAudio = AudioLevel[0]; // min
+
+
+  console.log(currentAudio);
+  console.log(AudioLevel);
+})();
+
+// We obtain
+1
+Object { 
+  0: "min",
+  1: "medium",
+  2: "max",
+  min: 0,
+  medium: 1,
+  max: 2
+}
 ```
-👈🏼👀
-🔥
-📌
-☢️
+
+`./bases/index.html`
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Bases de TypeScript</title>
+  </head>
+  <body>
+    <script src="./tipos/enums.js" type="module"></script>
+  </body>
+</html>
+```
+
+```ts
+(() => {
+  enum AudioLevel {
+    min = 1,
+    medium,
+    max = 10,
+  }
+
+  // const currentAudio = AudioLevel.min; // 1
+  // const currentAudio = AudioLevel.medium; // 2
+  // const currentAudio = AudioLevel[1]; // 1
+  // let currentAudio: AudioLevel = 10;
+  let currentAudio: AudioLevel = AudioLevel.medium;
+
+  console.log(currentAudio);
+  console.log(AudioLevel);
+})();
+```
+
+Un enum en TypeScript es una característica que permite crear un tipo de dato para un conjunto de constantes con nombre. Esto hace el código más legible, fácil de mantener y ayuda a evitar errores al usar valores predefinidos como, por ejemplo, los estados de un sistema o los tipos de una variable. Las enumeraciones pueden basarse en números, en cadenas de texto o incluso una combinación de ambos.
 
 ### 3.12
 
