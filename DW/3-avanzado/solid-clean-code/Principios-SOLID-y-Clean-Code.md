@@ -404,43 +404,61 @@ const sendEmail = (toWhom: string): boolean => {
 sendEmail("aleroses@google.com");
 ```
 
-Se recomienda limitar los parametros a 3.
+Se recomienda limitar los parámetros a 3.
+
+### 2.9 Ejercicio con funciones
 
 ```js
-// Good ✅
+(() => {
+  function getMovieById(id: string) {
+    console.log({ id });
+  }
 
+  function getMovieCastById(id: string) {
+    console.log({ id });
+  }
+
+  function getActorBioById(ActorId: string) {
+    console.log({ ActorId });
+  }
+
+  interface Movie {
+    cast: string[];
+    description: string;
+    rating: number;
+    title: string;
+  }
+
+  function createMovie({
+    title,
+    description,
+    rating,
+    cast,
+  }: Movie) {
+    console.log({ title, description, rating, cast });
+  }
+
+  const checkFullName = (fullName: string): string => {
+    return fullName === 'fernando' ? fullName : '';
+  };
+
+  function createActor(
+    fullName: string,
+    birthdate: Date
+  ): boolean {
+    // tarea asincrona para verificar nombre
+    // ..
+    // ..
+    if (checkFullName(fullName)) return false;
+
+    console.log('Crear actor', birthdate);
+    return true;
+  }
+})();
 ```
 
-```js
-// Better 🐦‍🔥
+[Ejercicio de funciones](https://gist.github.com/Klerith/d9278895ff5dcacf6f1001d447fb443a)
 
-```
-
-```
-```
-
-```
-```
-🐦‍🔥
-👀👇🏻
-### 2.9
-
-
-```js
-// Bad ❌
-```
-
-```js
-// Better 👍
-
-```
-
-```
-```
-
-```
-```
-🐦‍🔥
 ### 2.10
 
 ```js
@@ -457,6 +475,10 @@ Se recomienda limitar los parametros a 3.
 
 ```
 ```
+
+🐦‍🔥
+👀👇🏻
+
 
 ### 2.11
 
