@@ -674,18 +674,69 @@ Number.isNaN(Number("x")) // true
 </html>
 ```
 
-### 3.8
+### 3.8 Tipo Any
 
-`./bases/tipos/booleans.ts`
+`./bases/tipos/any.ts`
 
 ```ts
+(() => {
+  let avenger: any;
+  const exists: boolean = false;
+  let power;
 
+  avenger = 'Dr. Strange';
+  console.log(avenger[0]);
+  console.log(avenger.charAt(0));
+  console.log((avenger as string).charAt(0));
+
+  avenger = 150.2344;
+  console.log((<number>avenger).toFixed(2));
+  console.log(<number>avenger.toFixed(2));
+})();
 ```
-👈🏼👀
-🔥
-📌
-☢️
-### 3.9
+
+`./bases/index.html`
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Bases de TypeScript</title>
+  </head>
+  <body>
+    <script src="./tipos/any.js" type="module"></script>
+  </body>
+</html>
+```
+
+El casteo en TypeScript
+
+Es la práctica de decirle al compilador que trate una variable como un tipo diferente, aunque el valor subyacente no cambia en tiempo de ejecución. Se usa principalmente con tipos `any` o `unknown`, o cuando TypeScript no puede inferir el tipo automáticamente. La forma recomendada es usar la palabra clave `as` (`let variable as Tipo`), aunque también se puede usar la sintaxis `<Tipo>variable`, que no funciona en archivos JSX. 
+
+Métodos de casteo
+
+```ts
+let value: any = "esto es una cadena";
+
+// Usando la palabra clave 'as' (recomendado)
+let strLength: number = (value as string).length;
+
+// Usando la sintaxis de corchetes angulares
+// let strLength: number = <string>value.length;
+```
+
+Cuándo usar casteo
+
+- **Tipos `any` o `unknown`**: Cuando necesitas trabajar con una variable de tipo `any` o `unknown` y estás seguro de su tipo.
+- **Librerías externas**: Para trabajar con API externas o bibliotecas cuyos valores no están bien tipados.
+- **Anulación de tipos**: Cuando necesitas decirle al compilador que ignore un tipo y lo trate como otro, por ejemplo, al trabajar con elementos del DOM
+
+### 3.9 Arrays - Arreglos
 
 `./bases/app.ts`
 
@@ -700,6 +751,7 @@ Number.isNaN(Number("x")) // true
 👈🏼👀
 🔥
 📌
+☢️
 ### 3.10
 
 `./bases/app.ts`
@@ -710,6 +762,7 @@ Number.isNaN(Number("x")) // true
 👈🏼👀
 🔥
 📌
+☢️
 ### 3.11
 
 `./bases/app.ts`
@@ -717,6 +770,10 @@ Number.isNaN(Number("x")) // true
 ```ts
 
 ```
+👈🏼👀
+🔥
+📌
+☢️
 
 ### 3.12
 
@@ -725,6 +782,11 @@ Number.isNaN(Number("x")) // true
 ```ts
 
 ```
+
+👈🏼👀
+🔥
+📌
+☢️
 
 ### 3.13
 
@@ -737,6 +799,10 @@ Number.isNaN(Number("x")) // true
 ```
 ```
 👈🏼👀
+🔥
+📌
+☢️
+
 ### 3.14
 
 `./bases/app.ts`
@@ -748,6 +814,11 @@ Number.isNaN(Number("x")) // true
 ```
 ```
 
+👈🏼👀
+🔥
+📌
+☢️
+
 ### 3.15
 
 `./bases/app.ts`
@@ -755,6 +826,11 @@ Number.isNaN(Number("x")) // true
 ```ts
 
 ```
+
+👈🏼👀
+🔥
+📌
+☢️
 
 ### 3.16
 
@@ -764,6 +840,10 @@ Number.isNaN(Number("x")) // true
 
 ```
 👈🏼👀
+🔥
+📌
+☢️
+
 ### 3.17
 
 `./bases/app.ts`
@@ -774,6 +854,11 @@ Number.isNaN(Number("x")) // true
 
 ```
 ```
+
+👈🏼👀
+🔥
+📌
+☢️
 
 ### 3.18
 
