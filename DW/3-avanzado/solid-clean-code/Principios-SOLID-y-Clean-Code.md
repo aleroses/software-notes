@@ -459,7 +459,68 @@ Se recomienda limitar los parámetros a 3.
 
 [Ejercicio de funciones](https://gist.github.com/Klerith/d9278895ff5dcacf6f1001d447fb443a)
 
-### 2.10
+### 2.10 Detalles adicionales sobre funciones
+
+Otras recomendaciones:
+
+- Simplicidad es fundamental.
+- Funciones de tamaño reducido.
+- Funciones de una sola línea sin causar complejidad.
+- Menos de 20 líneas.
+- Evita el uso de "else".
+- Prioriza el uso de la condicional ternaria.
+
+```js
+// Bad ❌
+(() => {
+  const getPayAmount = ({
+    isDead = false,
+    isSeparated = true,
+    isRetired = false,
+  }) => {
+    let result;
+    if (isDead) {
+      result = 1500;
+    } else {
+      if (isSeparated) {
+        result = 2500;
+      } else {
+        if (isRetired) {
+          result = 3000;
+        } else {
+          result = 4000;
+        }
+      }
+    }
+
+    return result;
+  };
+})();
+```
+
+```js
+// Better 🐦‍🔥
+(() => {
+  // Continue
+  const getPayAmount = ({
+    isDead = false,
+    isSeparated = true,
+    isRetired = false,
+  }): number => {
+    if (isDead) return 1500;
+    if (isSeparated) return 2500;
+
+    // if (isRetired)   return 3000;
+    // return 4000;
+
+    return isRetired ? 3000 : 4000;
+  };
+})();
+```
+
+[Función complicada](https://gist.github.com/Klerith/42d6d3a2ce5585d701afc67ca7a4a325)
+
+### 2.11
 
 ```js
 // Bad ❌
@@ -479,24 +540,6 @@ Se recomienda limitar los parámetros a 3.
 🐦‍🔥
 👀👇🏻
 
-
-### 2.11
-
-```js
-// Bad ❌
-```
-
-```js
-// Better 👍
-
-```
-
-```
-```
-
-```
-```
-
 ### 2.12
 
 ```js
@@ -514,6 +557,9 @@ Se recomienda limitar los parámetros a 3.
 ```
 ```
 
+🐦‍🔥
+👀👇🏻
+
 ### 2.13
 
 ```js
@@ -530,6 +576,9 @@ Se recomienda limitar los parámetros a 3.
 
 ```
 ```
+
+🐦‍🔥
+👀👇🏻
 
 ### 2.14
 
