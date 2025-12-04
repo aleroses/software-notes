@@ -889,18 +889,44 @@ Object {
 
 Un enum en TypeScript es una característica que permite crear un tipo de dato para un conjunto de constantes con nombre. Esto hace el código más legible, fácil de mantener y ayuda a evitar errores al usar valores predefinidos como, por ejemplo, los estados de un sistema o los tipos de una variable. Las enumeraciones pueden basarse en números, en cadenas de texto o incluso una combinación de ambos.
 
-### 3.12
+### 3.12 Void - Vacío
 
-`./bases/app.ts`
+`./bases/tipos/void.ts`
 
 ```ts
+(() => {
+  const callBatman = (): void => {
+    return; // undefined
+  };
 
+  const callSuperman = (): void => {
+    return undefined;
+  };
+
+  const a = callBatman();
+
+  console.log(a);
+})();
 ```
 
-👈🏼👀
-🔥
-📌
-☢️
+`./bases/index.html`
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Bases de TypeScript</title>
+  </head>
+  <body>
+    <script src="./tipos/void.js" type="module"></script>
+  </body>
+</html>
+```
 
 ### 3.13
 
