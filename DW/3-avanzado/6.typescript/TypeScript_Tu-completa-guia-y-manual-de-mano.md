@@ -932,49 +932,103 @@ En TypeScript, `void` se usa para indicar que una función no devuelve ningún v
 
 ### 3.13 Never - Nunca
 
-`./bases/app.ts`
+`./bases/tipos/never.ts`
 
 ```ts
+(() => {
+  const error = (message: string): never => {
+    throw new Error(message);
+  };
 
+  error('Auxilio');
+
+  // It doesn't get to that point.
+  const help = (message: string): never | number => {
+    if (false) {
+      throw new Error(message);
+    }
+
+    return 1;
+  };
+
+  help('Help me!');
+
+  // It doesn't get to that point.
+  console.log('Hi world!');
+})();
 ```
 
-```
-```
-👈🏼👀
-🔥
-📌
-☢️
+`./bases/index.html`
 
-### 3.14
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Bases de TypeScript</title>
+  </head>
+  <body>
+    <script src="./tipos/never.js" type="module"></script>
+  </body>
+</html>
+```
 
-`./bases/app.ts`
+En TypeScript, `never` representa un valor que **nunca ocurre**. Se usa para funciones que nunca terminan normalmente, ya sea porque lanzan un error, tienen un bucle infinito o una sentencia de salida como `process.exit()`. Es un tipo especial que indica que el programa nunca llegará a un estado de retorno en ese punto.
+
+### 3.14 Null y Undefined
+
+`./bases/tipos/null-undefined.ts`
 
 ```ts
+(() => {
+  // strictNullChecks = false
+  let nothing: undefined = undefined;
 
+  console.log(nothing);
+})();
 ```
 
+`./bases/index.html`
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Bases de TypeScript</title>
+  </head>
+  <body>
+    <script
+      src="./tipos/null-undefined.js"
+      type="module"
+    ></script>
+  </body>
+</html>
 ```
-```
 
-👈🏼👀
-🔥
-📌
-☢️
+### 3.15 Ejercicio práctico #1.
 
-### 3.15
+Descargar el archivo adjunto
 
-`./bases/app.ts`
+La explicación de la tarea se las explico en el siguiente video
 
-```ts
+Recursos de la lección:
 
-```
+- [app.ts.zip](https://import.cdn.thinkific.com/643563/courses/1870132/appts-220520-123101.zip)
 
-👈🏼👀
-🔥
-📌
-☢️
+### 3.16 
 
-### 3.16
+
+
+
 
 `./bases/app.ts`
 
