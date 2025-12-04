@@ -382,11 +382,29 @@ class SpecialMonsterView {};
 
 Más palabras `!==` mejor nombre.
 
-### 2.8
+### 2.8 Nombres de funciones, argumentos y parámetros
+
+Sabemos que estamos desarrollando código limpio cuando cada función hace exactamente lo que su nombre indica.
 
 ```js
-// Bad ❌
+//     Parameters 👀👇🏻
+const sendEmail = (toWhom: string): boolean => {
+  // Check email
+  if (!toWhom.includes('@')) return false;
+
+  // Body
+
+  // Send email
+
+  // if everything goes well
+  return true;
+};
+
+// Arguments 👀👇🏻
+sendEmail("aleroses@google.com");
 ```
+
+Se recomienda limitar los parametros a 3.
 
 ```js
 // Good ✅
@@ -404,6 +422,7 @@ Más palabras `!==` mejor nombre.
 ```
 ```
 🐦‍🔥
+👀👇🏻
 ### 2.9
 
 
