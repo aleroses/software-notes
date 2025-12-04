@@ -928,7 +928,9 @@ Un enum en TypeScript es una característica que permite crear un tipo de dato p
 </html>
 ```
 
-### 3.13
+En TypeScript, `void` se usa para indicar que una función no devuelve ningún valor. Se utiliza para funciones que realizan una acción, como imprimir en la consola, en lugar de calcular y devolver un resultado. Es un tipo de retorno que declara explícitamente que no se debe devolver ningún valor.
+
+### 3.13 Never - Nunca
 
 `./bases/app.ts`
 
