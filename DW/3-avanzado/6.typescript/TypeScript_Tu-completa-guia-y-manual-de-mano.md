@@ -738,7 +738,6 @@ Cuándo usar casteo
 
 ### 3.9 Arrays - Arreglos
 
-
 `./bases/tipos/arrays.ts`
 
 ```ts
@@ -776,17 +775,48 @@ Cuándo usar casteo
 </html>
 ```
 
-### 3.10
+### 3.10 Tuples - Tuplas
 
-`./bases/app.ts`
+`./bases/tipos/tuples.ts`
 
 ```ts
+(() => {
+  const hero: [string, number] = ['Dr. Strange', 100];
+  const villain: [string, number, boolean] = [
+    'Dr. Strange',
+    100,
+    true,
+  ];
 
+  villain[0] = 'IronMan';
+  villain[1] = 50;
+  villain[2] = true;
+
+  console.log({ hero, villain });
+})();
 ```
-👈🏼👀
-🔥
-📌
-☢️
+
+`./bases/index.html`
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Bases de TypeScript</title>
+  </head>
+  <body>
+    <script src="./tipos/tuples.js" type="module"></script>
+  </body>
+</html>
+```
+
+Una tupla en TypeScript es una colección ordenada de elementos que puede almacenar diferentes tipos de datos, y donde tanto el tamaño como el tipo de cada elemento son conocidos de antemano. A diferencia de los arrays convencionales, que típicamente contienen elementos del mismo tipo, las tuplas permiten mezclar tipos y garantizan el orden en que se deben encontrar. 
+
 ### 3.11
 
 `./bases/app.ts`
