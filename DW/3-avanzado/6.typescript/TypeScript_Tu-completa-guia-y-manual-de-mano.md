@@ -637,25 +637,43 @@ Number.isNaN(Number("x")) // true
 |`[5]`       |5                    |
 |`{}`        |NaN                  |
 
-### 3.7 Strings - Cadenas de caracteresc
+### 3.7 Strings - Cadenas de caracteres
 
-`./bases/tipos/booleans.ts`
-
-```ts
-
-```
-
-`./bases/tipos/booleans.ts`
+`./bases/tipos/strings.ts`
 
 ```ts
+(() => {
+  const batman: string = 'Batman';
+  const linternaVerde: string = 'Linterna Verde';
+  const volcanNegro: string = `Héroe: Volcan Negro`;
+  const abc = 123;
 
+  console.log(`I'm ${batman}, ${abc}`);
+
+  console.log(batman.toUpperCase().length);
+  console.log(batman[10]?.toUpperCase() || 'Not present!');
+})();
 ```
 
+`./bases/index.html`
 
-👈🏼👀
-🔥
-📌
-☢️
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Bases de TypeScript</title>
+  </head>
+  <body>
+    <script src="./tipos/strings.js" type="module"></script>
+  </body>
+</html>
+```
+
 ### 3.8
 
 `./bases/tipos/booleans.ts`
