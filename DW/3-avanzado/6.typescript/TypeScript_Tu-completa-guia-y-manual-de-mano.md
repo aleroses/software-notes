@@ -1024,7 +1024,134 @@ Recursos de la lección:
 
 - [app.ts.zip](https://import.cdn.thinkific.com/643563/courses/1870132/appts-220520-123101.zip)
 
-### 3.16 
+### 3.16 Tarea y Resolución del Ejercicio #1
+
+`./app.ts`
+
+```ts
+(() => {
+  // Tipos
+  const batman: string = 'Bruce';
+  const superman: string = 'Clark';
+
+  const existe: boolean = false;
+
+  // Tuplas
+  const parejaHeroes: [string, string] = [batman, superman];
+  const villano: [string, number, boolean] = [
+    'Lex Lutor',
+    5,
+    true,
+  ];
+
+  // Arreglos
+  const aliados: string[] = [
+    'Mujer Maravilla',
+    'Acuaman',
+    'San',
+    'Flash',
+  ];
+
+  //Enumeraciones
+  // Si no tienen valor debe ir en orden
+  enum Power {
+    acuaman = 0,
+    batman = 1,
+    flash = 5,
+    superman = 100,
+  }
+
+  const flashPower: Power = Power.flash;
+  // const fuerzaFlash = 5;
+  // const fuerzaSuperman = 100;
+  // const fuerzaBatman = 1;
+  // const fuerzaAcuaman = 0;
+
+  // Retorno de funciones
+  function activarBatiseñal(): string {
+    return 'activada';
+  }
+
+  function pedirAyuda(): void {
+    console.log('Auxilio!!!');
+  }
+
+  // Aserciones de Tipo
+  const poder: any = '100';
+  const largoDelPoder: number = (poder as string).length;
+  console.log(largoDelPoder);
+})();
+```
+
+### 3.17 Exámen teórico #1
+
+A continuación, vamos a repasar un poco todo lo aprendido hasta el momento...
+
+### 3.18 Quiz 1: Exámen teórico #1
+
+1.  ¿Quién es el fundador de TypeScript?
+	- Microsoft
+2. ¿Cómo se define un arreglo de Strings en TypeScript?
+	- `var arreglo = ["texto","texto","texto","texto"]`
+	- `let arreglo = ["texto","texto","texto","texto"]`
+	- `var arreglo:string[ ] = ["texto","texto","texto","texto"]`
+	- `let arreglo:string[ ] = ["texto","texto","texto","texto"]`
+	- ✅ Todas las anteriores
+3. ¿El siguiente código es válido en TypeScript?
+	```ts
+	let arr:string[] = ["Text", "Text", "Text"];
+	arr.push("10");
+	```
+	- Verdadero
+4. ¿El siguiente código es válido en TypeScript?
+	`let arr:number = [1,2,3,4,5,6,7,8,9,10];`
+	- Falso
+5. ¿El siguiente código es válido en TypeScript?
+	`let arr:any = [1,2,3,4,5,6,7,8,9,10];`
+	- Verdadero
+6. ¿Qué es esto?
+	`let variable:[number,string,boolean] = [10,"texto",true];`
+	- Tupla
+7. ¿El siguiente código es una declaración válida de un string?
+	```ts
+	let string = `2.
+	3.
+  4.
+  5.
+  6.`;
+	```
+	- Verdadero
+8. ¿El siguiente código es válido en TypeScript?
+	`let vacio:null = undefined;`
+	- Falso
+9. Dada la siguiente enumeración, que valor tiene "C"
+	```ts
+	enum Enumeracion {
+	a,
+	b,
+	c,
+	d
+	}
+	```
+	- 2
+10. Dada la siguiente enumeración, ¿Qué valor tiene "d"?
+	```ts
+	enum Enumeracion {
+	  a = 10,
+	  b,
+	  c = 9,
+	  d
+	}
+	```
+	- 10: Como "c" es igual a 9, el siguiente valor es 10, no importa que se repita el valor de la enumeración.
+
+
+
+
+
+
+
+
 
 
 
@@ -1035,45 +1162,22 @@ Recursos de la lección:
 ```ts
 
 ```
+
+```
+```
+
+```
+```
+
+```
+```
+
+```
+```
+
+👈🏼👀
+
 👈🏼👀
 🔥
 📌
 ☢️
-
-### 3.17
-
-`./bases/app.ts`
-
-```ts
-
-```
-
-```
-```
-
-👈🏼👀
-🔥
-📌
-☢️
-
-### 3.18
-
-`./bases/app.ts`
-
-```ts
-
-```
-
-```
-```
-
-```
-```
-
-```
-```
-
-```
-```
-
-👈🏼👀
