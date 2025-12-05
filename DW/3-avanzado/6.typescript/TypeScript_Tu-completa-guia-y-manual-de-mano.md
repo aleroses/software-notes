@@ -1206,20 +1206,52 @@ Al final de la sección, tendremos el examen práctico y el examen teórico.
 </html>
 ```
 
-### 4.3
+### 4.3 Parámetros obligatorios de las funciones
 
-`./bases/funciones/functions.ts`
+`./bases/funciones/args-required.ts`
 
 ```ts
+(() => {
+  const fullName = (
+    firstName: string,
+    lastName: string | boolean
+  ): string => {
+    return `${firstName} ${lastName}`;
+  };
 
+  // Variable "noName" is used before being assigned
+  let noName: string;
+  // const name = fullName('Tony', 'Stark');
+  const name = fullName(noName, 'Stark');
+
+  console.log({ name });
+  // undefined, Stark
+})();
 ```
 
 `./bases/index.html`
 
 ```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Bases de TypeScript</title>
+  </head>
+  <body>
+    <script
+      src="./funciones/args-required.js"
+      type="module"
+    ></script>
+  </body>
+</html>
 ```
 
-### 4.4
+### 4.4 Parámetros opcionales de las funciones
 
 `./bases/funciones/functions.ts`
 
