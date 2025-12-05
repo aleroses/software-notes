@@ -1145,7 +1145,24 @@ A continuación, vamos a repasar un poco todo lo aprendido hasta el momento...
 	```
 	- 10: Como "c" es igual a 9, el siguiente valor es 10, no importa que se repita el valor de la enumeración.
 
+## 4. Funciones y objetos
 
+### 1. ¿Qué veremos en esta sección?
+
+Esta sección está enfocada en aprender como trabajan las funciones en TypeScript y también nos enfocaremos en aplicar buenas prácticas a la hora de crearlas.
+
+Puntualmente tenemos:
+
+1. Declaraciones básicas de funciones
+2. Parámetros obligatorios
+3. Parámetros opcionales
+4. Parámetros por defecto
+5. Parámetros REST
+6. Tipo de datos "Function"
+
+Al final de la sección, tendremos el examen práctico y el examen teórico.
+
+### 2. Funciones básicas
 
 
 
