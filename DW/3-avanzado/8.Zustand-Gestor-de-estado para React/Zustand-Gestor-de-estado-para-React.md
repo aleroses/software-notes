@@ -182,7 +182,7 @@ El equipo de DevTalles
 
 ### 2.1 Introducción a la sección
 
-### 2.2 v de la sección
+### 2.2 Temas puntuales de la sección
 
 En esta sección tendremos las bases de Zustand, como son:
 
