@@ -140,4 +140,62 @@ Muchos me preguntan sobre mis ajustes de VSCode, aquí se los dejo como los esto
 
 [Instalaciones necesarias y opcionales](https://gist.github.com/Klerith/75e5bc8c3168d0896e68828829647bdf)
 
-## 1.4 
+### 1.4 Descarga e instalación de proyecto inicial
+
+[Admin Dashboard - Tailwind](https://github.com/Klerith/zustand-mini-curso)
+
+```bash
+git clone git@github.com:Klerith/zustand-mini-curso.git
+mv zustand-mini-curso zustand-dashboard
+
+cd zustand-dashboard
+npm i
+npm run dev
+```
+
+Activar parpadeo:
+
+- React Developed Tools
+- Components
+- ⚙️
+- [x] Highlight updates when components render.
+- 
+
+### 1.5 ¡Únete a Nuestra Comunidad de DevTalles en Discord!
+
+Te invitamos a que formes parte de nuestra comunidad de DevTalles en Discord, un espacio donde tendrás la oportunidad de establecer conexiones con otros estudiantes, compartir y colaborar.
+
+¿Cómo unirse?
+
+- Haz clic en el siguiente enlace de invitación: Comunidad DevTalles
+- Una vez dentro, cuéntanos un poco de ti en el canal de bienvenida(#presentate).
+
+Estamos entusiasmados de tener nuevos miembros y crecer juntos como comunidad.
+
+¡Esperamos verte pronto en Discord!
+
+Atentamente,
+
+El equipo de DevTalles
+
+## 2. Bases de Zustand
+
+### 2.1 Introducción a la sección
+
+### 2.2 v de la sección
+
+En esta sección tendremos las bases de Zustand, como son:
+
+- Instalaciones
+- Configuraciones
+- Propiedades computadas
+- Objetos anidados
+- Actualizaciones de estado
+- Configuraciones con TypeScript
+- useShallow
+
+Esta sección nos dejará las bases para poder entender el objetivo de este gestor de estado tan poderoso.
+
+### 2.3 
+
+⚙️
