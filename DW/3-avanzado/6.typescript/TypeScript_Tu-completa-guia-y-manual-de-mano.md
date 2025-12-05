@@ -1147,7 +1147,7 @@ A continuación, vamos a repasar un poco todo lo aprendido hasta el momento...
 
 ## 4. Funciones y objetos
 
-### 1. ¿Qué veremos en esta sección?
+### 4.1. ¿Qué veremos en esta sección?
 
 Esta sección está enfocada en aprender como trabajan las funciones en TypeScript y también nos enfocaremos en aplicar buenas prácticas a la hora de crearlas.
 
@@ -1162,26 +1162,155 @@ Puntualmente tenemos:
 
 Al final de la sección, tendremos el examen práctico y el examen teórico.
 
-### 2. Funciones básicas
+### 4.2. Funciones básicas
 
+`./bases/funciones/functions.ts`
 
+```ts
+(() => {
+  const hero: string = 'Flash';
 
+  function returnName(): string {
+    return hero;
+  }
 
+  const activeBatiSignal = (): string => {
+    return 'Bat-signal Activated!';
+  };
 
+  console.log(typeof activeBatiSignal);
 
+  const heroName = returnName();
+})();
+```
 
+`./bases/index.html`
 
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Bases de TypeScript</title>
+  </head>
+  <body>
+    <script
+      src="./funciones/functions.js"
+      type="module"
+    ></script>
+  </body>
+</html>
+```
 
+### 4.3
 
-
-`./bases/app.ts`
+`./bases/funciones/functions.ts`
 
 ```ts
 
 ```
 
+`./bases/index.html`
+
+```html
 ```
+
+### 4.4
+
+`./bases/funciones/functions.ts`
+
+```ts
+
 ```
+
+`./bases/index.html`
+
+```html
+```
+
+### 4.5
+
+`./bases/funciones/functions.ts`
+
+```ts
+
+```
+
+`./bases/index.html`
+
+```html
+```
+
+### 4.6
+
+`./bases/funciones/functions.ts`
+
+```ts
+
+```
+
+`./bases/index.html`
+
+```html
+```
+
+### 4.7
+
+`./bases/funciones/functions.ts`
+
+```ts
+
+```
+
+`./bases/index.html`
+
+```html
+```
+
+### 4.8
+
+`./bases/funciones/functions.ts`
+
+```ts
+
+```
+
+`./bases/index.html`
+
+```html
+```
+
+
+### 4.9
+
+`./bases/funciones/functions.ts`
+
+```ts
+
+```
+
+`./bases/index.html`
+
+```html
+```
+
+### 4.10
+
+`./bases/funciones/functions.ts`
+
+```ts
+
+```
+
+`./bases/index.html`
+
+```html
+```
+
 
 ```
 ```
