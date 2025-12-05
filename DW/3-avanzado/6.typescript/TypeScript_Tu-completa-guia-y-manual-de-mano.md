@@ -1251,20 +1251,100 @@ Al final de la sección, tendremos el examen práctico y el examen teórico.
 </html>
 ```
 
+Parámetros obligatorios
+
+- Son los que **siempre** se deben proporcionar al llamar a la función.
+- Se declaran de forma estándar, sin ningún modificador especial. 
+
+```js
+// 'nombre' es obligatorio
+function obtenerNombreCompleto(nombre: string, apellido: string): string {
+  return `${nombre} ${apellido}`;
+}
+```
+
 ### 4.4 Parámetros opcionales de las funciones
 
-`./bases/funciones/functions.ts`
+`./bases/funciones/args-optional.ts`
 
 ```ts
+(() => {
+  const fullName = (
+    firstName: string,
+    lastName?: string | boolean
+  ): string => {
+    return `${firstName} ${lastName || 'no lastname'}`;
+  };
 
+  const name = fullName('Tony');
+
+  console.log({ name });
+  // Tony undefined
+})();
 ```
 
 `./bases/index.html`
 
 ```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Bases de TypeScript</title>
+  </head>
+  <body>
+    <script
+      src="./funciones/args-optional.js"
+      type="module"
+    ></script>
+  </body>
+</html>
 ```
 
-### 4.5
+Los parámetros **obligatorios** son los que siempre deben pasarse al llamar a una función, mientras que los **opcionales** pueden omitirse. Para declarar un parámetro opcional en TypeScript, se añade un signo de interrogación (`?`) después de su nombre en la firma de la función. 
+
+> Es importante que los parámetros opcionales se listen después de los obligatorios. 
+
+```ts
+// Ejemplo con parámetros obligatorios y opcionales
+function saludar(nombre: string, saludo?: string): void {
+  if (saludo) {
+    console.log(`${saludo}, ${nombre}`);
+  } else {
+    console.log(`Hola, ${nombre}`);
+  }
+}
+
+saludar("Mundo"); // Salida: Hola, Mundo
+saludar("Universo", "Buenos días"); // Salida: Buenos días, Universo
+```
+
+Parámetros opcionales
+
+- Pueden **omitirse** al llamar a la función.
+- Se marcan con un signo de interrogación (`?`) después de su nombre en la definición de la función.
+- Deben declararse **después** de los parámetros obligatorios en la firma de la función.
+- Si se omite un parámetro opcional, su valor dentro de la función será `undefined`. 
+
+```ts
+// 'edad' es opcional
+function saludarConEdad(nombre: string, edad?: number): void {
+  if (edad === undefined) {
+    console.log(`Hola, ${nombre}`);
+  } else {
+    console.log(`Hola, ${nombre}. Tienes ${edad} años.`);
+  }
+}
+
+saludarConEdad("Ana"); // Salida: Hola, Ana
+saludarConEdad("Carlos", 30); // Salida: Hola, Carlos. Tienes 30 años.
+```
+
+### 4.5 Parámetros por defecto
 
 `./bases/funciones/functions.ts`
 
