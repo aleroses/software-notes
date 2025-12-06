@@ -1091,28 +1091,28 @@ A continuación, vamos a repasar un poco todo lo aprendido hasta el momento...
 
 1.  ¿Quién es el fundador de TypeScript?
 	- Microsoft
-2. ¿Cómo se define un arreglo de Strings en TypeScript?
+2. ¿Cómo se define un arreglo de Strings en TypeScript?  
 	- `var arreglo = ["texto","texto","texto","texto"]`
 	- `let arreglo = ["texto","texto","texto","texto"]`
 	- `var arreglo:string[ ] = ["texto","texto","texto","texto"]`
 	- `let arreglo:string[ ] = ["texto","texto","texto","texto"]`
 	- ✅ Todas las anteriores
-3. ¿El siguiente código es válido en TypeScript?
+3. ¿El siguiente código es válido en TypeScript?  
 	```ts
 	let arr:string[] = ["Text", "Text", "Text"];
 	arr.push("10");
 	```
 	- Verdadero
-4. ¿El siguiente código es válido en TypeScript?
+4. ¿El siguiente código es válido en TypeScript?  
 	`let arr:number = [1,2,3,4,5,6,7,8,9,10];`
 	- Falso
-5. ¿El siguiente código es válido en TypeScript?
+5. ¿El siguiente código es válido en TypeScript?  
 	`let arr:any = [1,2,3,4,5,6,7,8,9,10];`
 	- Verdadero
-6. ¿Qué es esto?
+6. ¿Qué es esto?  
 	`let variable:[number,string,boolean] = [10,"texto",true];`
 	- Tupla
-7. ¿El siguiente código es una declaración válida de un string?
+7. ¿El siguiente código es una declaración válida de un string?  
 	```ts
 	// let string = `2.
 	// 3.
@@ -1121,10 +1121,10 @@ A continuación, vamos a repasar un poco todo lo aprendido hasta el momento...
   // 6.`;
 	```
 	- Verdadero
-8. ¿El siguiente código es válido en TypeScript?
+8. ¿El siguiente código es válido en TypeScript?  
 	`let vacio:null = undefined;`
 	- Falso
-9. Dada la siguiente enumeración, que valor tiene "C"
+9. Dada la siguiente enumeración, que valor tiene "C"  
 	```ts
 	enum Enumeracion {
 	a,
@@ -1134,7 +1134,7 @@ A continuación, vamos a repasar un poco todo lo aprendido hasta el momento...
 	}
 	```
 	- 2
-10. Dada la siguiente enumeración, ¿Qué valor tiene "d"?
+10. Dada la siguiente enumeración, ¿Qué valor tiene "d"?  
 	```ts
 	enum Enumeracion {
 	  a = 10,
