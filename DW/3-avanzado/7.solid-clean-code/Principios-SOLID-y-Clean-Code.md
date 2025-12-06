@@ -697,7 +697,10 @@ También:
 })();
 ```
 
+`Record<string, string[]>` significa:
 
+- las claves son `string`
+- los valores son `string[]`
 
 ### 2.13
 
