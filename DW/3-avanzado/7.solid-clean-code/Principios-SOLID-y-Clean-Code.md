@@ -702,7 +702,7 @@ También:
 - las claves son `string`
 - los valores son `string[]`
 
-### 2.13
+### 2.13 Principio DRY
 
 ```js
 // Bad ❌

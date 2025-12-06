@@ -1346,15 +1346,51 @@ saludarConEdad("Carlos", 30); // Salida: Hola, Carlos. Tienes 30 años.
 
 ### 4.5 Parámetros por defecto
 
-`./bases/funciones/functions.ts`
+`./bases/funciones/args-default.ts`
 
 ```ts
+(() => {
+  const fullName = (
+    firstName: string,
+    lastName?: string | boolean,
+    upper: boolean = false
+  ): string => {
+    if (upper) {
+      return `${firstName} ${
+        lastName || '-----'
+      }`.toUpperCase();
+    }
 
+    return `${firstName} ${lastName || 'no lastname'}`;
+  };
+
+  const name = fullName('Tony', 'Stark', true);
+
+  console.log({ name });
+  // Tony undefined
+})();
 ```
 
 `./bases/index.html`
 
 ```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Bases de TypeScript</title>
+  </head>
+  <body>
+    <script
+      src="./funciones/args-default.js"
+      type="module"
+    ></script>
+  </body>
+</html>
 ```
 
 ### 4.6
