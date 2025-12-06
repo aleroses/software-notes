@@ -1436,17 +1436,57 @@ saludarConEdad("Carlos", 30); // Salida: Hola, Carlos. Tienes 30 años.
 
 Los parámetros `rest` en TypeScript permiten que una función acepte un número indefinido de argumentos, agrupándolos automáticamente en un array con el tipo especificado (ej. `...nombres: string[]`), lo cual es útil para manejar entradas variables, deben ser el último parámetro en la lista, y mejoran la flexibilidad y tipado de funciones.
 
-### 4.7
+### 4.7 Tipo Función
 
-`./bases/funciones/functions.ts`
+`./bases/funciones/functions-type.ts`
 
 ```ts
+(() => {
+  const addNumber = (a: number, b: number) => {
+    return a + b;
+  };
+  const greet = (name: string) => {
+    return `Hi ${name}`;
+  };
+  const saveTheWorld = () => {
+    return `The world is saved!`;
+  };
 
+  // let myFunction: (y: number, z: number) => number;
+  // let myFunction: (y: string) => string;
+  let myFunction: () => string;
+
+  // myFunction = addNumber;
+  // console.log(myFunction(1, 2));
+
+  // myFunction = greet;
+  // console.log(myFunction('Ale'));
+
+  myFunction = saveTheWorld;
+  console.log(myFunction());
+})();
 ```
 
 `./bases/index.html`
 
 ```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Bases de TypeScript</title>
+  </head>
+  <body>
+    <script
+      src="./funciones/functions-type.js"
+      type="module"
+    ></script>
+  </body>
+</html>
 ```
 
 ### 4.8
