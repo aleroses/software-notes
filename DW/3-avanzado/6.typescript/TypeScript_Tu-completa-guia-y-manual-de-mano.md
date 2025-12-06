@@ -1393,18 +1393,48 @@ saludarConEdad("Carlos", 30); // Salida: Hola, Carlos. Tienes 30 años.
 </html>
 ```
 
-### 4.6
+### 4.6 Parametros REST
 
-`./bases/funciones/functions.ts`
+`./bases/funciones/args-rests.ts`
 
 ```ts
+(() => {
+  const fullName = (
+    firstname: string,
+    ...restArgs: string[]
+  ): string => {
+    return `${firstname} ${restArgs.join(' ')}`;
+  };
 
+  const superman = fullName('Clark', 'Joseph', 'Kent');
+
+  console.log({ superman });
+})();
 ```
 
 `./bases/index.html`
 
 ```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Bases de TypeScript</title>
+  </head>
+  <body>
+    <script
+      src="./funciones/args-rests.js"
+      type="module"
+    ></script>
+  </body>
+</html>
 ```
+
+Los parámetros `rest` en TypeScript permiten que una función acepte un número indefinido de argumentos, agrupándolos automáticamente en un array con el tipo especificado (ej. `...nombres: string[]`), lo cual es útil para manejar entradas variables, deben ser el último parámetro en la lista, y mejoran la flexibilidad y tipado de funciones.
 
 ### 4.7
 
