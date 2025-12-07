@@ -254,15 +254,523 @@ Estructura del proyecto:
 └── vite.config.ts
 ```
 
+### 2.4 Nuestro primer store
 
+Estructura:
+
+```bash
+.
+├── .eslintrc.cjs
+├── .gitignore
+├── index.html
+├── package.json
+├── package-lock.json
+├── postcss.config.js
+├── public
+│   ├── screenshot.png
+│   └── vite.svg
+├── README.md
+├── src
+│   ├── assets
+│   │   └── react.svg
+│   ├── components
+│   │   ├── index.ts
+│   │   ├── jira
+│   │   │   └── JiraTasks.tsx
+│   │   └── shared
+│   │       ├── cards
+│   │       │   └── WhiteCard.tsx
+│   │       └── sidemenu
+│   │           ├── SideMenu.css
+│   │           ├── SideMenuItem.tsx
+│   │           └── SideMenu.tsx
+│   ├── index.css
+│   ├── layouts
+│   │   ├── AuthLayout.tsx
+│   │   ├── DashboardLayout.tsx
+│   │   └── index.ts
+│   ├── main.tsx
+│   ├── pages
+│   │   ├── 01-basic
+│   │   │   ├── BearPage.tsx
+│   │   │   └── PersonPage.tsx
+│   │   ├── 02-objects
+│   │   │   └── JiraPage.tsx
+│   │   ├── 03-slices
+│   │   │   └── WeddingInvitationPage.tsx
+│   │   ├── auth
+│   │   │   └── LoginPage.tsx
+│   │   ├── dashboard
+│   │   │   └── DashboardPage.tsx
+│   │   └── index.ts
+│   ├── Root.tsx
+│   ├── router
+│   │   └── router.tsx
+│   ├── stores 👈🏼👀👇🏻
+│   │   └── bears.store.ts
+│   └── vite-env.d.ts
+├── tailwind.config.js
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
+```
+
+```bash
+npm install zustand
+```
+
+`./src/stores/bears.store.ts`
+
+```ts
+import { create } from 'zustand';
+
+interface BearState {
+  blackBears: number;
+  polarBears: number;
+  pandaBears: number;
+
+  increaseBlackBears: (by: number) => void;
+}
+
+export const useBearStore = create<BearState>()((set) => ({
+  blackBears: 10,
+  polarBears: 5,
+  pandaBears: 1,
+
+  increaseBlackBears: (by: number) =>
+    set((state) => ({ blackBears: state.blackBears + by })),
+}));
+```
+
+#### Interfaz: interface
+
+En JavaScript no existen "tipos" realmente.  
+Pero TypeScript te deja **describir la forma de un objeto**.
+
+Ejemplo:  
+Sin interfaz:
+
+```ts
+const persona = {
+  nombre: "Henry",
+  edad: 25,
+};
+```
+
+Ahora con una interfaz:
+
+```ts
+interface Persona {
+  nombre: string;
+  edad: number;
+}
+```
+
+Esto NO crea código.  
+LE DICE A TYPESCRIPT:
+
+> Cada objeto tipo `Persona` debe tener un `nombre: string` y `edad: number`.
+
+Ejemplo usando la interfaz:
+
+```ts
+const p1: Persona = {
+  nombre: "Henry",
+  edad: 25,
+};
+```
+
+Si escribes mal:
+
+```ts
+const p2: Persona = {
+  nombre: "Henry",
+  edad: "veinticinco", // ❌ error
+};
+```
+
+TS te avisa que la forma está mal.
+
+#### Genericos - Generic
+
+Los genéricos son como **variables para tipos**.
+
+Una función normal usa variables para valores:
+
+```ts
+function identidad(valor) {
+  return valor;
+}
+```
+
+Ahora imagina una función que recibe un “tipo variable”.
+
+Así:
+
+```ts
+function identidad<T>(valor: T): T {
+  return valor;
+}
+```
+
+`<T>` significa:
+
+> "T es un tipo que me dirá el usuario".
+
+Ejemplo:
+
+```ts
+const numero = identidad<number>(3);   // T = number
+const texto = identidad<string>("hola"); // T = string
+```
+
+TypeScript usa genéricos para “adaptarse” según el tipo que le pases.
+
+#### En Zustand: `create<BearState>()()`?
+
+Aquí se juntan las dos cosas:
+
+- **interface** = describe la forma del estado  
+- **genérico `<T>`** = le dice a Zustand qué forma tendrá el estado
+
+Zustand necesita saber **qué estructura tendrá tu store**.  
+Así que tú se la dices usando generics:
+
+```ts
+create<BearState>()()
+```
+
+Eso significa:
+
+> “Oye Zustand, este store tendrá la forma de la interfaz BearState.”
+
+**NO es JavaScript.  
+NO es un método especial.  
+NO es una función.  
+Es solo TypeScript diciéndole a Zustand el tipo del store.**
+
+Luego llamas a esa función usando un patrón conocido como IIFE:
+
+```ts
+// create()()
+create<BearState>()((set) => ({ ... }))
+```
+
+#### Ejemplos
+
+Ejemplo 1: genéricos sin interfaces
+
+```ts
+function caja<T>(valor: T) {
+  return valor;
+}
+
+const n = caja<number>(5);   // T = number
+const s = caja<string>("hola"); // T = string
+```
+
+Ejemplo 2: interfaz + genérico (más parecido a Zustand)
+
+Interfaz del objeto:
+
+```ts
+interface Configuracion {
+  url: string;
+  puerto: number;
+}
+```
+
+Función genérica:
+
+```ts
+function crearServidor<T>(config: T) {
+  return config;
+}
+```
+
+Pasas el tipo:
+
+```ts
+const servidor = crearServidor<Configuracion>({
+  url: "localhost",
+  puerto: 3000,
+});
+```
+
+Aquí usamos **crearServidor()**, parecido a **create()**.
+
+#### Finalmente: Zustand
+
+Tu interfaz:
+
+```ts
+interface BearState {
+  blackBears: number;
+  polarBears: number;
+  pandaBears: number;
+  increaseBlackBears: (by: number) => void;
+}
+```
+
+Zustand necesita saber que el estado tiene esa forma.
+
+Entonces usas el genérico:
+
+```ts
+export const useBearStore = create<BearState>()(
+  (set) => ({ 
+    blackBears: 10,
+    polarBears: 5,
+    pandaBears: 1,
+    increaseBlackBears: (by) => set((state) => ({ blackBears: state.blackBears + by })),
+  })
+);
+```
+
+Si olvidas una propiedad → error  
+Si pones un tipo incorrecto → error  
+Si escribes mal un método → error
+
+El genérico `<BearState>` hace que el store esté 100% tipado.
+
+#### EFF o Currying?
+
+Vamos a explicar **por qué existe `create<BearState>()((set) => {...})`**  
+y por qué NO es simplemente `create<BearState>((set) => {...})`.
+
+> Lo entenderás al 100% cuando veas que **create devuelve otra función**.  
+Ese es el truco.
+
+Pensaba que debería ser:
+
+```ts
+create<BearState>((set) => ({
+  …
+}))
+```
+
+Porque eso sería:
+
+- `<BearState>` = tipeo
+    
+- `()` = paso los argumentos
+    
+
+Y eso es **lógico**.
+
+Peeero Zustand usa una forma más avanzada:  
+**create es una función _que devuelve otra función_.**
+
+Ahora, así funciona `create` de Zustand por dentro (simplificado)
+
+Zustand tiene dos versiones internas:
+
+1. **Versión simple**: `create((set) => { ... })`
+2. **Versión tipada**: `create<BearState>()((set) => { ... })`
+
+¿Por qué existe esa segunda forma?
+
+Porque Zustand usa un **pattern** que se llama _currying_.
+
+Currying:
+
+Es simplemente cuando una función **devuelve otra función**.
+
+Ejemplo sencillo:
+
+```ts
+function saludar(primeraParte) {
+  return function (segundaParte) {
+    console.log(primeraParte + " " + segundaParte);
+  }
+}
+
+saludar("Hola")("Henry");
+```
+
+Aquí pasa esto:
+
+- `saludar("Hola")` → devuelve una función
+- luego llamas esa función → `("Ale")`
+
+Salida: `"Hola Ale"`
+
+Esto es **2 llamadas seguidas**:
+
+```ts
+saludar("Hola")("Henry")
+```
+
+Ahora mira Zustand de la misma forma
+
+Zustand hace ALGO COMO ESTO por dentro:
+
+```ts
+function create<T>() {
+  return function (initializer) {
+    // crea el store con los tipos T
+  }
+}
+```
+
+Es exactamente el mismo patrón de antes.
+
+Visualización práctica
+
+Cuando haces:
+
+```ts
+create<BearState>()
+```
+
+Estás llamando la **primera función**, que devuelve otra.
+
+Luego llamas la segunda:
+
+```ts
+((set) => ({ ... }))
+```
+
+Es decir:
+
+```ts
+create<BearState>()   → devuelve función
+create<BearState>()(...) → llamas esa función
+```
+
+Comparación lado a lado
+
+✔ Lo que pensaba que era (una sola función):
+
+```ts
+create<BearState>((set) => ({}))
+```
+
+❌ Pero en Zustand no es así.
+
+En Zustand es una función que devuelve otra:
+
+```ts
+create<BearState>()((set) => ({}))
+```
+
+Es como:
+
+```ts
+const funcionGenerica = create<BearState>();
+const store = funcionGenerica((set) => ({ ... }));
+```
+
+Pero escrito directo en una sola línea:
+
+```ts
+create<BearState>()((set) => ({ ... }));
+```
+
+¿POR QUÉ Zustand hizo esto así? 🤔
+
+Por temas avanzados de:
+
+- inference de tipos  
+- API unificada
+- soportar diferentes estilos de uso
+- permitir pasar middlewares
+
+También se usa mucho para permitir cosas como:
+
+```ts
+create<BearState>()(
+  persist(
+    (set) => ({ ... }),
+    { name: "store-name" }
+  )
+)
+```
+
+[https://docs.pmnd.rs/zustand/getting-started/introduction](https://docs.pmnd.rs/zustand/getting-started/introduction)
+
+### 2.5
+
+`./src/stores/bears.store.ts`
+
+```ts
+```
+
+`./src/stores/bears.store.ts`
+
+```ts
+```
+
+```ts
+```
+
+👈🏼👀
+👈🏼👀👇🏻
+
+### 2.6
+
+```ts
+```
+
+```ts
+```
+
+```ts
+```
+
+### 2.7
+
+```ts
+```
+
+```ts
+```
+
+```ts
+```
 
 ```
 ```
 
+### 2.8
 
-```
+```ts
 ```
 
+```ts
+```
+
+```ts
+```
+
+### 2.9
+
+```ts
+```
+
+```ts
+```
+
+```ts
+```
+
+### 2.10
+
+
+## 3
+
+### 3.1
+
+### 3.
+
+```ts
+```
+
+```ts
+```
+
+```ts
+```
 
 ```
 ```
