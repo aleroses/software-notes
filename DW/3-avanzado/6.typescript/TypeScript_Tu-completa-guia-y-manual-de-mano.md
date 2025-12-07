@@ -1114,14 +1114,6 @@ A continuación, vamos a repasar un poco todo lo aprendido hasta el momento...
 	- Tupla
 7. ¿El siguiente código es una declaración válida de un string?  
 	```ts
-	// Here, use backtick
-	let string = 2.
-  3.
-  4.
-  5.
-  6.;
-	```
-	```ts
 		let string = `2.
     3.
     4.
