@@ -307,7 +307,8 @@ Estructura:
 │   ├── router
 │   │   └── router.tsx
 │   ├── stores 👈🏼👀👇🏻
-│   │   └── bears.store.ts
+│   │   └── bears
+│   │       └── bears.store.ts
 │   └── vite-env.d.ts
 ├── tailwind.config.js
 ├── tsconfig.json
