@@ -1120,6 +1120,13 @@ A continuación, vamos a repasar un poco todo lo aprendido hasta el momento...
   4.
   5.
   6.;
+	```
+	```ts
+		let string = `2.
+    3.
+    4.
+    5.
+    6.`;
 	```  
 	- Verdadero  
 
