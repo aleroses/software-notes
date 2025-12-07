@@ -159,7 +159,6 @@ Activar parpadeo:
 - Components
 - ⚙️
 - [x] Highlight updates when components render.
-- 
 
 ### 1.5 ¡Únete a Nuestra Comunidad de DevTalles en Discord!
 
