@@ -1121,7 +1121,6 @@ A continuación, vamos a repasar un poco todo lo aprendido hasta el momento...
     6.`;
 	```  
 	- Verdadero  
-
 8. ¿El siguiente código es válido en TypeScript?  
 	`let vacio:null = undefined;`
 	- Falso  
