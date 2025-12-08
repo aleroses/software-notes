@@ -1546,7 +1546,70 @@ noHaceNadaTampoco = noHaceNada;
 
 -  [app.ts.zip](https://import.cdn.thinkific.com/643563/courses/1870132/appts-221018-132842.zip)
 
-### 4.9
+### 4.9 Quiz 2: Examen teórico #2
+
+
+Examen teórico #2
+
+Afianzando los conocimientos de la teoría.
+
+### 4.10 Quiz 2: Examen teórico #2
+
+1. ¿Toda función en JavaScript, es código válido de TypeScript?
+	- Verdadero
+2. ¿La siguiente función válida en TypeScript?
+	```ts
+	function saludar(): string {
+		console.log("Hi world!");
+	}
+	```
+	- Falso
+3. ¿En TypeScript es posible obligar al desarrollador que debe de cumplir todos los parámetros de una función?
+	- Verdadero
+4. ¿En JavaScript, todos los parámetros son obligatorios?
+	- Falso
+5. ¿Con qué caracter especifico un parámetro opcional?
+	- ?
+6. ¿Qué es un parámetro por defecto?
+	- Es un parámetro que es necesario en la función, pero puede ser enviado o no al momento de ser llamada.
+7. ¿Los parámetros por defecto sólo pueden ser tipos primitivos?
+	- Falso
+8. ¿Qué imprime en consola el siguiente código de TypeScript?
+	```ts
+	function saludar(mensaje: string = "mundo"){
+		console.log("Hola" + mensaje);
+	}
+	
+	saludar("hola");
+	```
+	- Hola hola
+9. ¿Qué es un parámetro REST?
+	- Es un arreglo que contiene el resto de parámetros enviados como argumentos a la función.
+10. ¿Una función es, a su vez, un tipo en TypeScript?
+	- Verdadero
+
+### 4.11 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 `./bases/funciones/functions.ts`
 
