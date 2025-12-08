@@ -1736,17 +1736,35 @@ Object { name: "Clark Kent", age: 60, powers: (1) […] }
 })();
 ```
 
-### 5.6
+### 5.6 Tipos personalizados
 
-`./bases/objetos/objects.ts`
+`./bases/objetos/type.ts`
 
 ```ts
+(() => {
+  type Hero = {
+    name: string;
+    age?: number;
+    powers: string[];
+    getName?: () => string;
+  };
 
-```
+  let flash: Hero = {
+    name: 'Barry Allen',
+    age: 24,
+    powers: ['Súper Velocidad', 'Viajar en el tiempo'],
+  };
 
-`./bases/index.html`
+  let superman: Hero = {
+    name: 'Clark Kent',
+    age: 34,
+    powers: ['Súper Velocidad'],
+    getName: () => 'Hi Superman!!!',
+  };
 
-```html
+  console.log(superman.getName?.());
+  // Hi Superman!!!
+})();
 ```
 
 ### 5.7
