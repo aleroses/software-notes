@@ -1711,12 +1711,29 @@ Object { name: "Clark Kent", age: 60, powers: (1) […] }
 `./bases/objetos/objects.ts`
 
 ```ts
+(() => {
+  let flash: {
+    name: string;
+    age?: number;
+    powers: string[];
+    getName?: () => string;
+  } = {
+    name: 'Barry Allen',
+    age: 24,
+    powers: ['Súper Velocidad', 'Viajar en el tiempo'],
+  };
 
-```
-
-`./bases/index.html`
-
-```html
+  let superman: {
+    name: string;
+    age?: number;
+    powers: string[];
+    getName?: () => string;
+  } = {
+    name: 'Clark Kent',
+    age: 34,
+    powers: ['Súper Velocidad'],
+  };
+})();
 ```
 
 ### 5.6
