@@ -1706,7 +1706,7 @@ Object { name: "Clark Kent", age: 60, powers: (1) […] }
 })();
 ```
 
-### 5.5
+### 5.5 Problema con la definición en línea
 
 `./bases/objetos/objects.ts`
 
