@@ -1898,40 +1898,81 @@ mystique = charles;
 mystique = apocalipsis;
 ```
 
-### 5.9
+### 5.9 Quiz 3: Examen teórico #3
 
-`./bases/objetos/objects.ts`
+Examen teórico #3
 
-```ts
+Vamos a repasar lo aprendido en la sección.
 
-```
+### 5.10 Quiz 3: Examen teórico #3
 
-`./bases/index.html`
-
-```html
-```
-
-### 5.10
-
-`./bases/objetos/objects.ts`
-
-```ts
-
-```
-
-`./bases/index.html`
-
-```html
-```
+1. ¿Qué tipo de objeto es el batimovil?
+	```ts
+	var batimovil = {
+	  puertas: 10,
+	  marca: "Sedan",
+	}
+	```
+	- `marca: string, puertas: number` El orden no afecta en los objetos.
+2. ¿Es posible agregar métodos dentro de los tipos?
+	- Verdadero
+3. ¿El siguiente código es válido en TypeScript?
+	```ts
+	let batimovil: { getNombre: () => string } = {
+	  getNombre(carro){
+		  return carro.toUpperCase();
+	  }
+	}
+	```
+	- False: Si se fijan, en la definición del tipo, estamos solicitando que el `getNombre` no reciba parámetros, pero en la implementación de la función, estamos utilizando un parámetro que nos dará problemas en TypeScript.
+4. ¿Es posible especificar en TypeScript que una variable puede ser de 4 tipos a la vez?
+	- Verdadero
+5. ¿El siguiente código de TypeScript es válido?
+	```ts
+	// Tupla
+	let mutable: [string | string[]];
+	
+	// Estos no soy una tupla
+	mutable = ["Hola", "Hola"];
+	mutable = "hola";
+	```
+	- Falso: Si te fijas, en la declaración estamos diciendo que es una "Tupla" y no una unión de tipos, recuerda que la unión de tipos no lleva llaves cuadradas.
+6. ¿El siguiente código es válido TypeScript?
+	```ts
+	// Multiples tipos
+	let mutable: number | string[];
+	
+	mutable = ["Adios", "Hola"];
+	mutable = 123;
+	```
+	- Verdadero.
+7. ¿Qué instrucción nos permite saber que tipo de dato contiene una variable?
+	- typeof
+8. ¿Con qué palabra podemos crear tipos específicos?
+	- type
+9. ¿Un tipo de dato puede tener métodos obligatorios?
+	- Verdadero
+10. ¿Los tipos son traducidos a JavaScript?
+	- Falso: Los tipos solo existen en TypeScript para brindarnos control sobre los objetos.
 
 ### 5.11
+
 ### 5.12
 
 
 
 
 
+`./bases/objetos/objects.ts`
 
+```ts
+
+```
+
+`./bases/index.html`
+
+```html
+```
 
 
 
