@@ -1648,7 +1648,7 @@ Object { name: "Clark Kent", age: 60, powers: (1) […] }
 </html>
 ```
 
-### 5.3 ¿Cómo crear vv?
+### 5.3 ¿Cómo crear objetos con tipos específicos?
 
 `./bases/objetos/objects.ts`
 
@@ -1674,17 +1674,36 @@ Object { name: "Clark Kent", age: 60, powers: (1) […] }
 })();
 ```
 
-### 5.4
+### 5.4 Métodos dentro de los objetos
 
 `./bases/objetos/objects.ts`
 
 ```ts
+(() => {
+  let flash: {
+    name: string;
+    age?: number;
+    powers: string[];
+    // getName?: Function;
+    getName?: () => string;
+  } = {
+    name: 'Barry Allen',
+    age: 24,
+    powers: ['Súper Velocidad', 'Viajar en el tiempo'],
+  };
 
-```
+  flash = {
+    name: 'Clark Kent',
+    // age: 60,
+    powers: ['Súper fuerza'],
+    getName() {
+      return 'Hi world!';
+    },
+  };
 
-`./bases/index.html`
-
-```html
+  console.log(flash.getName?.());
+  // Hi world!
+})();
 ```
 
 ### 5.5
