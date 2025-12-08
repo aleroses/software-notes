@@ -1648,17 +1648,30 @@ Object { name: "Clark Kent", age: 60, powers: (1) […] }
 </html>
 ```
 
-### 5.3
+### 5.3 ¿Cómo crear vv?
 
 `./bases/objetos/objects.ts`
 
 ```ts
+(() => {
+  let flash: {
+    name: string;
+    age?: number; 👈🏼👀
+    powers: string[];
+  } = {
+    name: 'Barry Allen',
+    age: 24,
+    powers: ['Súper Velocidad', 'Viajar en el tiempo'],
+  };
 
-```
+  flash = {
+    name: 'Clark Kent',
+    // age: 60, 👈🏼👀
+    powers: ['Súper fuerza'],
+  };
 
-`./bases/index.html`
-
-```html
+  console.log(flash);
+})();
 ```
 
 ### 5.4
