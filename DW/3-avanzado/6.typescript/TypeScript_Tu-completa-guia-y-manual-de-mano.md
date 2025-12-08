@@ -1767,17 +1767,37 @@ Object { name: "Clark Kent", age: 60, powers: (1) […] }
 })();
 ```
 
-### 5.7
+### 5.7 Multiples tipos permitidos
 
-`./bases/objetos/objects.ts`
+`./bases/objetos/union-types.ts`
 
 ```ts
+(() => {
+  type Hero = {
+    name: string;
+    age?: number;
+    powers: string[];
+    getName?: () => string;
+  };
 
-```
+  let myCustomVariable: string | number | Hero = 'Ale';
+  console.log(myCustomVariable);
+  // Ale
+  console.log(typeof myCustomVariable);
+  // string
 
-`./bases/index.html`
+  myCustomVariable = 20;
+  console.log(typeof myCustomVariable);
+  // number
 
-```html
+  myCustomVariable = {
+    name: 'Ale',
+    age: 43,
+    powers: ['Agua'],
+  };
+  console.log(typeof myCustomVariable);
+  // object
+})();
 ```
 
 ### 5.8
