@@ -1800,17 +1800,102 @@ Object { name: "Clark Kent", age: 60, powers: (1) […] }
 })();
 ```
 
-### 5.8
+### 5.8 Ejercicio práctico #3
 
-`./bases/objetos/objects.ts`
+Descargue el material adjunto, trabaje con los tipos de datos y la información que aprendió en esta sección.
+
+Sea lo más especifico en los tipos posible y reutilice el primer tipo de dato (el del automóvil)
+
+Recurso de la lección:
+
+- [app.ts.zip](https://import.cdn.thinkific.com/643563/courses/1870132/appts-220520-182525.zip)
+
+### 5.9 Tarea y Resolución del ejercicio práctico #3
+
+`./app.ts`
 
 ```ts
+// Objetos
 
-```
+type Car = {
+  carroceria: string;
+  modelo: string;
+  antibalas: boolean;
+  pasajeros: number;
+  disparar?: () => void;
+};
 
-`./bases/index.html`
+const batimovil: Car = {
+  carroceria: 'Negra',
+  modelo: '6x6',
+  antibalas: true,
+  pasajeros: 4,
+};
 
-```html
+const bumblebee: Car = {
+  carroceria: 'Amarillo con negro',
+  modelo: '4x2',
+  antibalas: true,
+  pasajeros: 4,
+  disparar() {
+    // El metodo disparar es opcional
+    console.log('Disparando');
+  },
+};
+
+// Villanos debe de ser un arreglo de objetos personalizados
+type Villano = {
+  nombre: string;
+  edad: number | undefined;
+  mutante: boolean;
+};
+
+const villanos: Villano[] = [
+  {
+    nombre: 'Lex Luthor',
+    edad: 54,
+    mutante: false,
+  },
+  {
+    nombre: 'Erik Magnus Lehnsherr',
+    edad: 49,
+    mutante: true,
+  },
+  {
+    nombre: 'James Logan',
+    edad: undefined,
+    mutante: true,
+  },
+];
+
+// Multiples tipos
+// cree dos tipos, uno para charles y otro para apocalipsis
+
+type Charles = {
+  poder: string;
+  estatura: number;
+};
+
+const charles: Charles = {
+  poder: 'psiquico',
+  estatura: 1.78,
+};
+
+type Apocalipsis = {
+  lider: boolean;
+  miembros: string[];
+};
+
+const apocalipsis: Apocalipsis = {
+  lider: true,
+  miembros: ['Magneto', 'Tormenta', 'Psylocke', 'Angel'],
+};
+
+// Mystique, debe poder ser cualquiera de esos dos mutantes (charles o apocalipsis)
+let mystique: Charles | Apocalipsis;
+
+mystique = charles;
+mystique = apocalipsis;
 ```
 
 ### 5.9
