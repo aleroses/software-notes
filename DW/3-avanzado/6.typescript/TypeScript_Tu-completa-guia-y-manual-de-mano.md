@@ -1898,13 +1898,13 @@ mystique = charles;
 mystique = apocalipsis;
 ```
 
-### 5.9 Quiz 3: Examen teórico #3
+### 5.10 Quiz 3: Examen teórico #3
 
 Examen teórico #3
 
 Vamos a repasar lo aprendido en la sección.
 
-### 5.10 Quiz 3: Examen teórico #3
+### 5.11 Quiz 3: Examen teórico #3
 
 1. ¿Qué tipo de objeto es el batimovil?
 	```ts
@@ -1955,9 +1955,15 @@ Vamos a repasar lo aprendido en la sección.
 10. ¿Los tipos son traducidos a JavaScript?
 	- Falso: Los tipos solo existen en TypeScript para brindarnos control sobre los objetos.
 
-### 5.11
+### 5.12 Código fuente de la sección
 
-### 5.12
+Les dejo mi código fuente por si lo llegan a necesitar o comparar con el mío
+
+[Github - Fin-seccion-5](https://github.com/Klerith/ts-bases/tree/fin-seccion-5)
+
+- [ts-bases-fin-seccion-5.zip](https://import.cdn.thinkific.com/643563/courses/1870132/tsbasesfinseccion5-220520-190151.zip)
+
+## 6
 
 
 
