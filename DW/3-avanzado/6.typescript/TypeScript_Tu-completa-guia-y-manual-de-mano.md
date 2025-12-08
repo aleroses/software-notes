@@ -1587,10 +1587,193 @@ Afianzando los conocimientos de la teoría.
 10. ¿Una función es, a su vez, un tipo en TypeScript?
 	- Verdadero
 
-### 4.11 
+## 5. Objetos y tipos personalizados en TypeScript
+
+### 5.1 ¿Qué veremos en esta sección?
+
+Aprenderemos a utilizar los objetos en TypeScript, su uso y mantener nuestro código bien limpio mediante tipos personalizados.
+
+Los temas serán:
+
+1. Objetos básicos
+2. Crear objetos con tipos específicos
+3. Crear métodos dentro de objetos
+4. Tipos personalizados
+5. Crear variables que soporten varios tipos a la vez.
+6. Comprobar el tipo de un objeto.
+
+Al final, el respectivo examen práctico y teórico.
+
+### 5.2 Objetos básicos
+
+`./bases/objetos/objects.ts`
+
+```ts
+(() => {
+  let flash = {
+    name: 'Barry Allen',
+    age: 24,
+    powers: ['Súper Velocidad', 'Viajar en el tiempo'],
+  };
+
+  flash = {
+    name: 'Clark Kent',
+    age: 60,
+    powers: ['Súper fuerza'],
+  };
+
+  console.log(flash);
+})();
+
+// Result:
+Object { name: "Clark Kent", age: 60, powers: (1) […] }
+```
+
+`./bases/index.html`
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Bases de TypeScript</title>
+  </head>
+  <body>
+    <script src="./objetos/objects.js" type="module"></script>
+  </body>
+</html>
+```
+
+### 5.3
+
+`./bases/objetos/objects.ts`
+
+```ts
+
+```
+
+`./bases/index.html`
+
+```html
+```
+
+### 5.4
+
+`./bases/objetos/objects.ts`
+
+```ts
+
+```
+
+`./bases/index.html`
+
+```html
+```
+
+### 5.5
+
+`./bases/objetos/objects.ts`
+
+```ts
+
+```
+
+`./bases/index.html`
+
+```html
+```
+
+### 5.6
+
+`./bases/objetos/objects.ts`
+
+```ts
+
+```
+
+`./bases/index.html`
+
+```html
+```
+
+### 5.7
+
+`./bases/objetos/objects.ts`
+
+```ts
+
+```
+
+`./bases/index.html`
+
+```html
+```
+
+### 5.8
+
+`./bases/objetos/objects.ts`
+
+```ts
+
+```
+
+`./bases/index.html`
+
+```html
+```
+
+### 5.9
+
+`./bases/objetos/objects.ts`
+
+```ts
+
+```
+
+`./bases/index.html`
+
+```html
+```
+
+### 5.10
+
+`./bases/objetos/objects.ts`
+
+```ts
+
+```
+
+`./bases/index.html`
+
+```html
+```
+
+### 5.11
+### 5.12
 
 
 
+
+
+
+
+
+
+
+`./bases/objetos/objects.ts`
+
+```ts
+
+```
+
+`./bases/index.html`
+
+```html
+```
 
 
 
