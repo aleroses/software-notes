@@ -1548,7 +1548,6 @@ noHaceNadaTampoco = noHaceNada;
 
 ### 4.9 Quiz 2: Examen teórico #2
 
-
 Examen teórico #2
 
 Afianzando los conocimientos de la teoría.
@@ -1560,7 +1559,7 @@ Afianzando los conocimientos de la teoría.
 2. ¿La siguiente función válida en TypeScript?
 	```ts
 	function saludar(): string {
-		console.log("Hi world!");
+	  console.log("Hi world!");
 	}
 	```
 	- Falso
@@ -1577,7 +1576,7 @@ Afianzando los conocimientos de la teoría.
 8. ¿Qué imprime en consola el siguiente código de TypeScript?
 	```ts
 	function saludar(mensaje: string = "mundo"){
-		console.log("Hola" + mensaje);
+	  console.log("Hola" + mensaje);
 	}
 	
 	saludar("hola");
