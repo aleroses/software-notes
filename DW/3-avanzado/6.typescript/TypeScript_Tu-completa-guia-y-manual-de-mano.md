@@ -2076,6 +2076,18 @@ Para incluir y excluir carpetas/archivos en TypeScript, usas las propiedades `in
 }
 ```
 
+Los **Glob Patterns en TypeScript** (y en general en desarrollo) son **cadenas de texto con caracteres comodín** (_wildcards_) como `*`, `?`, `**`, y `[]`, usados para **encontrar y seleccionar grupos de archivos o directorios** de forma flexible y poderosa, especialmente en tareas como compilación, pruebas o empaquetado de código, siendo muy comunes en herramientas como VS Code, Node.js (con `glob` o `globby`), y sistemas de compilación como Gulp para definir qué archivos incluir o excluir. 
+
+¿Cómo funcionan?
+
+- `*`: Coincide con cualquier carácter cero o más veces (excepto separadores de ruta como `/`).
+- `?`: Coincide con un solo carácter.
+- `**`: Coincide con directorios y subdirectorios (recursivo).
+- `{a,b,c}`: Coincide con una de las opciones entre las llaves.
+- `[abc]`: Coincide con cualquier carácter dentro de los corchetes (rango).
+
+[A Beginner's Guide: Glob Patterns](https://www.malikbrowne.com/blog/a-beginners-guide-glob-patterns/)
+
 ### 6.6
 
 ## 7.
