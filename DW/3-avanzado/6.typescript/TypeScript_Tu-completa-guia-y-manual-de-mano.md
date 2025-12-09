@@ -2047,14 +2047,10 @@ Ahora, cada vez que revises la consola verás exactamente, de que archivo `.ts` 
 - Ver en Obsidian: [[debugging-devtools#14. Reproduciendo y reparando un bug]]
 - Ver en GitHub: [Reproduciendo y reparando un bug](https://github.com/aleroses/software-notes/blob/master/DW/2-intermedio/025.debugging-devtools/debugging-devtools.md#14-reproduciendo-y-reparando-un-bug)
 
-### 6.4
+### 6.4 Remover los comentarios de los archivos de JavaScript
 
-`./bases/objetos/objects.ts`
+Para remover comentarios en TypeScript, la forma más efectiva es configurar tu archivo `tsconfig.json` con la opción `"removeComments": true`, lo cual elimina todos los comentarios al compilar a JavaScript
 
-```ts
-
-```
-👈🏼👀
 ### 6.5
 
 
@@ -2063,11 +2059,11 @@ Ahora, cada vez que revises la consola verás exactamente, de que archivo `.ts` 
 ```ts
 
 ```
-
+👈🏼👀
 ### 6.6
 
 ## 7.
-
+👈🏼👀
 ### 7.1
 
 ### 7.2
