@@ -1556,7 +1556,7 @@ Afianzando los conocimientos de la teoría.
 
 1. ¿Toda función en JavaScript, es código válido de TypeScript?
 	- Verdadero
-2. ¿La siguiente función válida en TypeScript?
+2. ¿La siguiente función es válida en TypeScript?
 	```ts
 	function saludar(): string {
 	  console.log("Hi world!");
@@ -1963,8 +1963,49 @@ Les dejo mi código fuente por si lo llegan a necesitar o comparar con el mío
 
 - [ts-bases-fin-seccion-5.zip](https://import.cdn.thinkific.com/643563/courses/1870132/tsbasesfinseccion5-220520-190151.zip)
 
-## 6
+## 6. Depuración de Errores y el archivo tsconfig.json
 
+### 6.1 ¿Qué veremos en esta sección?
+
+La sección se enfoca en la depuración de errores y comprender el archivo de configuración de TypeScript (el tsconfig.json)
+
+Puntualmente:
+
+1. Aprenderemos el ¿por qué siempre compila a JavaScript?
+2. Para que nos puede servir el archivo de configuración de TypeScript
+3. Realizaremos depuración de errores directamente a nuestros archivos de TypeScript
+4. Removeremos todos los comentarios en nuestro archivo de producción.
+5. Restringiremos al compilador que sólo vea ciertos archivos o carpetas
+6. Crearemos un archivo final de salida
+7. Aprenderemos a cambiar la version de JavaScript de salida
+
+Adicionalmente tendrán el conocimiento necesario para compilar automáticamente cualquier archivo que se vaya creando al momento de ser insertado a nuestro proyecto.
+
+### 6.2 ¿Qué es el archivo tsconfig y para qué nos puede servir?
+
+El archivo `tsconfig.json` es el archivo de configuración central para un proyecto de TypeScript y le dice al compilador TypeScript cómo transformar tu código TS en JavaScript (JS). Sirve para definir rutas de archivos, configurar el rigor de las comprobaciones de tipos modo estricto, elegir la versión de JS de salida target, manejar módulos y ajustar otras opciones que mejoran la calidad, productividad y mantenibilidad del código, permitiendo un control preciso sobre la compilación.
+
+[Enlace oficial de TypeScript](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html)
+
+### 6.3 ¿Es posible la depuración del código de TypeScript?
+
+
+
+### 6.4
+
+### 6.5
+
+### 6.6
+
+## 7.
+
+### 7.1
+
+### 7.2
+
+### 7.3
+
+### 7.
 
 
 
