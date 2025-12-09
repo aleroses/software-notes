@@ -1989,11 +1989,80 @@ El archivo `tsconfig.json` es el archivo de configuración central para un proye
 
 ### 6.3 ¿Es posible la depuración del código de TypeScript?
 
+En TypeScript, los archivos `.map` más comunes son los **Source Maps**, que son archivos de texto generados durante la compilación para **mapear el código JavaScript (salida) de vuelta al código TypeScript original (entrada)**, permitiendo una depuración eficiente en navegadores, y también existen los **tipos mapeados**, una característica del lenguaje para crear nuevos tipos basados en otros.
 
+Clases atrás desactivamos la creación de estos, pero puedes volver a crearlos dentro del archivo `tsconfig.json` 
+
+```ts
+{
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    // File Layout
+    // "rootDir": "./src",
+    // "outDir": "./dist",
+
+    // Environment Settings
+    // See also https://aka.ms/tsconfig/module
+    // "module": "nodenext",
+    "module": "esnext",
+    "target": "esnext",
+    "types": [],
+    // For nodejs:
+    // "lib": ["esnext"],
+    // "types": ["node"],
+    // and npm install -D @types/node
+
+    // Other Outputs
+    "sourceMap": true, 👈🏼👀
+    "declaration": false,
+    "declarationMap": false,
+
+    // Stricter Typechecking Options
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+
+    // Style Options
+    // "noImplicitReturns": true,
+    // "noImplicitOverride": true,
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
+    // "noFallthroughCasesInSwitch": true,
+    // "noPropertyAccessFromIndexSignature": true,
+
+    // Recommended Options
+    "strict": true,
+    // "noImplicitAny": true,
+    "jsx": "react-jsx",
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true
+  }
+}
+```
+
+Ahora, cada vez que revises la consola verás exactamente, de que archivo `.ts` están viniendo esos datos y podrás debuggear desde ahí mismo.
+
+- Ver en Obsidian: [[debugging-devtools#14. Reproduciendo y reparando un bug]]
+- Ver en GitHub: [Reproduciendo y reparando un bug](https://github.com/aleroses/software-notes/blob/master/DW/2-intermedio/025.debugging-devtools/debugging-devtools.md#14-reproduciendo-y-reparando-un-bug)
 
 ### 6.4
 
+`./bases/objetos/objects.ts`
+
+```ts
+
+```
+👈🏼👀
 ### 6.5
+
+
+`./bases/objetos/objects.ts`
+
+```ts
+
+```
 
 ### 6.6
 

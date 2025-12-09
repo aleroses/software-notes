@@ -76,7 +76,7 @@ Para crear un acceso directo en el menú de aplicaciones:
 Ahora deberías tener Firefox 127.0 Beta 9 instalado y listo para usar en tu sistema Linux Mint.
 
 - [Atajos para DevTools Chrome](https://developers.google.com/web/tools/chrome-devtools/shortcuts)
-- [Atajos para DevTools Firefox](All keyboard shortcuts[¶](https://firefox-source-docs.mozilla.org/devtools-user/keyboard_shortcuts/index.html#all-keyboard-shortcuts "Link to this heading"))
+- [Atajos para DevTools Firefox](https://firefox-source-docs.mozilla.org/devtools-user/keyboard_shortcuts/index.html#all-keyboard-shortcuts "Link to this heading")
 
 ## 3. Editando HTML
 
@@ -289,6 +289,8 @@ El panel **Scope** te muestra las variables locales y globales actualmente def
 ![](https://i.postimg.cc/g04JX3Br/14-bug-fix.png)
 
 Otro ejemplo de uso: [[closures_scope-en-js#**7.** ¿Qué es un Closure?#Ámbito léxico]]
+
+Ver en GitHub [¿Qué es un Closure?](https://github.com/aleroses/software-notes/blob/master/DW/2-intermedio/006.closures_scope-en-js/closures_scope-en-js.md#7-qu%C3%A9-es-un-closure)
 
 📌 Para los que usan Visual Studio Code, dejo un artículo que nos muestra una extensión oficial (creada por Microsoft), para instalar **Debugger for Chrome**, para implementar mucha de la funcionalidad del browser dentro de nuestro editor de texto.
 
