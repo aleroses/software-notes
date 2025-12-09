@@ -2051,15 +2051,31 @@ Ahora, cada vez que revises la consola verás exactamente, de que archivo `.ts` 
 
 Para remover comentarios en TypeScript, la forma más efectiva es configurar tu archivo `tsconfig.json` con la opción `"removeComments": true`, lo cual elimina todos los comentarios al compilar a JavaScript
 
-### 6.5
+### 6.5 Incluir y excluir carpetas y/o archivos
 
-
-`./bases/objetos/objects.ts`
+Para incluir y excluir carpetas/archivos en TypeScript, usas las propiedades `include`, `exclude` y `files` dentro de tu archivo `tsconfig.json`, especificando patrones glob para directorios o nombres de archivos que el compilador debe procesar o ignorar, siendo `include` para lo que sí y `exclude` para lo que no, aunque `exclude` solo afecta a lo que `include` ya seleccionó.
 
 ```ts
-
+{
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    "...",
+  },
+  "include": [
+    "src/**/*.ts", // Incluye todos los archivos .ts dentro de la carpeta 'src' y sus subcarpetas
+    "utils/helper.ts" // Incluye un archivo específico
+  ],
+  "exclude": [
+    "node_modules", // Excluye la carpeta node_modules
+    "dist", // Excluye la carpeta de salida
+    "src/tests/**/*.ts" // Excluye archivos de pruebas
+  ],
+  "files": [
+    "index.ts" // Incluye solo este archivo si no se usan include/exclude
+  ]
+}
 ```
-👈🏼👀
+
 ### 6.6
 
 ## 7.
