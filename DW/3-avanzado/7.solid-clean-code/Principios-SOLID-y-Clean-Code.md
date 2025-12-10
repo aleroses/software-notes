@@ -715,6 +715,8 @@ Don't Repeat Yourself
 - Ayuda a centralizar procesos.
 - Aplicar el principio DRY, usualmente lleva a refactorizar.
 
+`05.dry.ts`
+
 ```js
 // Bad ❌
 type Size = '' | 'S' | 'M' | 'XL';
@@ -742,7 +744,23 @@ class Product {
 })();
 ```
 
+`main.ts`
+
+```ts
+import './style.css';
+import './clean-code/05-dry';
+
+const app = document.querySelector<HTMLDivElement>('#app')!;
+
+app.innerHTML = `
+  <h1>CleanCode y SOLID</h1>
+  <span>Revisar la consola de JavaScript</span>
+`;
+```
+
 ### 2.14 Aplicando DRY
+
+`05.dry.ts`
 
 ```js
 // Better 👍
@@ -809,26 +827,78 @@ En esta sección hablaremos principalmente sobre clases y conceptos generales pa
 
 Es importante tener presente que así como todo, hay excepciones a cada regla, pero esto debería ser un caso aislado y no el estándar. Tratemos de escribir un mejor código y dejar de lado la comodidad de hacer las cosas como se han venido haciendo, especialmente si esas cosas traen muchos problemas.
 
-### 3.3
+### 3.3 Breve introducción a las clases en TypeScript
 
-```js
-// Bad ❌
+`06.classes-a.ts`
+
+```ts
+(() => {
+  type Gender = 'M' | 'F';
+
+  class Person {
+    public name: string;
+    public gender: Gender;
+    public birthdate: Date;
+
+    constructor(
+      name: string,
+      gender: Gender,
+      birthdate: Date
+    ) {
+      this.name = name;
+      this.gender = gender;
+      this.birthdate = birthdate;
+    }
+  }
+
+  const newPerson = new Person(
+    'Ale',
+    'M',
+    new Date('1985-10-21')
+  );
+  console.log({ newPerson });
+})();
 ```
 
 ```js
 // Better 👍
+(() => {
+  type Gender = 'M' | 'F';
 
+  class Person {
+    constructor(
+      public name: string,
+      public gender: Gender,
+      public birthdate: Date
+    ) {
+      // this.name = name;
+      // this.gender = gender;
+      // this.birthdate = birthdate;
+    }
+  }
+
+  const newPerson = new Person(
+    'Ale',
+    'M',
+    new Date('1985-10-21')
+  );
+  console.log({ newPerson });
+})();
 ```
 
-```
-```
+`main.ts`
 
-```
-```
+```ts
+import './style.css';
+import './clean-code/06.classes-a';
 
-🐦‍🔥
-👀👇🏻
-👈🏼👀
+const app = document.querySelector<HTMLDivElement>('#app')!;
+
+app.innerHTML = `
+  <h1>CleanCode y SOLID</h1>
+  <span>Revisar la consola de JavaScript</span>
+`;
+```
 
 ### 3.4
 
