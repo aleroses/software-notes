@@ -900,26 +900,73 @@ app.innerHTML = `
 `;
 ```
 
-### 3.4
+### 3.4 Herencia - Problemática
+
+`06.classes-a.ts`
 
 ```js
 // Bad ❌
-```
+(() => {
+  // Without applying the principle of sole responsibility.
+  type Gender = 'M' | 'F';
 
-```js
-// Better 👍
+  class Person {
+    constructor(
+      public name: string,
+      public gender: Gender,
+      public birthdate: Date
+    ) {}
+  }
 
-```
+  class User extends Person {
+    public lastAccess: Date;
+    constructor(
+      public email: string,
+      public role: string,
+      // private lastAccess: Date,
+      name: string,
+      gender: Gender,
+      birthdate: Date
+    ) {
+      super(name, gender, birthdate);
+      this.lastAccess = new Date();
+    }
 
-```
-```
+    checkCredentials() {
+      return true;
+    }
+  }
 
-```
-```
+  class UserSettings extends User {
+    constructor(
+      public workingDirectory: string,
+      public lastOpenFolder: string,
+      email: string,
+      role: string,
+      name: string,
+      gender: Gender,
+      birthdate: Date
+    ) {
+      super(email, role, name, gender, birthdate);
+    }
+  }
 
-🐦‍🔥
-👀👇🏻
-👈🏼👀
+  const userSettings = new UserSettings(
+    '/usr/home',
+    'home',
+    'aleroses@google.com',
+    'Admin',
+    'Ale',
+    'M',
+    new Date('1985-10-21')
+  );
+
+  console.log({
+    userSettings,
+    areCredentialsValid: userSettings.checkCredentials(),
+  });
+})();
+```
 
 ### 3.5
 
