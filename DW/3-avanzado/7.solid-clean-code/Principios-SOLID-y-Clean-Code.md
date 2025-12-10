@@ -790,27 +790,12 @@ class Product {
 })();
 ```
 
-### 2.15
+### 2.15 Código fuente de la sección
 
-```js
-// Bad ❌
-```
+Descarga el código de la sección 2 [aquí](https://github.com/Klerith/clean-course/tree/fin-seccion-02)
 
-```js
-// Better 👍
+## 3. 
 
-```
-
-```
-```
-
-```
-```
-
-🐦‍🔥
-👀👇🏻
-👈🏼👀
-### 2.16
 
 ```js
 // Bad ❌
