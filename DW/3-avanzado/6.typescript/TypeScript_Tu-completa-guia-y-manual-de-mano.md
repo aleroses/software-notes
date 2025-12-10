@@ -2352,6 +2352,11 @@ node dist/index.js
 Hi Ale, from Node.js + TypeScript
 ```
 
+Si quieras dejar escuchando los cambios:
+
+```bash
+npm install --save-dev ts-node-dev
+```
 
 (Opcional) Agregar scripts en package.json**
 
@@ -2360,6 +2365,9 @@ Hi Ale, from Node.js + TypeScript
   "dev": "ts-node src/index.ts",
   "build": "tsc",
   "start": "node dist/index.js"
+  
+  // ts-node-dev
+  "dev": "ts-node-dev --respawn --pretty src/index.ts"
 }
 ```
 
@@ -2490,23 +2498,75 @@ Next.js + TS**
 npx create-next-app@latest --ts
 ```
 
+#### Var Let Const
 
+En TypeScript, `var`, `let`, y `const` son palabras clave para declarar variables, pero difieren en su **ámbito (scope)** y **mutabilidad**: `var` tiene alcance de función/global y permite redeclaración; `let` tiene alcance de bloque (llaves `{}`) y permite reasignación, pero no redeclaración; y `const` también tiene alcance de bloque, pero su valor no puede ser reasignado (es de solo lectura), siendo la mejor opción por defecto para indicar intención y prevenir errores.
 
+1. `var` (Antigua)
 
+- **Ámbito (Scope):** Funcional o global. Se eleva (hoisting) al inicio de la función o script, permitiendo acceso antes de la declaración.
+- **Mutabilidad:** Se puede reasignar y redeclarar dentro del mismo ámbito.
+- **Uso:** No se recomienda en código moderno por su comportamiento impredecible, prefiriendo `let` y `const`.
 
+2. `let` (Moderna)
 
+- **Ámbito (Scope):** De bloque `{}`. Solo existe dentro de las llaves donde se declara (ej. `if`, `for`).
+- **Mutabilidad:** Se puede reasignar (cambiar su valor), pero no redeclarar en el mismo ámbito.
+- **Uso:** Ideal para variables cuyo valor necesita cambiar, como contadores en bucles.
 
+3. `const` (Moderna)
 
-👈🏼👀
+- **Ámbito (Scope):** De bloque `{}` (igual que `let`).
+- **Mutabilidad:** No se puede reasignar su valor. Debe ser inicializada al declararla.
+- **Uso:** Para valores que no deben cambiar (constantes). Es la opción preferida por defecto, usar `let` solo si se necesita reasignar.
 
+Recomendación en TypeScript
 
+- **Usa `const` por defecto.** Si necesitas que el valor cambie, entonces usa `let`.
+- **Evita `var`.** `let` y `const` ofrecen un manejo de ámbitos más predecible y seguro, mejorando la mantenibilidad del código.
 
+#### Function vs Arrow function
 
+En TypeScript, las funciones tradicionales y las funciones flecha (arrow functions) definen bloques de código reutilizables, pero las **arrow functions (`=>`)** ofrecen una sintaxis más concisa, son anónimas por naturaleza, y lo más importante, **capturan el contexto de `this`** del entorno donde se definen (en lugar de su propio `this`), lo que las hace ideales para callbacks y métodos cortos, mientras que las funciones tradicionales tienen su propio `this` (dinámico) y se usan más para constructores o métodos de clase. TypeScript añade la **tipificación fuerte** a ambas, permitiendo definir tipos para parámetros y retornos, mejorando la seguridad del código.
 
+1. Funciones Tradicionales (Declaración y Expresión)
 
+- **Sintaxis:** Usan la palabra clave `function`.
+- **`this`:** Su `this` depende de cómo se llama (dinámico: objeto, constructor, global, etc.).
+- **Uso:** Constructores de clases, métodos de objetos, funciones que necesitan su propio `this`.
 
-👈🏼👀
-### 7.1
+Ejemplo:
+
+```ts
+function sumar(a: number, b: number): number {
+    return a + b;
+}
+const restar = function(a: number, b: number): number {
+    return a - b;
+};
+```
+
+2. Funciones Flecha (Arrow Functions)
+
+- **Sintaxis:** `(params) => { body }` o `(params) => expression` (retorno implícito).
+- **`this`:** Léxico (hereda el `this` del scope padre).
+- **Uso:** Callbacks (map, filter, reduce), funciones de una línea, métodos cortos.
+- **Variantes:**
+    - **Sin llaves (retorno implícito):** `(a, b) => a + b`.
+    - **Con llaves (retorno explícito):** `(a, b) => { const res = a + b; return res; }`.
+    - **Sin parámetros:** `() => console.log("Hola")`.
+    - **Un parámetro (sin paréntesis):** `n => n * 2` (si hay varios, los paréntesis son obligatorios).
+
+Ejemplo:
+
+```ts
+const multiplicar = (a: number, b: number): number => a * b;
+const saludar = (nombre: string): void => {
+    console.log(`Hola, ${nombre}`);
+};
+```
+
+ ### 7.1
 
 ### 7.2
 
@@ -2514,7 +2574,15 @@ npx create-next-app@latest --ts
 
 ### 7.
 
+👈🏼👀
 
+
+
+
+
+
+
+👈🏼👀
 
 
 `./bases/objetos/objects.ts`
