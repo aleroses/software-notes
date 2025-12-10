@@ -920,10 +920,10 @@ app.innerHTML = `
 
   class User extends Person {
     public lastAccess: Date;
+
     constructor(
       public email: string,
       public role: string,
-      // private lastAccess: Date,
       name: string,
       gender: Gender,
       birthdate: Date
@@ -968,7 +968,7 @@ app.innerHTML = `
 })();
 ```
 
-### 3.5
+### 3.5 Objetos como propiedades
 
 ```js
 // Bad ❌
