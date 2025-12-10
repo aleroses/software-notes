@@ -2463,7 +2463,7 @@ Ahora cada cambio se refleja automáticamente.
 
 #### 2. Iniciar un proyecto TypeScript CON frameworks
 
-React + TypeScript**
+React + TypeScript
 
 ```bash
 npx create-react-app mi-app --template typescript
@@ -2476,7 +2476,7 @@ npm create vite@latest
 # elige React + TypeScript
 ```
 
-Node.js + Express + TS**
+Node.js + Express + TS
 
 ```bash
 npm init -y
@@ -2485,14 +2485,14 @@ npm i -D typescript ts-node @types/node @types/express
 npx tsc --init
 ```
 
-Svelte + TS**
+Svelte + TS
 
 ```bash
 npm create vite@latest
 # elige Svelte + TypeScript
 ```
 
-Next.js + TS**
+Next.js + TS
 
 ```bash
 npx create-next-app@latest --ts
