@@ -704,26 +704,43 @@ También:
 
 ### 2.13 Principio DRY
 
+"Si quieres ser un programador productivo, esfuérzate en escribir un código legible".
+
+- Rober C. Martin
+
+Don't Repeat Yourself
+
+- Simplemente, es evitar tener duplicidad de código.
+- Simplifica las pruebas.
+- Ayuda a centralizar procesos.
+- Aplicar el principio DRY, usualmente lleva a refactorizar.
+
 ```js
 // Bad ❌
-```
+type Size = '' | 'S' | 'M' | 'XL';
 
-```js
-// Better 👍
+class Product {
+  constructor(
+    public name: string = '',
+    public price: number = 0,
+    public size: Size = ''
+  ) {}
 
-```
+  toString() {
+    // No DRY
+    if (this.name.length <= 0) throw Error('name is empty.');
+    if (this.price <= 0) throw Error('price is zero.');
+    if (this.size.length <= 0) throw Error('size is empty.');
 
-```
-```
+    return `${this.name} (${this.price}), ${this.size}`;
+  }
+}
 
+(() => {
+  const bluePants = new Product('Blue Large Pants', 10, 'M');
+  console.log(bluePants.toString());
+})();
 ```
-```
-
-```
-```
-
-🐦‍🔥
-👀👇🏻
 
 ### 2.14
 
@@ -741,6 +758,9 @@ También:
 
 ```
 ```
+
+🐦‍🔥
+👀👇🏻
 
 ### 2.15
 
