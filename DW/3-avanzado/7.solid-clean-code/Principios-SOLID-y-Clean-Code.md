@@ -803,26 +803,11 @@ Descarga el código de la sección 2 [aquí](https://github.com/Klerith/clean-c
 - Ver en Obsidian: [[poo-js-intermedio#**1.** ¿Qué hay dentro de los objetos en JavaScript?]]
 - Ver en GitHub: [Curso Intermedio de POO con JS](https://github.com/aleroses/software-notes/blob/master/DW/2-intermedio/008.poo-js-intermedio/poo-js-intermedio.md)
 
-### 3.2
+### 3.2 Temas puntuales de la sección
 
-```js
-// Bad ❌
-```
+En esta sección hablaremos principalmente sobre clases y conceptos generales para escribir un mejor código.
 
-```js
-// Better 👍
-
-```
-
-```
-```
-
-```
-```
-
-🐦‍🔥
-👀👇🏻
-👈🏼👀
+Es importante tener presente que así como todo, hay excepciones a cada regla, pero esto debería ser un caso aislado y no el estándar. Tratemos de escribir un mejor código y dejar de lado la comodidad de hacer las cosas como se han venido haciendo, especialmente si esas cosas traen muchos problemas.
 
 ### 3.3
 
