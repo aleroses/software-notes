@@ -794,29 +794,16 @@ class Product {
 
 Descarga el código de la sección 2 [aquí](https://github.com/Klerith/clean-course/tree/fin-seccion-02)
 
-## 3. 
+## 3. Clean Code - Clases y Comentarios
 
+### 3.1 Introducción a la sección
 
-```js
-// Bad ❌
-```
+- Ver en Obsidian: [[poo-js#**1.** JavaScript orientado a objetos, basado en prototipos]]
+- Ver en GitHub: [Curso Básico de POO con JS](https://github.com/aleroses/software-notes/blob/master/DW/2-intermedio/007.poo-js/poo-js.md)
+- Ver en Obsidian: [[poo-js-intermedio#**1.** ¿Qué hay dentro de los objetos en JavaScript?]]
+- Ver en GitHub: [Curso Intermedio de POO con JS](https://github.com/aleroses/software-notes/blob/master/DW/2-intermedio/008.poo-js-intermedio/poo-js-intermedio.md)
 
-```js
-// Better 👍
-
-```
-
-```
-```
-
-```
-```
-
-🐦‍🔥
-👀👇🏻
-👈🏼👀
-
-### 2.17
+### 3.2
 
 ```js
 // Bad ❌
@@ -837,7 +824,196 @@ Descarga el código de la sección 2 [aquí](https://github.com/Klerith/clean-c
 👀👇🏻
 👈🏼👀
 
-### 2.18
+### 3.3
+
+```js
+// Bad ❌
+```
+
+```js
+// Better 👍
+
+```
+
+```
+```
+
+```
+```
+
+🐦‍🔥
+👀👇🏻
+👈🏼👀
+
+### 3.4
+
+```js
+// Bad ❌
+```
+
+```js
+// Better 👍
+
+```
+
+```
+```
+
+```
+```
+
+🐦‍🔥
+👀👇🏻
+👈🏼👀
+
+### 3.5
+
+```js
+// Bad ❌
+```
+
+```js
+// Better 👍
+
+```
+
+```
+```
+
+```
+```
+
+🐦‍🔥
+👀👇🏻
+👈🏼👀
+
+### 3.6
+
+```js
+// Bad ❌
+```
+
+```js
+// Better 👍
+
+```
+
+```
+```
+
+```
+```
+
+🐦‍🔥
+👀👇🏻
+👈🏼👀
+
+### 3.7
+
+```js
+// Bad ❌
+```
+
+```js
+// Better 👍
+
+```
+
+```
+```
+
+```
+```
+
+🐦‍🔥
+👀👇🏻
+👈🏼👀
+
+### 3.8
+
+```js
+// Bad ❌
+```
+
+```js
+// Better 👍
+
+```
+
+```
+```
+
+```
+```
+
+🐦‍🔥
+👀👇🏻
+👈🏼👀
+
+### 3.9
+
+```js
+// Bad ❌
+```
+
+```js
+// Better 👍
+
+```
+
+```
+```
+
+```
+```
+
+🐦‍🔥
+👀👇🏻
+👈🏼👀
+
+### 3.10
+
+```js
+// Bad ❌
+```
+
+```js
+// Better 👍
+
+```
+
+```
+```
+
+```
+```
+
+🐦‍🔥
+👀👇🏻
+👈🏼👀
+
+### 3.11
+
+```js
+// Bad ❌
+```
+
+```js
+// Better 👍
+
+```
+
+```
+```
+
+```
+```
+
+🐦‍🔥
+👀👇🏻
+👈🏼👀
+
+### 3.12
 
 ```js
 // Bad ❌
