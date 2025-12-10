@@ -2088,7 +2088,125 @@ Los **Glob Patterns en TypeScript** (y en general en desarrollo) son **cadenas d
 
 [A Beginner's Guide: Glob Patterns](https://www.malikbrowne.com/blog/a-beginners-guide-glob-patterns/)
 
-### 6.6
+### 6.6 outFile - Archivo de salida
+
+La función de `outFile` en TypeScript es **concatenar múltiples archivos TypeScript (o JavaScript) en un único archivo de salida (.js)** durante la compilación, creando un solo paquete, lo que es útil para simplificar la carga en navegadores (especialmente con módulos como `AMD` o `System`), pero solo funciona con ciertos tipos de módulos y no con CommonJS o ES6 por defecto. 
+
+Características y uso de `--outFile`:
+
+- **Unificación:** Agrupa varios archivos en un solo `.js`, reduciendo la cantidad de solicitudes HTTP.
+- **Modo de uso:** Se configura en el `tsconfig.json` o se pasa como flag en la línea de comandos (`tsc --outFile <nombre_salida.js> <archivo1.ts> <archivo2.ts>`).
+- **Compatibilidad de módulos:** Solo funciona cuando el `module` se configura como `None`, `AMD`, o `System`. No es compatible con `CommonJS` o `ES6` por defecto para agrupar módulos.
+- **Namespace y Módulos:** Se utiliza comúnmente con `namespaces` para generar un único archivo JavaScript que encapsula todo el código, permitiendo que se incluya en una sola etiqueta `<script>` en HTML.
+
+Estructura:
+
+```bash
+.
+└── bases
+    ├── app.ts
+    ├── funciones
+    │   ├── args-default.ts
+    │   ├── args-optional.ts
+    │   ├── args-required.ts
+    │   ├── args-rests.ts
+    │   ├── functions.ts
+    │   └── functions-type.ts
+    ├── index.html
+    ├── main.js 👈🏼👀
+    ├── main.js.map
+    ├── objetos
+    │   ├── objects.ts
+    │   ├── type.ts
+    │   └── union-types.ts
+    ├── tipos
+    │   ├── any.ts
+    │   ├── arrays.ts
+    │   ├── booleans.ts
+    │   ├── enums.ts
+    │   ├── never.ts
+    │   ├── null-undefined.ts
+    │   ├── numbers.ts
+    │   ├── strings.ts
+    │   ├── tuples.ts
+    │   └── void.ts
+    └── tsconfig.json
+```
+
+Primero modificas el archivo `tsconfig.json` y luego eliminas los archivos `.map` y `.js`.
+
+```json
+{
+  // Visit https://aka.ms/tsconfig to read more about this file
+  "compilerOptions": {
+    // File Layout
+    // "rootDir": "./src",
+    "outFile": "./main.js", 👈🏼👀
+    // "outDir": "./dist",
+
+    // Environment Settings
+    "module": "amd", 👈🏼👀
+    "target": "esnext",
+    "types": [],
+
+    // Other Outputs
+    "sourceMap": true,
+    "declaration": false,
+    "declarationMap": false,
+
+    "removeComments": true,
+
+    // Stricter Typechecking Options
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+
+    // Recommended Options
+    "strict": true,
+    "jsx": "react-jsx",
+    "verbatimModuleSyntax": false, 👈🏼👀
+    "isolatedModules": false, 👈🏼👀
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true
+  },
+  "exclude": [
+    "node_modules", // Excluye la carpeta node_modules
+    "dist", // Excluye la carpeta de salida
+    "src/tests/**/*.ts" // Excluye archivos de pruebas
+  ]
+}
+```
+
+> Si estás usando una librería o framework, esto ya viene por defecto. 
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Bases de TypeScript</title>
+  </head>
+  <body>
+    <script src="./main.js" type="module"></script>
+  </body>
+</html>
+```
+
+Recuerda que el archivo `app.ts` debe estar dentro de:
+
+```ts
+(()=> {
+  ...
+})()
+```
+
+Ahora el contenido de todos los otros archivos se va al main.js unificando el contenido.
+
+📌 Nota: No he logrado ver los `console.log` en la web, debido a un error con `define` que no está definido. 🤷🏽‍♂️ Por lo demás sí se logra crear el `main.js`.
 
 ## 7.
 👈🏼👀
