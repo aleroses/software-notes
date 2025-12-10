@@ -2208,7 +2208,303 @@ Ahora el contenido de todos los otros archivos se va al main.js unificando el co
 
 📌 Nota: No he logrado ver los `console.log` en la web, debido a un error con `define` que no está definido. 🤷🏽‍♂️ Por lo demás sí se logra crear el `main.js`.
 
-## 7.
+## 7. Características de ES6 o JavaScript2015 disponibles a través TypeScript
+
+### 7.1 ¿Qué veremos en esta sección?
+
+JavaScript va actualizando año con año, y tenemos que estar enterados de todo lo nuevo para saber cómo le sacamos el máximo provecho!
+
+Esta sección esta orientada a enseñarles un par de cosas muy útiles y necesarias del ES6 (ES2015 o ECMAScript 6), que ya podemos utilizar con toda confianza en TypeScript.
+
+Aprenderemos sobre:
+
+1. Diferencia entre declarar variables con VAR y con LET
+2. Uso de constantes
+3. Plantillas literales
+4. Funciones de flecha
+5. Destructuración de objetos
+6. Destructuración de Arreglos
+7. Nuevo ciclo, el FOR OF
+8. Conocer sobre la programación orientada a objetos
+9. Clases
+
+Al final, un examen práctico y teórico para afianzar los conocimientos.
+
+### 7.2 Variables LET
+
+> 🔥 En la clase anterior tuve problemas con la configuración de TypeScript así que esta vez intentaré con dos métodos diferentes, mostrados aquí abajo.
+
+**Forma recomendada, moderna y limpia** de iniciar un proyecto con TypeScript **sin frameworks** y también **con frameworks** (por si luego lo necesitas).
+
+#### 1. Iniciar un proyecto TypeScript SIN frameworks
+
+##### Con Node.js
+
+Este es el flujo estándar, simple y profesional para proyectos puros de TS:
+
+A) Crear la carpeta del proyecto
+
+```bash
+mkdir mi-proyecto-ts
+cd mi-proyecto-ts
+```
+
+B) Inicializar el proyecto
+
+```bash
+npm init -y
+```
+
+C) Instalar TypeScript + ts-node + types
+
+```bash
+npm install --save-dev typescript ts-node @types/node
+```
+
+D) Crear el archivo de configuración
+
+```bash
+npx tsc --init
+```
+
+Esto genera un `tsconfig.json`.
+
+E) Recomiendo configurar `tsconfig.json` así (simple y limpio)
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "CommonJS",
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
+  }
+}
+```
+
+Esto evita que se generen montones de `.d.ts.map`, `*.d.ts`, etc.
+
+📌 **Tip:** No uses `"outFile"` salvo casos MUY específicos.  
+Provoca problemas y genera muchos archivos innecesarios.
+
+F) Crear tu estructura
+
+```bash
+.
+├── dist
+│   ├── index.d.ts
+│   ├── index.d.ts.map
+│   ├── index.js
+│   └── index.js.map
+├── node_modules
+├── package.json
+├── package-lock.json
+├── src
+│   └── index.ts 👈🏼👀
+└── tsconfig.json
+```
+
+`src/index.ts`
+
+```ts
+const greet = (name: string) => {
+  return `Hi ${name}, from Node.js + TypeScript`;
+};
+
+console.log(greet('Ale'));
+```
+
+G) Ejecutar con ts-node (para desarrollo)
+
+```bash
+npx ts-node src/index.ts
+
+Hi Ale, from Node.js + TypeScript
+```
+
+H) Compilar
+
+```bash
+npx tsc
+```
+
+Esto genera tu carpeta:
+
+```bash
+dist/
+  index.js
+```
+
+O lo compilas y lo ejecutas como JS
+
+```bash
+// Compilar
+npx tsc
+
+// Ejecutar
+node dist/index.js
+
+// Resultado igual
+Hi Ale, from Node.js + TypeScript
+```
+
+
+(Opcional) Agregar scripts en package.json**
+
+```json
+"scripts": {
+  "dev": "ts-node src/index.ts",
+  "build": "tsc",
+  "start": "node dist/index.js"
+}
+```
+
+Ahora puedes usar:
+
+```bash
+npm run dev
+npm run build
+npm start
+```
+
+##### Usando la web
+
+Ahora, **si quieres que TypeScript produzca código que se muestre en un navegador**, debes:
+
+1. Escribir TypeScript
+2. Compilarlo a JavaScript
+3. Cargar ese JavaScript en un archivo HTML
+4. Abrir ese HTML en un servidor (live server o similar)
+
+🔹 1. Estructura correcta
+
+Reorganiza tu proyecto así:
+
+```bash
+project/
+├── src/
+│   └── index.ts
+├── dist/
+│   └── index.js
+├── public/
+│   └── index.html
+└── tsconfig.json
+```
+
+🔹 2. Código TypeScript para el navegador
+
+`src/index.ts`:
+
+```ts
+const title = document.createElement("h1");
+
+title.textContent = "Hi Ale from TypeScript on the web";
+document.body.appendChild(title);
+```
+
+🔹 3. Compilar TypeScript
+
+```bash
+npx tsc
+```
+
+Esto genera tu carpeta:
+
+```bash
+dist/
+  index.js
+```
+
+🔹 4. HTML que carga tu JS
+
+`public/index.html`:
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Proyecto TS para Web</title>
+</head>
+<body>
+  <script src="../dist/index.js"></script>
+</body>
+</html>
+```
+
+🔹 5. Abrir el HTML en un navegador
+
+El navegador mostrará:
+
+```
+Hola Henry desde TypeScript en la web
+```
+
+🔹 6. Usar Live Server para auto recarga
+
+En VSCode:
+
+✔ Instala la extensión: **Live Server**  
+✔ Clic derecho en `public/index.html` → **Open with Live Server**
+
+Ahora cada cambio se refleja automáticamente.
+
+#### 2. Iniciar un proyecto TypeScript CON frameworks
+
+React + TypeScript**
+
+```bash
+npx create-react-app mi-app --template typescript
+```
+
+o con Vite (más moderno):
+
+```bash
+npm create vite@latest
+# elige React + TypeScript
+```
+
+Node.js + Express + TS**
+
+```bash
+npm init -y
+npm i express
+npm i -D typescript ts-node @types/node @types/express
+npx tsc --init
+```
+
+Svelte + TS**
+
+```bash
+npm create vite@latest
+# elige Svelte + TypeScript
+```
+
+Next.js + TS**
+
+```bash
+npx create-next-app@latest --ts
+```
+
+
+
+
+
+
+
+
+👈🏼👀
+
+
+
+
+
+
+
 👈🏼👀
 ### 7.1
 
