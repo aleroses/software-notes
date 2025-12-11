@@ -1218,26 +1218,74 @@ app.innerHTML = `
 
 [06-classes-b.ts](https://gist.github.com/Klerith/a5ea5db38b60149e2941fdce4248ecf5)
 
-### 3.7
+### 3.7 Tarea - Responsabilidad única
+
+`07.tarea.ts`
 
 ```js
 // Bad ❌
+(() => {
+  //* Aplicar el principio de responsabilidad única
+  //* Priorizar la composición frente a la herencia
+
+  type HtmlType = 'input' | 'select' | 'textarea' | 'radio';
+
+  class HtmlElement {
+    constructor(public id: string, public type: HtmlType) {}
+  }
+
+  class InputAttributes extends HtmlElement {
+    constructor(
+      public value: string,
+      public placeholder: string,
+      id: string
+    ) {
+      super(id, 'input');
+    }
+  }
+
+  class InputEvents extends InputAttributes {
+    constructor(
+      value: string,
+      placeholder: string,
+      id: string
+    ) {
+      super(value, placeholder, id);
+    }
+
+    setFocus() {}
+    getValue() {}
+    isActive() {}
+    removeValue() {}
+  }
+
+  //? Idea para la nueva clase InputElement
+
+  const nameField = new InputEvents(
+    'Fernando',
+    'Enter first name',
+    'txtName'
+  );
+
+  console.log({ nameField });
+})();
 ```
+
+`main.ts`
 
 ```js
-// Better 👍
+import './style.css';
+import './clean-code/07.tarea';
 
+const app = document.querySelector<HTMLDivElement>('#app')!;
+
+app.innerHTML = `
+  <h1>CleanCode y SOLID</h1>
+  <span>Revisar la consola de JavaScript</span>
+`;
 ```
 
-```
-```
-
-```
-```
-
-🐦‍🔥
-👀👇🏻
-👈🏼👀
+[Tarea - Responsabilidad única](https://gist.github.com/Klerith/8f69dd971ea830497cd3aa49bc9df51a)
 
 ### 3.8
 
