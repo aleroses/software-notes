@@ -2663,7 +2663,50 @@ console.log({ ironman, hulk });
 { ironman: 'Cap. América', hulk: 'Hulk' }
 ```
 
-### 7.5
+### 7.5 v
+
+```ts
+// For... of
+
+type Avenger = {
+  name: string;
+  weapon: string;
+};
+
+const ironMan: Avenger = {
+  name: 'Ironman',
+  weapon: 'Armorsuit',
+};
+
+const captainAmerica: Avenger = {
+  name: 'Captain America',
+  weapon: 'Shield',
+};
+
+const thor: Avenger = {
+  name: 'Thor',
+  weapon: 'Mjolnir',
+};
+
+const avengers: Avenger[] = [ironMan, thor, captainAmerica];
+
+for (const hero of avengers) {
+  console.log(hero);
+}
+
+for (const { name, weapon } of avengers) {
+  console.log(name, weapon);
+}
+
+// We obtain
+{ name: 'Ironman', weapon: 'Armorsuit' }
+{ name: 'Thor', weapon: 'Mjolnir' }
+{ name: 'Captain America', weapon: 'Shield' }
+
+Ironman Armorsuit
+Thor Mjolnir
+Captain America Shield
+```
 
 ### 7.6
 
