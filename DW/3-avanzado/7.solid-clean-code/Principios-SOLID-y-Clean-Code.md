@@ -43,6 +43,7 @@ Si quieres trabajar con `npm` en lugar de `yarn` primero elimina el archivo `yar
 ```bash
 # Run
 npm i
+npm run dev
 ```
 
 Cada sección tiene su rama: 
@@ -970,7 +971,7 @@ app.innerHTML = `
 
 ### 3.5 Objetos como propiedades
 
-`06.classes-a.ts`
+`06.classes-b.ts`
 
 ```js
 (() => {
@@ -1070,43 +1071,152 @@ app.innerHTML = `
 })();
 ```
 
+`main.ts`
+
+```ts
+import './style.css';
+import './clean-code/06.classes-b';
+
+const app = document.querySelector<HTMLDivElement>('#app')!;
+
+app.innerHTML = `
+  <h1>CleanCode y SOLID</h1>
+  <span>Revisar la consola de JavaScript</span>
+`;
+```
+
 [06-classes-a.ts](https://gist.github.com/Klerith/787da77f48c6e513e8326ffe7bce059a)
 
-```js
-// Better 👍
+### 3.6 Principio de responsabilidad única
 
-```
-
-```
-```
-
-```
-```
-
-🐦‍🔥
-👀👇🏻
-👈🏼👀
-
-### 3.6
+`06.classes-c.ts`
 
 ```js
-// Bad ❌
+(() => {
+  // Applying the principle of sole responsibility.
+  // Prioritize composition over inheritance.
+
+  type Gender = 'M' | 'F';
+
+  interface PersonProps {
+    birthdate: Date;
+    gender: Gender;
+    name: string;
+  }
+
+  class Person {
+    public birthdate: Date;
+    public gender: Gender;
+    public name: string;
+
+    constructor({ name, gender, birthdate }: PersonProps) {
+      this.name = name;
+      this.gender = gender;
+      this.birthdate = birthdate;
+    }
+  }
+
+  interface UserProps {
+    email: string;
+    role: string;
+  }
+
+  class User {
+    public email: string;
+    public lastAccess: Date;
+    public role: string;
+
+    constructor({ email, role }: UserProps) {
+      this.lastAccess = new Date();
+      this.email = email;
+      this.role = role;
+    }
+
+    checkCredentials() {
+      return true;
+    }
+  }
+
+  interface SettingsProps {
+    lastOpenFolder: string;
+    workingDirectory: string;
+  }
+
+  class Settings {
+    public workingDirectory: string;
+    public lastOpenFolder: string;
+
+    constructor({
+      workingDirectory,
+      lastOpenFolder,
+    }: SettingsProps) {
+      this.lastOpenFolder = lastOpenFolder;
+      this.workingDirectory = workingDirectory;
+    }
+  }
+
+  interface UserSettingsProps {
+    birthdate: Date;
+    email: string;
+    gender: Gender;
+    lastOpenFolder: string;
+    name: string;
+    role: string;
+    workingDirectory: string;
+  }
+
+  class UserSettings {
+    public person: Person;
+    public user: User;
+    public settings: Settings;
+
+    constructor({
+      name,
+      gender,
+      birthdate,
+      email,
+      role,
+      lastOpenFolder,
+      workingDirectory,
+    }: UserSettingsProps) {
+      this.person = new Person({ name, gender, birthdate });
+      this.user = new User({ email, role });
+      this.settings = new Settings({
+        lastOpenFolder,
+        workingDirectory,
+      });
+    }
+  }
+
+  const userSettings = new UserSettings({
+    birthdate: new Date('1985-10-21'),
+    email: 'aleroses@google.com',
+    gender: 'M',
+    lastOpenFolder: '/home',
+    name: 'Ale',
+    role: 'Admin',
+    workingDirectory: '/usr/home',
+  });
+
+  console.log({ userSettings });
+})();
 ```
 
-```js
-// Better 👍
+`main.ts`
 
+```ts
+import './style.css';
+import './clean-code/06.classes-c';
+
+const app = document.querySelector<HTMLDivElement>('#app')!;
+
+app.innerHTML = `
+  <h1>CleanCode y SOLID</h1>
+  <span>Revisar la consola de JavaScript</span>
+`;
 ```
 
-```
-```
-
-```
-```
-
-🐦‍🔥
-👀👇🏻
-👈🏼👀
+[06-classes-b.ts](https://gist.github.com/Klerith/a5ea5db38b60149e2941fdce4248ecf5)
 
 ### 3.7
 
