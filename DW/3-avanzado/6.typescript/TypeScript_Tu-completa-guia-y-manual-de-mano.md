@@ -2598,6 +2598,17 @@ const printAvenger = ({ ironman, ...rest }: Avengers) => {
 };
 
 printAvenger(avengers);
+
+// Console
+Robert Downey Jr.
+{
+  rest: {
+    nick: 'Samuel L. Jackson',
+    vision: 'Paul Bettany',
+    activo: true,
+    poder: 123.123
+  }
+}
 ```
 
 📌 Nota: al hacer `Ctrl + Barra espaciadora` aparecen las opciones disponibles del objeto.
@@ -2635,7 +2646,9 @@ mostrarUsuario(usuario); // Salida: ID: 1, Nombre: Carlos
 
 En resumen, la desestructuración es una forma elegante de manejar datos en JS/TS, y TypeScript te ayuda a hacerlo de forma segura mediante la tipificación de la estructura original.
 
-### 7.4
+### 7.4 Desestructuración de Arreglos
+
+
 
 ### 7.5
 
