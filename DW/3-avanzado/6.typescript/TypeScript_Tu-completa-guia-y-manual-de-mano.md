@@ -2828,9 +2828,33 @@ Aquí les dejo el código fuente de la sección como material adjunto o bien el 
 
 [Klerith/ts-bases/tree/fin-seccion-7](https://github.com/Klerith/ts-bases/tree/fin-seccion-7)
 
+## 8. Clases en TypeScript
 
+### 8.1 ¿Qué veremos en esta sección?
 
+La programación orientada a objetos es un tema sumamente importante, especialmente si nuestras aplicaciones van de mediana a gran escala. TypeScript trae toda la potencia de una programación orientada a objetos a la web.
 
+Toda la sección se enfoca en enseñar sobre el uso de clases.
+
+Puntualmente aprenderemos sobre:
+
+1. Crear clases en TypeScript
+2. Constructores
+3. Accesibilidad de las propiedades:
+    1. Públicas
+    2. Privadas
+    3. Protegidas
+4. Métodos de las clases que pueden ser:
+    1. Públicos
+    2. Privados
+    3. Protegidos
+5. Herencia
+6. Llamar funciones del padre, desde los hijos
+7. Getters 
+8. Setters
+9. Métodos y propiedades estáticas
+10. Clases abstractas
+11. Constructores privados.
 
 `./bases/objetos/objects.ts`
 
