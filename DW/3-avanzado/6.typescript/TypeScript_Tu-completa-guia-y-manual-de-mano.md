@@ -2566,13 +2566,86 @@ const saludar = (nombre: string): void => {
 };
 ```
 
- ### 7.1
+### 7.3 Desestructuración de Objetos
 
-### 7.2
+```ts
+/* Destructuring */
 
-### 7.3
+type Avengers = {
+  nick: string;
+  ironman: string;
+  vision: string;
+  activo: boolean;
+  poder: number;
+};
 
-### 7.
+const avengers: Avengers = {
+  nick: 'Samuel L. Jackson',
+  ironman: 'Robert Downey Jr.',
+  vision: 'Paul Bettany',
+  activo: true,
+  poder: 123.123,
+};
+
+const { poder, vision } = avengers;
+
+console.log(poder.toFixed(2), vision.toUpperCase());
+
+const printAvenger = ({ ironman, ...rest }: Avengers) => {
+  console.log(ironman);
+  console.log({ rest });
+  // Using Ctrl + Spacebar brings up the available options.
+};
+
+printAvenger(avengers);
+```
+
+📌 Nota: al hacer `Ctrl + Barra espaciadora` aparecen las opciones disponibles del objeto.
+
+La desestructuración en TypeScript es una característica de JavaScript que permite **desempaquetar valores de objetos o arrays en variables individuales de forma concisa**, haciendo el código más limpio y legible, especialmente al extraer propiedades o elementos dentro de funciones, aunque requiere anotar el tipo de la estructura completa (no de las variables individuales desestructuradas) para mantener la seguridad de tipos de TypeScript. 
+
+¿Cómo funciona?
+
+- **En Objetos**: En lugar de `const nombre = persona.nombre;`, usas `const { nombre } = persona;` para extraer la propiedad `nombre` directamente.
+- **En Arrays**: Puedes extraer elementos en orden, como si fueran tuplas: `const [primero, segundo] = [1, 2];`.
+- **En Parámetros de Funciones**: Desestructura los argumentos directamente en la firma de la función para acceder a sus propiedades sin usar `props.propiedad`, mejorando la legibilidad del cuerpo de la función. 
+
+Consideraciones con TypeScript:
+
+- **Anotación de Tipo**: No puedes anotar el tipo de cada variable individualmente tras la desestructuración (ej: `const { nombre: string } = persona;`). Debes anotar el tipo de la estructura completa.
+    - **Ejemplo Incorrecto:** `const { nombre: string } = { nombre: "Ana" };`
+    - **Ejemplo Correcto:** `const { nombre } = { nombre: "Ana" } as { nombre: string };` o mejor, definir un tipo/interfaz antes.
+- **Mejor Práctica**: Define tipos o interfaces explícitas para tus objetos (ej: `interface Persona { nombre: string; edad: number; }`) y luego desestructura usando ese tipo, asegurando la tipificación estricta de TypeScript. 
+
+Ejemplo:
+
+```ts
+interface Usuario {
+  id: number;
+  nombre: string;
+}
+
+function mostrarUsuario({ id, nombre }: Usuario) { // Desestructuración con anotación de tipo
+  console.log(`ID: ${id}, Nombre: ${nombre}`);
+}
+
+const usuario = { id: 1, nombre: "Carlos" };
+mostrarUsuario(usuario); // Salida: ID: 1, Nombre: Carlos
+```
+
+En resumen, la desestructuración es una forma elegante de manejar datos en JS/TS, y TypeScript te ayuda a hacerlo de forma segura mediante la tipificación de la estructura original.
+
+### 7.4
+
+### 7.5
+
+### 7.6
+
+### 7.7
+
+### 7.8
+
+### 7.9
 
 👈🏼👀
 
@@ -2583,7 +2656,7 @@ const saludar = (nombre: string): void => {
 
 
 👈🏼👀
-
+📌
 
 `./bases/objetos/objects.ts`
 
