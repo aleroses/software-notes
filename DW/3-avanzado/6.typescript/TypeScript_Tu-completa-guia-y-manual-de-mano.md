@@ -2648,7 +2648,20 @@ En resumen, la desestructuración es una forma elegante de manejar datos en JS/T
 
 ### 7.4 Desestructuración de Arreglos
 
+```ts
+const avengersArr: string[] = [
+  'Cap. América',
+  'Ironman',
+  'Hulk',
+];
 
+// Note the space between , , 👈🏼👀
+const [ironman, , hulk] = avengersArr;
+console.log({ ironman, hulk });
+
+// We obtain
+{ ironman: 'Cap. América', hulk: 'Hulk' }
+```
 
 ### 7.5
 
