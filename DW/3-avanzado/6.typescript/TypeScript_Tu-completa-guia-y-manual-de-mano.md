@@ -2822,20 +2822,15 @@ Practicando lo visto en clase.
 10. ¿Qué son las plantillas literales (Templates literales)?
 	- Son strings que soportan multi línea, y permite incrustar variables o el producto de funciones dentro del mismo string.
 
-### 7.9
+### 7.9 Código fuente de la sección
 
-👈🏼👀
+Aquí les dejo el código fuente de la sección como material adjunto o bien el enlace al repositorio de Github del proyecto
 
-
-
-
+[Klerith/ts-bases/tree/fin-seccion-7](https://github.com/Klerith/ts-bases/tree/fin-seccion-7)
 
 
 
-👈🏼👀
-👈🏼👀👇🏼
-📌
-✅
+
 
 `./bases/objetos/objects.ts`
 
@@ -2849,7 +2844,10 @@ Practicando lo visto en clase.
 ```
 
 
-
+👈🏼👀
+👈🏼👀👇🏼
+📌
+✅
 
 `./bases/objetos/objects.ts`
 
