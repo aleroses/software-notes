@@ -2663,7 +2663,7 @@ console.log({ ironman, hulk });
 { ironman: 'Cap. América', hulk: 'Hulk' }
 ```
 
-### 7.5 v
+### 7.5 Ciclo - For of
 
 ```ts
 // For... of
@@ -2708,7 +2708,74 @@ Thor Mjolnir
 Captain America Shield
 ```
 
-### 7.6
+### 7.6 Clases en ES6
+
+Para esta clase como estoy trabajando con otra configuración y viendo los cambios con Node desde la terminal integrada de VSC, debo hacer estas modificaciones:
+
+`package.json`
+
+```json
+{
+  "name": "new-ts-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": { // 👈🏼👀👇🏼 change ts to js (index.js)
+    "dev": "ts-node-dev --respawn --pretty src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@types/node": "^24.10.2",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.9.3"
+  }
+}
+```
+
+`src/index.js`
+
+```js
+// Classes es6.js
+class Avenger {
+  // name; 👈🏼👀
+  // power; 👈🏼👀
+
+  constructor(name = 'No name', power = 123) {
+    this.name = name;
+    this.power = power;
+  }
+}
+
+class FlyingAvenger extends Avenger {
+  // flying; 👈🏼👀
+
+  constructor(name = 'No name', power = 0) {
+    super(name, power);
+    this.flying = true;
+  }
+}
+
+const hulk = new Avenger('Hulk', 9001);
+const falcon = new FlyingAvenger('Falcon', 50);
+
+console.log(hulk);
+console.log(falcon);
+
+// We obtain
+Avenger { name: 'Hulk', power: 9001 }
+FlyingAvenger { name: 'Falcon', power: 50, flying: true }
+```
+
+📌 Nota: en JS puedo comentar `name, power y flying`, pero si estuviera con TS no lo permite y marca error.
+
+```bash
+// to see the changes
+npm run dev
+```
 
 ### 7.7
 
@@ -2725,6 +2792,7 @@ Captain America Shield
 
 
 👈🏼👀
+👈🏼👀👇🏼
 📌
 
 `./bases/objetos/objects.ts`
