@@ -2777,9 +2777,50 @@ FlyingAvenger { name: 'Falcon', power: 50, flying: true }
 npm run dev
 ```
 
-### 7.7
+### 7.7 Examen teórico #4
 
-### 7.8
+Practicando lo visto en clase.
+
+### 7.8 Quiz 4: Examen teórico #4
+
+1. ¿Las clases son una característica nueva del ES6?
+	- Verdadero
+2. ¿El siguiente código es válido en TypeScript?
+	```ts
+	const numero: number = 10;
+	
+	if(numbero > 0) {
+	  const numero: number = 10;
+	}
+	```
+	- Verdadero: El IF, crea un nuevo scope o ámbito de la variable, por lo que si es válido.
+3. ¿La desestructuración de arreglos permite extraer valores y asignarlos directamente a variables?
+	- Verdadero
+4. ¿Qué hace el siguiente código?
+	```ts
+	let frutas: string[] = ["Pera", "Manzana"];
+	let [ pera, manzana ] = frutas;
+	```
+	- Crea dos variables con los nombres, pera y manzana, con los valores de pera y manzana respectivamente.
+5. ¿La desestructuración de objetos permite extraer las propiedades directamente de un objeto?
+	- Verdadero
+6. ¿Puedo reemplazar VAR por LET en mis futuros desarrollos usando TypeScript?
+	- Verdadero
+7. En una función de flecha, ¿Qué valor tiene el objeto "THIS"?
+	- Mantiene puntero de la referencia al "THIS" antes de entrar a la función.
+	- En una función de flecha (arrow function) en JavaScript, `this` no tiene un valor propio, sino que hereda y mantiene el valor de `this` del contexto léxico que la rodea, es decir, del ámbito donde fue definida. Esto las hace muy útiles para evitar los problemas comunes de vinculación de `this` en callbacks y métodos anidados, manteniendo la referencia al `this` del padre o contenedor.
+8. ¿Qué hace la siguiente línea de código?
+	```ts
+	let funcion = () => {};
+	```
+	- Declara una variable de tipo función que no hace nada.
+9. ¿Por qué es importante conocer sobre las actualizaciones de JavaScript o ECMAScript?
+	- Porque nos permite hacer más con menos código
+	- Porque aprendemos sobre las nuevas bondades que podremos usar en un futuro cercano.
+	- Porque así sabemos que podemos usar y que no en navegadores que no están tan actualizados.
+	- ✅ Todas las anteriores
+10. ¿Qué son las plantillas literales (Templates literales)?
+	- Son strings que soportan multi línea, y permite incrustar variables o el producto de funciones dentro del mismo string.
 
 ### 7.9
 
@@ -2794,6 +2835,7 @@ npm run dev
 👈🏼👀
 👈🏼👀👇🏼
 📌
+✅
 
 `./bases/objetos/objects.ts`
 
