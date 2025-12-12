@@ -114,7 +114,366 @@ console.log(msg);
 
 Al inicio referenciamos el archivo `app.ts` dentro de la etiqueta `script` lo que da un error, pero al crearse el archivo `app.js` e invocándolo se soluciona mostrándonos el mensaje en consola.
 
+#### ☢️ Advertencia
+
+> 🔥 Como recomendación personal instala y usa TypeSript con los siguiente pasos, ya que a partir del cierto punto da muchos problemas la configuración del curso. En todo caso si continuas con esa configuración e instalación y luego tienes problemas, regresa aquí y sigue los pasos que te muestro.
+
+##### Usando la consola de VSC 
+
+**TypeScript (sin frameworks) + Node + ES Modules + Hot Reload**
+
+⭐ PASO 1 — Crear el proyecto
+
+```bash
+mkdir ts-course
+cd ts-course
+npm init -y
+```
+
+⭐ PASO 2 — Instalar dependencias
+
+```bash
+npm install --save-dev typescript ts-node @types/node nodemon
+```
+
+⭐ PASO 3 — Generar tsconfig.json
+
+```bash
+npx tsc --init
+```
+
+Ahora cambia esto en el archivo `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    
+    "module": "NodeNext",
+    "target": "ES2022",
+    "moduleResolution": "NodeNext",
+
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+
+    "sourceMap": true
+  },
+  "include": ["src"]
+}
+```
+
+Lo demás dejalo por defecto.
+
+📌 **Tip:** No uses `"outFile"` salvo casos MUY específicos.  
+Provoca problemas y genera muchos archivos innecesarios.
+
+Si lo siguiente no te da problemas, déjalo:
+
+> 🔥 _No usamos_ `"exactOptionalPropertyTypes": true`  
+> Evita los errores innecesarios de optional chaining.
+
+⭐ PASO 4 — Configurar nodemon (hot reload)
+
+Crea un archivo `nodemon.json`:
+
+```json
+{
+  "watch": ["src"],
+  "ext": "ts",
+  "exec": "node --loader ts-node/esm ./src/index.ts"
+}
+```
+
+Esto hace:
+
+✔ Recarga automática al guardar  
+✔ Compatible con ES Modules  
+✔ Sin errores de ts-node-dev
+
+⭐ PASO 5 — Script en package.json
+
+Edita tu `package.json`:
+
+```json
+{
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon",
+    "build": "tsc", // generates the dist folder
+    "start": "node dist/index.js"
+  }
+}
+```
+
+Ahora puedes usar:
+
+```shell
+npm run dev
+npm run build
+npm start
+```
+
+⭐ PASO 6 — Estructura del proyecto
+
+```bash
+my-ts-project
+├── src
+│   └── index.ts
+├── nodemon.json
+├── package.json
+└── tsconfig.json
+```
+
+⭐ PASO 7 — Probar
+
+Crea un archivo `src/index.ts`:
+
+```ts
+console.log("Hola TypeScript + Node + ESM 😎");
+```
+
+Ejecuta:
+
+```bash
+npm run dev
+```
+
+Resultado esperado (consola de VSC):
+
+```bash
+[nodemon] starting `node --loader ts-node/esm ./src/index.ts`
+Hola TypeScript + Node + ESM 😎
+```
+
+Y si modificas el archivo…
+
+✔ Se recarga solo  
+✔ No tira errores  
+✔ Funciona con imports modernos  
+✔ No rompe con ESM
+
+##### Usando un Navegador (sin frameworks)
+
+Ahora, **si quieres que TypeScript produzca código que se muestre en un navegador**, debes:
+
+1. Escribir TypeScript
+2. Compilarlo a JavaScript
+3. Cargar ese JavaScript en un archivo HTML
+4. Abrir ese HTML en un servidor (live server o similar)
+
+🔹 1. Estructura correcta
+
+Reorganiza tu proyecto así:
+
+```bash
+project/
+├── src/
+│   └── index.ts
+├── dist/
+│   └── index.js
+├── public/
+│   └── index.html
+└── tsconfig.json
+```
+
+🔹 2. Código TypeScript para el navegador
+
+`src/index.ts`:
+
+```ts
+const title = document.createElement("h1");
+
+title.textContent = "Hi Ale from TypeScript on the web";
+document.body.appendChild(title);
+```
+
+🔹 3. Compilar TypeScript
+
+```bash
+npx tsc
+```
+
+Esto genera tu carpeta:
+
+```bash
+dist/
+  index.js
+```
+
+🔹 4. HTML que carga tu JS
+
+`public/index.html`:
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Proyecto TS para Web</title>
+</head>
+<body>
+  <script src="../dist/index.js"></script>
+</body>
+</html>
+```
+
+🔹 5. Abrir el HTML en un navegador
+
+El navegador mostrará:
+
+```
+Hola Ale desde TypeScript en la web
+```
+
+🔹 6. Usar Live Server para auto recarga
+
+En VSCode:
+
+✔ Instala la extensión: **Live Server**  
+✔ Clic derecho en `public/index.html` → **Open with Live Server**
+
+Ahora cada cambio se refleja automáticamente.
+
+##### Iniciar un proyecto TypeScript CON frameworks
+
+React + TypeScript
+
+```bash
+npx create-react-app mi-app --template typescript
+```
+
+o con Vite (más moderno):
+
+```bash
+npm create vite@latest
+# elige React + TypeScript
+```
+
+Node.js + Express + TS
+
+```bash
+npm init -y
+npm i express
+npm i -D typescript ts-node @types/node @types/express
+npx tsc --init
+```
+
+Svelte + TS
+
+```bash
+npm create vite@latest
+# elige Svelte + TypeScript
+```
+
+Next.js + TS
+
+```bash
+npx create-next-app@latest --ts
+```
+
+#### Module y Targets en tsconfig.json
+
+1️⃣ **module: "nodenext"**
+
+Este modo hace que TypeScript copie **exactamente** el comportamiento de Node respecto a módulos:
+
+- Requiere extensiones `.js` al importar
+- Interpreta `.ts` como si fueran `.js` o `.mts` dependiendo
+- Puede usar CJS y ESM al mismo tiempo
+- Respeta `"type": "module"` del package.json
+- Puede producir errores como:  
+    ❌ _Must use import to load ES Module_  
+    ❌ _Cannot use ECMAScript imports in a CommonJS file_
+    
+
+👉 **Este modo tiene reglas muy estrictas**  
+Es útil para proyectos grandes o bibliotecas NPM, pero **demasiado complejo si solo quieres aprender TS o hacer apps básicas**.
+
+2️⃣ **module: "ESNext"**
+
+Esto genera **módulos ESM modernos y sencillos**.
+
+Uso:
+
+```ts
+import express from "express";
+export class Foo {}
+```
+
+- No mezcla CommonJS
+- No depende de reglas internas de Node
+- TypeScript simplemente produce ESM puro
+- Compatible con browsers, Bun, Deno y Node
+
+👉 **Es lo más simple para 2024–2025**  
+Recomendado para este curso, solo quita `"moduleResolution": "NodeNext",` o usa NodeNext, por el momento no he notado problemas.
+
+3️⃣ target: "esnext"
+
+Significa:
+
+> “Compila Output usando las características más nuevas del lenguaje”.  
+> Incluso si no están soportadas por todos los runtimes.
+
+Puede generar cosas que **tu versión de Node no soporte aún**.
+
+Ejemplo:  
+Nueva sintaxis, decorators experimentales, nuevas colecciones, etc.
+
+👉 Es moderno, pero **no siempre estable**.
+
+4️⃣ target: "ES2022"
+
+Node 18, 20 y 22 soportan completamente ES2022.
+
+Incluye:
+
+- Top-level await
+    
+- `class fields`
+- `Object.hasOwn()`
+- `RegExp match indices`
+- `Error.cause`
+- Otras características modernas **ya completamente estandarizadas**
+
+No incluye sintaxis experimental.
+
+👉 Es moderno, estable y compatible.
+
+Resumen:
+
+|Configuración|Moderno|Estable|Recomendada|
+|---|---|---|---|
+|**module: "nodenext"**|Sí|Sí|Solo para proyectos complejos|
+|**module: "ESNext"**|⭐ Más moderno|⭐ Simple|⭐ Recomendada|
+|**target: "esnext"**|⭐ Ultra moderno|❌ No estable|Solo si sabes lo que haces|
+|**target: "ES2022"**|Muy moderno|⭐ Estable|⭐ Recomendada|
+
+⭐ CONCLUSIÓN FINAL
+
+✔ Para aprender TS, crear proyectos simples, usar ESM, solo para evitar errores quita o comenta `"moduleResolution": "NodeNext",`:
+
+Usa esto:
+
+```json
+"module": "ESNext",
+"target": "ES2022",
+```
+
+✔ Para bibliotecas o compatibilidad estricta con Node:
+
+Usa esto:
+
+```json
+"module": "NodeNext",
+"target": "esnext",
+```
+
 ### 2.4 TSConfig.json
+
+> 🔥 En este punto hasta antes de la sección 7 usé la configuración del curso, luego cambié a la mostrada anteriormente.
 
 Estructura:
 
@@ -1145,6 +1504,8 @@ A continuación, vamos a repasar un poco todo lo aprendido hasta el momento...
 	```
 	- 10: Como "c" es igual a 9, el siguiente valor es 10, no importa que se repita el valor de la enumeración.
 
+---
+
 ## 4. Funciones y objetos
 
 ### 4.1. ¿Qué veremos en esta sección?
@@ -1587,6 +1948,8 @@ Afianzando los conocimientos de la teoría.
 10. ¿Una función es, a su vez, un tipo en TypeScript?
 	- Verdadero
 
+---
+
 ## 5. Objetos y tipos personalizados en TypeScript
 
 ### 5.1 ¿Qué veremos en esta sección?
@@ -1963,6 +2326,8 @@ Les dejo mi código fuente por si lo llegan a necesitar o comparar con el mío
 
 - [ts-bases-fin-seccion-5.zip](https://import.cdn.thinkific.com/643563/courses/1870132/tsbasesfinseccion5-220520-190151.zip)
 
+---
+
 ## 6. Depuración de Errores y el archivo tsconfig.json
 
 ### 6.1 ¿Qué veremos en esta sección?
@@ -2208,6 +2573,8 @@ Ahora el contenido de todos los otros archivos se va al main.js unificando el co
 
 📌 Nota: No he logrado ver los `console.log` en la web, debido a un error con `define` que no está definido. 🤷🏽‍♂️ Por lo demás sí se logra crear el `main.js`.
 
+---
+
 ## 7. Características de ES6 o JavaScript2015 disponibles a través TypeScript
 
 ### 7.1 ¿Qué veremos en esta sección?
@@ -2232,271 +2599,7 @@ Al final, un examen práctico y teórico para afianzar los conocimientos.
 
 ### 7.2 Variables LET
 
-> 🔥 En la clase anterior tuve problemas con la configuración de TypeScript así que esta vez intentaré con dos métodos diferentes, mostrados aquí abajo.
-
-**Forma recomendada, moderna y limpia** de iniciar un proyecto con TypeScript **sin frameworks** y también **con frameworks** (por si luego lo necesitas).
-
-#### 1. Iniciar un proyecto TypeScript SIN frameworks
-
-##### Con Node.js
-
-Este es el flujo estándar, simple y profesional para proyectos puros de TS:
-
-A) Crear la carpeta del proyecto
-
-```bash
-mkdir mi-proyecto-ts
-cd mi-proyecto-ts
-```
-
-B) Inicializar el proyecto
-
-```bash
-npm init -y
-```
-
-C) Instalar TypeScript + ts-node + types
-
-```bash
-npm install --save-dev typescript ts-node @types/node
-```
-
-D) Crear el archivo de configuración
-
-```bash
-npx tsc --init
-```
-
-Esto genera un `tsconfig.json`.
-
-E) Recomiendo configurar `tsconfig.json` así (simple y limpio)
-
-```json
-{
-  "compilerOptions": {
-    "target": "ES2020",
-    "module": "CommonJS",
-    "rootDir": "./src",
-    "outDir": "./dist",
-    "strict": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true
-  }
-}
-```
-
-Esto evita que se generen montones de `.d.ts.map`, `*.d.ts`, etc.
-
-📌 **Tip:** No uses `"outFile"` salvo casos MUY específicos.  
-Provoca problemas y genera muchos archivos innecesarios.
-
-F) Crear tu estructura
-
-```bash
-.
-├── dist
-│   ├── index.d.ts
-│   ├── index.d.ts.map
-│   ├── index.js
-│   └── index.js.map
-├── node_modules
-├── package.json
-├── package-lock.json
-├── src
-│   └── index.ts 👈🏼👀
-└── tsconfig.json
-```
-
-`src/index.ts`
-
-```ts
-const greet = (name: string) => {
-  return `Hi ${name}, from Node.js + TypeScript`;
-};
-
-console.log(greet('Ale'));
-```
-
-G) Ejecutar con ts-node (para desarrollo)
-
-```bash
-npx ts-node src/index.ts
-
-Hi Ale, from Node.js + TypeScript
-```
-
-H) Compilar
-
-```bash
-npx tsc
-```
-
-Esto genera tu carpeta:
-
-```bash
-dist/
-  index.js
-```
-
-O lo compilas y lo ejecutas como JS
-
-```bash
-// Compilar
-npx tsc
-
-// Ejecutar
-node dist/index.js
-
-// Resultado igual
-Hi Ale, from Node.js + TypeScript
-```
-
-Si quieras dejar escuchando los cambios:
-
-```bash
-npm install --save-dev ts-node-dev
-```
-
-(Opcional) Agregar scripts en package.json**
-
-```json
-"scripts": {
-  "dev": "ts-node src/index.ts",
-  "build": "tsc",
-  "start": "node dist/index.js"
-  
-  // ts-node-dev
-  "dev": "ts-node-dev --respawn --pretty src/index.ts"
-}
-```
-
-Ahora puedes usar:
-
-```bash
-npm run dev
-npm run build
-npm start
-```
-
-##### Usando la web
-
-Ahora, **si quieres que TypeScript produzca código que se muestre en un navegador**, debes:
-
-1. Escribir TypeScript
-2. Compilarlo a JavaScript
-3. Cargar ese JavaScript en un archivo HTML
-4. Abrir ese HTML en un servidor (live server o similar)
-
-🔹 1. Estructura correcta
-
-Reorganiza tu proyecto así:
-
-```bash
-project/
-├── src/
-│   └── index.ts
-├── dist/
-│   └── index.js
-├── public/
-│   └── index.html
-└── tsconfig.json
-```
-
-🔹 2. Código TypeScript para el navegador
-
-`src/index.ts`:
-
-```ts
-const title = document.createElement("h1");
-
-title.textContent = "Hi Ale from TypeScript on the web";
-document.body.appendChild(title);
-```
-
-🔹 3. Compilar TypeScript
-
-```bash
-npx tsc
-```
-
-Esto genera tu carpeta:
-
-```bash
-dist/
-  index.js
-```
-
-🔹 4. HTML que carga tu JS
-
-`public/index.html`:
-
-```html
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Proyecto TS para Web</title>
-</head>
-<body>
-  <script src="../dist/index.js"></script>
-</body>
-</html>
-```
-
-🔹 5. Abrir el HTML en un navegador
-
-El navegador mostrará:
-
-```
-Hola Henry desde TypeScript en la web
-```
-
-🔹 6. Usar Live Server para auto recarga
-
-En VSCode:
-
-✔ Instala la extensión: **Live Server**  
-✔ Clic derecho en `public/index.html` → **Open with Live Server**
-
-Ahora cada cambio se refleja automáticamente.
-
-#### 2. Iniciar un proyecto TypeScript CON frameworks
-
-React + TypeScript
-
-```bash
-npx create-react-app mi-app --template typescript
-```
-
-o con Vite (más moderno):
-
-```bash
-npm create vite@latest
-# elige React + TypeScript
-```
-
-Node.js + Express + TS
-
-```bash
-npm init -y
-npm i express
-npm i -D typescript ts-node @types/node @types/express
-npx tsc --init
-```
-
-Svelte + TS
-
-```bash
-npm create vite@latest
-# elige Svelte + TypeScript
-```
-
-Next.js + TS
-
-```bash
-npx create-next-app@latest --ts
-```
+> 🔥 En la clase anterior tuve problemas con la configuración de TypeScript así que esta vez intentaré con dos métodos diferentes, mostrados en el punto 2.3.
 
 #### Var Let Const
 
@@ -2828,6 +2931,8 @@ Aquí les dejo el código fuente de la sección como material adjunto o bien el 
 
 [Klerith/ts-bases/tree/fin-seccion-7](https://github.com/Klerith/ts-bases/tree/fin-seccion-7)
 
+---
+
 ## 8. Clases en TypeScript
 
 ### 8.1 ¿Qué veremos en esta sección?
@@ -2856,6 +2961,57 @@ Puntualmente aprenderemos sobre:
 10. Clases abstractas
 11. Constructores privados.
 
+### 8.2 Definición de una clase básica en TypeScript
+
+Estructura:
+
+```bash
+
+```
+
+`src/classes/basic.ts`
+
+```ts
+export class Avenger {
+  private name: string;
+  private team: string;
+
+  // Si no se coloca nada por defecto es public
+  // If nothing is set by default, it is public.
+  public realName?: string | undefined;
+  static avgAge: number = 35;
+
+  constructor(name: string, team: string, realName?: string) {
+    this.name = name;
+    this.team = team;
+    this.realName = realName;
+  }
+}
+
+export const antman: Avenger = new Avenger(
+  'Antman',
+  'Capitan'
+);
+```
+
+`src/index.ts`
+
+```ts
+import { antman, Avenger } from './classes/basic.js';
+
+console.log(Avenger.avgAge);
+console.log(antman);
+```
+
+La consola de vsc muestra:
+
+```bash
+35
+Avenger { name: 'Antman', team: 'Capitan', realName: undefined }
+```
+
+### 8.3
+
 `./bases/objetos/objects.ts`
 
 ```ts
@@ -2867,6 +3023,77 @@ Puntualmente aprenderemos sobre:
 ```html
 ```
 
+👈🏼👀
+👈🏼👀👇🏼
+📌
+✅
+
+### 8.4
+
+`./bases/objetos/objects.ts`
+
+```ts
+
+```
+
+`./bases/index.html`
+
+```html
+```
+
+👈🏼👀
+👈🏼👀👇🏼
+📌
+✅
+
+### 8.5
+
+`./bases/objetos/objects.ts`
+
+```ts
+
+```
+
+`./bases/index.html`
+
+```html
+```
+
+👈🏼👀
+👈🏼👀👇🏼
+📌
+✅
+
+### 8.6
+
+`./bases/objetos/objects.ts`
+
+```ts
+
+```
+
+`./bases/index.html`
+
+```html
+```
+
+👈🏼👀
+👈🏼👀👇🏼
+📌
+✅
+
+### 8.7
+
+`./bases/objetos/objects.ts`
+
+```ts
+
+```
+
+`./bases/index.html`
+
+```html
+```
 
 👈🏼👀
 👈🏼👀👇🏼
@@ -2884,8 +3111,42 @@ Puntualmente aprenderemos sobre:
 ```html
 ```
 
+### 8.8
+
+`./bases/objetos/objects.ts`
+
+```ts
+
+```
+
+`./bases/index.html`
+
+```html
+```
+
+👈🏼👀
+👈🏼👀👇🏼
+📌
+✅
 
 
+### 8.9
+
+`./bases/objetos/objects.ts`
+
+```ts
+
+```
+
+`./bases/index.html`
+
+```html
+```
+
+👈🏼👀
+👈🏼👀👇🏼
+📌
+✅
 
 
 
