@@ -409,6 +409,7 @@ Ahora imagina una función que recibe un “tipo variable”.
 Así:
 
 ```ts
+// Esto equivale a create en zustand
 function identidad<T>(valor: T): T {
   return valor;
 }
@@ -484,6 +485,7 @@ interface Configuracion {
 Función genérica:
 
 ```ts
+// Esto equivale a create en zustand
 function crearServidor<T>(config: T) {
   return config;
 }
@@ -534,7 +536,7 @@ Si escribes mal un método → error
 
 El genérico `<BearState>` hace que el store esté 100% tipado.
 
-#### EFF o Currying?
+#### IIFE o Currying? IIFE
 
 Vamos a explicar **por qué existe `create<BearState>()((set) => {...})`**  
 y por qué NO es simplemente `create<BearState>((set) => {...})`.
@@ -553,7 +555,6 @@ create<BearState>((set) => ({
 Porque eso sería:
 
 - `<BearState>` = tipeo
-    
 - `()` = paso los argumentos
     
 
@@ -586,7 +587,7 @@ function saludar(primeraParte) {
   }
 }
 
-saludar("Hola")("Henry");
+saludar("Hola")("Ale");
 ```
 
 Aquí pasa esto:
@@ -599,7 +600,7 @@ Salida: `"Hola Ale"`
 Esto es **2 llamadas seguidas**:
 
 ```ts
-saludar("Hola")("Henry")
+saludar("Hola")("Ale")
 ```
 
 Ahora mira Zustand de la misma forma
