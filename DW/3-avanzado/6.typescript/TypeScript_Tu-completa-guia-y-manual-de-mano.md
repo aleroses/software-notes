@@ -3047,23 +3047,55 @@ La consola de vsc muestra:
 Avenger { name: 'Antman', team: 'Capitan', realName: 'Scott Lang' }
 ```
 
-### 8.4
+### 8.4 Métodos públicos y privados
 
-`./bases/objetos/objects.ts`
+`src/classes/basic.ts`
 
 ```ts
+export class Avenger {
+  static avgAge: number = 35;
+  static getAvgAge() {
+    return this.name;
+  }
 
+  constructor(
+    private name: string,
+    private team: string,
+    public realName?: string
+  ) {}
+
+  // es public por defecto
+  bio() {
+    return `${this.name} (${this.team})`;
+  }
+}
+
+export const antman: Avenger = new Avenger(
+  'Antman',
+  'Capitan',
+  'Scott Lang'
+);
 ```
 
-`./bases/index.html`
+`src/index.ts`
 
-```html
+```ts
+import { antman, Avenger } from './classes/basic.js';
+
+console.log(Avenger.avgAge);
+console.log(antman);
+console.log(antman.bio());
+console.log(Avenger.getAvgAge());
 ```
 
-👈🏼👀
-👈🏼👀👇🏼
-📌
-✅
+La consola de vsc muestra:
+
+```bash
+35
+Avenger { name: 'Antman', team: 'Capitan', realName: 'Scott Lang' }
+Antman (Capitan)
+Avenger
+```
 
 ### 8.5
 
