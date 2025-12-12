@@ -338,13 +338,7 @@ Ahora cada cambio se refleja automáticamente.
 
 ##### Iniciar un proyecto TypeScript CON frameworks
 
-React + TypeScript
-
-```bash
-npx create-react-app mi-app --template typescript
-```
-
-o con Vite (más moderno):
+React + TypeScript + Vite:
 
 ```bash
 npm create vite@latest
@@ -453,9 +447,9 @@ Resumen:
 
 ⭐ CONCLUSIÓN FINAL
 
-✔ Para aprender TS, crear proyectos simples, usar ESM, solo para evitar errores quita o comenta `"moduleResolution": "NodeNext",`:
+✔ Para aprender TS, crear proyectos simples, usar ESM:
 
-Usa esto:
+Usa esto:  Para evitar errores comenta `"moduleResolution": "NodeNext",`
 
 ```json
 "module": "ESNext",
