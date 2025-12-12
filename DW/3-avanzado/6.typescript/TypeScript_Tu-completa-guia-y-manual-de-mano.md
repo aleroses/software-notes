@@ -2966,7 +2966,15 @@ Puntualmente aprenderemos sobre:
 Estructura:
 
 ```bash
-
+.
+├── nodemon.json
+├── package.json
+├── package-lock.json
+├── src
+│   ├── classes
+│   │   └── basic.ts
+│   └── index.ts
+└── tsconfig.json
 ```
 
 `src/classes/basic.ts`
@@ -3010,23 +3018,34 @@ La consola de vsc muestra:
 Avenger { name: 'Antman', team: 'Capitan', realName: undefined }
 ```
 
-### 8.3
+### 8.3 Forma corta de asignar propiedades
 
-`./bases/objetos/objects.ts`
+`src/classes/basic.ts`
 
 ```ts
+export class Avenger {
+  static avgAge: number = 35;
 
+  constructor(
+    private name: string,
+    private team: string,
+    public realName?: string
+  ) {}
+}
+
+export const antman: Avenger = new Avenger(
+  'Antman',
+  'Capitan',
+  'Scott Lang'
+);
 ```
 
-`./bases/index.html`
+La consola de vsc muestra:
 
-```html
+```bash
+35
+Avenger { name: 'Antman', team: 'Capitan', realName: 'Scott Lang' }
 ```
-
-👈🏼👀
-👈🏼👀👇🏼
-📌
-✅
 
 ### 8.4
 
