@@ -3097,6 +3097,10 @@ Antman (Capitan)
 Avenger
 ```
 
+- El `this.name` que está dentro de bio apunta al constructor.
+- El `this.name` que está dentro del método static apunta a la clase.
+- Y la clase tiene una propiedad por defecto que se llama `"name"`, por eso es que al retornar `this.name` se retorna `"Avenger"`
+
 ### 8.5
 
 `./bases/objetos/objects.ts`
