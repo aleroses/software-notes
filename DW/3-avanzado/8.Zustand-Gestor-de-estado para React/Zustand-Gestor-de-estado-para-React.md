@@ -691,23 +691,140 @@ create<BearState>()(
 
 [https://docs.pmnd.rs/zustand/getting-started/introduction](https://docs.pmnd.rs/zustand/getting-started/introduction)
 
-### 2.5
+### 2.5 Consumir nuestro store
 
 `./src/stores/bears.store.ts`
 
 ```ts
+import { create } from 'zustand';
+
+interface BearState {
+  blackBears: number;
+  polarBears: number;
+  pandaBears: number;
+
+  increaseBlackBears: (by: number) => void;
+  increasePolarBears: (by: number) => void;
+  increasePandaBears: (by: number) => void;
+}
+
+export const useBearStore = create<BearState>()((set) => ({
+  blackBears: 10,
+  polarBears: 5,
+  pandaBears: 1,
+
+  increaseBlackBears: (by: number) =>
+    set((state) => ({ blackBears: state.blackBears + by })),
+  increasePolarBears: (by: number) =>
+    set((state) => ({ polarBears: state.polarBears + by })),
+  increasePandaBears: (by: number) =>
+    set((state) => ({ pandaBears: state.pandaBears + by })),
+}));
 ```
 
-`./src/stores/bears.store.ts`
+`./src/pages/01-basic/BearPage.tsx`
 
-```ts
+```tsx
+import { WhiteCard } from '../../components';
+import { useBearStore } from '../../stores/bears/bears.store';
+
+export const BearPage = () => {
+  return (
+    <>
+      <h1>Contador de Osos</h1>
+      <p>Manejo de estado simple de Zustand</p>
+      <hr />
+
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2'>
+        <BlackBears />
+        <PolarBears />
+        <PandaBears />
+      </div>
+    </>
+  );
+};
+
+export const BlackBears = () => {
+  const blackBears = useBearStore(
+    (state) => state.blackBears
+  );
+  const increaseBlackBears = useBearStore(
+    (state) => state.increaseBlackBears
+  );
+
+  return (
+    <WhiteCard centered>
+      <h2>Osos Negros</h2>
+
+      <div className='flex flex-col md:flex-row'>
+        <button onClick={() => increaseBlackBears(+1)}>
+          +1
+        </button>
+        <span className='text-3xl mx-2 lg:mx-10'>
+          {blackBears}
+        </span>
+        <button onClick={() => increaseBlackBears(-1)}>
+          -1
+        </button>
+      </div>
+    </WhiteCard>
+  );
+};
+
+export const PolarBears = () => {
+  const polarBears = useBearStore(
+    (state) => state.polarBears
+  );
+  const increasePolarBears = useBearStore(
+    (state) => state.increasePolarBears
+  );
+
+  return (
+    <WhiteCard centered>
+      <h2>Osos Polares</h2>
+
+      <div className='flex flex-col md:flex-row'>
+        <button onClick={() => increasePolarBears(+1)}>
+          +1
+        </button>
+        <span className='text-3xl mx-2 lg:mx-10'>
+          {polarBears}
+        </span>
+        <button onClick={() => increasePolarBears(-1)}>
+          -1
+        </button>
+      </div>
+    </WhiteCard>
+  );
+};
+
+export const PandaBears = () => {
+  const pandaBears = useBearStore(
+    (state) => state.pandaBears
+  );
+  const increasePandaBears = useBearStore(
+    (state) => state.increasePandaBears
+  );
+
+  return (
+    <WhiteCard centered>
+      <h2>Osos Pandas</h2>
+
+      <div className='flex flex-col md:flex-row'>
+        <button onClick={() => increasePandaBears(+1)}>
+          +1
+        </button>
+        <span className='text-3xl mx-2 lg:mx-10'>
+          {pandaBears}
+        </span>
+        <button onClick={() => increasePandaBears(-1)}>
+          -1
+        </button>
+      </div>
+    </WhiteCard>
+  );
+};
 ```
-
-```ts
-```
-
-👈🏼👀
-👈🏼👀👇🏻
 
 ### 2.6
 
@@ -719,6 +836,9 @@ create<BearState>()(
 
 ```ts
 ```
+
+👈🏼👀
+👈🏼👀👇🏻
 
 ### 2.7
 
@@ -734,6 +854,10 @@ create<BearState>()(
 ```
 ```
 
+
+👈🏼👀
+👈🏼👀👇🏻
+
 ### 2.8
 
 ```ts
@@ -744,6 +868,9 @@ create<BearState>()(
 
 ```ts
 ```
+
+👈🏼👀
+👈🏼👀👇🏻
 
 ### 2.9
 
@@ -756,9 +883,13 @@ create<BearState>()(
 ```ts
 ```
 
+👈🏼👀
+👈🏼👀👇🏻
+
 ### 2.10
 
-
+👈🏼👀
+👈🏼👀👇🏻
 ## 3
 
 ### 3.1
