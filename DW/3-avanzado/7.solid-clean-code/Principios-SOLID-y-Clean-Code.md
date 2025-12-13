@@ -1396,26 +1396,24 @@ class HtmlElement {
 }
 ```
 
-### 3.10
+### 3.10 Comentarios en el código
 
-```js
-// Bad ❌
-```
+Es horrible leer código de otros.
 
-```js
-// Better 👍
+Evita usar comentarios, pero...
 
-```
+> Cuando usamos librerías de terceros, APIS, frameworks, etc. nos encontraremos ante situaciones en las que escribir un comentario será mejor que dejar una solución compleja o un hack sin explicación.
 
-```
-```
+Los comentarios deberían de ser la excepción, no la regla.
 
-```
-```
+> "No comentes el código mal escrito, reescríbelo".  
+> Brian W. Kernighan
 
-🐦‍🔥
-👀👇🏻
-👈🏼👀
+Recuerda:  
+Nuestro código debe de ser suficientemente autoexplicativo.
+
+Lo que debemos comentar es:  
+¿El por qué? en lugar del ¿Qué? o ¿Cómo?
 
 ### 3.11
 
