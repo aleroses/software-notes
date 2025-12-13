@@ -556,11 +556,14 @@ Uncaught ReferenceError: exports is not defined
 
 Lo solucioné de la siguiente manera:
 
-1. Edité el `tsconfig.json` cambiando solo:
+1. Edité el `tsconfig.json` cambiando:
 	`"module": "nodenext",` por `"module": "esnext",`
 	
-2. Dentro del `index.html` añadí `type="module"` al `script`.
+2. Quita o comenta `"moduleResolution": "NodeNext",`
+	
+3. Dentro del `index.html` añadí `type="module"` al `script`.
 	`<script src="./app.js" type="module"></script>`
+	
 
 ### 2.5 Modo observador - Watch mode
 
