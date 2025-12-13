@@ -1761,6 +1761,7 @@ saludarConEdad("Carlos", 30); // Salida: Hola, Carlos. Tienes 30 años.
     firstname: string,
     ...restArgs: string[]
   ): string => {
+    console.log(restArgs);
     return `${firstname} ${restArgs.join(' ')}`;
   };
 
@@ -1768,6 +1769,10 @@ saludarConEdad("Carlos", 30); // Salida: Hola, Carlos. Tienes 30 años.
 
   console.log({ superman });
 })();
+
+// En consola
+[ 'Joseph', 'Kent' ] // restArgs
+{ superman: 'Clark Joseph Kent' }
 ```
 
 `./bases/index.html`
