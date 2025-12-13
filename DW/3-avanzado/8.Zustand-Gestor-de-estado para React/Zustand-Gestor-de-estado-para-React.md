@@ -751,6 +751,7 @@ export const BlackBears = () => {
   const increaseBlackBears = useBearStore(
     (state) => state.increaseBlackBears
   );
+  const isDisabled = blackBears === 0;
 
   return (
     <WhiteCard centered>
@@ -763,7 +764,10 @@ export const BlackBears = () => {
         <span className='text-3xl mx-2 lg:mx-10'>
           {blackBears}
         </span>
-        <button onClick={() => increaseBlackBears(-1)}>
+        <button
+          onClick={() => increaseBlackBears(-1)}
+          disabled={isDisabled}
+        >
           -1
         </button>
       </div>
@@ -778,6 +782,7 @@ export const PolarBears = () => {
   const increasePolarBears = useBearStore(
     (state) => state.increasePolarBears
   );
+  const isDisabled = polarBears === 0;
 
   return (
     <WhiteCard centered>
@@ -790,7 +795,10 @@ export const PolarBears = () => {
         <span className='text-3xl mx-2 lg:mx-10'>
           {polarBears}
         </span>
-        <button onClick={() => increasePolarBears(-1)}>
+        <button
+          onClick={() => increasePolarBears(-1)}
+          disabled={isDisabled}
+        >
           -1
         </button>
       </div>
@@ -805,6 +813,11 @@ export const PandaBears = () => {
   const increasePandaBears = useBearStore(
     (state) => state.increasePandaBears
   );
+  const isDisabled = pandaBears === 0;
+
+  // const { pandaBears, increasePandaBears } = useBearStore(
+  //   (state) => state
+  // );
 
   return (
     <WhiteCard centered>
@@ -817,7 +830,10 @@ export const PandaBears = () => {
         <span className='text-3xl mx-2 lg:mx-10'>
           {pandaBears}
         </span>
-        <button onClick={() => increasePandaBears(-1)}>
+        <button
+          onClick={() => increasePandaBears(-1)}
+          disabled={isDisabled}
+        >
           -1
         </button>
       </div>
