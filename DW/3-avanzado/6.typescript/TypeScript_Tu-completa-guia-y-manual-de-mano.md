@@ -2071,8 +2071,6 @@ Object { name: "Clark Kent", age: 60, powers: (1) […] }
 })();
 ```
 
-Repetimos mucho código, para evitar eso podemos usar `type`.
-
 ### 5.5 Problema con la definición en línea
 
 `./bases/objetos/objects.ts`
@@ -2102,6 +2100,8 @@ Repetimos mucho código, para evitar eso podemos usar `type`.
   };
 })();
 ```
+
+Repetimos mucho código, para evitar eso podemos usar `type`.
 
 ### 5.6 Tipos personalizados
 
