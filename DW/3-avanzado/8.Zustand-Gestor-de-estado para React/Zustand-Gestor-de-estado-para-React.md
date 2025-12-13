@@ -826,19 +826,18 @@ export const PandaBears = () => {
 };
 ```
 
-### 2.6
+### 2.6 Resolución de la tarea
+
+`./src/pages/01-basic/BearPage.tsx`
 
 ```ts
+// No se recomienda desestructurar
+const { pandaBears, increasePandaBears } = useBearStore(
+    (state) => state
+  );
 ```
 
-```ts
-```
-
-```ts
-```
-
-👈🏼👀
-👈🏼👀👇🏻
+La solución es la misma mostrada en la clase anterior.
 
 ### 2.7
 
