@@ -1349,26 +1349,52 @@ app.innerHTML = `
 })();
 ```
 
-### 3.9
+### 3.9 Estructura recomendada de una clase
+
+"El buen código parece estar escrito por alguien a quien le importa".
+
+Michael Feathers
 
 ```js
-// Bad ❌
-```
+class HtmlElement {
+  // Comenzar con lista de propiedades
+  // 1. Propiedades estáticas
+  // 2. Propiedades públicas de último
+  // 3. Propiedades privadas de último
+  public static domReady: boolean = false;
 
-```js
-// Better 👍
+  private _id: string;
+  private type: string;
+  private updatedAt: number;
 
-```
+  // Métodos
+  // 1. Empezando por los constructores estáticos
+  // 2. Luego el constructor
+  // 3. Seguidamente métodos estáticos
+  // 4. Métodos privados después
+  // 5. Resto de métodos de instancia ordenados de mayor a menor importancia
+  // 6. Getters y Setters al final
 
-```
-```
+  static createInput(id: string) {
+    return new HtmlElement(id, 'input');
+  }
 
-```
-```
+  constructor(id: string, type: string) {
+    this._id = id;
+    this.type = type;
+    this.updatedAt = Date.now();
+  }
 
-🐦‍🔥
-👀👇🏻
-👈🏼👀
+  setType(type: string) {
+    this.type = type;
+    this.updatedAt = Date.now();
+  }
+
+  get id(): string {
+    return this.id;
+  }
+}
+```
 
 ### 3.10
 
