@@ -1458,7 +1458,20 @@ Indentación: yo uso 2 espacios :v
 - Ver en GitHub: [Prettier extension configuration](https://github.com/aleroses/software-notes/blob/master/DW/1-basico/003-prework/entorno-windows/vsc/prettier.md)
 - [Smart Column Indenter](https://marketplace.visualstudio.com/items?itemName=lmcarreiro.vscode-smart-column-indenter)
 
-### 3.12
+### 3.12 Código fuente de la sección
+
+Aquí les dejo el código de la sección, pero recuerden usar el suyo para conservar las anotaciones que ustedes hagan.
+
+Usen el mío sólo para confirmar algo o tenerlo como respaldo.
+
+Recursos de esta clase
+
+[Código fuente de la sección](https://github.com/Klerith/clean-course/tree/fin-seccion-03)
+
+---
+
+## 4.
+
 
 ```js
 // Bad ❌
