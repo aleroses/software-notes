@@ -1415,26 +1415,48 @@ Nuestro código debe de ser suficientemente autoexplicativo.
 Lo que debemos comentar es:  
 ¿El por qué? en lugar del ¿Qué? o ¿Cómo?
 
-### 3.11
+### 3.11 Uniformidad en el proyecto
+
+Problemas similares, soluciones similares.
 
 ```js
-// Bad ❌
+const createProduct = () => {};
+const updateProduct = () => {};
+const deleteProduct = () => {};
+
+const createUser = () => {};
+const updateUser = () => {};
+const deleteUser = () => {};
 ```
 
-```js
-// Better 👍
-
+```bash
+componentes
+├── product-list
+└── product-item.ts
 ```
 
-```
+```bash
+componentes
+├── product-list
+│   ├── product-list.html
+│   └── product-list.ts
+└── product-item.ts
 ```
 
-```
+```bash
+componentes
+├── product-item
+│   └── product-item.ts
+└── product-list
+    ├── product-list.html
+    └── product-list.ts
 ```
 
-🐦‍🔥
-👀👇🏻
-👈🏼👀
+Indentación: yo uso 2 espacios :v
+
+- Ver en Obsidian: [[prettier]]
+- Ver en GitHub: [Prettier extension configuration](https://github.com/aleroses/software-notes/blob/master/DW/1-basico/003-prework/entorno-windows/vsc/prettier.md)
+- [Smart Column Indenter](https://marketplace.visualstudio.com/items?itemName=lmcarreiro.vscode-smart-column-indenter)
 
 ### 3.12
 
