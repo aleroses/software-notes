@@ -1470,7 +1470,9 @@ Recursos de esta clase
 
 ---
 
-## 4.
+## 4. Acrónimo - STUPID
+
+### 4.1 Introducción a la sección
 
 
 ```js

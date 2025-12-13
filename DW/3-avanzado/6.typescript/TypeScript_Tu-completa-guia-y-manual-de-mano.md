@@ -3095,23 +3095,57 @@ Avenger
 - El `this.name` que está dentro del método static apunta a la clase.
 - Y la clase tiene una propiedad por defecto que se llama `"name"`, por eso es que al retornar `this.name` se retorna `"Avenger"`
 
-### 8.5
+### 8.5 Herencia, super y extends
 
-`./bases/objetos/objects.ts`
+`src/classes/extends.ts`
 
 ```ts
+class Avenger {
+  constructor(public name: string, public realName: string) {
+    console.log('Constructor Avenger llamado.');
+  }
 
+  protected getFullname() {
+    return `${this.name} ${this.realName}`;
+  }
+}
+
+class Xmen extends Avenger {
+  constructor(
+    name: string,
+    realName: string,
+    public isMutant: boolean
+  ) {
+    super(name, realName);
+
+    console.log('Constructor Xmen llamado');
+  }
+
+  getFullnameDesdeXmen() {
+    console.log(super.getFullname());
+  }
+}
+
+const wolverine = new Xmen('Wolverine', 'Logan', true);
+
+console.log(wolverine);
+wolverine.getFullnameDesdeXmen();
 ```
 
-`./bases/index.html`
+`src/index.ts`
 
-```html
+```ts
+import "./classes/extends.js"
 ```
 
-👈🏼👀
-👈🏼👀👇🏼
-📌
-✅
+La consola de vsc muestra:
+
+```bash
+Constructor Avenger llamado.
+Constructor Xmen llamado
+Xmen { name: 'Wolverine', realName: 'Logan', isMutant: true }
+Wolverine Logan
+```
 
 ### 8.6
 
@@ -3121,11 +3155,10 @@ Avenger
 
 ```
 
-`./bases/index.html`
+`src/index.ts`
 
-```html
+```ts
 ```
-
 👈🏼👀
 👈🏼👀👇🏼
 📌
@@ -3139,9 +3172,9 @@ Avenger
 
 ```
 
-`./bases/index.html`
+`src/index.ts`
 
-```html
+```ts
 ```
 
 👈🏼👀
@@ -3168,9 +3201,9 @@ Avenger
 
 ```
 
-`./bases/index.html`
+`src/index.ts`
 
-```html
+```ts
 ```
 
 👈🏼👀
@@ -3187,9 +3220,9 @@ Avenger
 
 ```
 
-`./bases/index.html`
+`src/index.ts`
 
-```html
+```ts
 ```
 
 👈🏼👀
@@ -3199,7 +3232,10 @@ Avenger
 
 
 
+`src/index.ts`
 
+```ts
+```
 
 
 
