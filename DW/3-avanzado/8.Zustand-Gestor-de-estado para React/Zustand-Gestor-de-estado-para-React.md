@@ -693,7 +693,7 @@ create<BearState>()(
 
 ### 2.5 Consumir nuestro store
 
-`./src/stores/bears.store.ts`
+`./src/stores/bears/bears.store.ts`
 
 ```ts
 import { create } from 'zustand';
@@ -855,23 +855,104 @@ const { pandaBears, increasePandaBears } = useBearStore(
 
 La solución es la misma mostrada en la clase anterior.
 
-### 2.7
+### 2.7 Objetos anidados en el store
+
+`./src/stores/bears/bears.store.ts`
 
 ```ts
+import { create } from 'zustand';
+
+interface Bear { 👈🏼👀
+  id: number;
+  name: string;
+}
+
+interface BearState {
+  blackBears: number;
+  polarBears: number;
+  pandaBears: number;
+
+  // Array de objetos [ {}, {} ]
+  bears: Bear[]; 👈🏼👀
+
+  increaseBlackBears: (by: number) => void;
+  increasePolarBears: (by: number) => void;
+  increasePandaBears: (by: number) => void;
+
+  doNothing: () => void; 👈🏼👀👇🏻
+}
+
+export const useBearStore = create<BearState>()((set) => ({
+  blackBears: 10,
+  polarBears: 5,
+  pandaBears: 1,
+
+  bears: [{ id: 1, name: 'Oso #1' }], 👈🏼👀👇🏻
+
+  increaseBlackBears: (by: number) =>
+    set((state) => ({ blackBears: state.blackBears + by })),
+  increasePolarBears: (by: number) =>
+    set((state) => ({ polarBears: state.polarBears + by })),
+  increasePandaBears: (by: number) =>
+    set((state) => ({ pandaBears: state.pandaBears + by })),
+
+  doNothing: () => 👈🏼👀👇🏻
+    set((state) => ({ bears: [...state.bears] })),
+}));
 ```
+
+`./src/pages/01-basic/BearPage.tsx`
 
 ```ts
+import { useShallow } from 'zustand/shallow'; 👈🏼👀
+import { WhiteCard } from '../../components';
+import { useBearStore } from '../../stores/bears/bears.store';
+
+export const BearPage = () => {
+  return (
+    <>
+      <h1>Contador de Osos</h1>
+      <p>Manejo de estado simple de Zustand</p>
+      <hr />
+
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2'>
+        <BlackBears />
+        <PolarBears />
+        <PandaBears />
+
+        <BearsDisplay /> 👈🏼👀 
+      </div>
+    </>
+  );
+};
+
+export const BlackBears = () => {
+};
+
+export const PolarBears = () => {
+};
+
+export const PandaBears = () => {
+};
+
+export const BearsDisplay = () => {
+  const bears = useBearStore( 👈🏼👀👇🏻
+    useShallow((state) => state.bears)
+  );
+  const doNothing = useBearStore((state) => state.doNothing);
+
+  return (
+    <WhiteCard>
+      <h1>Osos</h1>
+      <button onClick={doNothing}>Do Nothing</button>
+
+      <pre>{JSON.stringify(bears, null, 2)}</pre>
+    </WhiteCard>
+  );
+};
 ```
 
-```ts
-```
-
-```
-```
-
-
-👈🏼👀
-👈🏼👀👇🏻
+[use-shallow](https://zustand.docs.pmnd.rs/hooks/use-shallow)
 
 ### 2.8
 
