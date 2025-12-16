@@ -2990,6 +2990,8 @@ export const antman: Avenger = new Avenger(
   'Antman',
   'Capitan'
 );
+
+console.log(Avenger.avgAge);
 ```
 
 `src/index.ts`
@@ -3066,6 +3068,7 @@ Avenger { name: 'Antman', team: 'Capitan', realName: 'Scott Lang' }
 export class Avenger {
   static avgAge: number = 35;
   static getAvgAge() {
+    // Obtener el nombre de la clase
     return this.name;
   }
 
@@ -3105,12 +3108,126 @@ La consola de vsc muestra:
 35
 Avenger { name: 'Antman', team: 'Capitan', realName: 'Scott Lang' }
 Antman (Capitan)
+Avenger // resultado de método static getAvgAge this.name
+```
+
+#### `this.name` dentro de `bio()`
+
+```ts
+bio() {
+  return `${this.name} (${this.team})`;
+}
+```
+
+El `this` que está dentro de `bio()` apunta a la instancia creada por el constructor.
+
+En este caso:
+
+```ts
+const antman = new Avenger('Antman', 'Capitan', 'Scott Lang');
+```
+
+Entonces:
+
+```ts
+this === antman
+this.name === 'Antman'
+```
+
+- El constructor **inicializa** las propiedades  
+- `this` en métodos de instancia **siempre es la instancia**
+
+Resultado:
+
+```bash
+Antman (Capitan)
+```
+
+#### `this.name` dentro de un método `static`
+
+```ts
+static getAvgAge() {
+  return this.name;
+}
+```
+
+El `this` que está dentro del método `static` apunta a la clase `Avenger`. Y la clase tiene una propiedad por defecto que se llama `"name"`, por eso es que al retornar `this` se muestra `"Avenger"`.
+
+En un método `static`:
+
+```ts
+// No existe instancia aquí
+this === Avenger
+```
+
+Entonces:
+
+```ts
+this.name === Avenger.name
+```
+
+#### Dato sobre Funciones
+
+Todas las clases en JavaScript son funciones y traen por defecto algunas propiedades:
+
+- name
+- length
+
+Internamente:
+
+```ts
+class Avenger {}
+```
+
+Es equivalente a:
+
+```js
+function Avenger() {}
+```
+
+Y **todas las funciones en JS tienen una propiedad `name`**:
+
+```ts
+Avenger.name === 'Avenger'
+```
+
+Por eso:
+
+```ts
+static getAvgAge() {
+  return this.name;
+}
+```
+
+retorna:
+
+```bash
 Avenger
 ```
 
-- El `this.name` que está dentro de bio apunta al constructor.
-- El `this.name` que está dentro del método static apunta a la clase.
-- Y la clase tiene una propiedad por defecto que se llama `"name"`, por eso es que al retornar `this.name` se retorna `"Avenger"`
+Más preciso sería decir:
+
+> La clase `Avenger`, al ser una función, hereda la propiedad `name` de las funciones de JavaScript.
+
+#### 💡 Recomendación (buena práctica)
+
+Este método puede confundir:
+
+```ts
+static getAvgAge() {
+  return this.name;
+}
+```
+
+Sería más claro:
+
+```ts
+static getClassName() {
+  return Avenger.name;
+}
+```
+
+O mejor aún, usarlo solo con fines didácticos 👍
 
 ### 8.5 Herencia, super y extends
 
