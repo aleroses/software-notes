@@ -954,7 +954,7 @@ export const BearsDisplay = () => {
 
 [use-shallow](https://zustand.docs.pmnd.rs/hooks/use-shallow)
 
-### 2.8
+### 2.8 Métodos con objetos anidados
 
 ```ts
 ```
