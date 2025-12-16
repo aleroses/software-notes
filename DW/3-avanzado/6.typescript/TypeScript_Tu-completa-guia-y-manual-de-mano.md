@@ -3008,6 +3008,27 @@ La consola de vsc muestra:
 Avenger { name: 'Antman', team: 'Capitan', realName: undefined }
 ```
 
+En JavaScript, `static`, `public` y `private` definen el **ámbito y la accesibilidad** de las propiedades y métodos dentro de una clase: `public` es accesible desde cualquier lugar; `private` (con `#`) solo dentro de la clase; y `static` hace que la propiedad pertenezca a la clase misma, no a las instancias, siendo accesible sin crear un objeto y útil para datos compartidos como cachés o configuraciones, aunque `private static` restringe su acceso solo a la clase, según MDN Web Docs, Stack Overflow y SitePoint. 
+
+Modificadores de acceso (Public / Private)
+
+- **`public` (por defecto):** La propiedad o método es accesible y modificable desde _cualquier_ parte del código, tanto dentro como fuera de la clase. Es el comportamiento por defecto si no se especifica nada.
+- **`private` (con `#`):** La propiedad o método solo es accesible y modificable _dentro de la misma clase_. Esto se implementa en JS añadiendo un `#` delante del nombre (ej. `#miPropiedad`) y ayuda a ocultar detalles de implementación (encapsulamiento). 
+
+Modificador de instancia (Static)
+
+- **`static`:** La propiedad o método pertenece a la _clase en sí misma_, no a las instancias individuales de la clase.
+    - Se puede acceder directamente usando el nombre de la clase (ej. `MiClase.miDato`) sin necesidad de crear un objeto (`new MiClase()`).
+    - Es ideal para almacenar datos o funciones que son compartidos por todas las instancias, como constantes, contadores o cachés. 
+
+Combinaciones comunes
+
+- **`public static`:** Un dato compartido por todas las instancias, accesible desde cualquier lugar (ej. `MiClase.config = {...}`).
+- **`private static`:** Un dato compartido por la clase pero inaccesible desde fuera, solo desde métodos estáticos o de la propia clase (ej. `#contadorInterno`).
+- **`public` (sin `static`):** Una propiedad normal que existe en cada instancia (ej. `this.nombre = '...'`), común para datos específicos de cada objeto. 
+
+**En resumen:** `static` define si es de la clase o la instancia, mientras que `public`/`private` define quién puede verlo/usarlo.
+
 ### 8.3 Forma corta de asignar propiedades
 
 `src/classes/basic.ts`
