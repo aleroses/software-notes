@@ -2819,27 +2819,13 @@ Captain America Shield
 
 Para esta clase como estoy trabajando con otra configuración y viendo los cambios con Node desde la terminal integrada de VSC, debo hacer estas modificaciones:
 
-`package.json`
+`nodemon.json`
 
 ```json
 {
-  "name": "new-ts-project",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": { // 👈🏼👀👇🏼 change ts to js (index.js)
-    "dev": "ts-node-dev --respawn --pretty src/index.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "devDependencies": {
-    "@types/node": "^24.10.2",
-    "ts-node": "^10.9.2",
-    "ts-node-dev": "^2.0.0",
-    "typescript": "^5.9.3"
-  }
+  "watch": ["src"],
+  "ext": "ts", // 👈🏼👀👇🏼 change ts to js (index.js)
+  "exec": "node --loader ts-node/esm ./src/index.js"
 }
 ```
 
@@ -2896,7 +2882,7 @@ Practicando lo visto en clase.
 	```ts
 	const numero: number = 10;
 	
-	if(numbero > 0) {
+	if(numero > 0) {
 	  const numero: number = 10;
 	}
 	```
