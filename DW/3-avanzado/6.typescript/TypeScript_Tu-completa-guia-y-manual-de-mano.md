@@ -3229,7 +3229,7 @@ static getClassName() {
 
 O mejor aún, usarlo solo con fines didácticos 👍
 
-### 8.5 Herencia, super y extendsv
+### 8.5 Herencia, super y extends
 
 `src/classes/extends.ts`
 
@@ -3260,7 +3260,11 @@ class Xmen extends Avenger {
   }
 }
 
+// El constructor se ejecuta al instanciar
+const hero = new Avenger('Ghost', 'Ale');
 const wolverine = new Xmen('Wolverine', 'Logan', true);
+
+console.log(hero);
 
 console.log(wolverine);
 wolverine.getFullnameDesdeXmen();
@@ -3272,11 +3276,13 @@ wolverine.getFullnameDesdeXmen();
 import "./classes/extends.js"
 ```
 
-La consola de vsc muestra:
+La consola de VSC muestra:
 
 ```bash
 Constructor Avenger llamado.
+Constructor Avenger llamado.
 Constructor Xmen llamado
+Avenger { name: 'Ghost', realName: 'Ale' }
 Xmen { name: 'Wolverine', realName: 'Logan', isMutant: true }
 Wolverine Logan
 ```
