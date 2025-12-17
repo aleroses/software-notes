@@ -3229,7 +3229,7 @@ static getClassName() {
 
 O mejor aún, usarlo solo con fines didácticos 👍
 
-### 8.5 Herencia, super y extends
+### 8.5 Herencia, super y extendsv
 
 `src/classes/extends.ts`
 
@@ -3280,6 +3280,220 @@ Constructor Xmen llamado
 Xmen { name: 'Wolverine', realName: 'Logan', isMutant: true }
 Wolverine Logan
 ```
+
+#### Constructor
+
+```ts
+class Avenger {
+  constructor(
+    protected name: string,
+    protected power: number
+  ) {}
+}
+
+class Xmen extends Avenger {
+  constructor(
+    name: string,
+    power: number,
+    public team: string
+  ) {
+    super(name, power);
+  }
+}
+```
+
+🔹 En `Avenger`
+
+```ts
+class Avenger {
+  constructor(
+    protected name: string,
+    protected power: number
+  ) {}
+}
+```
+
+El constructor:
+
+- Se ejecuta **cuando haces `new Avenger(...)`**
+- Inicializa el estado interno del objeto
+- Crea y asigna las propiedades `name` y `power`
+
+👉 Sin constructor, la clase **no sabría cómo inicializar sus datos**.
+
+🔹 En `Xmen`
+
+```ts
+class Xmen extends Avenger {
+  constructor(
+    name: string,
+    power: number,
+    public team: string
+  ) {
+    super(name, power);
+  }
+}
+```
+
+El constructor de `Xmen`:
+
+- Inicializa **sus propias propiedades** (`team`)
+- Y **delegará** la inicialización de `name` y `power` al constructor de `Avenger`
+
+📌 Importante:
+
+> El constructor del padre **NO se ejecuta automáticamente** si el hijo tiene constructor.
+
+#### Extends
+
+```ts
+class Xmen extends Avenger
+```
+
+`extends` indica **herencia**
+
+Esto quiere decir:
+
+- `Xmen` **hereda** propiedades y métodos de `Avenger`
+- `Xmen` es un tipo de `Avenger`
+
+👉 En términos simples:
+
+> Todo `Xmen` es un `Avenger`, pero no todo `Avenger` es un `Xmen`.
+
+📌 `extends` **sí pertenece a JavaScript (ES6)**  
+TypeScript **solo agrega tipado**, no cambia el comportamiento.
+
+#### Protected
+
+```ts
+protected name: string;
+```
+
+❌ No pertenece a JavaScript  
+✔️ Es **TypeScript puro**
+
+|Modificador  |Acceso desde la clase  |Acceso desde hijos|Acceso externo|
+|-------------|-----------------------|------------------|--------------|
+|`public`    |✅                    |✅                |✅            |
+|`protected` |✅                    |✅                |❌            |
+|`private`   |✅                    |❌                |❌            |
+
+`protected` permite que:
+
+- `Avenger` use `name`
+- `Xmen` también use `name`
+- Pero **nadie desde fuera pueda acceder**
+
+```ts
+class Xmen extends Avenger {
+  showName() {
+    return this.name; // ✅ permitido
+  }
+}
+```
+
+En Programación Orientada a Objetos (POO), un método `protected` es aquel que es accesible **dentro de la misma clase** donde se define y en **todas las clases que heredan (subclases)** de ella, incluso si están en paquetes diferentes, pero no es accesible desde clases externas o ajenas a la jerarquía de herencia, permitiendo una encapsulación intermedia entre `public` y `private` para compartir lógica interna con descendientes.
+
+#### super
+
+```ts
+super(name, power);
+```
+
+`super` es una **referencia a la clase padre (`Avenger`)**. Si el hijo no tiene constructor, **hereda el del padre automáticamente**
+
+📌 En un constructor:
+
+> `super(...)` **ejecuta el constructor del padre**
+
+En JavaScript:
+
+- Si una clase hija tiene constructor
+- **DEBE llamar a `super()`**
+- Antes de usar `this`
+
+❌ Esto sería error:
+
+```ts
+constructor(...) {
+  this.team = 'Xmen'; // ❌
+  super(name, power);
+}
+```
+
+✔️ El orden correcto:
+
+```ts
+constructor(...) {
+  super(name, power);
+  this.team = 'Xmen';
+}
+```
+
+¿Por qué pasar otra vez los mismos datos de padre a hijo?
+
+> “¿Por qué nuevamente pasamos `name` y `power` en el constructor de `Xmen`?”
+
+🔹 Respuesta corta:
+
+Porque **el padre los necesita para inicializarse**
+
+🔹 Qué está pasando realmente
+
+```ts
+new Xmen('Wolverine', 900, 'X-Men');
+```
+
+1️⃣ Se llama al constructor de `Xmen`  
+2️⃣ `Xmen` **NO sabe** cómo inicializar `name` y `power`  
+3️⃣ Entonces dice:
+
+```ts
+super(name, power);
+```
+
+4️⃣ Se ejecuta el constructor de `Avenger`  
+5️⃣ `Avenger` asigna:
+
+```ts
+this.name = name;
+this.power = power;
+```
+
+📌 **Cada clase es responsable de inicializar sus propios datos**
+
+Analogía sencilla (muy importante)
+
+Imagina una fábrica:
+
+- `Avenger` → fabrica cuerpos
+- `Xmen` → fabrica cuerpos + uniformes
+
+```ts
+super(name, power);
+```
+
+Es como decir:
+
+> “Primero construye el cuerpo como sabe hacerlo Avenger, luego yo agrego lo mío”
+
+Resumen mental definitivo
+
+✔️ `constructor`  
+→ Inicializa el objeto
+
+✔️ `extends`  
+→ Herencia (ES6, JS real)
+
+✔️ `protected`  
+→ Solo TypeScript (control de acceso)
+
+✔️ `super()`  
+→ Llama al constructor del padre
+
+✔️ Pasar datos a `super`  
+→ El padre **no recibe magia**, recibe datos
 
 ### 8.6
 
