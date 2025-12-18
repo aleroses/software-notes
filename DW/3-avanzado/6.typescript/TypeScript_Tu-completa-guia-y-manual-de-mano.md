@@ -3250,6 +3250,7 @@ class Xmen extends Avenger {
     realName: string,
     public isMutant: boolean
   ) {
+    // Ejecuta el constructor del padre
     super(name, realName);
 
     console.log('Constructor Xmen llamado');
