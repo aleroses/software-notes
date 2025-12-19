@@ -3521,7 +3521,7 @@ Resumen mental definitivo
 ✔️ Pasar datos a `super`  
 → El padre **no recibe magia**, recibe datos
 
-### 8.6
+### 8.6 Gets y Sets
 
 `./bases/objetos/objects.ts`
 
