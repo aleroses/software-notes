@@ -1450,17 +1450,183 @@ En esta sección vamos a trabajar con middlewares o funciones adicionales que ex
 
 ### 3.4 Crear un segundo store
 
-```ts
-```
+Estructura:
 
 ```ts
+.
+├── .eslintrc.cjs
+├── .gitignore
+├── index.html
+├── package.json
+├── package-lock.json
+├── postcss.config.js
+├── public
+│   ├── screenshot.png
+│   └── vite.svg
+├── README.md
+├── src
+│   ├── assets
+│   │   └── react.svg
+│   ├── components
+│   │   ├── index.ts
+│   │   ├── jira
+│   │   │   └── JiraTasks.tsx
+│   │   └── shared
+│   │       ├── cards
+│   │       │   └── WhiteCard.tsx
+│   │       └── sidemenu
+│   │           ├── SideMenu.css
+│   │           ├── SideMenuItem.tsx
+│   │           └── SideMenu.tsx
+│   ├── index.css
+│   ├── layouts
+│   │   ├── AuthLayout.tsx
+│   │   ├── DashboardLayout.tsx
+│   │   └── index.ts
+│   ├── main.tsx
+│   ├── pages
+│   │   ├── 01-basic
+│   │   │   ├── BearPage.tsx
+│   │   │   └── PersonPage.tsx
+│   │   ├── 02-objects
+│   │   │   └── JiraPage.tsx
+│   │   ├── 03-slices
+│   │   │   └── WeddingInvitationPage.tsx
+│   │   ├── auth
+│   │   │   └── LoginPage.tsx
+│   │   ├── dashboard
+│   │   │   └── DashboardPage.tsx
+│   │   └── index.ts
+│   ├── Root.tsx
+│   ├── router
+│   │   └── router.tsx
+│   ├── stores
+│   │   ├── bears
+│   │   │   └── bears.store.ts
+│   │   └── person 👈🏼👀👇🏻
+│   │       └── person.store.ts
+│   └── vite-env.d.ts
+├── tailwind.config.js
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
 ```
+
+`./src/stores/person/person.store.ts`
 
 ```ts
+import { create } from 'zustand';
+
+interface PersonState {
+  firstName: string;
+  lastName: string;
+
+  // setFistName: (value: string) => void;
+  // setLastName: (value: string) => void;
+}
+
+interface Actions {
+  setFirstName: (value: string) => void;
+  setLastName: (value: string) => void;
+}
+
+export const usePersonStore = create<PersonState & Actions>()(
+  (set) => ({
+    firstName: '',
+    lastName: '',
+    setFirstName: (value: string) =>
+      set((state) => ({ firstName: value })),
+    setLastName: (value: string) =>
+      set((state) => ({ lastName: value })),
+  })
+);
 ```
 
-👈🏼👀
-👈🏼👀👇🏻
+`./src/pages/01-basic/PersonPage.tsx`
+
+```ts
+import { WhiteCard } from '../../components';
+import { usePersonStore } from '../../stores/person/person.store';
+
+export const PersonPage = () => {
+  const firstName = usePersonStore(
+    (state) => state.firstName
+  );
+  const lastName = usePersonStore((state) => state.lastName);
+
+  const setFirstName = usePersonStore(
+    (state) => state.setFirstName
+  );
+  const setLastName = usePersonStore(
+    (state) => state.setLastName
+  );
+
+  return (
+    <>
+      <h1>Persona</h1>
+      <p>
+        Información que se compartirá a otro store, Session
+        Storage y Firebase
+      </p>
+      <hr />
+
+      <WhiteCard className='flex items-center justify-center p-12'>
+        <div className='mx-auto w-full max-w-[550px]'>
+          <form>
+            <div className='-mx-3 flex flex-wrap'>
+              <div className='w-full px-3 sm:w-1/2'>
+                <div className='mb-5'>
+                  <label className='mb-3 block text-base font-medium text-[#07074D]'>
+                    Nombre
+                  </label>
+                  <input
+                    type='text'
+                    name='firstName'
+                    id='firstName'
+                    placeholder='Primer Nombre'
+                    value={firstName}
+                    onChange={(e) =>
+                      setFirstName(e.target.value)
+                    }
+                  />
+                </div>
+              </div>
+              <div className='w-full px-3 sm:w-1/2'>
+                <div className='mb-5'>
+                  <label className='mb-3 block text-base font-medium text-[#07074D]'>
+                    Apellido
+                  </label>
+                  <input
+                    type='text'
+                    name='lastName'
+                    id='lastName'
+                    placeholder='Apellido'
+                    value={lastName}
+                    onChange={(e) =>
+                      setLastName(e.target.value)
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+
+            <pre className='bg-gray-200 p-5 rounded-[20px]'>
+              {JSON.stringify(
+                {
+                  firstName,
+                  lastName,
+                },
+                null,
+                2
+              )}
+            </pre>
+          </form>
+        </div>
+      </WhiteCard>
+    </>
+  );
+};
+```
 
 ### 3.5
 
