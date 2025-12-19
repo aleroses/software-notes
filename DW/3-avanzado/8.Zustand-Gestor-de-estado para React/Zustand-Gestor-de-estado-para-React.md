@@ -1073,21 +1073,361 @@ export const BearsDisplay = () => {
 };
 ```
 
-### 2.9
+### 2.9 Propiedades computadas
+
+`./src/stores/bears/bears.store.ts`
 
 ```ts
+import { create } from 'zustand';
+
+interface Bear {
+  id: number;
+  name: string;
+}
+
+interface BearState {
+  blackBears: number;
+  polarBears: number;
+  pandaBears: number;
+
+  bears: Bear[];
+
+  computed: { // 👈🏼👀👇🏻
+    totalBears: number;
+  };
+
+  increaseBlackBears: (by: number) => void;
+  increasePolarBears: (by: number) => void;
+  increasePandaBears: (by: number) => void;
+
+  doNothing: () => void;
+  addBear: () => void;
+  clearBears: () => void;
+}
+
+export const useBearStore = create<BearState>()(
+  (set, get) => ({
+    blackBears: 10,
+    polarBears: 5,
+    pandaBears: 1,
+
+    bears: [{ id: 1, name: 'Oso #1' }],
+
+    computed: { // 👈🏼👀👇🏻
+      get totalBears(): number {
+        return (
+          get().blackBears +
+          get().polarBears +
+          get().pandaBears +
+          get().bears.length
+        );
+      },
+    },
+
+    increaseBlackBears: (by: number) =>
+      set((state) => ({ blackBears: state.blackBears + by })),
+    increasePolarBears: (by: number) =>
+      set((state) => ({ polarBears: state.polarBears + by })),
+    increasePandaBears: (by: number) =>
+      set((state) => ({ pandaBears: state.pandaBears + by })),
+
+    doNothing: () =>
+      set((state) => ({ bears: [...state.bears] })),
+    addBear: () =>
+      set((state) => ({
+        bears: [
+          ...state.bears,
+          {
+            id: state.bears.length + 1,
+            name: `Oso #${state.bears.length + 1}`,
+          },
+        ],
+      })),
+    clearBears: () => set({ bears: [] }),
+  })
+);
 ```
+
+`./src/pages/dashboard/DashboardPage.tsx`
 
 ```ts
+import {
+  IoAccessibilityOutline,
+  IoHeartOutline,
+  IoListOutline,
+  IoLockClosedOutline,
+  IoPawOutline,
+} from 'react-icons/io5';
+import { WhiteCard } from '../../components';
+import { useBearStore } from '../../stores/bears/bears.store';
+
+export const Dashboard = () => {
+  const totalBears = useBearStore( 👈🏼👀👇🏻
+    (state) => state.computed.totalBears
+  );
+
+  return (
+    <>
+      <h1>Dashboard</h1>
+      <p>Información colectiva de varios stores de Zustand</p>
+      <hr />
+
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4'>
+        <WhiteCard centered>
+          <IoPawOutline
+            size={50}
+            className='text-indigo-600'
+          />
+          <h2>Osos</h2> 👈🏼👀👇🏻
+          <p>{totalBears}</p>
+        </WhiteCard>
+
+        <WhiteCard centered>
+          <IoAccessibilityOutline
+            size={50}
+            className='text-indigo-600'
+          />
+          <h2>Persona</h2>
+          <p>Información</p>
+        </WhiteCard>
+
+        <WhiteCard centered>
+          <IoListOutline
+            size={50}
+            className='text-indigo-600'
+          />
+          <h2>Tareas</h2>
+          <p>Información</p>
+        </WhiteCard>
+
+        <WhiteCard centered>
+          <IoHeartOutline
+            size={50}
+            className='text-indigo-600'
+          />
+          <h2>Boda</h2>
+          <p>Información</p>
+        </WhiteCard>
+
+        <WhiteCard centered>
+          <IoLockClosedOutline
+            size={50}
+            className='text-indigo-600'
+          />
+          <h2>Auth</h2>
+          <p>Información</p>
+        </WhiteCard>
+      </div>
+    </>
+  );
+};
 ```
+
+#### Propiedad computada
+
+⚠️ **Importante:**  
+En **Zustand NO existe oficialmente algo llamado `computed`** como en Vue.
+
+- `computed` **no es una feature de Zustand**,  
+- es **una convención creada por el instructor** usando **getters de JavaScript**.
+
+Es decir:
 
 ```ts
+computed: {
+  get totalBears() {
+    ...
+  }
+}
 ```
 
-👈🏼👀
-👈🏼👀👇🏻
+Eso es **100% JavaScript**, no Zustand.
+
+Ejemplo simple en JS puro:
+
+```ts
+const obj = {
+  a: 2,
+  b: 3,
+
+  get suma() {
+    return this.a + this.b;
+  },
+};
+
+console.log(obj.suma); // 5
+```
+
+🔹 `suma` **no es un valor guardado**  
+🔹 es una **función disfrazada de propiedad**  
+🔹 se ejecuta **cada vez que accedes a ella**
+
+No se llama así:
+
+```ts
+obj.suma(); ❌
+```
+
+Se usa así:
+
+```ts
+obj.suma; ✅
+```
+
+#### Qué está pasando en el store de Zustand
+
+Estructura clave
+
+```ts
+(set, get) => ({
+  blackBears: 10,
+  polarBears: 5,
+  pandaBears: 1,
+
+  bears: [{ id: 1, name: 'Oso #1' }],
+
+  computed: {
+    get totalBears() {
+      return (
+        get().blackBears +
+        get().polarBears +
+        get().pandaBears +
+        get().bears.length
+      );
+    },
+  },
+});
+```
+
+Zustand te da dos funciones:
+
+|Función |Qué hace             |
+|-------|---------------------|
+|`set` |Modifica el estado   |
+|`get` |Lee el estado actual |
+
+Ejemplo:
+
+```ts
+get().blackBears
+```
+
+- Lee el valor **actual** del store  
+- No importa desde qué componente lo llames
+
+#### Cómo funciona `totalBears`
+
+Cuando React ejecuta esto:
+
+```ts
+const totalBears = useBearStore(
+  (state) => state.computed.totalBears
+);
+```
+
+Pasa lo siguiente:
+
+1. Zustand devuelve el `state`
+    
+2. Accedes a `state.computed.totalBears`
+    
+3. ⚡ **JS ejecuta el getter**
+    
+4. El getter llama a `get()`
+    
+5. `get()` lee el estado más reciente
+    
+6. Se calcula la suma
+    
+7. Se devuelve el número
+    
+
+- **No hay estado duplicado**  
+- **No hay sincronización manual**  
+- Siempre es el valor correcto
+
+#### ¿Esto hace que el componente se re-renderice?
+
+Sí, **pero solo cuando cambia algo que el selector usa**.
+
+Este selector:
+
+```ts
+(state) => state.computed.totalBears
+```
+
+Depende indirectamente de:
+
+- `blackBears`
+- `polarBears`
+- `pandaBears`
+- `bears.length`
+
+Si cualquiera cambia →  
+Zustand vuelve a evaluar el selector →  
+React se re-renderiza.
+
+#### `computed` como objeto
+
+Es **solo organización**.
+
+Podrías escribir esto:
+
+```ts
+get totalBears() {
+  ...
+}
+```
+
+Pero el instructor prefirió:
+
+```ts
+computed: {
+  get totalBears() {
+    ...
+  }
+}
+```
+
+Ventajas:
+
+✔ Agrupa valores derivados  
+✔ Más legible  
+✔ Escalable si hay muchos cálculos
+
+Ejemplo futuro:
+
+```ts
+computed: {
+  get totalBears() { ... },
+  get hasBears() { ... },
+  get bearsSummary() { ... },
+}
+```
+
+Entonces
+
+> **`computed.totalBears` NO es un estado**
+> 
+> **Es una función que se ejecuta cada vez que la lees**
+
+Pero **se ve como una propiedad**, gracias al `get`.
+
+- `computed` → convención, no Zustand
+    
+- `get totalBears()` → getter de JS
+    
+- `get()` → lee el estado actual de Zustand
+    
+- No se guarda nada, se calcula al vuelo
+    
+- React se re-renderiza cuando cambian dependencias
 
 ### 2.10
+
+
+```ts
+```
 
 👈🏼👀
 👈🏼👀👇🏻
