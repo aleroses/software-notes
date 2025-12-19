@@ -1423,19 +1423,23 @@ Pero **se ve como una propiedad**, gracias al `get`.
     
 - React se re-renderiza cuando cambian dependencias
 
-### 2.10
+### 2.10 Código fuente de la sección
 
+Código fuente de la sección por si lo llegan a necesitar.
+
+[Github - Fin sección 2 - Bases](https://github.com/Klerith/zustand-mini-curso/tree/fin-seccion-02)
+
+## 3
+
+### 3.1
 
 ```ts
 ```
 
 👈🏼👀
 👈🏼👀👇🏻
-## 3
 
-### 3.1
-
-### 3.
+### 3.2
 
 ```ts
 ```
@@ -1445,6 +1449,177 @@ Pero **se ve como una propiedad**, gracias al `get`.
 
 ```ts
 ```
+
+👈🏼👀
+👈🏼👀👇🏻
+
+### 3.3
+
+```ts
+```
+
+```ts
+```
+
+```ts
+```
+
+👈🏼👀
+👈🏼👀👇🏻
+
+### 3.4
+
+```ts
+```
+
+```ts
+```
+
+```ts
+```
+
+👈🏼👀
+👈🏼👀👇🏻
+
+### 3.5
+
+```ts
+```
+
+```ts
+```
+
+```ts
+```
+
+👈🏼👀
+👈🏼👀👇🏻
+
+### 3.6
+
+```ts
+```
+
+```ts
+```
+
+```ts
+```
+
+👈🏼👀
+👈🏼👀👇🏻
+
+### 3.7
+
+```ts
+```
+
+```ts
+```
+
+```ts
+```
+
+👈🏼👀
+👈🏼👀👇🏻
+
+### 3.8
+
+```ts
+```
+
+```ts
+```
+
+```ts
+```
+
+👈🏼👀
+👈🏼👀👇🏻
+
+### 3.9
+
+```ts
+```
+
+```ts
+```
+
+```ts
+```
+
+👈🏼👀
+👈🏼👀👇🏻
+
+### 3.10
+
+```ts
+```
+
+```ts
+```
+
+```ts
+```
+
+👈🏼👀
+👈🏼👀👇🏻
+
+### 3.11
+
+```ts
+```
+
+```ts
+```
+
+```ts
+```
+
+👈🏼👀
+👈🏼👀👇🏻
+
+### 3.12
+
+```ts
+```
+
+```ts
+```
+
+```ts
+```
+
+👈🏼👀
+👈🏼👀👇🏻
+
+### 3.13
+
+```ts
+```
+
+```ts
+```
+
+```ts
+```
+
+👈🏼👀
+👈🏼👀👇🏻
+
+### 3.14
+
+```ts
+```
+
+```ts
+```
+
+```ts
+```
+
+👈🏼👀
+👈🏼👀👇🏻
 
 ```
 ```
