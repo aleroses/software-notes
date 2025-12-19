@@ -3241,10 +3241,11 @@ O mejor aún, usarlo solo con fines didácticos 👍
 ```ts
 class Avenger {
   constructor(public name: string, public realName: string) {
-    console.log('Constructor Avenger llamado.');
+    console.log('Avenger Constructor!!!');
   }
 
   protected getFullname() {
+    // this es/apunta al objeto instanciado (hero.name)
     return `${this.name} ${this.realName}`;
   }
 }
@@ -3258,11 +3259,21 @@ class Xmen extends Avenger {
     // Ejecuta el constructor del padre, pasandole los datos que necesita
     super(name, realName);
 
-    console.log('Constructor Xmen llamado');
+    console.log('Xmen Constructor (Son)!!!');
+    console.log('Son: ', this.getFullname());
   }
 
   getFullnameDesdeXmen() {
-    console.log(super.getFullname());
+    // Object:  Xmen { name: 'Wolverine', realName: 'Logan', isMutant: true }
+    console.log('Object: ', this);
+    
+    // Super ejecuta la versión del método que está en Avenger
+    console.log('Super: ', super.getFullname());
+    
+    // This busca getFullname empezando desde el objeto
+    console.log('This: ', this.getFullname());
+    // JS busca en Xmen, no lo encuentra, sube al prototipo Avenger
+    // lo ejecuta. Resultado: el mismo método
   }
 }
 
@@ -3285,12 +3296,15 @@ import "./classes/extends.js"
 La consola de VSC muestra:
 
 ```bash
-Constructor Avenger llamado.
-Constructor Avenger llamado.
-Constructor Xmen llamado
+Avenger Constructor!!!
+Avenger Constructor!!!
+Xmen Constructor (Son)!!!
+Son:  Wolverine Logan
 Avenger { name: 'Ghost', realName: 'Ale' }
 Xmen { name: 'Wolverine', realName: 'Logan', isMutant: true }
-Wolverine Logan
+Object:  Xmen { name: 'Wolverine', realName: 'Logan', isMutant: true }
+Super:  Wolverine Logan
+This:  Wolverine Logan
 ```
 
 #### Constructor
