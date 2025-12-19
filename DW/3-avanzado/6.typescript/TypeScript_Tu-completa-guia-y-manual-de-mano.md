@@ -3067,6 +3067,8 @@ Avenger { name: 'Antman', team: 'Capitan', realName: 'Scott Lang' }
 ```ts
 export class Avenger {
   static avgAge: number = 35;
+  
+  // El método static vive en la clase, no en los objetos
   static getAvgAge() {
     // Obtener el nombre de la clase
     return this.name;
@@ -3099,6 +3101,8 @@ import { antman, Avenger } from './classes/basic.js';
 console.log(Avenger.avgAge);
 console.log(antman);
 console.log(antman.bio());
+
+// Por eso los métodos statics se obtienen de esta manera
 console.log(Avenger.getAvgAge());
 ```
 
