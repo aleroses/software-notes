@@ -162,11 +162,13 @@ Agente IA:
 
 ```json
 {
-  "editor.cursorBlinking": "expand",
   "breadcrumbs.enabled": false,
+  "editor.cursorBlinking": "expand",
   "editor.stickyScroll.enabled": true,
   "editor.cursorSmoothCaretAnimation": "on",
-  "editor.linkedEditing": true
+  "editor.linkedEditing": true,
+  "editor.guides.bracketPairs": true,
+  "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
 }
 ```
 
@@ -200,9 +202,10 @@ Esta es la misma configuración de arriba más la configuración de Prettier ver
   "editor.lineNumbers": "off",
   "editor.parameterHints.enabled": false,
 
+  "editor.guides.bracketPairs": true,
   "editor.cursorBlinking": "expand",
-  "editor.stickyScroll.enabled": true,
   "editor.cursorSmoothCaretAnimation": "on",
+  "editor.stickyScroll.enabled": true,
   "editor.linkedEditing": true,
   "editor.formatOnSave": true,
   // "editor.fontSize": 12,

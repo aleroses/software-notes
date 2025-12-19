@@ -1628,7 +1628,7 @@ export const PersonPage = () => {
 };
 ```
 
-### 3.5
+### 3.5 Persist Middleware
 
 ```ts
 ```
@@ -1638,6 +1638,10 @@ export const PersonPage = () => {
 
 ```ts
 ```
+
+que son los middlewares
+
+[Using middlewares](https://zustand.docs.pmnd.rs/guides/advanced-typescript#using-middlewares)
 
 👈🏼👀
 👈🏼👀👇🏻
