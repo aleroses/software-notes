@@ -3070,7 +3070,7 @@ export class Avenger {
   
   // El método static vive en la clase, no en los objetos
   static getAvgAge() {
-    // This es la clase
+    // This es la clase Avenger
     // Obtener el nombre de la clase
     return this.name;
   }
