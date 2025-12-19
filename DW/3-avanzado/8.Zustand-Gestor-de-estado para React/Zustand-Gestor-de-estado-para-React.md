@@ -1429,45 +1429,26 @@ Código fuente de la sección por si lo llegan a necesitar.
 
 [Github - Fin sección 2 - Bases](https://github.com/Klerith/zustand-mini-curso/tree/fin-seccion-02)
 
-## 3
+## 3. Middlewares de Zustand
 
-### 3.1
+### 3.1 Introducción a la sección
 
-```ts
-```
+### 3.2 Temas puntuales de la sección
 
-👈🏼👀
-👈🏼👀👇🏻
+En esta sección vamos a trabajar con middlewares o funciones adicionales que expanden el comportamiento por defecto de Zustand. Puntualmente veremos:
 
-### 3.2
+- Persist Middlewares
+- createJSONStore
+- Guardar automáticamente en session storage
+- Guardar automáticamente en Firebase
+- Crear un storage personalizado
+- Diferentes interfaces de Zustand
+- Custom Middleware
+- Redux DevTools y acciones
 
-```ts
-```
+### 3.3 Continuación de la sección
 
-```ts
-```
-
-```ts
-```
-
-👈🏼👀
-👈🏼👀👇🏻
-
-### 3.3
-
-```ts
-```
-
-```ts
-```
-
-```ts
-```
-
-👈🏼👀
-👈🏼👀👇🏻
-
-### 3.4
+### 3.4 Crear un segundo store
 
 ```ts
 ```
