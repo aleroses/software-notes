@@ -3523,20 +3523,119 @@ Resumen mental definitivo
 
 ### 8.6 Gets y Sets
 
-`./bases/objetos/objects.ts`
+`./src/classes/extends.ts`
 
 ```ts
+class Avenger {
+  constructor(public name: string, public realName: string) {
+    console.log('Avenger Constructor!!!');
+  }
 
+  protected getFullname() {
+    // this es/apunta al objeto instanciado (hero.name)
+    return `${this.name} ${this.realName}`;
+  }
+}
+
+class Xmen extends Avenger {
+  constructor(
+    name: string,
+    realName: string,
+    public isMutant: boolean
+  ) {
+    // Ejecuta el constructor del padre
+    super(name, realName);
+
+    console.log('Xmen Constructor (Son)!!!');
+  }
+
+  get fullName() { 👈🏼👀👇🏼
+    return `${this.name} - ${this.realName}`;
+  }
+
+  set fullName(name: string) { 👈🏼👀👇🏼
+    if (name.length < 3) {
+      throw new Error(
+        'El nombre debe de ser mayor a 3 letras!'
+      );
+    }
+
+    // No regresa nada y recibe un solo argumento
+    this.name = name;
+  }
+
+  getFullnameDesdeXmen() {
+    // Super ejecuta la versión del método que está en Avenger
+    console.log('Super: ', super.getFullname());
+  }
+}
+
+// El constructor se ejecuta al instanciar
+const wolverine = new Xmen('Wolverine', 'Logan', true);
+
+wolverine.fullName = 'Ale'; 👈🏼👀
+console.log(wolverine.fullName);
 ```
 
 `src/index.ts`
 
 ```ts
+import './classes/extends.js';
 ```
-👈🏼👀
-👈🏼👀👇🏼
-📌
-✅
+
+La consola de VSC muestra:
+
+```bash
+Avenger Constructor!!!
+Xmen Constructor (Son)!!!
+Ale - Logan
+```
+
+Los **getters** y **setters** en JavaScript son métodos especiales (`get` y `set`) que controlan el acceso a las propiedades de un objeto, permitiendo leer (get) y escribir (set) valores de forma controlada, validar datos, o realizar cálculos antes de devolverlos o asignarlos, simulando el acceso directo a una propiedad, pero ejecutando lógica interna. Son clave para la encapsulación, ocultando la implementación interna y exponiendo una interfaz pública para manipular atributos, a menudo guardados en una propiedad privada (con `_` al inicio). 
+
+- **Getter (`get`)** → _leer_ una propiedad
+- **Setter (`set`)** → _modificar_ una propiedad
+
+¿Cómo funcionan?
+
+- **`get` (Getter):** Una función que se ejecuta cuando intentas **leer** el valor de una propiedad. No toma argumentos y devuelve un valor.
+- **`set` (Setter):** Una función que se ejecuta cuando intentas **asignar** un valor a una propiedad. Toma un argumento (el nuevo valor) y puede validarlo o procesarlo antes de guardarlo. 
+
+Ejemplo práctico:
+
+```js
+let persona = {
+  nombre: 'Juan',
+  apellidos: 'Pérez',
+  
+  // Getter para obtener el nombre completo
+  get nombreCompleto() {
+    return this.nombre + ' ' + this.apellidos;
+  },
+  
+  // Setter para cambiar nombre y apellidos
+  set nombreCompleto(valor) {
+    const partes = valor.split(' ');
+    this.nombre = partes[0];
+    this.apellidos = partes[1];
+  }
+};
+
+// Usando el getter (se llama como una propiedad)
+console.log(persona.nombreCompleto); // Salida: Juan Pérez
+
+// Usando el setter (se llama como una asignación)
+persona.nombreCompleto = 'Ana García';
+console.log(persona.nombre); // Salida: Ana
+console.log(persona.apellidos); // Salida: García
+```
+
+Ventajas:
+
+- **Encapsulación:** Controlas qué y cómo se accede a los datos de un objeto, protegiéndolos de modificaciones inválidas.
+- **Validación:** Puedes asegurar que solo se asignen valores válidos (ej. un número entre 1 y 6).
+- **Cálculos "perezosos":** Puedes calcular un valor solo cuando se necesita, no al crear el objeto.
+- **Abstracción:** Ocultas la complejidad interna al usuario del objeto, que interactúa con propiedades simples.
 
 ### 8.7
 
