@@ -1218,6 +1218,8 @@ app.innerHTML = `
 `;
 ```
 
+El Principio de Responsabilidad Única (PRU) en TypeScript, parte de los principios SOLID, dice que **cada clase o módulo debe tener solo una razón para cambiar**, es decir, una única responsabilidad o tarea específica, como manejar datos, validar o interactuar con el DOM, para así crear código más modular, mantenible y fácil de probar, dividiendo clases grandes en otras más pequeñas y enfocadas.
+
 [06-classes-b.ts](https://gist.github.com/Klerith/a5ea5db38b60149e2941fdce4248ecf5)
 
 ### 3.7 Tarea - Responsabilidad única
