@@ -1036,9 +1036,11 @@ app.innerHTML = `
     role: string;
     workingDirectory: string;
   }
+  
   class UserSettings extends User {
     public workingDirectory: string;
     public lastOpenFolder: string;
+    
     constructor({
       workingDirectory,
       lastOpenFolder,
@@ -1165,7 +1167,7 @@ app.innerHTML = `
     workingDirectory: string;
   }
 
-  class UserSettings {
+  class UserSettings { // 👈🏼👀
     public person: Person;
     public user: User;
     public settings: Settings;
@@ -1178,7 +1180,7 @@ app.innerHTML = `
       role,
       lastOpenFolder,
       workingDirectory,
-    }: UserSettingsProps) {
+    }: UserSettingsProps) { // 👈🏼👀👇🏼
       this.person = new Person({ name, gender, birthdate });
       this.user = new User({ email, role });
       this.settings = new Settings({
