@@ -3637,33 +3637,110 @@ Ventajas:
 - **Cálculos "perezosos":** Puedes calcular un valor solo cuando se necesita, no al crear el objeto.
 - **Abstracción:** Ocultas la complejidad interna al usuario del objeto, que interactúa con propiedades simples.
 
-### 8.7
+### 8.7 Clases Abstractas
 
-`./bases/objetos/objects.ts`
+`./src/classes/abstract.ts`
 
 ```ts
+abstract class Mutant {
+  constructor(public name: string, public realName: string) {}
+}
 
+class Xmen extends Mutant { 👈🏼👀
+  greetWorld() {
+    return 'Greet world!';
+  }
+}
+
+class Villian extends Mutant {
+  conquerWorld() {
+    return 'Conquer World!';
+  }
+}
+
+// Esto es un error 👀👇🏼
+// const newMutant = new Mutant('Ale', 'Ghost');
+
+const wolverine = new Xmen('Wolverine', 'Logan'); 👈🏼👀
+const magneto = new Villian('Magneto', 'Magnus');
+
+console.log(wolverine);
+console.log(wolverine.greetWorld());
+console.log(magneto.conquerWorld());
+
+const printName = (character: Mutant) => { 👈🏼👀
+  console.log(character.realName);
+};
+
+printName(wolverine);
+printName(magneto);
+
+// Sirven para:
+// Crear, extender otras clases
+// Asegurarse que otras clases hagan lo que se espera
+// Especificar que espero una clase, objeto o argumento
+// que haya sido extendido de un tipo
 ```
 
 `src/index.ts`
 
 ```ts
+import './classes/abstract.js';
 ```
 
-👈🏼👀
-👈🏼👀👇🏼
-📌
-✅
+La consola de VSC muestra:
 
-`./bases/objetos/objects.ts`
+```bash
+Avenger Constructor!!!
+Xmen Constructor (Son)!!!
+Ale - Logan
+```
+
+Las clases abstractas en TypeScript son **plantillas para otras clases que no se pueden instanciar directamente**, sirviendo como base para la herencia y definiendo una estructura común para las subclases, que deben implementar sus métodos abstractos (sin cuerpo), mientras que la clase base puede tener métodos concretos ya implementados, reutilizando lógica y forzando un contrato de implementación. 
+
+Características clave:
+
+- **No instanciables:** No puedes crear un objeto `new MiClaseAbstracta()`.
+- **`abstract` keyword:** Se usa `abstract class` para declararla y `abstract method()` para un método sin implementación.
+- **Herencia obligatoria:** Las clases que heredan (`extends`) de una clase abstracta deben implementar todos sus métodos abstractos.
+- **Métodos concretos:** Pueden tener métodos normales con código (no abstractos) para compartir lógica entre subclases.
+- **Uso:** Definen un "contrato" o "molde" para un grupo de clases relacionadas (ej: `Animal` con método `hacerSonido()`, que luego implementan `Perro`, `Gato`, etc.). 
+
+Ejemplo:
 
 ```ts
+abstract class Animal {
+    name: string;
 
-```
+    constructor(name: string) {
+        this.name = name;
+    }
 
-`./bases/index.html`
+    // Método concreto (implementado)
+    mostrarNombre(): void {
+        console.log(`Soy un animal llamado ${this.name}`);
+    }
 
-```html
+    // Método abstracto (debe ser implementado por las subclases)
+    abstract hacerSonido(): void;
+}
+
+class Perro extends Animal {
+    constructor(name: string) {
+        super(name);
+    }
+
+    // Implementación del método abstracto
+    hacerSonido(): void {
+        console.log("¡Guau guau!");
+    }
+}
+
+// let miAnimal = new Animal("Genérico"); // ERROR: No se puede instanciar
+
+let miPerro = new Perro("Fido");
+miPerro.mostrarNombre(); // Salida: "Soy un animal llamado Fido"
+miPerro.hacerSonido();    // Salida: "¡Guau guau!"
 ```
 
 ### 8.8
@@ -3677,6 +3754,14 @@ Ventajas:
 `src/index.ts`
 
 ```ts
+```
+
+La consola de VSC muestra:
+
+```bash
+Avenger Constructor!!!
+Xmen Constructor (Son)!!!
+Ale - Logan
 ```
 
 👈🏼👀
@@ -3698,6 +3783,14 @@ Ventajas:
 ```ts
 ```
 
+La consola de VSC muestra:
+
+```bash
+Avenger Constructor!!!
+Xmen Constructor (Son)!!!
+Ale - Logan
+```
+
 👈🏼👀
 👈🏼👀👇🏼
 📌
@@ -3708,6 +3801,14 @@ Ventajas:
 `src/index.ts`
 
 ```ts
+```
+
+La consola de VSC muestra:
+
+```bash
+Avenger Constructor!!!
+Xmen Constructor (Son)!!!
+Ale - Logan
 ```
 
 
