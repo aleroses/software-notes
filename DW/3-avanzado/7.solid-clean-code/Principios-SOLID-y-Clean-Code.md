@@ -1353,6 +1353,78 @@ app.innerHTML = `
 })();
 ```
 
+Otra forma:
+
+```ts
+(() => {
+  //* Aplicar el principio de responsabilidad única
+  //* Priorizar la composición frente a la herencia
+
+  type HtmlType = 'input' | 'select' | 'textarea' | 'radio';
+
+  class HtmlElement {
+    constructor(public id: string, public type: HtmlType) {}
+  }
+
+  interface Attributes {
+    value: string;
+    placeholder: string;
+  }
+
+  class InputAttributes {
+    public value: string;
+    public placeholder: string;
+
+    constructor({ value, placeholder }: Attributes) {
+      this.value = value;
+      this.placeholder = placeholder;
+    }
+  }
+
+  class InputEvents {
+    constructor() {}
+
+    setFocus() {}
+    getValue() {}
+    isActive() {}
+    removeValue() {}
+  }
+
+  //? Idea para la nueva clase InputElement
+
+  interface Props {
+    id: string;
+    type: HtmlType;
+    value: string;
+    placeholder: string;
+  }
+
+  class InputElement {
+    public html: HtmlElement;
+    public attributes: InputAttributes;
+    public events: InputEvents;
+
+    constructor({ id, type, value, placeholder }: Props) {
+      this.html = new HtmlElement(id, type);
+      this.attributes = new InputAttributes({
+        value,
+        placeholder,
+      });
+      this.events = new InputEvents();
+    }
+  }
+
+  const nameField = new InputElement({
+    id: 'Fernando',
+    type: 'input',
+    value: 'Enter first name',
+    placeholder: 'txtName',
+  });
+
+  console.log({ nameField });
+})();
+```
+
 ### 3.9 Estructura recomendada de una clase
 
 "El buen código parece estar escrito por alguien a quien le importa".
