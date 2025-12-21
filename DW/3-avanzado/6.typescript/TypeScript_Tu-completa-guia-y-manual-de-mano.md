@@ -3745,7 +3745,9 @@ miPerro.hacerSonido();    // Salida: "¡Guau guau!"
 
 ### 8.8 Constructores privados
 
-El código implementa el patrón Singleton, y su objetivo es garantizar que solo exista UNA única instancia de la clase durante toda la ejecución del programa.
+Implementación del patrón Singleton:
+
+Garantiza que solo exista UNA única instancia de la clase durante toda la ejecución del programa.
 
 `./src/classes/private-constructor.ts`
 
@@ -3813,6 +3815,8 @@ console.log({ apoca1, apoca2, apoca3 });
 // - método static → controla la creación
 // - siempre devuelve el mismo objeto
 ```
+
+📌 Nota: `callApocalipsis()` funciona, pero en proyectos reales suele llamarse `getInstance()`
 
 `src/index.ts`
 
