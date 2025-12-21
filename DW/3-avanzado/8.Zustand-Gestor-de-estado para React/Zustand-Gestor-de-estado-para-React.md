@@ -1743,15 +1743,9 @@ export const Dashboard = () => {
 };
 ```
 
-```ts
-```
-
-que son los middlewares
+El middleware Persist **le permite almacenar su estado de Zustand en un almacenamiento** (por ejemplo, localStorage , AsyncStorage , IndexedDB , etc.), persistiendo así sus datos. Tenga en cuenta que este middleware admite tanto almacenamientos síncronos, como localStorage , como asíncronos, como AsyncStorage .
 
 [Using middlewares](https://zustand.docs.pmnd.rs/guides/advanced-typescript#using-middlewares)
-
-👈🏼👀
-👈🏼👀👇🏻
 
 ### 3.6
 
