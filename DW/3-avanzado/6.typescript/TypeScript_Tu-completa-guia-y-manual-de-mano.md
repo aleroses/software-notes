@@ -3752,34 +3752,41 @@ Garantiza que solo exista UNA única instancia de la clase durante toda la ejecu
 `./src/classes/private-constructor.ts`
 
 ```ts
+// Implementación del patrón Singleton
+// Garantiza que solo exista UNA única instancia de la clase
+// durante toda la ejecución del programa.
+
 // Clase que solo puede tener una instancia
 class Apocalipsis {
-  // Esta propiedad guardará la única instancia de la clase.
+  // Propiedad estática (pertenece a la clase, no a la instancia)
+  // Guarda la única instancia de la clase Singleton
   // “La caja donde guardamos al único Apocalipsis que puede existir”
   static instance: Apocalipsis;
 
-  // Bloquea la creación externa de objetos
+  // Constructor privado:
+  // Impide crear instancias usando `new` desde fuera de la clase
   // Solo la propia clase puede crear instancias
   private constructor(public name: string) {}
 
-  // Es static → se llama desde la clase
+  // Método estático:
+  // Es static → se llama desde la clase, no desde una instancia
   // Es el único punto de acceso para obtener la instancia
   static callApocalipsis(): Apocalipsis {
-    // ¿Ya existe una instancia?
+    // Si aún no existe la instancia, se crea
     if (!Apocalipsis.instance) {
-      // ❌ NO → créala
       Apocalipsis.instance = new Apocalipsis(
         'Soy apocalipsis'
       );
-      // El new solo se ejecuta una sola vez
+      // El `new` solo se ejecuta una sola vez
     }
 
-    // ✅ SÍ → reutilízala
+    // Si ya existe, se reutiliza
+    // Siempre devuelve la misma referencia en memoria
     return Apocalipsis.instance;
-    // Siempre devuelve la misma referencia en memoria.
   }
 
-  // Usa this → apunta a la instancia única
+  // Método de instancia
+  // Usa `this` → apunta a la instancia única
   // Modifica el estado del Singleton
   changeName(newName: string): void {
     this.name = newName;
@@ -3787,21 +3794,24 @@ class Apocalipsis {
   // Si cambias el nombre aquí, se refleja en todas las referencias
 }
 
+// Uso del Singleton
+
 // Único punto de acceso
-// No existe instancia → se crea name = 'Soy apocalipsis'
+// Primera llamada → no existe instancia, se crea
+// name = 'Soy apocalipsis'
 const apocalipsis = Apocalipsis.callApocalipsis();
 console.log(apocalipsis);
 
-// El nombre ahora es "Xavier"
+// Se modifica el estado de la instancia única
 apocalipsis.changeName('Xavier');
 
-// Todas las veces que “la pidas”, te devuelve el mismo objeto
+// Todas las llamadas devuelven el mismo objeto
 // NO se crean objetos nuevos, todos apuntan al mismo objeto en memoria
 const apoca1 = Apocalipsis.callApocalipsis();
 const apoca2 = Apocalipsis.callApocalipsis();
 const apoca3 = Apocalipsis.callApocalipsis();
 
-// Son la misma instancia
+// Todas las variables apuntan a la misma instancia
 console.log({ apoca1, apoca2, apoca3 });
 
 // Resultado
@@ -3811,9 +3821,9 @@ console.log({ apoca1, apoca2, apoca3 });
 
 // Resumen
 // - static instance → guarda la única instancia
-// - constructor private → nadie puede usar new
+// - constructor private → bloquea el uso de `new`
 // - método static → controla la creación
-// - siempre devuelve el mismo objeto
+// - siempre devuelve/reutiliza el mismo objeto
 ```
 
 📌 Nota: `callApocalipsis()` funciona, pero en proyectos reales suele llamarse `getInstance()`
