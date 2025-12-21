@@ -3743,25 +3743,80 @@ miPerro.mostrarNombre(); // Salida: "Soy un animal llamado Fido"
 miPerro.hacerSonido();    // Salida: "¡Guau guau!"
 ```
 
-### 8.8
+### 8.8 Constructores privados
 
-`./bases/objetos/objects.ts`
+`./src/classes/private-constructor.ts`
 
 ```ts
+// El código implementa el patrón Singleton, y su objetivo es garantizar que solo exista UNA única instancia de la clase durante toda la ejecución del programa.
+
 
 ```
 
 `src/index.ts`
 
 ```ts
+import './classes/private-constructor.js';
 ```
 
 La consola de VSC muestra:
 
 ```bash
-Avenger Constructor!!!
-Xmen Constructor (Son)!!!
-Ale - Logan
+Apocalipsis { name: 'Soy apocalipsis' }
+{
+  apoca1: Apocalipsis { name: 'Xavier' },
+  apoca2: Apocalipsis { name: 'Xavier' },
+  apoca3: Apocalipsis { name: 'Xavier' }
+}
+```
+
+principio o patron Singleton
+
+Los constructores privados en TypeScript son un patrón de diseño que **restringe la creación de instancias de una clase desde fuera**, permitiendo que solo se creen internamente, idealmente para implementar el patrón Singleton (una sola instancia) o para controlar la inicialización compleja, a menudo usando un método estático (`getInstance()`) para gestionar la creación controlada del objeto único.
+
+¿Cómo funcionan?
+
+1. **Declaración**: Se define el constructor con la palabra clave `private`, por ejemplo: `private constructor() { ... }`.
+2. **Restricción**: Esto impide que otras partes del código usen `new MiClase()` directamente, lanzando un error de compilación.
+3. **Singleton**: Para permitir la creación controlada, se añade:
+    - Una propiedad estática privada (`private static instance: MiClase;`) para guardar la única instancia.
+    - Un método estático público (`public static getInstance()`) que verifica si la instancia existe; si no, la crea usando el constructor privado y la guarda; si ya existe, la devuelve. 
+
+Usos comunes
+
+- **Patrón Singleton**: Asegurar que una clase solo tenga una instancia (por ejemplo, para una conexión a base de datos o un gestor de configuración).
+- **Inicialización compleja**: Cuando la creación de un objeto necesita lógica asíncrona o dependencias que deben resolverse antes de poder instanciar la clase.
+- **Clases de utilidad**: Para clases que solo contienen métodos estáticos, como la clase `Math`, para evitar que se instancien objetos innecesarios. 
+
+Ejemplo (Singleton)
+
+```ts
+class Singleton {
+  private static instance: Singleton;
+  public message: string;
+
+  private constructor() {
+    // Constructor privado
+    this.message = '¡Soy la única instancia!';
+    // Aquí podría haber lógica de inicialización costosa
+  }
+
+  public static getInstance(): Singleton {
+    // Método estático para obtener la instancia
+    if (!Singleton.instance) {
+      Singleton.instance = new Singleton(); // Solo se crea aquí
+    }
+    return Singleton.instance;
+  }
+}
+
+// No se puede hacer: const s1 = new Singleton(); // Error: Constructor privado
+
+const s1 = Singleton.getInstance(); // Correcto
+const s2 = Singleton.getInstance(); // Devuelve la misma instancia
+
+console.log(s1.message); // "¡Soy la única instancia!"
+console.log(s1 === s2); // true
 ```
 
 👈🏼👀
