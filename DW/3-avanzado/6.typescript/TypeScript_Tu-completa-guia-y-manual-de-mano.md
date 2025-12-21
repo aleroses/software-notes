@@ -3745,12 +3745,73 @@ miPerro.hacerSonido();    // Salida: "¡Guau guau!"
 
 ### 8.8 Constructores privados
 
+El código implementa el patrón Singleton, y su objetivo es garantizar que solo exista UNA única instancia de la clase durante toda la ejecución del programa.
+
 `./src/classes/private-constructor.ts`
 
 ```ts
-// El código implementa el patrón Singleton, y su objetivo es garantizar que solo exista UNA única instancia de la clase durante toda la ejecución del programa.
+// Clase que solo puede tener una instancia
+class Apocalipsis {
+  // Esta propiedad guardará la única instancia de la clase.
+  // “La caja donde guardamos al único Apocalipsis que puede existir”
+  static instance: Apocalipsis;
 
+  // Bloquea la creación externa de objetos
+  // Solo la propia clase puede crear instancias
+  private constructor(public name: string) {}
 
+  // Es static → se llama desde la clase
+  // Es el único punto de acceso para obtener la instancia
+  static callApocalipsis(): Apocalipsis {
+    // ¿Ya existe una instancia?
+    if (!Apocalipsis.instance) {
+      // ❌ NO → créala
+      Apocalipsis.instance = new Apocalipsis(
+        'Soy apocalipsis'
+      );
+      // El new solo se ejecuta una sola vez
+    }
+
+    // ✅ SÍ → reutilízala
+    return Apocalipsis.instance;
+    // Siempre devuelve la misma referencia en memoria.
+  }
+
+  // Usa this → apunta a la instancia única
+  // Modifica el estado del Singleton
+  changeName(newName: string): void {
+    this.name = newName;
+  }
+  // Si cambias el nombre aquí, se refleja en todas las referencias
+}
+
+// Único punto de acceso
+// No existe instancia → se crea name = 'Soy apocalipsis'
+const apocalipsis = Apocalipsis.callApocalipsis();
+console.log(apocalipsis);
+
+// El nombre ahora es "Xavier"
+apocalipsis.changeName('Xavier');
+
+// Todas las veces que “la pidas”, te devuelve el mismo objeto
+// NO se crean objetos nuevos, todos apuntan al mismo objeto en memoria
+const apoca1 = Apocalipsis.callApocalipsis();
+const apoca2 = Apocalipsis.callApocalipsis();
+const apoca3 = Apocalipsis.callApocalipsis();
+
+// Son la misma instancia
+console.log({ apoca1, apoca2, apoca3 });
+
+// Resultado
+// ✔️ Misma instancia
+// ✔️ Mismo nombre
+// ✔️ Mismo estado
+
+// Resumen
+// - static instance → guarda la única instancia
+// - constructor private → nadie puede usar new
+// - método static → controla la creación
+// - siempre devuelve el mismo objeto
 ```
 
 `src/index.ts`
@@ -3769,8 +3830,6 @@ Apocalipsis { name: 'Soy apocalipsis' }
   apoca3: Apocalipsis { name: 'Xavier' }
 }
 ```
-
-principio o patron Singleton
 
 Los constructores privados en TypeScript son un patrón de diseño que **restringe la creación de instancias de una clase desde fuera**, permitiendo que solo se creen internamente, idealmente para implementar el patrón Singleton (una sola instancia) o para controlar la inicialización compleja, a menudo usando un método estático (`getInstance()`) para gestionar la creación controlada del objeto único.
 
@@ -3818,12 +3877,6 @@ const s2 = Singleton.getInstance(); // Devuelve la misma instancia
 console.log(s1.message); // "¡Soy la única instancia!"
 console.log(s1 === s2); // true
 ```
-
-👈🏼👀
-👈🏼👀👇🏼
-📌
-✅
-
 
 ### 8.9
 
