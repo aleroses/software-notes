@@ -3900,7 +3900,23 @@ Les dejo el código del proyecto hasta este punto y también el repositorio de G
 
 - [ts-bases-fin-seccion-8.zip](https://import.cdn.thinkific.com/643563/courses/1870132/tsbasesfinseccion8-220523-092546.zip)
 
-## 9. 
+## 9. Interfaces
+
+### 9.1 ¿v
+
+Esta sección está dedicada a crear interfaces, las cuales nos permitirán crear reglas o planos de como se deben de construir clases, métodos u objetos.
+
+Puntualmente aprenderemos:
+
+1. ¿Por qué es necesario una interfaz?
+2. ¿Cómo creamos una interfaz básica?
+3. Crear propiedades opcionales
+4. Crear métodos
+5. Asignar interfaces a las clases
+
+Al final, tendremos un examen práctico y teórico sobre las interfaces.
+
+### 9.2 Interfaz básica
 
 `./bases/objetos/objects.ts`
 
@@ -3926,7 +3942,7 @@ Ale - Logan
 📌
 ✅
 
-
+### 9.3 
 
 `src/index.ts`
 
@@ -3944,7 +3960,7 @@ Ale - Logan
 
 
 
-
+### 9.4 
 
 
 
