@@ -1949,25 +1949,100 @@ TypeScript ahora puede:
 - Autocompletar correctamente
 - Marcar errores si te equivocas
 
-👈🏼👀
-👈🏼👀👇🏻
+### 3.7 Custom Storage - SessionStorage
 
-### 3.7
-
-```ts
-```
+`./src/stores/person/person.store.ts`
 
 ```ts
+import { create, type StateCreator } from 'zustand';
+import {
+  createJSONStorage, 👈🏼👀
+  persist,
+  StateStorage, 👈🏼👀
+} from 'zustand/middleware';
+
+interface PersonState {
+  firstName: string;
+  lastName: string;
+
+  // setFistName: (value: string) => void;
+  // setLastName: (value: string) => void;
+}
+
+interface Actions {
+  setFirstName: (value: string) => void;
+  setLastName: (value: string) => void;
+}
+
+const storeAPI: StateCreator<PersonState & Actions> = (
+  set
+) => ({
+  firstName: 'Ale',
+  lastName: 'Ghost',
+  setFirstName: (value: string) =>
+    set((state) => ({ firstName: value })),
+  setLastName: (value: string) =>
+    set((state) => ({ lastName: value })),
+});
+
+// Usa Ctrl + . sobre sessionStorage para autocompletar
+const sessionStorage: StateStorage = { 👈🏼👀👇🏻
+  getItem: function (
+    name: string
+  ): string | null | Promise<string | null> {
+    console.log('getItem', name);
+
+    // throw new Error('Function not implemented.');
+    return null;
+  },
+  setItem: function (name: string, value: string): unknown {
+    console.log('setItem', { name, value });
+
+    // throw new Error('Function not implemented.');
+    return null;
+  },
+  removeItem: function (name: string): unknown {
+    console.log('removeItem', name);
+
+    // throw new Error('Function not implemented.');
+    return null;
+  },
+};
+
+export const usePersonStore = create<PersonState & Actions>()(
+  persist(storeAPI, {
+    name: 'person-storage', // el name que usa sessionStorage arriba
+    storage: createJSONStorage(() => sessionStorage), 👈🏼👀
+  })
+);
 ```
 
-```ts
-```
+📌 Nota: `const session|Storage:` Si haces `Ctrl + .` se despliegan algunas opciones, puedes elegir `Add missing properties` para autocompletar la implementación.
 
-👈🏼👀
-👈🏼👀👇🏻
+`sessionStorage` y `localStorage` son APIs de almacenamiento web que guardan datos en el navegador, siendo la principal diferencia su **duración**: `sessionStorage` guarda datos solo para la **sesión actual** (se borra al cerrar la pestaña/ventana), mientras que `localStorage` guarda datos de forma **permanente** hasta que se borren manualmente o por el usuario, persistiendo entre sesiones y reinicios del navegador, aunque ambos se borran al limpiar el historial o caché del navegador, y comparten métodos como `setItem()`, `getItem()`, `removeItem()` y `clear()`.
+
+Comparativa detallada:
+
+|Característica |`localStorage`                    |`sessionStorage`                                   |
+|---------------|-----------------------------------|-----------------------------------------------------|
+|**Duración**   |Permanente (hasta limpieza manual).|Temporal (solo para la sesión de la pestaña/ventana).|
+|**Alcance**    |Mismo origen (dominio), compartido entre todas las pestañas/ventanas.|Mismo origen, pero cada pestaña/ventana tiene su propio almacenamiento.|
+|**Eliminación**|Manualmente por el usuario o por código.|Automáticamente al cerrar la pestaña/navegador.|
+|**Uso Típico** |Preferencias de usuario, temas, información que debe durar.|Datos de formulario temporal, estado de sesión, carrito de compras.|
+
+Similitudes Clave:
+
+- **Mismos métodos:** Ambos usan `setItem(clave, valor)`, `getItem(clave)`, `removeItem(clave)`, `clear()`, etc..
+- **Almacenamiento por origen (Same-Origin Policy):** Los datos son privados para el dominio que los creó.
+- **Almacenamiento de cadenas:** Solo guardan cadenas; objetos deben ser convertidos a JSON (`JSON.stringify()`) y luego parseados (`JSON.parse()`).
+- **Límite de tamaño:** Ambos tienen un límite (ej. 5-10 MB), mayor en `localStorage`. 
+
+En resumen, usa `sessionStorage` para datos efímeros de una sesión y `localStorage` para persistencia de datos a largo plazo.
 
 ### 3.8
 
+
+
 ```ts
 ```
 
@@ -1979,7 +2054,7 @@ TypeScript ahora puede:
 
 👈🏼👀
 👈🏼👀👇🏻
-
+📌
 ### 3.9
 
 ```ts
