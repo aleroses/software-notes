@@ -2039,22 +2039,145 @@ Similitudes Clave:
 
 En resumen, usa `sessionStorage` para datos efímeros de una sesión y `localStorage` para persistencia de datos a largo plazo.
 
-### 3.8
+### 3.8 Implementar SessionStorage
 
+Estructura:
 
-
-```ts
+```bash
+.
+├── .eslintrc.cjs
+├── .gitignore
+├── index.html
+├── package.json
+├── package-lock.json
+├── postcss.config.js
+├── public
+│   ├── screenshot.png
+│   └── vite.svg
+├── README.md
+├── src
+│   ├── assets
+│   │   └── react.svg
+│   ├── components
+│   │   ├── index.ts
+│   │   ├── jira
+│   │   │   └── JiraTasks.tsx
+│   │   └── shared
+│   │       ├── cards
+│   │       │   └── WhiteCard.tsx
+│   │       └── sidemenu
+│   │           ├── SideMenu.css
+│   │           ├── SideMenuItem.tsx
+│   │           └── SideMenu.tsx
+│   ├── index.css
+│   ├── layouts
+│   │   ├── AuthLayout.tsx
+│   │   ├── DashboardLayout.tsx
+│   │   └── index.ts
+│   ├── main.tsx
+│   ├── pages
+│   │   ├── 01-basic
+│   │   │   ├── BearPage.tsx
+│   │   │   └── PersonPage.tsx
+│   │   ├── 02-objects
+│   │   │   └── JiraPage.tsx
+│   │   ├── 03-slices
+│   │   │   └── WeddingInvitationPage.tsx
+│   │   ├── auth
+│   │   │   └── LoginPage.tsx
+│   │   ├── dashboard
+│   │   │   └── DashboardPage.tsx
+│   │   └── index.ts
+│   ├── Root.tsx
+│   ├── router
+│   │   └── router.tsx
+│   ├── stores
+│   │   ├── bears
+│   │   │   └── bears.store.ts
+│   │   ├── person
+│   │   │   └── person.store.ts
+│   │   └── storages 👈🏼👀👇🏻
+│   │       └── session-storage.storage.ts
+│   └── vite-env.d.ts
+├── tailwind.config.js
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
 ```
 
-```ts
-```
+`./src/stores/person/person.store.ts`
 
 ```ts
+import { create, type StateCreator } from 'zustand';
+import { persist } from 'zustand/middleware';
+import { customSessionStorage } from '../storages/session-storage.storage';
+
+interface PersonState {
+  firstName: string;
+  lastName: string;
+
+  // setFistName: (value: string) => void;
+  // setLastName: (value: string) => void;
+}
+
+interface Actions {
+  setFirstName: (value: string) => void;
+  setLastName: (value: string) => void;
+}
+
+const storeAPI: StateCreator<PersonState & Actions> = (
+  set
+) => ({
+  firstName: '',
+  lastName: '',
+  setFirstName: (value: string) =>
+    set((state) => ({ firstName: value })),
+  setLastName: (value: string) =>
+    set((state) => ({ lastName: value })),
+});
+
+export const usePersonStore = create<PersonState & Actions>()(
+  persist(storeAPI, {
+    name: 'person-storage', // el name que usa sessionStorage arriba
+    storage: customSessionStorage,
+  })
+);
 ```
 
-👈🏼👀
-👈🏼👀👇🏻
-📌
+`./src/stores/storages/session-storage.storage.ts`
+
+```ts
+import {
+  createJSONStorage,
+  StateStorage,
+} from 'zustand/middleware';
+
+const storageApi: StateStorage = {
+  getItem: function (
+    name: string
+  ): string | null | Promise<string | null> {
+    const data = sessionStorage.getItem(name);
+
+    return data;
+  },
+  setItem: function (name: string, value: string): void {
+    sessionStorage.setItem(name, value);
+  },
+  removeItem: function (name: string): unknown {
+    console.log('removeItem', name);
+
+    // throw new Error('Function not implemented.');
+    return null;
+  },
+};
+
+export const customSessionStorage = createJSONStorage(
+  () => storageApi
+);
+```
+
+Revisa en las DevTools `Storage` y busca `Session Storage` para ver la data guardada.
+
 ### 3.9
 
 ```ts
@@ -2068,6 +2191,7 @@ En resumen, usa `sessionStorage` para datos efímeros de una sesión y `localSto
 
 👈🏼👀
 👈🏼👀👇🏻
+📌
 
 ### 3.10
 
