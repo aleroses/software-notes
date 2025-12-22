@@ -3990,6 +3990,8 @@ Conclusión:
 - **Predeterminado:** Usa `interface` para objetos y `type` para uniones/intersecciones o tipos primitivos.
 - **Consistencia:** Lo más importante es elegir uno y ser consistente en tu proyecto para mantener la claridad.
 
+[Differences Between Type Aliases and Interfaces](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#differences-between-type-aliases-and-interfaces)
+
 ### 9.3 
 
 `src/index.ts`
