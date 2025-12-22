@@ -1747,16 +1747,207 @@ El middleware Persist **le permite almacenar su estado de Zustand en un almacena
 
 [Using middlewares](https://zustand.docs.pmnd.rs/guides/advanced-typescript#using-middlewares)
 
-### 3.6
+### 3.6 StateCreator Interface
+
+`./src/stores/person/person.store.ts`
 
 ```ts
+import { create, type StateCreator } from 'zustand';
+import { persist } from 'zustand/middleware';
+
+interface PersonState {
+  firstName: string;
+  lastName: string;
+
+  // setFistName: (value: string) => void;
+  // setLastName: (value: string) => void;
+}
+
+interface Actions {
+  setFirstName: (value: string) => void;
+  setLastName: (value: string) => void;
+}
+
+const storeAPI: StateCreator<PersonState & Actions> = ( 👈🏼👀👇🏻
+  set
+) => ({
+  firstName: '',
+  lastName: '',
+  setFirstName: (value: string) =>
+    set((state) => ({ firstName: value })),
+  setLastName: (value: string) =>
+    set((state) => ({ lastName: value })),
+});
+
+export const usePersonStore = create<PersonState & Actions>()(
+  persist(storeAPI, { name: 'person-storage' }) 👈🏼👀
+);
 ```
 
-```ts
+`StateCreator` en Zustand es una función que defines para **crear tu tienda (store)**, recibiendo `set`, `get`, y `store` como argumentos para manipular el estado, obtenerlo y acceder a funciones del store, respectivamente, permitiéndote devolver un objeto con tus estados y acciones de forma organizada, ideal para usar con TypeScript para tipado fuerte y middlewares como `devtools` o `persist`. 
+
+1. Conceptos Clave
+
+- **`create<StateCreator>(...)`**: La función principal de Zustand para crear tiendas. La `StateCreator` es la función que le pasas a `create`.
+- **Argumentos de `StateCreator`**:
+    - `set`: Para actualizar el estado (inmutablemente).
+    - `get`: Para leer el estado actual.
+    - `store`: El objeto completo del store (útil para resets o middlewares).
+- **Inmutabilidad**: Al actualizar, siempre usa el operador spread (`...`) para objetos o arrays, como en `set(state => ({ ...state, count: state.count + 1 }))`. 
+
+2. Ejemplo Básico (Sin TypeScript)
+
+```js
+import { create } from 'zustand';
+
+const useCounterStore = create((set, get) => ({
+  count: 0, // Estado inicial
+  increment: () => set(state => ({ count: state.count + 1 })), // Acción
+  decrement: () => set(state => ({ count: state.count - 1 })), // Acción
+  // Puedes usar 'get' para leer el estado dentro de una acción
+  doubleCount: () => get().count * 2
+}));
+
+// Uso en un componente React:
+function Counter() {
+  const { count, increment, decrement } = useCounterStore();
+  return (
+    <div>
+      <span>{count}</span>
+      <button onClick={increment}>+</button>
+      <button onClick={decrement}>-</button>
+    </div>
+  );
+}
 ```
 
-```ts
+3. Con TypeScript y Middlewares (Forma Recomendada)
+
+```js
+import { create } from 'zustand';
+import { devtools, persist } from 'zustand/middleware'; // Para devtools y persistencia
+
+// 1. Define el tipo de tu estado y acciones
+interface CounterState {
+  count: number;
+  increment: () => void;
+  decrement: () => void;
+}
+
+interface CounterActions {
+  increment: () => void;
+  decrement: () => void;
+}
+
+// 2. Crea la StateCreator con tipos y middlewares
+const useCounterStore = create<CounterState & CounterActions>()(
+  persist( // Middleware de persistencia
+    devtools( // Middleware de devtools
+      (set, get) => ({ // Tu StateCreator
+        count: 0,
+        increment: () => set(state => ({ count: state.count + 1 })),
+        decrement: () => set(state => ({ count: state.count - 1 })),
+      }),
+      { name: 'counter-storage' } // Opciones para devtools
+    ),
+    { name: 'counter-storage' } // Opciones para persist
+  )
+);
+
+// Uso es similar, pero con tipado completo
 ```
+
+4. Patrones Avanzados
+
+- **Slices**: Organiza estados y acciones grandes en objetos pequeños (slices) dentro de tu `StateCreator` para mejorar la legibilidad y el mantenimiento.
+- **`create<State>(...)()`**: La doble llamada (currying) es la forma recomendada en Zustand para que TypeScript infiera correctamente los tipos de tu store. 
+
+Resumiendo, `StateCreator` es la definición funcional de tu tienda, controlando cómo se crea, se actualiza y qué métodos expone, siendo clave para la estructura y el tipado en tus aplicaciones con Zustand.
+
+En Zustand, un store normalmente se crea así:
+
+```ts
+create((set, get) => ({
+  count: 0,
+  increment: () => set({ count: 1 }),
+}));
+```
+
+Ese `(set, get) => ({ ... })` **tiene un tipo**.  
+Zustand ya lo definió y lo llamó **`StateCreator`**.
+
+👉 `StateCreator` describe **la forma de la función que crea el estado**.
+
+Ahora al importar:
+
+```ts
+import { create, type StateCreator } from 'zustand';
+```
+
+La palabra clave **`type`** significa:
+
+> 📌 “Estoy importando esto **solo como tipo**, no como valor de JavaScript”.
+
+Forma del `StateCreator`
+
+Simplificado, es algo así:
+
+```ts
+type StateCreator<T> = (
+  set: (fn: (state: T) => Partial<T>) => void,
+  get: () => T,
+  api: unknown
+) => T;
+```
+
+O sea:
+
+👉 **una función que recibe `set`, `get` y devuelve el estado**
+
+Aplicándolo a nuestro código:
+
+```ts
+interface PersonState {
+  firstName: string;
+  lastName: string;
+}
+
+interface Actions {
+  setFirstName: (value: string) => void;
+  setLastName: (value: string) => void;
+}
+```
+
+Tu store tendrá:
+
+```ts
+PersonState & Actions
+```
+
+Aquí está la clave
+
+```ts
+const storeAPI: StateCreator<PersonState & Actions> = (set) => ({
+  firstName: '',
+  lastName: '',
+  setFirstName: (value) =>
+    set(() => ({ firstName: value })),
+  setLastName: (value) =>
+    set(() => ({ lastName: value })),
+});
+```
+
+Esto significa:
+
+🧠 **storeAPI es una función que crea un estado del tipo  
+`PersonState & Actions`**
+
+TypeScript ahora puede:
+
+- Verificar que `firstName` y `lastName` existan
+- Verificar que `setFirstName` y `setLastName` existan
+- Autocompletar correctamente
+- Marcar errores si te equivocas
 
 👈🏼👀
 👈🏼👀👇🏻
