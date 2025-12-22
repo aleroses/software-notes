@@ -2178,8 +2178,11 @@ export const customSessionStorage = createJSONStorage(
 
 Revisa en las DevTools `Storage` y busca `Session Storage` para ver la data guardada.
 
-### 3.9
+### 3.9 Aprovisionar base de datos en Firebase
 
+Nombre del proyecto: zustandStoragexd
+
+en lugar de que grabe en el localStorage debe grabar en la nube de Firebase.
 ```ts
 ```
 
@@ -2188,6 +2191,10 @@ Revisa en las DevTools `Storage` y busca `Session Storage` para ver la data guar
 
 ```ts
 ```
+
+[[react-hooks-mern#React (Hooks y MERN)#19.7 Configuración inicial de Firebase#Crear proyecto en Firebase]]
+
+[Firebase](https://firebase.google.com/?hl=es)
 
 👈🏼👀
 👈🏼👀👇🏻
