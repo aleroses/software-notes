@@ -3992,23 +3992,33 @@ Conclusión:
 
 [Differences Between Type Aliases and Interfaces](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#differences-between-type-aliases-and-interfaces)
 
-### 9.3 
+### 9.3 Estructuras complejas
 
-`src/index.ts`
+`./src/interfaces/complex.ts`
 
 ```ts
+interface Client {
+  name: string;
+  age?: number;
+  address: Adress;
+}
+
+interface Adress {
+  id: number;
+  zip: string;
+  city: string;
+}
+
+const client: Client = {
+  name: 'Ale',
+  age: 25,
+  address: {
+    city: 'Toronto',
+    id: 120,
+    zip: 'K2S U2A',
+  },
+};
 ```
-
-La consola de VSC muestra:
-
-```bash
-Avenger Constructor!!!
-Xmen Constructor (Son)!!!
-Ale - Logan
-```
-
-
-
 
 ### 9.4 
 
