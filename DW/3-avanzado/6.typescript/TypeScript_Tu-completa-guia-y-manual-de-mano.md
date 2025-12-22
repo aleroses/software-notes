@@ -3902,7 +3902,7 @@ Les dejo el código del proyecto hasta este punto y también el repositorio de G
 
 ## 9. Interfaces
 
-### 9.1 ¿v
+### 9.1 ¿Qué veremos en esta sección?
 
 Esta sección está dedicada a crear interfaces, las cuales nos permitirán crear reglas o planos de como se deben de construir clases, métodos u objetos.
 
@@ -3918,29 +3918,77 @@ Al final, tendremos un examen práctico y teórico sobre las interfaces.
 
 ### 9.2 Interfaz básica
 
-`./bases/objetos/objects.ts`
+`./src/interfaces/basic.ts`
 
 ```ts
+interface Hero {
+  name: string;
+  age?: number;
+  powers: number[];
+  getName?: () => string;
+}
 
+let flash: Hero = {
+  name: 'Barry Allen',
+  age: 24,
+  powers: [1, 2],
+};
+
+console.log(flash.name);
 ```
 
 `src/index.ts`
 
 ```ts
+import './interfaces/basics.js';
 ```
 
 La consola de VSC muestra:
 
 ```bash
-Avenger Constructor!!!
-Xmen Constructor (Son)!!!
-Ale - Logan
+Barry Allen
 ```
 
-👈🏼👀
-👈🏼👀👇🏼
-📌
-✅
+Se usa `interface` para definir la **forma de objetos**, contratos para clases y aprovechar la **fusión de declaraciones**; mientras que `type` es más versátil para **alias** de tipos primitivos, uniones (`|`), intersecciones (`&`), tuplas y tipos complejos que `interface` no puede manejar directamente, siendo la elección personal a menudo una cuestión de preferencia, aunque TS recomienda `interface` por defecto para objetos. 
+
+Usa `interface` cuando:
+
+- **Defines la forma de un objeto:** Es ideal para describir la estructura de datos, como `{ nombre: string, edad: number }`.
+- **Necesitas extensión:** Permite extender otras interfaces (usando `extends`) y se pueden fusionar interfaces del mismo nombre para añadir propiedades, una característica útil para librerías.
+- **Trabajas con clases (contratos):** Define contratos para que las clases implementen.
+- **Prefieres la convención:** La recomendación general es usar `interface` por defecto para objetos. 
+
+```ts
+// interface
+interface Usuario {
+  id: number;
+  nombre: string;
+}
+
+interface Admin extends Usuario { // Extiende Usuario
+  permisos: string[];
+}
+```
+
+Usa `type` cuando:
+
+- **Necesitas uniones (OR) o intersecciones (AND):** Crea tipos complejos como `type ID = string | number` o `type PersonaCompleta = Usuario & { email: string }`.
+- **Creas alias para tipos primitivos:** `type Email = string;`.
+- **Trabajas con tuplas:** `type Coordenadas = [number, number];`.
+- **No necesitas fusión de declaraciones:** `type` no permite la fusión de declaraciones del mismo nombre.
+- **Creas tipos primitivos o complejos que no son objetos:** Como `type Estado = 'activo' | 'inactivo';` o `type Resultado = string | null;`. 
+
+```ts
+// type
+type Estado = 'activo' | 'inactivo'; // Unión
+type Coordenadas = [number, number]; // Tupla
+type ID = string | number; // Unión
+```
+
+Conclusión:
+
+- **Predeterminado:** Usa `interface` para objetos y `type` para uniones/intersecciones o tipos primitivos.
+- **Consistencia:** Lo más importante es elegir uno y ser consistente en tu proyecto para mantener la claridad.
 
 ### 9.3 
 
