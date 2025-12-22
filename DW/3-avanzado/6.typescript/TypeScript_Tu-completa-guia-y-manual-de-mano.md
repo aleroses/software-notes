@@ -4020,26 +4020,40 @@ const client: Client = {
 };
 ```
 
-### 9.4 
+### 9.4 Métodos en la interfaz
 
-
-
-
-
-
-
-`./bases/funciones/functions.ts`
+`./src/interfaces/complex.ts`
 
 ```ts
+interface Client {
+  name: string;
+  age?: number;
+  address: Address;
+  getFullAddress(id: string): void;
+}
 
+interface Address {
+  id: number;
+  zip: string;
+  city: string;
+}
+
+const client: Client = {
+  name: 'Ale',
+  age: 25,
+  address: {
+    city: 'Toronto',
+    id: 120,
+    zip: 'K2S U2A',
+  },
+  // getFullAddress: (id) => null,
+  getFullAddress(id: string) {
+    return this.address.city;
+  },
+};
 ```
 
-`./bases/index.html`
-
-```html
-```
-
-### 4.10
+### 9.5
 
 `./bases/funciones/functions.ts`
 
