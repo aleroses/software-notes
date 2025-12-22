@@ -3892,7 +3892,15 @@ console.log(s1.message); // "¡Soy la única instancia!"
 console.log(s1 === s2); // true
 ```
 
-### 8.9
+### 8.9 Código fuente de la sección
+
+Les dejo el código del proyecto hasta este punto y también el repositorio de GitHub por si lo quieren tener a la mano.
+
+[Github- Fin-seccion-8](https://github.com/Klerith/ts-bases/tree/fin-seccion-8)
+
+- [ts-bases-fin-seccion-8.zip](https://import.cdn.thinkific.com/643563/courses/1870132/tsbasesfinseccion8-220523-092546.zip)
+
+## 9. 
 
 `./bases/objetos/objects.ts`
 
