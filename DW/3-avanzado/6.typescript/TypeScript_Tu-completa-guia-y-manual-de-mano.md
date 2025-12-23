@@ -4299,29 +4299,68 @@ class Persona implements Person {
 }
 ```
 
-### 9.9 
+### 9.9 Quiz 5: Examen teórico #5
 
-`./bases/index.html`
+Reforzando los conocimientos.
 
-```html
-```
+### 9.10 Quiz 5: Examen teórico #5
 
-👈🏼👀
-🔥
-📌
-☢️
-
-### 9.10 
-
-`./bases/index.html`
-
-```html
-```
-
-👈🏼👀
-🔥
-📌
-☢️
+1. ¿Qué son las interfaces?  
+	- Son como contratos que nos obligan a respetar las reglas que establezcamos.
+	
+2. ¿Es posible crear interfaces para permitir o denegar qué podemos asignar a una función?  
+	- Verdadero
+	
+3. ¿Este es el producto de la interfaz "Carro" en JavaScript?  
+	```ts
+	// TypeScript
+	interface Carro {
+	  nombre: string;
+	}
+	
+	// JavaScript
+	function Carro(carro) {
+	  this.carro = carro;
+	}
+	```
+	- Falso: Las interfaces solo existen en TypeScript, por lo que no crea nada en JavaScript
+	
+4. ¿Con qué palabra reservada podemos implementar una interface en una clase?  
+	- implements
+	
+5. ¿Cuál es el objetivo de una implementación de una interface en una clase?  
+	- Nos obliga a que la clase que implemente la interfaz tenga al menos las propiedades y métodos definidos en dicha interfaz.
+	
+6. ¿Es posible asignar a una variable, el tipo de una interfaz?  
+	- Verdadero
+	
+7. En una interfaz, ¿Solo hay que definir las propiedades y métodos que son obligatorios?  
+	- Falso: Pueden tener propiedades o métodos opcionales.
+	
+8. En la creación de un método de una interfaz, ¿Qué puedo detallar?  
+	- Los tipos de los parámetros de entrada y el tipo de la salida.
+	
+9. ¿Con qué caracter definimos que una propiedad o método puede ser opcional en la interfaz?  
+	- `?`
+	
+10. ¿El siguiente código es válido en TypeScript?  
+	```ts
+	interface Carro {
+	  llantas: number;
+	  modelo: string;
+	}
+	
+	interface Volvo extends Carro {
+	  seguro: boolean;
+	}
+	
+	var volvo: Volvo = {
+	  llantas: 4,
+	  modelo: 'sedan',
+	  seguro: true,
+	};
+	```
+	- Verdadero: Es posible heredar interfaces con la palabra "extends"
 
 ### 9.11 
 
