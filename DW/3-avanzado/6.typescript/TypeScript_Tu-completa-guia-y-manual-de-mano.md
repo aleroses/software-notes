@@ -4376,9 +4376,21 @@ Si quieren saber qué cursos tengo que usan TypeScript, lo pueden ver aquí:
 
 [Cursos que utilizan TypeScript](https://fernando-herrera.com/#/search/typescript)
 
-## 10. 
+## 10. NameSpaces
 
-### 10.1 
+### 10.1 ¿Qué veremos en esta sección?
+
+TypeScript, es un lenguaje de programación web, que nos permite crear objetos que nos servirán a lo largo de nuestro programa. Los namespaces, existen para ayudarnos en la re utilización de nuestras variables, constantes y métodos.
+
+Puntualmente aprenderemos sobre:
+
+1. Explicación del ¿por qué son necesarios los namespaces?
+2. Crear namespaces
+3. Multiples namespaces en un mismo proyecto
+4. Importar namespaces
+5. Problemática que se puede presentar utilizando un namespace.
+
+### 10.2 
 
 `./bases/index.html`
 
