@@ -4362,7 +4362,23 @@ Reforzando los conocimientos.
 	```
 	- Verdadero: Es posible heredar interfaces con la palabra "extends"
 
-### 9.11 
+### 9.11 Código fuente de la sección
+
+Aquí les dejo el código fuente por si lo llegan a necesitar o comparar contra el mío
+
+[GitHub Fin Sección 8](https://github.com/Klerith/ts-bases/tree/fin-seccion-8)
+
+**Nota:**
+
+Por favor, este curso ha tenido actualizaciones desde hace más de 5 años de forma gratuita y están viendo una actualización mayor en la cual regrabé cada clase del curso sin costo para ustedes, les pediría que me ayuden volviendo a calificar el curso y si pueden recomendarlo a otras personas, me serviría bastante porque eso es lo que mantiene vivos los cursos míos
+
+Si quieren saber qué cursos tengo que usan TypeScript, lo pueden ver aquí:
+
+[Cursos que utilizan TypeScript](https://fernando-herrera.com/#/search/typescript)
+
+## 10. 
+
+### 10.1 
 
 `./bases/index.html`
 
