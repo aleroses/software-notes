@@ -4148,13 +4148,44 @@ Las arrow functions **NO tienen su propio `this`**
     handler: () => tipo
     ```
 
-### 9.5
+### 9.5 Interfaces en las clases
 
-`./bases/funciones/functions.ts`
+`./src/interfaces/classes.ts`
 
 ```ts
+interface Xmen {
+  name: string;
+  realName: string;
+  mutantPower(id: number): string;
+}
 
+interface Human {
+  age: number;
+}
+
+class Mutant implements Xmen, Human {
+  constructor(
+    public name: string,
+    public realName: string,
+
+    public age: number
+  ) {}
+
+  public mutantPower(id: number) {
+    return this.name + ' ' + this.realName;
+  }
+}
 ```
+
+En TypeScript, `implements` es una palabra clave que **obliga a una clase a cumplir con un "contrato" definido por una interfaz**, asegurando que la clase implemente todas las propiedades y métodos declarados en esa interfaz, proporcionando sus propias implementaciones concretas para ellos, a diferencia de `extends` que hereda código directamente.
+
+¿Qué hace `implements`?
+
+- **Garantía de Contrato:** Actúa como un contrato. Si una clase declara que implementa una InterfazA, debe incluir todas las firmas (nombres y tipos) de las propiedades y métodos definidos en `InterfazA`.
+- **Compromiso de Implementación:** La clase debe proporcionar el cuerpo (la lógica) para todos esos métodos que estaban definidos solo como firmas en la interfaz.
+- **Errores de Compilación:** Si la clase omite una propiedad o método, o si la firma no coincide, TypeScript marcará un error, asegurando la consistencia.
+
+### 9.6 
 
 `./bases/index.html`
 
