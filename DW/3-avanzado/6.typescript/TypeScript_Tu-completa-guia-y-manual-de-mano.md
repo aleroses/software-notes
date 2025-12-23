@@ -4029,7 +4029,10 @@ interface Client {
   name: string;
   age?: number;
   address: Address;
-  getFullAddress(id: string): void;
+  // Correcto para objetos/clases 👀👇🏼
+  getFullAddress(id: string): string;
+  // Tipo función 👀👇🏼
+  // getFullAddress: (id: string) => void;
 }
 
 interface Address {
@@ -4046,12 +4049,104 @@ const client: Client = {
     id: 120,
     zip: 'K2S U2A',
   },
-  // getFullAddress: (id) => null,
   getFullAddress(id: string) {
     return this.address.city;
   },
 };
 ```
+
+No confundir con tipo función:
+
+```ts
+let getFullAddress: (id: string) => void;
+
+getFullAddress = (name) => {
+  console.log(name);
+};
+```
+
+Ver [[TypeScript_Tu-completa-guia-y-manual-de-mano#4.7 Tipo Función]]
+
+#### Formas de declarar métodos en una `interface`
+
+1. **método (method signature)**
+
+```ts
+getFullAddress(id: string): void;
+```
+
+Esto significa:
+
+> “Esta interfaz tiene un **método** llamado `getFullAddress` que recibe un `string` y **retorna void**”
+
+Es la forma **clásica**, similar a una clase.
+
+✔ Ventajas:
+
+- Más legible
+- Mejor para métodos que usan `this`
+- Es la forma recomendada para **interfaces de objetos/clases**
+
+2. **propiedad cuyo valor es una función**
+
+```ts
+getFullAddress: (id: string) => void;
+```
+
+Esto significa:
+
+> “Esta interfaz tiene una **propiedad** llamada `getFullAddress`, y su valor es una función”
+
+Aquí **no es un método**, es una propiedad que guarda una función.
+
+✔ Ventajas:
+
+- Muy usada en **callbacks**
+- Común en React, Zustand, handlers, etc.
+
+#### Diferencia CLAVE entre ambas
+
+`this` NO se comporta igual
+
+- Método (correcto para objetos)
+
+```ts
+getFullAddress(id: string): void {
+  console.log(this.address.city);
+}
+```
+
+➡️ `this` apunta correctamente al objeto `client`.
+
+- Propiedad con arrow function
+
+```ts
+getFullAddress: (id: string) => {
+  console.log(this.address.city);
+}
+```
+
+🚨 **Problema**:  
+Las arrow functions **NO tienen su propio `this`**  
+`this` se toma del contexto externo → puede romperse fácilmente.
+
+👉 Por eso **para objetos con estado**, se recomienda la forma de **método**.
+
+#### ¿Cuándo usar cada forma?
+
+🧠 **Regla simple**:
+
+- 🔹 **Objetos / clases / modelos** → usa **métodos**
+    
+    ```ts
+    metodo(): tipo
+    ```
+    
+- 🔹 **Callbacks / handlers / funciones externas** → usa **propiedad función**
+    
+    ```ts
+    handler: () => tipo
+    ```
 
 ### 9.5
 
