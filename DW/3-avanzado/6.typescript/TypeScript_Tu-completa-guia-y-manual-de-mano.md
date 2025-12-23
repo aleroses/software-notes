@@ -4201,29 +4201,103 @@ addNumbersFunction = (a: number, b: number) => {
 };
 ```
 
-### 9.7 
+### 9.7 Ejercicio práctico #5: Implementación de interfaces
 
-`./bases/index.html`
+Por favor descarguen y descompriman el archivo adjunto y procedan a la siguiente clase donde les daré la introducción de lo que quiero que hagan
 
-```html
+- [app.ts.zip](https://import.cdn.thinkific.com/643563/courses/1870132/appts-220523-102530.zip)
+
+### 9.8 Tarea y Resolución del ejercicio práctico #5
+
+`./src/app.ts`
+
+```ts
+// Crear interfaces
+
+// Cree una interfaz para validar el auto (el valor enviado por parametro)
+interface Auto {
+  encender: boolean;
+  velocidadMax: number;
+  acelerar(): void;
+}
+
+const conducirBatimovil = (auto: Auto): void => {
+  auto.encender = true;
+  auto.velocidadMax = 100;
+  auto.acelerar();
+};
+
+const batimovil: Auto = {
+  encender: false,
+  velocidadMax: 0,
+  acelerar() {
+    console.log('...... gogogo!!!');
+  },
+};
+
+// Cree una interfaz con que permita utilzar el siguiente objeto
+// utilizando propiedades opcionales
+
+interface Guason {
+  reir?: boolean;
+  comer?: boolean;
+  llorar?: boolean;
+}
+
+const guason: Guason = {
+  reir: true,
+  comer: true,
+  llorar: false,
+};
+
+const reir = (guason: Guason): void => {
+  if (guason.reir) {
+    console.log('JAJAJAJA');
+  }
+};
+
+// Cree una interfaz para la siguiente funcion
+
+interface CityFn {
+  (ciudadanos: string[]): number;
+}
+
+const ciudadGotica: CityFn = (
+  ciudadanos: string[]
+): number => {
+  return ciudadanos.length;
+};
+
+// Cree una interfaz que obligue crear una clase
+// con las siguientes propiedades y metodos
+
+interface Person {
+  nombre: string;
+  edad: number;
+  sexo: 'M' | 'F';
+  estadoCivil: string;
+  imprimirBio(): void;
+}
+
+/*
+  propiedades:
+    - nombre
+    - edad
+    - sexo
+    - estadoCivil
+    - imprimirBio(): void // en consola una breve descripcion.
+*/
+class Persona implements Person {
+  constructor(
+    public nombre: string,
+    public edad: number,
+    public sexo: 'M' | 'F',
+    public estadoCivil: string
+  ) {}
+
+  public imprimirBio(): void {}
+}
 ```
-
-👈🏼👀
-🔥
-📌
-☢️
-
-### 9.8 
-
-`./bases/index.html`
-
-```html
-```
-
-👈🏼👀
-🔥
-📌
-☢️
 
 ### 9.9 
 
