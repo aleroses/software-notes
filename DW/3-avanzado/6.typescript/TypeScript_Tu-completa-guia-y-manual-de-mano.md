@@ -4185,24 +4185,76 @@ En TypeScript, `implements` es una palabra clave que **obliga a una clase a cump
 - **Compromiso de Implementación:** La clase debe proporcionar el cuerpo (la lógica) para todos esos métodos que estaban definidos solo como firmas en la interfaz.
 - **Errores de Compilación:** Si la clase omite una propiedad o método, o si la firma no coincide, TypeScript marcará un error, asegurando la consistencia.
 
-### 9.6 
+### 9.6 Interfaces para las funciones
+
+`./src/interfaces/functions.ts`
+
+```ts
+interface addTwoNumbers {
+  (a: number, b: number): number;
+}
+
+let addNumbersFunction: addTwoNumbers;
+
+addNumbersFunction = (a: number, b: number) => {
+  return 10;
+};
+```
+
+### 9.7 
 
 `./bases/index.html`
 
 ```html
 ```
 
+👈🏼👀
+🔥
+📌
+☢️
 
-```
-```
+### 9.8 
 
-```
-```
+`./bases/index.html`
 
-```
+```html
 ```
 
 👈🏼👀
+🔥
+📌
+☢️
+
+### 9.9 
+
+`./bases/index.html`
+
+```html
+```
+
+👈🏼👀
+🔥
+📌
+☢️
+
+### 9.10 
+
+`./bases/index.html`
+
+```html
+```
+
+👈🏼👀
+🔥
+📌
+☢️
+
+### 9.11 
+
+`./bases/index.html`
+
+```html
+```
 
 👈🏼👀
 🔥
