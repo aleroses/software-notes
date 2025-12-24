@@ -4581,7 +4581,7 @@ console.log(powers);
 // 2: Object { id: 3, desc: "Money" }
 ```
 
-### 10.6
+### 10.6 Tarea - Resolver errores en TypeScript
 
 ``
 
