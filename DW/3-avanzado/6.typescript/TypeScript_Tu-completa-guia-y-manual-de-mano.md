@@ -4450,9 +4450,26 @@ Aunque son útiles, en proyectos modernos se prefieren los **módulos de ECMAScr
 
 ### 10.3 Inicio de proyecto - Módulos y Webpack
 
+```bash
+git clone git@github.com:Klerith/curso-typescript.git
+cd curso-typescript
+npm i
+npm start
+```
 
+Opcional:
 
+```bash
+// Fix vulnerabilities
+npm audit fix --force
+```
 
+> Este proyecto usa Webpack, si quieres usar Vite, revisa los apuntes de abajo.
+
+- Ver en GitHub: [TypeScript con frameworks](https://github.com/aleroses/software-notes/blob/master/DW/3-avanzado/6.typescript/TypeScript_Tu-completa-guia-y-manual-de-mano.md#iniciar-un-proyecto-typescript-con-frameworks)
+- Ver en Obsidian: [[TypeScript_Tu-completa-guia-y-manual-de-mano#2. Introducción a TypeScript#Iniciar un proyecto TypeScript CON frameworks]]
+
+[Repositorio](https://github.com/Klerith/curso-typescript/tree/codigo-inicial)
 
 ### 10.4
 
