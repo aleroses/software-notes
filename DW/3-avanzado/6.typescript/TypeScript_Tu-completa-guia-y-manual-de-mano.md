@@ -4517,16 +4517,68 @@ const ironman = new Hero('Ale', 1, 55);
 console.log(ironman);
 ```
 
-### 10.5
+### 10.5 Export default y exportación con alias
 
-``
+`src/classes/Hero.ts`
 
 ```ts
+export class Hero {
+  constructor(
+    public name: string,
+    public powerId: number,
+    public age: number
+  ) {}
+}
 ```
 
-``
+`src/data/powers.ts`
 
 ```ts
+export interface Power {
+  id: number;
+  desc: string;
+}
+
+const powers: Power[] = [
+  {
+    id: 1,
+    desc: 'Money',
+  },
+  {
+    id: 2,
+    desc: 'Drugs',
+  },
+  {
+    id: 3,
+    desc: 'Money',
+  },
+];
+
+export default powers;
+```
+
+`src/index.ts`
+
+```ts
+// Option 01
+// import { Hero as SuperHero } from './classes/Hero';
+
+// Option 02
+import * as HeroClasses from './classes/Hero';
+
+// Option 03
+import powers, { Power } from './data/powers';
+
+const ironman = new HeroClasses.Hero('Ale', 1, 55);
+
+console.log(ironman);
+console.log(powers);
+
+// { name: "Ale", powerId: 1, age: 55 }
+// Array(3) [ {…}, {…}, {…} ]
+// 0: Object { id: 1, desc: "Money" }
+// 1: Object { id: 2, desc: "Drugs" }
+// 2: Object { id: 3, desc: "Money" }
 ```
 
 ### 10.6
