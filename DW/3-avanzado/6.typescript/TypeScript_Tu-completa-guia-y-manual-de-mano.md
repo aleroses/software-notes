@@ -4390,12 +4390,83 @@ Puntualmente aprenderemos sobre:
 4. Importar namespaces
 5. Problemática que se puede presentar utilizando un namespace.
 
-### 10.2 
+### 10.2 Creando un Namespace
 
-`./bases/index.html`
+`./src/namespaces/validations.ts`
 
-```html
+```ts
+namespace Validations {
+  export const validateText = (text: string): boolean => {
+    return text.length > 3 ? true : false;
+  };
+
+  export const validateDate = (myDate: Date): boolean => {
+    return isNaN(myDate.valueOf()) ? false : true;
+  };
+}
+
+console.log(Validations.validateText('Ale'));
+// false
 ```
+
+`./src/index.ts`
+
+```ts
+import './namespaces/validations.js';
+```
+
+Los **Namespaces** en TypeScript son una forma de **organizar el código en bloques lógicos** para agrupar clases, funciones, interfaces y variables relacionadas, **evitando conflictos de nombres** (contaminación del ámbito global) y creando tipos únicos, especialmente útiles en aplicaciones grandes o al trabajar con bibliotecas externas. Funcionan como **contenedores** para agrupar funcionalidades bajo un nombre común, similar a los módulos, pero se usan más para organización interna o con código más antiguo, ya que los módulos modernos son la forma preferida para la mayoría de los casos.
+
+**Características clave:**
+
+- **Agrupación:** Permiten encapsular elementos relacionados bajo un mismo nombre (ej. `namespace Validation { ... }`).
+- **Prevención de Colisiones:** Aseguran que un `class` o `function` llamado `MyClass` dentro de `MyNamespace` no choque con otro `MyClass` en otro lugar.
+- **Jerarquía:** Crean una jerarquía lógica, facilitando la lectura y mantenimiento del código.
+- **Palabra Clave:** Se definen usando la palabra reservada `namespace` y se accede a sus miembros con el nombre del namespace como prefijo (ej. `MyNamespace.MyClass`).
+- **Exportar Elementos:** Se usa `export` para hacer accesibles elementos (clases, interfaces, etc.) fuera del namespace.
+
+**Ejemplo:**
+
+```ts
+namespace Geometria {
+  export interface Punto {
+    x: number;
+    y: number;
+  }
+  export class Circulo {
+    constructor(public centro: Punto, public radio: number) {}
+    area(): number {
+      return Math.PI * this.radio * this.radio;
+    }
+  }
+}
+
+let miPunto: Geometria.Punto = { x: 0, y: 0 };
+let miCirculo = new Geometria.Circulo(miPunto, 5);
+console.log(miCirculo.area()); // Acceso al método y la clase dentro del namespace
+```
+
+Aunque son útiles, en proyectos modernos se prefieren los **módulos de ECMAScript** (archivos separados con `export`/`import`), que son la forma estándar de organizar código en JavaScript/TypeScript, pero los namespaces siguen siendo relevantes para código heredado o ciertas estructuras internas, señala una publicación en Medium.
+
+### 10.3 Inicio de proyecto - Módulos y Webpack
+
+
+
+
+
+### 10.4
+
+### 10.5
+
+### 10.6
+
+### 10.7
+
+### 10.8
+
+### 10.9
+
+
 
 👈🏼👀
 🔥
