@@ -4495,14 +4495,53 @@ Estructura:
 
 ### 10.4 Imports y Exports
 
+`src/classes/Hero.ts`
 
+```ts
+export class Hero {
+  constructor(
+    public name: string,
+    public powerId: number,
+    public age: number
+  ) {}
+}
+```
 
+`src/index.ts`
+
+```ts
+import { Hero } from './classes/Hero';
+
+const ironman = new Hero('Ale', 1, 55);
+
+console.log(ironman);
+```
 
 ### 10.5
 
+``
+
+```ts
+```
+
+``
+
+```ts
+```
+
 ### 10.6
 
+``
+
+```ts
+```
+
 ### 10.7
+
+``
+
+```ts
+```
 
 ### 10.8
 
