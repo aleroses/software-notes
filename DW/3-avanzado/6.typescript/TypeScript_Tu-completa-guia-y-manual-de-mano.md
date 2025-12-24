@@ -4464,6 +4464,28 @@ Opcional:
 npm audit fix --force
 ```
 
+Estructura:
+
+```bash
+.
+├── assets
+│   ├── css
+│   │   └── style.css
+│   └── img
+│       └── favicon.png
+├── .gitignore
+├── index.html
+├── package.json
+├── package-lock.json
+├── README.md
+├── src
+│   ├── classes
+│   │   └── Hero.ts
+│   └── index.ts
+├── tsconfig.json
+└── webpack.config.js
+```
+
 > Este proyecto usa Webpack, si quieres usar Vite, revisa los apuntes de abajo.
 
 - Ver en GitHub: [TypeScript con frameworks](https://github.com/aleroses/software-notes/blob/master/DW/3-avanzado/6.typescript/TypeScript_Tu-completa-guia-y-manual-de-mano.md#iniciar-un-proyecto-typescript-con-frameworks)
@@ -4471,7 +4493,10 @@ npm audit fix --force
 
 [Repositorio](https://github.com/Klerith/curso-typescript/tree/codigo-inicial)
 
-### 10.4
+### 10.4 Imports y Exports
+
+
+
 
 ### 10.5
 
