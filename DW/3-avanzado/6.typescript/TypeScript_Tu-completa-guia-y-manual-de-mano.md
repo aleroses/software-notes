@@ -4681,17 +4681,51 @@ console.log(nombreSeguro.length); // OK, TypeScript confía en nosotros
 
 En resumen, `?` añade seguridad opcional, mientras que `!` elimina la seguridad de tipos cuando estás seguro de que el valor está presente.
 
-### 10.7
+### 10.7 Código fuente de la sección 
+
+Aquí les dejo el código fuente y repositorio de GitHub por si quieren tenerlo a la mano o compararlo contra el mío
+
+[Github - Fin-seccion-10](https://github.com/Klerith/curso-typescript/tree/fin-seccion-10)
+
+**Recursos de la lección:**
+
+- [curso-typescript-fin-seccion-10.zip](https://import.cdn.thinkific.com/643563/courses/1870132/cursotypescriptfinseccion10-220523-140125.zip)
+
+### 10.8
+
+### 10.9
+
 
 ``
 
 ```ts
 ```
 
-### 10.8
 
-### 10.9
+``
 
+```ts
+```
+
+
+
+``
+
+```ts
+```
+
+
+
+``
+
+```ts
+```
+
+
+``
+
+```ts
+```
 
 
 👈🏼👀
