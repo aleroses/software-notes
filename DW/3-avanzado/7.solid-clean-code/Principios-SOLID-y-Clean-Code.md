@@ -1556,7 +1556,88 @@ Esta es una sección corta y mayormente explicativa, en donde hablaremos sobre v
 
 La idea es evitar a toda costa estos puntos que hacen que nuestro código pierda calidad.
 
-### 4.3 
+### 4.3 CodeSmells - STUPID
+
+El acrónimo **STUPID** en desarrollo de software describe **seis malas prácticas** que se deben evitar, representando: **S**ingleton (Singleton), **T**ight Coupling (Acoplamiento estrecho), **U**ntestability (Inestabilidad/No testeable), **P**remature Optimization (Optimización prematura), **I**ndescritive Naming (Nomenclatura indescriptible), y **D**uplication (Duplicación). Se usa como contraste a los principios **SOLID**, para crear código más limpio y mantenible. 
+
+**Desglose de STUPID:**
+
+- **S - Singleton**: Usar el patrón Singleton en exceso, creando clases que solo pueden tener una instancia, lo que dificulta las pruebas y acopla el código.
+- **T - Tight Coupling (Acoplamiento estrecho)**: Clases que dependen demasiado unas de otras, haciendo difícil modificar una sin afectar a otras.
+- **U - Untestability (Inestabilidad/No testeable)**: Código que es muy difícil o imposible de probar con pruebas unitarias automáticas.
+- **P - Premature Optimization (Optimización prematura)**: Optimizar el código antes de que sea necesario, complicándolo sin necesidad.
+- **I - Indescriptive Naming (Nomenclatura indescriptible)**: Usar nombres de variables, funciones o clases poco claros, que no reflejan su propósito.
+- **D - Duplication (Duplicación)**: Código repetido en varias partes del programa, violando el principio DRY (Don't Repeat Yourself). 
+
+**En contraste con KISS:**  
+Existe otro acrónimo famoso en diseño y desarrollo llamado **KISS** (Keep It Simple, Stupid, "Mantenlo simple, estúpido"), que promueve la simplicidad y claridad en el diseño, mientras que STUPID identifica las características que complican el código.
+
+`src/code-smells/01-singleton.js`
+
+```js
+const Singleton = (function () {
+  let instance;
+
+  function createInstance() {
+    return new Object('I am the instance');
+  }
+
+  return {
+    getInstance() {
+      if (!instance) {
+        instance = createInstance();
+      }
+      return instance;
+    },
+  };
+})();
+
+function main() {
+  const instance1 = Singleton.getInstance();
+  const instance2 = Singleton.getInstance();
+
+  console.log('Misma instancia? ', instance1 === instance2);
+}
+
+main();
+// Misma instancia?  true
+```
+
+`main.ts`
+
+```js
+import './style.css';
+import './code-smells/01-singleton.js';
+
+const app = document.querySelector<HTMLDivElement>('#app')!;
+
+app.innerHTML = `
+  <h1>CleanCode y SOLID</h1>
+  <span>Revisar la consola de JavaScript</span>
+`;
+```
+
+```bash
+node src/code-smells/01-singleton.js
+```
+
+Pros:
+
+Garantiza una única instancia de la clase a lo largo de toda la aplicación.
+
+Contras:
+
+- Vive en el contexto global.
+- Puede ser modificado por cualquiera y en cualquier momento.
+- No es rastreable.
+- Difícil de testear debido a su ubicación.
+
+[Ejemplo - Singleton](https://gist.github.com/Klerith/5fd1516d139e13b8355bedc15d1c8b7b)
+
+Ver otro ejemplo: [[TypeScript_Tu-completa-guia-y-manual-de-mano#8.8 Constructores privados]]
+
+### 4.4 
+
 
 ```js
 // Bad ❌
@@ -1573,6 +1654,40 @@ La idea es evitar a toda costa estos puntos que hacen que nuestro código pierda
 ```
 ```
 
+### 4.5 
+
+
+```js
+// Bad ❌
+```
+
+```js
+// Better 👍
+
+```
+
+```
+```
+
+```
+```
+
+### 4.6
+
+```js
+// Bad ❌
+```
+
+```js
+// Better 👍
+
+```
+
+```
+```
+
+```
+```
 🐦‍🔥
 👀👇🏻
 👈🏼👀
