@@ -4741,24 +4741,71 @@ console.log(genericFunction(3.141).toFixed(2));
 npm start
 ```
 
-### 11.3 
+### 11.3 Funciones Genéricas
 
-``
-
-```ts
-```
-
-
-``
+`src/generics/generics.ts`
 
 ```ts
+export const printObject = (argument: any) => {
+  console.log(argument);
+};
+
+export function genericFunction<T>(argument: T): T {
+  return argument;
+}
+
+export const genericFunctionArrow = <T>(argument: T) => {
+  return argument;
+};
 ```
 
+`src/index.ts`
 
-👈🏼👀
-🔥
-📌
-☢️
+```ts
+import {
+  printObject,
+  genericFunction,
+  genericFunctionArrow,
+} from './generics/generics';
+
+const name: string = 'Ale Ghost';
+
+console.log(genericFunction(3.141).toFixed(2));
+console.log(genericFunction(name).toUpperCase());
+console.log(genericFunction(new Date()).getDate());
+
+console.log(genericFunctionArrow(new Date()).getDate());
+```
+
+En TypeScript, los genéricos (`<>`) son una característica que permite crear componentes reutilizables (funciones, clases, interfaces) que pueden trabajar con **cualquier tipo de dato** de forma segura, usando **marcadores de posición (como `T`)** que se sustituyen por tipos reales al usar el componente, lo que ofrece flexibilidad sin perder la seguridad de tipos. Son como **plantillas de tipos** que puedes definir una vez y usar en muchos escenarios, mejorando la reutilización y mantenibilidad del código. 
+
+¿Cómo funcionan?
+
+1. **Marcadores de posición (Parámetros de Tipo)**: Usas un nombre como `T`, `K`, `V` (o el que elijas) dentro de `<>` en la definición.
+2. **Uso en el Componente**: Este marcador se usa como si fuera un tipo normal dentro de la función, clase o interfaz.
+3. **Inferencia o Especificación de Tipo**: Cuando usas el componente, TypeScript puede inferir el tipo o puedes especificarlo explícitamente (ej: `miFuncion<string>(...)` o `miFuncion(10)` donde TypeScript infiere `number`). 
+
+Ejemplo simple en una función
+
+```ts
+function obtenerPrimerElemento<T>(arr: T[]): T {
+  return arr[0];
+}
+
+const numeros = [1, 2, 3];
+const primerNumero = obtenerPrimerElemento<number>(numeros); // T se convierte en 'number'
+
+const palabras = ["hola", "mundo"];
+const primeraPalabra = obtenerPrimerElemento<string>(palabras); // T se convierte en 'string'
+```
+
+Beneficios clave
+
+- **Reutilización**: Escribes una función que sirve para `number[]`, `string[]`, `boolean[]`, etc..
+- **Seguridad de tipos**: TypeScript verifica que los tipos sean consistentes, evitando errores comunes.
+- **Código adaptable**: Permite crear estructuras de datos y lógica que se adaptan a diferentes tipos de datos sin necesidad de `any`. 
+
+En resumen, los genéricos son una herramienta poderosa para escribir código flexible, robusto y fácil de mantener en TypeScript, permitiendo que tus componentes sean compatibles con múltiples tipos de forma controlada.
 
 ### 11.4
 
