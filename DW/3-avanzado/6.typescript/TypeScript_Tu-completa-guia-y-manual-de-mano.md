@@ -4583,10 +4583,103 @@ console.log(powers);
 
 ### 10.6 Tarea - Resolver errores en TypeScript
 
-``
+`src/classes/Hero.ts`
 
 ```ts
+import powers from '../data/powers';
+
+export class Hero {
+  constructor(
+    public name: string,
+    public powerId: number,
+    public age: number
+  ) {}
+
+  // return string
+  get power(): string {
+    return (
+      powers.find((power) => power.id === this.powerId)
+        ?.desc || 'not found'
+    );
+  }
+}
 ```
+
+`src/data/powers.ts`
+
+```ts
+export interface Power {
+  id: number;
+  desc: string;
+}
+
+const powers: Power[] = [
+  {
+    id: 1,
+    desc: 'Money',
+  },
+  {
+    id: 2,
+    desc: 'Drugs',
+  },
+  {
+    id: 3,
+    desc: 'Money',
+  },
+];
+
+export default powers;
+```
+
+`src/index.ts`
+
+```ts
+import { Hero } from './classes/Hero';
+
+const ironman = new Hero('Ale', 1, 55);
+
+console.log(ironman);
+console.log(ironman.power);
+
+// Object { name: "Ale", powerId: 1, age: 55 }
+// Money
+```
+
+En TypeScript, el signo de interrogación `?` se usa para declarar propiedades opcionales o para el "Optional Chaining" (acceso seguro a propiedades que pueden ser `null` o `undefined`), mientras que el signo de exclamación `!` (Non-null Assertion Operator) se usa para decirle al compilador que una variable **no** es `null` o `undefined`, forzando el tipo y evitando errores, aunque se debe usar con precaución porque quita la seguridad de tipos. 
+
+El signo de interrogación `?`
+
+- **Propiedades Opcionales:** En la definición de una interfaz o tipo, `propiedad?: tipo;` indica que la propiedad es opcional y puede existir o no.
+- **Optional Chaining (`?.`):** Al acceder a una propiedad, `objeto?.propiedad`, si `objeto` es `null` o `undefined`, la expresión devuelve `undefined` en lugar de lanzar un error, permitiendo encadenar accesos de forma segura. 
+
+```ts
+interface Usuario {
+  nombre: string;
+  edad?: number; // edad es opcional
+}
+
+const usuario1: Usuario = { nombre: "Ana" }; // OK
+const usuario2: Usuario = { nombre: "Luis", edad: 30 }; // OK
+
+// Optional Chaining
+const usuario3: Usuario | null = null;
+const edadUsuario3 = usuario3?.edad; // edadUsuario3 será undefined, no error
+```
+
+El signo de exclamación `!`
+
+- **Operador de Asertencia No Nulo (Non-null Assertion Operator):** `variable!` le dice a TypeScript que confíes en que la `variable` no será `null` o `undefined` en ese punto, eliminando esa comprobación de seguridad.
+- **Uso:** Útil cuando sabes algo que el compilador no puede deducir, pero es peligroso si te equivocas (puede causar errores en tiempo de ejecución).
+
+```ts
+let nombre: string | null = "Carlos";
+console.log(nombre.length); // Error si nombre es null
+
+let nombreSeguro = nombre!; // Asumiendo que sabemos que no es null
+console.log(nombreSeguro.length); // OK, TypeScript confía en nosotros
+```
+
+En resumen, `?` añade seguridad opcional, mientras que `!` elimina la seguridad de tipos cuando estás seguro de que el valor está presente.
 
 ### 10.7
 
