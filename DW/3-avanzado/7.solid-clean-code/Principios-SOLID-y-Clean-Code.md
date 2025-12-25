@@ -1636,7 +1636,92 @@ Contras:
 
 Ver otro ejemplo: [[TypeScript_Tu-completa-guia-y-manual-de-mano#8.8 Constructores privados]]
 
-### 4.4 
+### 4.4 Acoplamiento y cohesión
+
+Alto acoplamiento:  
+Lo ideal es tener bajo acoplamiento y buena cohesión.
+
+Desventajas:
+
+- Un cambio en un módulo por lo general provoca un efecto dominó de los cambios en otros módulos.
+- El ensamblaje de módulos puede requerir más esfuerzo y/o tiempo debido a la mayor dependencia entre módulos.
+- Un módulo en particular puede ser más difícil de reutilizar y/o probar porque se deben incluir módulos dependientes.
+
+Posibles soluciones:
+
+- A tiene un atributo que se refiere a B.
+- A llama a los servicios de un objeto B.
+- A tiene un método que hace referencia a B (a través del tipo de retorno o parámetro).
+- A es una subclase de (o implementa) la clase B.
+
+	"Queremos diseñar componentes que sean autocontenidos, autosuficientes e independientes. Con un objetivo y un propósito bien definido."  
+	
+	The Progmatic Programmmer
+
+Cohesión  
+Lo ideal es tener bajo acoplamiento y buena cohesión.
+
+- La cohesión se refiere a lo que la clase (o módulo) puede hacer.
+- La baja cohesión significaría que la clase realiza una gran variedad de acciones: es amplia, no se enfoca en lo que debe hacer.
+- Alta cohesión significa que la clase se enfoca en lo que debería estar haciendo, es decir, solo métodos relacionados con la intención de la clase.
+
+Acoplamiento  
+Lo ideal es tener bajo acoplamiento y buena cohesión.
+
+Se refiere a cuán relacionadas o dependientes son dos clases o módulos entre sí.
+
+- En bajo acoplamiento, cambiar algo importante en una clase no debería afectar a la otra.
+- En alto acoplamiento, dificultaría el cambio y el mantenimiento de su código; dado que las clases están muy unidas, hacer un cambio podría requerir una renovación completa del sistema.
+
+```mermaid
+flowchart LR
+    subgraph Mala [❌ Alto acoplamiento]
+        X1[m1] --> X2[m2] --> X3[m3]
+        X1 --> Y1
+        X2 --> Z1
+        X3 --> Y2
+    end
+
+    subgraph Buena [✅ Bajo acoplamiento]
+        subgraph A [Clase A]
+            A1[m1] --> A2[m2]
+        end
+
+        subgraph B [Clase B]
+            B1[m1] --> B2[m2]
+        end
+
+        A --> B
+    end
+```
+
+“Cada clase presenta alta cohesión porque sus métodos colaboran entre sí para cumplir una única responsabilidad, y bajo acoplamiento porque la interacción entre clases es mínima y controlada.”
+
+🧩 Alta cohesión
+
+- Una clase o módulo:
+    
+    - Tiene **pocas responsabilidades**
+    - Sus métodos están **relacionados entre sí**
+    - Trabajan sobre **los mismos datos**
+
+🔗 Bajo acoplamiento
+
+- Una clase:
+    
+    - **Depende poco** de otras
+    - Se comunica mediante **interfaces o contratos**
+    - No conoce detalles internos de otras clases
+
+👉 Visualmente:
+
+- **Cohesión** → métodos “cerrados” dentro de la clase
+- **Acoplamiento** → pocas flechas hacia afuera
+
+
+
+
+
 
 
 ```js
