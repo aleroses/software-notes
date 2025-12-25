@@ -4775,6 +4775,10 @@ console.log(genericFunction(name).toUpperCase());
 console.log(genericFunction(new Date()).getDate());
 
 console.log(genericFunctionArrow(new Date()).getDate());
+// 3.14
+// ALE GHOST
+// 25
+// 25
 ```
 
 En TypeScript, los genéricos (`<>`) son una característica que permite crear componentes reutilizables (funciones, clases, interfaces) que pueden trabajar con **cualquier tipo de dato** de forma segura, usando **marcadores de posición (como `T`)** que se sustituyen por tipos reales al usar el componente, lo que ofrece flexibilidad sin perder la seguridad de tipos. Son como **plantillas de tipos** que puedes definir una vez y usar en muchos escenarios, mejorando la reutilización y mantenibilidad del código. 
