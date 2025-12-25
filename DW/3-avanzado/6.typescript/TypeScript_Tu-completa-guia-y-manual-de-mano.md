@@ -4691,10 +4691,57 @@ Aquí les dejo el código fuente y repositorio de GitHub por si quieren tenerlo 
 
 - [curso-typescript-fin-seccion-10.zip](https://import.cdn.thinkific.com/643563/courses/1870132/cursotypescriptfinseccion10-220523-140125.zip)
 
-### 10.8
+## 11. Genéricos - Generics
 
-### 10.9
+### 11.1 ¿Qué veremos en esta sección?
 
+JavaScript por ser un lenguaje dinámico, conlleva a tener varios problemas por esa misma flexibilidad, pero a su vez, permite resolver problemas de una forma muy sencilla. Esta sección esta destinada a comprender como mantener la programación estructurada del TypeScript con el dinamismo de JavaScript.
+
+Puntualmente aprenderemos sobre:
+
+1. Uso de los genéricos
+2. Funciones genéricas
+3. Ejemplos prácticos sobre los genéricos
+4. Arreglos genéricos
+5. Clases genéricas
+
+### 11.2 Introducción a los Genéricos
+
+`src/generics/generics.ts`
+
+```ts
+export const printObject = (argument: any) => {
+  console.log(argument);
+};
+
+export function genericFunction(argument: any) {
+  return argument;
+}
+```
+
+`src/index.ts`
+
+```ts
+import {
+  printObject,
+  genericFunction,
+} from './generics/generics';
+
+// printObject(123);
+// printObject(new Date());
+// printObject({ a: 1, b: 2, c: 3 });
+// printObject([1, 2, 3]);
+// printObject("Hi world");
+
+console.log(genericFunction(3.141).toFixed(2));
+// 3.14
+```
+
+```bash
+npm start
+```
+
+### 11.3 
 
 ``
 
@@ -4708,6 +4755,12 @@ Aquí les dejo el código fuente y repositorio de GitHub por si quieren tenerlo 
 ```
 
 
+👈🏼👀
+🔥
+📌
+☢️
+
+### 11.4
 
 ``
 
@@ -4715,6 +4768,112 @@ Aquí les dejo el código fuente y repositorio de GitHub por si quieren tenerlo 
 ```
 
 
+``
+
+```ts
+```
+
+
+👈🏼👀
+🔥
+📌
+☢️
+### 11.5
+
+``
+
+```ts
+```
+
+
+``
+
+```ts
+```
+
+
+👈🏼👀
+🔥
+📌
+☢️
+
+### 11.6
+
+``
+
+```ts
+```
+
+
+``
+
+```ts
+```
+
+
+👈🏼👀
+🔥
+📌
+☢️
+
+### 11.7
+
+``
+
+```ts
+```
+
+
+``
+
+```ts
+```
+
+
+👈🏼👀
+🔥
+📌
+☢️
+
+### 11.8
+
+``
+
+```ts
+```
+
+
+``
+
+```ts
+```
+
+
+👈🏼👀
+🔥
+📌
+☢️
+
+### 11.9
+
+``
+
+```ts
+```
+
+
+``
+
+```ts
+```
+
+
+👈🏼👀
+🔥
+📌
+☢️
+
+### 11.10
 
 ``
 
