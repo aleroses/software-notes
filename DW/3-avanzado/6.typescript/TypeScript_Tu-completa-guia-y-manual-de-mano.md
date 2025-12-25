@@ -4811,24 +4811,67 @@ Beneficios clave
 
 En resumen, los genéricos son una herramienta poderosa para escribir código flexible, robusto y fácil de mantener en TypeScript, permitiendo que tus componentes sean compatibles con múltiples tipos de forma controlada.
 
-### 11.4
+### 11.4 Ejemplo de función genérica en acción
 
-``
-
-```ts
-```
-
-
-``
+`src/interfaces/villain.ts`
 
 ```ts
+export interface Villain {
+  name: string;
+  dangerLevel: number;
+}
 ```
 
+`src/interfaces/hero.ts`
 
-👈🏼👀
-🔥
-📌
-☢️
+```ts
+export interface Hero {
+  name: string;
+  realName: string;
+}
+```
+
+`src/generics/generics.ts`
+
+```ts
+export const printObject = (argument: any) => {
+  console.log(argument);
+};
+
+export function genericFunction<T>(argument: T): T {
+  return argument;
+}
+
+export const genericFunctionArrow = <T>(argument: T) => {
+  return argument;
+};
+```
+
+`src/index.ts`
+
+```ts
+import { genericFunctionArrow } from './generics/generics';
+import { Hero } from './interfaces/hero';
+import { Villain } from './interfaces/villain';
+
+const deadpool = {
+  name: 'Deadpool',
+  realName: 'Wade Winston Wilson',
+  dangerLevel: 130,
+};
+
+console.log(genericFunctionArrow<Hero>(deadpool).realName);
+console.log(
+  genericFunctionArrow<Villain>(deadpool).dangerLevel
+);
+
+// Error
+// console.log(genericFunctionArrow<Hero>(deadpool).dangerLevel);
+
+// Wade Winston Wilson
+// 130
+```
+
 ### 11.5
 
 ``
