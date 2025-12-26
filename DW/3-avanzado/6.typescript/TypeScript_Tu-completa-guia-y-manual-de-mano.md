@@ -4874,24 +4874,96 @@ console.log(
 // 130
 ```
 
-### 11.5
+### 11.5 Agrupar exportaciones
 
-``
-
-```ts
-```
-
-
-``
+Estructura:
 
 ```ts
+.
+├── assets
+│   ├── css
+│   │   └── style.css
+│   └── img
+│       └── favicon.png
+├── .gitignore
+├── index.html
+├── package.json
+├── package-lock.json
+├── README.md
+├── src
+│   ├── backs
+│   │   └── generics.ts
+│   ├── classes
+│   │   └── Hero.ts
+│   ├── data
+│   │   └── powers.ts
+│   ├── generics
+│   │   └── generics.ts
+│   ├── index.ts
+│   └── interfaces
+│       ├── hero.ts
+│       ├── index.ts // 👈🏼👀 Archivo barril
+│       └── villain.ts
+├── tsconfig.json
+└── webpack.config.js
 ```
 
+`src/interfaces/index.ts`
 
-👈🏼👀
-🔥
-📌
-☢️
+```ts
+// Primero importa los archivos que necesitas y luego cambia el `import` por `export`
+export { Hero } from './hero';
+export { Villain } from './villain';
+```
+
+`src/backs/generics.ts`
+
+```ts
+import { genericFunctionArrow } from '../generics/generics';
+import { Hero, Villain } from '../interfaces'; 👈🏼👀
+
+// import { Hero } from './interfaces/hero';
+// import { Villain } from './interfaces/villain';
+
+const deadpool = {
+  name: 'Deadpool',
+  realName: 'Wade Winston Wilson',
+  dangerLevel: 130,
+};
+
+console.log(genericFunctionArrow<Hero>(deadpool).realName);
+console.log(
+  genericFunctionArrow<Villain>(deadpool).dangerLevel
+);
+```
+
+Los archivos de barril (barrel files) en JavaScript/TypeScript son un patrón donde un único archivo (generalmente `index.js` o `index.ts`) dentro de un directorio **centraliza y re-exporta múltiples módulos** de ese directorio, creando un punto de acceso simplificado para importar esos elementos desde otras partes del proyecto, limpiando así las importaciones y facilitando la organización. Aunque populares por su conveniencia, su uso excesivo puede tener desventajas en el rendimiento debido a que los _bundlers_ (como Webpack) pueden cargar código innecesario (tree-shaking).
+
+Cómo funcionan
+
+- **Centralización:** En lugar de importar `componenteA`, `componenteB` y `utilidadC` desde archivos separados, creas un `index.js` en la carpeta `src/utils`.
+- **Re-exportación:** Dentro de ese `index.js`, usas `export * from './componenteA';`, `export * from './componenteB';`, etc..
+- **Importación simplificada:** En otro archivo, solo necesitas `import { componenteA, utilidadC } from './utils';`. 
+
+Ventajas
+
+- **Código más limpio:** Reduce la verbosidad y la longitud de las rutas de importación.
+- **Facilita la refactorización:** Si mueves un archivo interno, solo necesitas actualizar el barril, no todos los importadores.
+- **Mejor organización:** Agrupa lógicamente módulos relacionados (ej. todos los componentes de una UI). 
+
+Desventajas (y por qué a veces evitarlos)
+
+- **Problemas de rendimiento:** Pueden impedir que el _tree-shaking_ elimine código muerto, obligando a cargar módulos no usados, lo que aumenta el tamaño del _bundle_ final.
+- **Ciclos de dependencia:** Pueden introducir dependencias circulares si no se manejan con cuidado, especialmente en TypeScript.
+- **Visibilidad:** Las herramientas de análisis pueden tener dificultades para rastrear las dependencias, y no es claro de dónde proviene una exportación. 
+
+Alternativas y buenas prácticas
+
+- **Importar directamente:** Para proyectos pequeños o módulos muy específicos, la importación directa es más eficiente.
+- **Usar barriles con moderación:** Son útiles para APIs públicas de bibliotecas o para agrupar componentes de alto nivel, pero no para todo el código interno.
+- **Ser explícito:** A veces, es mejor ser explícito con las importaciones para mantener la claridad y el rendimiento.
+
+[Barrel files in JS](https://flaming.codes/es/posts/barrel-files-in-javascript)
 
 ### 11.6
 
