@@ -4854,6 +4854,8 @@ import { genericFunctionArrow } from './generics/generics';
 import { Hero } from './interfaces/hero';
 import { Villain } from './interfaces/villain';
 
+// Este objeto, a pesar de tener una propiedad de mas en cuanto a las
+// interfaces Villain y Hero, puede cumplir cualquiera de las dos
 const deadpool = {
   name: 'Deadpool',
   realName: 'Wade Winston Wilson',
