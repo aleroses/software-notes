@@ -4965,24 +4965,86 @@ Alternativas y buenas prácticas
 
 [Barrel files in JS](https://flaming.codes/es/posts/barrel-files-in-javascript)
 
-### 11.6
+### 11.6 Ejemplo aplicado de genéricos
 
-``
-
-```ts
+```bash
+npm i axios
 ```
 
-
-``
+`src/generics/get-pokemon.ts`
 
 ```ts
+import axios from 'axios';
+
+export const getPokemon = async (pokeID: number) => {
+  const response = await axios.get(
+    `https://pokeapi.co/api/v2/pokemon/${pokeID}`
+  );
+  const data = response.data;
+
+  return data;
+};
 ```
 
+`src/index.ts`
 
-👈🏼👀
-🔥
-📌
-☢️
+```ts
+import { getPokemon } from './generics/get-pokemon';
+
+getPokemon(2)
+  .then((response) => console.log(response))
+  .catch((error) => console.log(error))
+  .finally(() => console.log('The end getPokemon!'));
+```
+
+`then`, `catch` y `finally` son métodos para manejar los resultados de una Promesa en JavaScript: `then()` maneja la resolución exitosa (cuando la promesa se cumple), `catch()` captura cualquier error o rechazo, y `finally()` ejecuta código de limpieza _siempre_, sin importar si la promesa fue exitosa o falló, siendo útil para ocultar indicadores de carga o cerrar conexiones, sin acceder al resultado final.
+
+Cómo funcionan en conjunto
+
+La estructura básica es `promesa.then(onFulfilled).catch(onRejected).finally(onFinally)`. 
+
+- **`then(onFulfilled)`**:
+    - **Cuándo se ejecuta**: Cuando la promesa se resuelve (se cumple exitosamente).
+    - **Qué hace**: Recibe el valor con el que se resolvió la promesa (el `resolve(valor)` del código) y ejecuta la función `onFulfilled` con ese valor.
+    - **Encadenamiento**: Puede devolver otro valor o una nueva promesa, continuando la cadena.
+
+- **`catch(onRejected)`**:
+    - **Cuándo se ejecuta**: Si la promesa es rechazada (el `reject(error)` se llama) o si un `then` anterior lanza un error.
+    - **Qué hace**: Ejecuta la función `onRejected`, recibiendo el error como argumento para manejarlo.
+    - **Uso**: Es la forma principal de manejar fallos en la cadena de promesas.
+
+- **`finally(onFinally)`:**
+	- **Cuándo se ejecuta**: Siempre, una vez que la promesa termina, ya sea resuelta o rechazada.
+	- **Qué hace**: Ejecuta la función `onFinally`, pero **no recibe argumentos** (ni el valor de resolución ni el error), ya que no le importa el resultado, solo el fin de la operación.
+	- **Uso**: Ideal para liberar recursos (ej. `spinner.hide()`, `closeDatabaseConnection()`). 
+
+Ejemplo práctico
+
+```js
+const miPromesa = new Promise((resolve, reject) => {
+  // Simulación de una operación asíncrona
+  setTimeout(() => {
+    // resolve("¡Éxito!"); // Descomenta para ver el flujo de éxito
+    reject("¡Error al cargar datos!"); // O un error
+  }, 1000);
+});
+
+miPromesa
+  .then(resultado => {
+    console.log("✅ Éxito:", resultado); // Se ejecuta si resolve() es llamado
+    return "Resultado procesado"; // Se pasa al siguiente .then o se ignora si no hay más
+  })
+  .catch(error => {
+    console.error("❌ Error:", error); // Se ejecuta si reject() es llamado
+    // No devuelve nada, pero la promesa sigue activa
+  })
+  .finally(() => {
+    console.log("⚙️ Finalizado: Siempre se ejecuta (limpieza)"); // Siempre se ejecuta
+  });
+```
+
+- [PokeApi](https://pokeapi.co/)
+- [Axios](https://www.npmjs.com/package/axios)
 
 ### 11.7
 
