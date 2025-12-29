@@ -5542,24 +5542,54 @@ Puntualmente aprenderemos sobre:
 8. Decoradores de propiedades
 9. Decoradores de parámetros
 
-### 12.2
+### 12.2 Introducción a los decoradores
 
-``
+Un decorador en TypeScript es una **función especial** que se antepone con `@` a una declaración (clase, método, propiedad, parámetro) para **anotar o modificar su comportamiento** en tiempo de diseño o ejecución, permitiendo metaprogramación y reutilización de código, como añadir logging, inyección de dependencias o metadata, muy usado en frameworks como Angular y NestJS.
+
+¿Cómo funcionan?
+
+- **Función de orden superior**: Son funciones que reciben información sobre la declaración que están decorando y pueden devolver una nueva función o modificar el descriptor de la propiedad.
+- **Sintaxis `@expresión`**: La `@expresión` debe resolverse en una función que se ejecutará en tiempo de ejecución con la información de la declaración. 
+
+Tipos de decoradores
+
+- **Decorador de clase**: Se aplica al constructor de la clase, pudiendo observar, modificar o reemplazar la definición de la clase.
+- **Decorador de método**: Se aplica a un método y puede modificar su lógica, por ejemplo, añadiendo logging antes o después de la ejecución.
+- **Decorador de propiedad**: Se aplica a una propiedad, útil para adjuntar metadatos o lógica de inicialización.
+- **Decorador de parámetro**: Se aplica a los parámetros de un método o constructor, recibiendo el índice del parámetro.
+- **Decorador de accesor (getter/setter)**: Modifica los descriptores de los accesor de propiedades. 
+
+Ejemplo (Decorador de método para loguear)
 
 ```ts
+function log(target: Object, propertyKey: string, descriptor: any) {
+  console.log(`Método "${propertyKey}" llamado en clase`, target.constructor.name);
+  return descriptor;
+}
+
+class MiClase {
+  @log
+  saludar(nombre: string) {
+    console.log(`Hola, ${nombre}`);
+  }
+}
+
+const instancia = new MiClase();
+instancia.saludar("Mundo");
 ```
 
+_Salida:_
 
-``
-
-```ts
+```
+Método "saludar" llamado en clase MiClase
+Hola, Mundo
 ```
 
+Uso en frameworks
 
-👈🏼👀
-🔥
-📌
-☢️
+Se usan intensivamente en Angular para definir componentes (`@Component`), servicios (`@Injectable`), pipes, etc., y en NestJS para definir controladores, servicios y más, facilitando la programación orientada a aspectos. Para usarlos, a menudo necesitas habilitar la opción `experimentalDecorators` en tu `tsconfig.json`.
+
+[Decoradores de TypeScript](https://www.typescriptlang.org/docs/handbook/decorators.html)
 
 ### 12.3
 
