@@ -2183,10 +2183,41 @@ Revisa en las DevTools `Storage` y busca `Session Storage` para ver la data guar
 Nombre del proyecto: zustandStoragexd
 
 en lugar de que grabe en el localStorage debe grabar en la nube de Firebase.
+
+- Compilation
+- Firestore Database
+- Crear base de datos
+- Edición Standard
+- Ubicación: Por defecto
+- Comenzar en Modo de prueba 
+	- Modo bloqueado en la vida real
+
+Base de datos: Reglas
+
 ```ts
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // your rules
+    match /{document=**} {
+      allow read, write: if request.time < timestamp.date(2026, 1, 25);
+    }
+  }
+}
 ```
 
 ```ts
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // your new rules
+    match /{document=**} {
+      allow read, write: if true; 👈🏼👀
+    }
+  }
+}
 ```
 
 ```ts

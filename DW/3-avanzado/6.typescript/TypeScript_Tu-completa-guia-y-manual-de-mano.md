@@ -5046,18 +5046,260 @@ miPromesa
 - [PokeApi](https://pokeapi.co/)
 - [Axios](https://www.npmjs.com/package/axios)
 
-### 11.7
+### 11.7 Mapear respuestas http
 
-``
-
-```ts
-```
-
-
-``
+`src/interfaces/pokemon.ts`
 
 ```ts
+export interface Pokemon {
+  abilities: Ability[];
+  base_experience: number;
+  cries: Cries;
+  forms: Species[];
+  game_indices: GameIndex[];
+  height: number;
+  held_items: HeldItem[];
+  id: number;
+  is_default: boolean;
+  location_area_encounters: string;
+  moves: Move[];
+  name: string;
+  order: number;
+  past_abilities: PastAbility[];
+  past_types: any[];
+  species: Species;
+  sprites: Sprites;
+  stats: Stat[];
+  types: Type[];
+  weight: number;
+}
+
+export interface Ability {
+  ability: Species | null;
+  is_hidden: boolean;
+  slot: number;
+}
+
+export interface Species {
+  name: string;
+  url: string;
+}
+
+export interface Cries {
+  latest: string;
+  legacy: string;
+}
+
+export interface GameIndex {
+  game_index: number;
+  version: Species;
+}
+
+export interface HeldItem {
+  item: Species;
+  version_details: VersionDetail[];
+}
+
+export interface VersionDetail {
+  rarity: number;
+  version: Species;
+}
+
+export interface Move {
+  move: Species;
+  version_group_details: VersionGroupDetail[];
+}
+
+export interface VersionGroupDetail {
+  level_learned_at: number;
+  move_learn_method: Species;
+  order: null;
+  version_group: Species;
+}
+
+export interface PastAbility {
+  abilities: Ability[];
+  generation: Species;
+}
+
+export interface GenerationV {
+  'black-white': Sprites;
+}
+
+export interface GenerationIv {
+  'diamond-pearl': Sprites;
+  'heartgold-soulsilver': Sprites;
+  platinum: Sprites;
+}
+
+export interface Versions {
+  'generation-i': GenerationI;
+  'generation-ii': GenerationIi;
+  'generation-iii': GenerationIii;
+  'generation-iv': GenerationIv;
+  'generation-ix': GenerationIx;
+  'generation-v': GenerationV;
+  'generation-vi': { [key: string]: Home };
+  'generation-vii': GenerationVii;
+  'generation-viii': GenerationViii;
+}
+
+export interface Other {
+  dream_world: DreamWorld;
+  home: Home;
+  'official-artwork': OfficialArtwork;
+  showdown: Sprites;
+}
+
+export interface Sprites {
+  back_default: string;
+  back_female: null;
+  back_shiny: string;
+  back_shiny_female: null;
+  front_default: string;
+  front_female: null;
+  front_shiny: string;
+  front_shiny_female: null;
+  other?: Other;
+  versions?: Versions;
+  animated?: Sprites;
+}
+
+export interface GenerationI {
+  'red-blue': RedBlue;
+  yellow: RedBlue;
+}
+
+export interface RedBlue {
+  back_default: string;
+  back_gray: string;
+  back_transparent: string;
+  front_default: string;
+  front_gray: string;
+  front_transparent: string;
+}
+
+export interface GenerationIi {
+  crystal: Crystal;
+  gold: Gold;
+  silver: Gold;
+}
+
+export interface Crystal {
+  back_default: string;
+  back_shiny: string;
+  back_shiny_transparent: string;
+  back_transparent: string;
+  front_default: string;
+  front_shiny: string;
+  front_shiny_transparent: string;
+  front_transparent: string;
+}
+
+export interface Gold {
+  back_default: string;
+  back_shiny: string;
+  front_default: string;
+  front_shiny: string;
+  front_transparent?: string;
+}
+
+export interface GenerationIii {
+  emerald: OfficialArtwork;
+  'firered-leafgreen': Gold;
+  'ruby-sapphire': Gold;
+}
+
+export interface OfficialArtwork {
+  front_default: string;
+  front_shiny: string;
+}
+
+export interface GenerationIx {
+  'scarlet-violet': DreamWorld;
+}
+
+export interface DreamWorld {
+  front_default: string;
+  front_female: null;
+}
+
+export interface Home {
+  front_default: string;
+  front_female: null;
+  front_shiny: string;
+  front_shiny_female: null;
+}
+
+export interface GenerationVii {
+  icons: DreamWorld;
+  'ultra-sun-ultra-moon': Home;
+}
+
+export interface GenerationViii {
+  'brilliant-diamond-shining-pearl': DreamWorld;
+  icons: DreamWorld;
+}
+
+export interface Stat {
+  base_stat: number;
+  effort: number;
+  stat: Species;
+}
+
+export interface Type {
+  slot: number;
+  type: Species;
+}
 ```
+
+`src/interfaces/index.ts`
+
+```ts
+export { Hero } from './hero';
+export { Pokemon } from './pokemon';
+export { Villain } from './villain';
+```
+
+`src/generics/get-pokemon.ts`
+
+```ts
+import axios from 'axios';
+import { Pokemon } from '../interfaces';
+
+export const getPokemon = async (
+  pokeID: number
+): Promise<Pokemon> => {
+  const { data } = await axios.get<Pokemon>(
+    `https://pokeapi.co/api/v2/pokemon/${pokeID}`
+  );
+
+  return data;
+};
+```
+
+`src/index.ts`
+
+```ts
+import { getPokemon } from './generics/get-pokemon';
+
+getPokemon(2)
+  .then((pokemon) =>
+    console.log(pokemon.sprites.front_default)
+  )
+  .catch((error) => console.log(error))
+  .finally(() => console.log('The end getPokemon!'));
+```
+
+Para usar Quicktype entra en `Open QuickType`, dale un nombre como `Pokemon`, pega la data JSON y elige el lenguaje **TypeScript**:
+
+- Verify JSON.parse results at runtime
+- **Interfaces Only**
+
+Enlaces:
+
+- [Quicktype](https://quicktype.io/)
+- [Pokeapi](https://pokeapi.co/)
 
 
 👈🏼👀
