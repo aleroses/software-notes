@@ -5524,9 +5524,26 @@ Recursos de la lección:
 
 - [curso-typescript-fin-seccion-11.zip](https://import.cdn.thinkific.com/643563/courses/1870132/cursotypescriptfinseccion11-220523-185258.zip)
 
-## 12. 
+## 12. Decoradores
 
-### 12.1 
+### 12.1 ¿Qué veremos en esta sección?
+
+Los decoradores son una característica nueva en el TypeScript que cada vez es más utilizada por otros frameworks como Angular 2. Pero vamos a aprender a utilizar decoradores en nuestros proyectos.
+
+Puntualmente aprenderemos sobre:
+
+1. ¿Qué son los decoradores?
+2. ¿Para qué sirven?
+3. Decoradores de clases
+4. Decoradores de fabrica
+5. Ejemplos prácticos
+6. Decoradores anidados
+7. Decoradores de métodos
+8. Decoradores de propiedades
+9. Decoradores de parámetros
+
+### 12.2
+
 ``
 
 ```ts
@@ -5544,7 +5561,102 @@ Recursos de la lección:
 📌
 ☢️
 
-### 12.2
+### 12.3
+
+``
+
+```ts
+```
+
+
+``
+
+```ts
+```
+
+
+👈🏼👀
+🔥
+📌
+☢️
+
+### 12.4
+
+``
+
+```ts
+```
+
+
+``
+
+```ts
+```
+
+
+👈🏼👀
+🔥
+📌
+☢️
+
+### 12.5
+
+``
+
+```ts
+```
+
+
+``
+
+```ts
+```
+
+
+👈🏼👀
+🔥
+📌
+☢️
+
+### 12.6
+
+``
+
+```ts
+```
+
+
+``
+
+```ts
+```
+
+
+👈🏼👀
+🔥
+📌
+☢️
+
+### 12.7
+
+``
+
+```ts
+```
+
+
+``
+
+```ts
+```
+
+
+👈🏼👀
+🔥
+📌
+☢️
+
+### 12.8
 
 ``
 
