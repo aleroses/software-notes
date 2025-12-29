@@ -5514,8 +5514,19 @@ Extensión:
 
 - Paste JSON as Code
 
-### 11.9
+### 11.9 Código fuente de la sección
 
+Aquí les dejo el código fuente de la sección por si la llegan a necesitar o comparar contra el suyo.
+
+[Github - Fin-seccion-11](https://github.com/Klerith/curso-typescript/tree/fin-seccion-11)
+
+Recursos de la lección:
+
+- [curso-typescript-fin-seccion-11.zip](https://import.cdn.thinkific.com/643563/courses/1870132/cursotypescriptfinseccion11-220523-185258.zip)
+
+## 12. 
+
+### 12.1 
 ``
 
 ```ts
@@ -5533,7 +5544,7 @@ Extensión:
 📌
 ☢️
 
-### 11.10
+### 12.2
 
 ``
 
