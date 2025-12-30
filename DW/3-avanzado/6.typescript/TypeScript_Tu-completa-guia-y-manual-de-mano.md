@@ -5621,7 +5621,7 @@ console.log(charmander);
 
 Muestra en consola:
 
-```ts
+```
 class Pokemon { constructor(name) }
   length: 1
   name: "Pokemon"
@@ -5792,25 +5792,57 @@ Se ejecutan así:
 - Lógica de negocio
 - Código crítico difícil de depurar
 
-### 12.4
+### 12.4 Decoradores de fábrica - Factory decorators
 
-``
-
-```ts
-```
-
-
-``
+`src/decorators/pokemon-class.ts`
 
 ```ts
+function printToConsole(constructor: Function) {
+  console.log(constructor);
+}
+
+const printToConsoleConditional = (
+  print: boolean = false
+): Function => {
+  if (print) {
+    return printToConsole;
+  }
+
+  return () => {};
+};
+
+@printToConsoleConditional(true)
+export class Pokemon {
+  public publicApi: string = 'https://pokeapi.co/api/v2/';
+  constructor(public name: string) {}
+}
+
+// Este decorador se ejecuta al definir la clase
 ```
 
+`src/index.ts`
 
-👈🏼👀
-👈🏼👀👇🏼
-🔥
-📌
-☢️
+```ts
+import { Pokemon } from './decorators/pokemon-class';
+
+const charmander = new Pokemon('Charmander');
+
+console.log(charmander);
+```
+
+En consola:
+
+```
+class Pokemon { constructor(name) }
+  length: 1
+  name: "Pokemon"
+  prototype: Object { ... }
+  
+Object {
+  name: "Charmander"
+  publicApi: "https://pokeapi.co/api/v2/"
+}
+```
 
 ### 12.5
 
