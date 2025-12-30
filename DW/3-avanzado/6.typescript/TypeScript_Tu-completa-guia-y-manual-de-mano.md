@@ -5591,24 +5591,206 @@ Se usan intensivamente en Angular para definir componentes (`@Component`), servi
 
 [Decoradores de TypeScript](https://www.typescriptlang.org/docs/handbook/decorators.html)
 
-### 12.3
+### 12.3 Decoradores de clases
 
-``
-
-```ts
-```
-
-
-``
+`src/decorators/pokemon-class.ts`
 
 ```ts
+function printToConsole(constructor: Function) {
+  console.log(constructor);
+}
+
+@printToConsole 👈🏼👀👇🏼
+export class Pokemon {
+  public publicApi: string = 'https://pokeapi.co/api/v2/';
+  constructor(public name: string) {}
+}
+
+// Este decorador se ejecuta al definir la clase
 ```
 
+`src/index.ts`
 
-👈🏼👀
-🔥
-📌
-☢️
+```ts
+import { Pokemon } from './decorators/pokemon-class';
+
+const charmander = new Pokemon('Charmander');
+
+console.log(charmander);
+```
+
+Muestra en consola:
+
+```ts
+class Pokemon { constructor(name) }
+  length: 1
+  name: "Pokemon"
+  prototype: Object { ... }
+  
+Object {
+  name: "Charmander"
+  publicApi: "https://pokeapi.co/api/v2/"
+}
+```
+
+📌 Nota: Dentro del `tsconfig.json` descomenta `"experimentalDecorators": true`. En caso de que el error no se borre, baja la aplicación y nuevamente ejecuta `npm start`.
+
+¿Qué es un decorador en TypeScript?
+
+Un **decorador** es una función especial que se usa para **añadir comportamiento o metadatos** a una clase, método, propiedad o parámetro **sin modificar directamente su código**.
+
+👉 Los **decoradores de clase** se aplican **a la clase completa**.
+
+**Un decorador de clase es una función que recibe el constructor de la clase y puede observarlo, modificarlo o reemplazarlo.**
+
+> Piensa en ellos como una “capa extra” que envuelve a la clase.
+
+Requisito importante
+
+Para usar decoradores, debes activar esto en tu `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "experimentalDecorators": true
+  }
+}
+```
+
+Sintaxis básica de un decorador de clase
+
+Un decorador de clase es una función que recibe **el constructor de la clase**.
+
+```ts
+function MyDecorator(constructor: Function) {
+  console.log('Decorador ejecutado');
+}
+```
+
+Se usa así:
+
+```ts
+@MyDecorator
+class User {
+  constructor(public name: string) {}
+}
+```
+
+📌 **Importante**:  
+El decorador se ejecuta **cuando la clase es definida**, no cuando se crea una instancia.
+
+Recibe el **constructor de la clase**, lo que permite:
+
+- Leer información de la clase
+- Modificar el constructor
+- Añadir propiedades o métodos
+- Reemplazar la clase por otra
+
+Ejemplo:
+
+```ts
+function LogClass(constructor: Function) {
+  console.log(constructor);
+}
+```
+
+Esto imprime la definición de la clase en consola.
+
+#### Decorador que agrega una propiedad a la clase
+
+```ts
+function AddVersion(version: string) {
+  return function (constructor: Function) {
+    constructor.prototype.version = version;
+  };
+}
+
+@AddVersion('1.0.0')
+class App {}
+
+const app = new App();
+console.log((app as any).version); // 1.0.0
+```
+
+👉 Aquí el decorador:
+
+- Recibe un parámetro (`version`)
+- Devuelve la función decoradora real
+- Modifica el `prototype` de la clase
+
+#### Decorador que reemplaza la clase
+
+Un decorador puede **devolver una nueva clase**, reemplazando la original.
+
+```ts
+function Logger<T extends { new (...args: any[]): {} }>(constructor: T) {
+  return class extends constructor {
+    createdAt = new Date();
+  };
+}
+
+@Logger
+class User {
+  name = 'Henry';
+}
+
+const user = new User();
+console.log(user.createdAt);
+```
+
+📌 Aquí:
+
+- El decorador crea una **subclase**
+- Añade la propiedad `createdAt`
+- La clase original queda “envuelta”
+
+Este patrón se usa mucho en **frameworks**.
+
+#### Decoradores con frameworks (ejemplo mental)
+
+Esto te va a sonar conocido si usas Angular o NestJS:
+
+```ts
+@Controller('users')
+class UserController {}
+```
+
+Internamente:
+
+- `@Controller` es un decorador de clase
+- Registra metadatos
+- El framework luego lee esos metadatos
+
+Orden de ejecución
+
+Si tienes varios decoradores:
+
+```ts
+@A
+@B
+class Test {}
+```
+
+Se ejecutan así:
+
+1. `B`
+2. `A`
+
+👉 De abajo hacia arriba.
+
+✔ Casos comunes para usar decoradores de clase:
+
+- Registrar clases
+- Inyección de dependencias
+- Añadir metadatos
+- Logging
+- Validaciones
+- Extender comportamiento sin herencia directa
+
+❌ No usar para:
+
+- Lógica de negocio
+- Código crítico difícil de depurar
 
 ### 12.4
 
@@ -5625,6 +5807,7 @@ Se usan intensivamente en Angular para definir componentes (`@Component`), servi
 
 
 👈🏼👀
+👈🏼👀👇🏼
 🔥
 📌
 ☢️
@@ -5644,6 +5827,7 @@ Se usan intensivamente en Angular para definir componentes (`@Component`), servi
 
 
 👈🏼👀
+👈🏼👀👇🏼
 🔥
 📌
 ☢️
@@ -5663,6 +5847,7 @@ Se usan intensivamente en Angular para definir componentes (`@Component`), servi
 
 
 👈🏼👀
+👈🏼👀👇🏼
 🔥
 📌
 ☢️
@@ -5682,6 +5867,7 @@ Se usan intensivamente en Angular para definir componentes (`@Component`), servi
 
 
 👈🏼👀
+👈🏼👀👇🏼
 🔥
 📌
 ☢️
@@ -5701,6 +5887,7 @@ Se usan intensivamente en Angular para definir componentes (`@Component`), servi
 
 
 👈🏼👀
+👈🏼👀👇🏼
 🔥
 📌
 ☢️
