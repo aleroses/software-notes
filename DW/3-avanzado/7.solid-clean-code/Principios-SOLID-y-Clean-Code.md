@@ -2020,25 +2020,14 @@ Más de 3 o 4 parámetros / argumentos en un método. Siempre será mejor pasa u
 
 [Refactoring Guru](https://refactoring.guru/)
 
-### 4.8 
+### 4.8 Acopladores
 
-```js
-// Bad ❌
-```
+Todos los olores de este grupo contribuyen al acoplamiento excesivo entre clases o muestran lo que sucede si el acoplamiento se reemplaza por una delegación excesiva.
 
-```js
-// Better 👍
-
-```
-
-```
-```
-
-```
-```
-🐦‍🔥
-👀👇🏻
-👈🏼👀
+- Feature Envy: Un método accede a los datos de otro objeto más que a sus propios datos.
+- Intimidad inapropiada: Cuando una clase usa campos y métodos internos de otra clase.
+- Cadena de mensajes: Cuando una función A llama a B y a C.
+- The middle man: Cuando una clase realiza solo una ación y esa acción es delegar el trabajo a otra clase.
 
 ### 4.9
 
