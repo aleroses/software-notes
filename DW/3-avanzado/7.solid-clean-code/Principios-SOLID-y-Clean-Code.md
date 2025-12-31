@@ -2029,7 +2029,13 @@ Todos los olores de este grupo contribuyen al acoplamiento excesivo entre clases
 - Cadena de mensajes: Cuando una función A llama a B y a C.
 - The middle man: Cuando una clase realiza solo una ación y esa acción es delegar el trabajo a otra clase.
 
-### 4.9
+### 4.9 Código fuente de la sección
+
+Aquí les dejo el código de los ejercicios hasta el punto en que los tenemos en este momento.
+
+Recursos de esta clase
+
+[Fin sección 04](https://github.com/Klerith/clean-course/tree/fin-seccion-04)
 
 ```js
 // Bad ❌
