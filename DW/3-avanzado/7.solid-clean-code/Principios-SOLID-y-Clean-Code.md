@@ -2001,27 +2001,26 @@ Accidental
 - Cuando hay un cambio, solo hay que modificar un solo lugar.
 - Este tipo de duplicidad se puede trabajar con parámetros u optimizaciones.
 
-### 4.7
+### 4.7 Otros olores honoríficos
 
-```js
-// Bad ❌
-```
+- Inflación
 
-```js
-// Better 👍
+Que es más importante:
 
-```
+- Que la computadora lea más rápido la información (rendimiento) o
+- Que la persona pueda leer el código de forma clara el día de mañana
 
-```
-```
+Es mejor dividir las clases.
 
-```
-```
-🐦‍🔥
-👀👇🏻
-👈🏼👀
+- Obsesión primitiva
 
-### 4.8
+- Lista larga de parámetros
+
+Más de 3 o 4 parámetros / argumentos en un método. Siempre será mejor pasa un objeto...
+
+[Refactoring Guru](https://refactoring.guru/)
+
+### 4.8 
 
 ```js
 // Bad ❌
