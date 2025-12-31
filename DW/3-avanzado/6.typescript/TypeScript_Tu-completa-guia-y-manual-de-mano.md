@@ -5934,7 +5934,7 @@ Cuándo usarlo:
 - Cuando necesitas asegurar que un objeto mantenga un conjunto fijo de propiedades (ni más ni menos) pero sus valores puedan ser actualizados.
 - Para preservar la estructura de un objeto mientras permites flexibilidad en sus datos.
 
-### 12.6
+### 12.6 Decoradores de métodos
 
 ``
 

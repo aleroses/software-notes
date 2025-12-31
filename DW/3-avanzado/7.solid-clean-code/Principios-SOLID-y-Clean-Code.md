@@ -1718,44 +1718,241 @@ flowchart LR
 - **Cohesión** → métodos “cerrados” dentro de la clase
 - **Acoplamiento** → pocas flechas hacia afuera
 
+### 4.5 Bajo acoplamiento y alta cohesión
 
-
-
-
-
+`src/code-smells/02-high-coupling.ts`
 
 ```js
 // Bad ❌
+(() => {
+  // No aplicando el principio de responsabilidad única
+  type Gender = 'M' | 'F';
+
+  // Alto Acoplamiento
+
+  class Person {
+    constructor(
+      public firstName: string,
+      public lastName: string,
+      public gender: Gender,
+      public birthdate: Date
+    ) {}
+  }
+
+  class User extends Person {
+    constructor(
+      public email: string,
+      public role: string,
+      private lastAccess: Date,
+      firstName: string,
+      lastName: string,
+      gender: Gender,
+      birthdate: Date
+    ) {
+      super(firstName, lastName, gender, birthdate);
+      this.lastAccess = new Date();
+    }
+
+    checkCredentials() {
+      return true;
+    }
+  }
+
+  class UserSettings extends User {
+    constructor(
+      public workingDirectory: string,
+      public lastFolderOpen: string,
+      email: string,
+      role: string,
+      firstName: string,
+      lastName: string,
+      gender: Gender,
+      birthdate: Date
+    ) {
+      super(
+        email,
+        role,
+        new Date(),
+        firstName,
+        lastName,
+        gender,
+        birthdate
+      );
+    }
+  }
+
+  const userSettings = new UserSettings(
+    '/urs/home',
+    '/development',
+    'fernando@google.com',
+    'F',
+    'Fernando',
+    'Roses',
+    'M',
+    new Date('1985-10-21')
+  );
+
+  console.log({
+    userSettings,
+    credentials: userSettings.checkCredentials(),
+  });
+})();
 ```
+
+`src/code-smells/02-low-coupling.ts`
 
 ```js
 // Better 👍
+(() => {
+  // Aplicando el principio de responsabilidad única
+  // Prioriza la composición frente a la herencia
 
+  type Gender = 'M' | 'F';
+
+  interface PersonProps {
+    firstName: string;
+    lastName: string;
+    gender: Gender;
+    birthdate: Date;
+  }
+
+  class Person {
+    public firstName: string;
+    public lastName: string;
+    public gender: Gender;
+    public birthdate: Date;
+
+    constructor({
+      firstName,
+      lastName,
+      gender,
+      birthdate,
+    }: PersonProps) {
+      this.firstName = firstName;
+      this.lastName = lastName;
+      this.gender = gender;
+      this.birthdate = birthdate;
+    }
+  }
+
+  interface UserProps {
+    email: string;
+    role: string;
+  }
+  class User {
+    public email: string;
+    public role: string;
+    private lastAccess: Date;
+
+    constructor({ email, role }: UserProps) {
+      this.lastAccess = new Date();
+      this.email = email;
+      this.role = role;
+    }
+
+    checkCredentials() {
+      return true;
+    }
+  }
+
+  interface SettingsProps {
+    lastFolderOpen: string;
+    workingDirectory: string;
+  }
+
+  class Settings {
+    public workingDirectory: string;
+    public lastFolderOpen: string;
+
+    constructor({
+      workingDirectory,
+      lastFolderOpen,
+    }: SettingsProps) {
+      this.workingDirectory = workingDirectory;
+      this.lastFolderOpen = lastFolderOpen;
+    }
+  }
+
+  // Nuevo User Settings
+  interface UserSettingsProps {
+    birthdate: Date;
+    email: string;
+    firstName: string;
+    gender: Gender;
+    lastFolderOpen: string;
+    lastName: string;
+    role: string;
+    workingDirectory: string;
+  }
+
+  class UserSettings {
+    // constructor(
+    //     public person: Person,
+    //     public user  : User,
+    //     public settings: Settings,
+    // ){}
+    public person: Person;
+    public user: User;
+    public settings: Settings;
+
+    constructor({
+      firstName,
+      lastName,
+      gender,
+      birthdate,
+      email,
+      role,
+      workingDirectory,
+      lastFolderOpen,
+    }: UserSettingsProps) {
+      this.person = new Person({
+        firstName,
+        lastName,
+        gender,
+        birthdate,
+      });
+      this.user = new User({ email, role });
+      this.settings = new Settings({
+        workingDirectory,
+        lastFolderOpen,
+      });
+    }
+  }
+
+  const userSettings = new UserSettings({
+    birthdate: new Date('1985-10-21'),
+    email: 'fernando@google.com',
+    gender: 'M',
+    lastFolderOpen: '/home',
+    lastName: 'Fernando',
+    firstName: 'Roses',
+    role: 'Admin',
+    workingDirectory: '/usr/home',
+  });
+
+  console.log({
+    userSettings,
+    credentials: userSettings.user.checkCredentials(),
+  });
+})();
 ```
 
-```
+`src/main.ts`
+
+```ts
+import './style.css';
+import './code-smells/02-high-coupling';
+import './code-smells/02-low-coupling';
+
+const app = document.querySelector<HTMLDivElement>('#app')!;
+
+app.innerHTML = `
+  <h1>CleanCode y SOLID</h1>
+  <span>Revisar la consola de JavaScript</span>
+`;
 ```
 
-```
-```
-
-### 4.5 
-
-
-```js
-// Bad ❌
-```
-
-```js
-// Better 👍
-
-```
-
-```
-```
-
-```
-```
+[Código inicial de la clase](https://gist.github.com/Klerith/1cdbbe863df646b043a437df97eebb01)
 
 ### 4.6
 
