@@ -5844,25 +5844,95 @@ Object {
 }
 ```
 
-### 12.5
+### 12.5 Ejemplo de un decorador - Bloquear prototipo
 
-``
-
-```ts
-```
-
-
-``
+`src/decorators/pokemon-class.ts`
 
 ```ts
+function printToConsole(constructor: Function) {
+  console.log(constructor);
+}
+
+const printToConsoleConditional = (
+  print: boolean = false
+): Function => {
+  if (print) {
+    return printToConsole;
+  }
+
+  return () => {};
+};
+
+const bloquearPrototipo = function (constructor: Function) {
+  Object.seal(constructor);
+  Object.seal(constructor.prototype);
+};
+
+@bloquearPrototipo
+@printToConsoleConditional(true)
+export class Pokemon {
+  public publicApi: string = 'https://pokeapi.co/api/v2/';
+  constructor(public name: string) {}
+}
+
+// Este decorador se ejecuta al definir la clase
 ```
 
+`src/index.ts`
 
-👈🏼👀
-👈🏼👀👇🏼
-🔥
-📌
-☢️
+```ts
+import { Pokemon } from './decorators/pokemon-class';
+
+const charmander = new Pokemon('Charmander');
+
+// Error: can't define property "customName": Object is not extensible
+(Pokemon.prototype as any).customName = 'Pikachu';
+
+console.log(charmander);
+```
+
+En consola:
+
+```
+class Pokemon { constructor(name) }
+  length: 1
+  name: "Pokemon"
+  prototype: Object { ... }
+  
+Uncaught TypeError: can't define Uncaught TypeError: can't define property "customName": Object is not extensible
+```
+
+`Object.seal()` en JavaScript sella un objeto, impidiendo la adición o eliminación de nuevas propiedades y marcando las existentes como no configurables, pero **sí permite modificar los valores de las propiedades actuales**. Esto hace que la estructura de propiedades del objeto sea fija, aunque su contenido (los valores) puede seguir cambiando, a diferencia de `Object.freeze()`, que las bloquea por completo. 
+
+Características clave:
+
+- **No se pueden añadir nuevas propiedades**: Si intentas agregar `objeto.nuevaPropiedad = valor;`, fallará silenciosamente o lanzará un error en modo estricto.
+- **No se pueden eliminar propiedades**: `delete objeto.propiedad;` no tendrá efecto o lanzará un error.
+- **Propiedades existentes son no configurables**: No puedes cambiar descriptores de propiedad (como hacer una propiedad solo de lectura o de escritura), pero sí cambiar sus valores si eran escribibles.
+- **Los valores se pueden modificar**: `objeto.propiedadExistente = nuevoValor;` funciona. 
+
+Ejemplo:
+
+```js
+const persona = { nombre: 'Ana', edad: 25 };
+Object.seal(persona);
+
+// Intentar añadir propiedad
+persona.ciudad = 'Madrid'; // No se añade, no hay error (o error en modo estricto)
+
+// Intentar eliminar propiedad
+delete persona.edad; // No se elimina, no hay error (o error en modo estricto)
+
+// Modificar valor (¡esto sí funciona!)
+persona.nombre = 'Ana María'; // ¡Funciona!
+
+console.log(persona); // { nombre: 'Ana María', edad: 25 }
+```
+
+Cuándo usarlo:
+
+- Cuando necesitas asegurar que un objeto mantenga un conjunto fijo de propiedades (ni más ni menos) pero sus valores puedan ser actualizados.
+- Para preservar la estructura de un objeto mientras permites flexibilidad en sus datos.
 
 ### 12.6
 
