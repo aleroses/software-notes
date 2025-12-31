@@ -1954,7 +1954,134 @@ app.innerHTML = `
 
 [Código inicial de la clase](https://gist.github.com/Klerith/1cdbbe863df646b043a437df97eebb01)
 
-### 4.6
+### 4.6 Code Smells adicionales
+
+Untestability: código no probable (unit test).
+
+Código dificilmente testeable
+
+- Código con alto acoplamiento.
+- Código con muchas dependencias no inyectadas.
+- Dependencias en el contexto global (Tipo Singleton)
+
+Debemos de tener en mente las pruebas desde la creación del código.
+
+Optimizaciones prematuras
+
+Mantener abiertas las opciones retrasando la toma de decisiones nos permite darle mayor relevancia a lo que es más importante en una aplicación.
+
+No debemos anticiparnos a los requisitos y desarrollar abstracciones innecesarias que puedan añadir complejidad accidental.
+
+Balance entre: 
+
+- Complejidad esencial: La complejidad es inherente al problema.
+- Complejidad accidental: Cuando implementamos una solución compleja a la mínima indispensable.
+
+Nombres poco descriptivos:
+
+- Nombres de variables mal nombradas.
+- Nombres de clases genéricas.
+- Nombres de funciones mal nombradas.
+- Ser muy específico o demasiado genérico.
+
+Duplicidad de Código:
+
+No aplicar el principio DRY
+
+Real
+
+- Código es idéntico y cumple la misma función.
+- Un cambio implicaría actualizar todo el código idéntico en varios lugares.
+- Incrementa posibilidades de error humano al olvidar una parte para actualizar.
+- Mayor cantidad de pruebas innecesarias.
+
+Accidental
+
+- Código luce similar, pero cumple funciones distintas.
+- Cuando hay un cambio, solo hay que modificar un solo lugar.
+- Este tipo de duplicidad se puede trabajar con parámetros u optimizaciones.
+
+### 4.7
+
+```js
+// Bad ❌
+```
+
+```js
+// Better 👍
+
+```
+
+```
+```
+
+```
+```
+🐦‍🔥
+👀👇🏻
+👈🏼👀
+
+### 4.8
+
+```js
+// Bad ❌
+```
+
+```js
+// Better 👍
+
+```
+
+```
+```
+
+```
+```
+🐦‍🔥
+👀👇🏻
+👈🏼👀
+
+### 4.9
+
+```js
+// Bad ❌
+```
+
+```js
+// Better 👍
+
+```
+
+```
+```
+
+```
+```
+🐦‍🔥
+👀👇🏻
+👈🏼👀
+
+## 5
+
+```js
+// Bad ❌
+```
+
+```js
+// Better 👍
+
+```
+
+```
+```
+
+```
+```
+🐦‍🔥
+👀👇🏻
+👈🏼👀
+
+### 5.
 
 ```js
 // Bad ❌
