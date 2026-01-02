@@ -2180,70 +2180,86 @@ Revisa en las DevTools `Storage` y busca `Session Storage` para ver la data guar
 
 ### 3.9 Aprovisionar base de datos en Firebase
 
-Nombre del proyecto: zustandStoragexd
+Entra en [Firebase](https://firebase.google.com/?hl=es) y sigue estos pasos:
 
-en lugar de que grabe en el localStorage debe grabar en la nube de Firebase.
+- Ver en Obsidian: [[react-hooks-mern#React (Hooks y MERN)#19.7 Configuración inicial de Firebase#Crear proyecto en Firebase]]
+- Ver en GitHub: [19.7 Configuración inicial de Firebase](https://github.com/aleroses/software-notes/blob/master/DW/3-avanzado/1.react.js/devTalles/react-hooks-mern.md#197-configuracio%CC%81n-inicial-de-firebase)
+
+Nombre del proyecto: `zustandStoragexd`
+
+> En lugar de grabar en el localStorage debe grabar en la nube de Firebase.
 
 - Compilation
-- Firestore Database
+- RealtimeDatabase
 - Crear base de datos
-- Edición Standard
 - Ubicación: Por defecto
 - Comenzar en Modo de prueba 
 	- Modo bloqueado en la vida real
 
-Base de datos: Reglas
+Realtime Database: Reglas
 
 ```ts
-rules_version = '2';
-
-service cloud.firestore {
-  match /databases/{database}/documents {
-    // your rules
-    match /{document=**} {
-      allow read, write: if request.time < timestamp.date(2026, 1, 25);
-    }
+{
+  "rules": {
+    ".read": "now < 1769922000000",  // 2026-2-1
+    ".write": "now < 1769922000000",  // 2026-2-1
   }
 }
 ```
 
 ```ts
-rules_version = '2';
-
-service cloud.firestore {
-  match /databases/{database}/documents {
-    // your new rules
-    match /{document=**} {
-      allow read, write: if true; 👈🏼👀
-    }
+{
+  "rules": {
+    ".read": true,  // 2026-2-1
+    ".write": true,  // 2026-2-1
   }
 }
+```
+
+`Publicar`
+
+Realtime Database: Datos
+
+En datos podemos crear objetos con clave y valor.
+
+`https://console.firebase.google.com/u/0/project/zustandstoragexd/database/zustandstoragexd-default-rtdb/data/~2F?hl=es-419` ➕
+
+```ts
+// Clave Valor 👀👇🏻
+message: "Hi World"
+```
+
+Si haces clic en `message` aparece `/message` copia el enlace y abre Postman.
+
+`Get: https://zustandstoragexd-default-rtdb.firebaseio.com/message.json`
+
+En Firebase:
+
+```ts
+// Clave Valor 👀👇🏻
+person ➕
+  firstName: Ale
+  lastName: Roses
+```
+
+En Postman al copiar el enlace y añadir `.json` debe aparecer el objeto creado en Firebase.
+`Get: https://zustandstoragexd-default-rtdb.firebaseio.com/person.json`
+
+### 3.10 Firebase CustomStorage
+
+```ts
 ```
 
 ```ts
 ```
 
-[[react-hooks-mern#React (Hooks y MERN)#19.7 Configuración inicial de Firebase#Crear proyecto en Firebase]]
-
-[Firebase](https://firebase.google.com/?hl=es)
+```ts
+```
 
 👈🏼👀
 👈🏼👀👇🏻
 📌
-
-### 3.10
-
-```ts
-```
-
-```ts
-```
-
-```ts
-```
-
-👈🏼👀
-👈🏼👀👇🏻
+➕
 
 ### 3.11
 
@@ -2258,6 +2274,8 @@ service cloud.firestore {
 
 👈🏼👀
 👈🏼👀👇🏻
+📌
+➕
 
 ### 3.12
 
@@ -2272,6 +2290,8 @@ service cloud.firestore {
 
 👈🏼👀
 👈🏼👀👇🏻
+📌
+➕
 
 ### 3.13
 
@@ -2286,6 +2306,8 @@ service cloud.firestore {
 
 👈🏼👀
 👈🏼👀👇🏻
+📌
+➕
 
 ### 3.14
 
@@ -2300,6 +2322,8 @@ service cloud.firestore {
 
 👈🏼👀
 👈🏼👀👇🏻
+📌
+➕
 
 ```
 ```
@@ -2308,3 +2332,7 @@ service cloud.firestore {
 ```
 ```
 ⚙️
+👈🏼👀
+👈🏼👀👇🏻
+📌
+➕

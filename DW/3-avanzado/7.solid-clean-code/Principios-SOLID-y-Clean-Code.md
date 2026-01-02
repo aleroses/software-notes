@@ -2037,25 +2037,9 @@ Recursos de esta clase
 
 [Fin sección 04](https://github.com/Klerith/clean-course/tree/fin-seccion-04)
 
-```js
-// Bad ❌
-```
+## 5. Principios SOLID
 
-```js
-// Better 👍
-
-```
-
-```
-```
-
-```
-```
-🐦‍🔥
-👀👇🏻
-👈🏼👀
-
-## 5
+### 5.1 Introducción a la sección
 
 ```js
 // Bad ❌
