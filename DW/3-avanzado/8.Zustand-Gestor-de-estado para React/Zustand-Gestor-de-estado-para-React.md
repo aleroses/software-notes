@@ -2256,6 +2256,12 @@ En Postman al copiar el enlace y añadir `.json` debe aparecer el objeto creado 
 ```ts
 ```
 
+Compilación Authentication
+
+- Comenzar
+- Settings
+- Dominios autorizados
+
 👈🏼👀
 👈🏼👀👇🏻
 📌
