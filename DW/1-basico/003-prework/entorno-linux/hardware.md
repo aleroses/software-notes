@@ -89,6 +89,101 @@ Mem:           7.7Gi       4.8Gi       745Mi       133Mi       2.5Gi       2.8Gi
 Swap:          4.0Gi       730Mi       3.3Gi
 ```
 
+```bash
+❯ sudo dmidecode -t memory
+
+[sudo] password for ghost: 
+# dmidecode 3.6
+Getting SMBIOS data from sysfs.
+SMBIOS 3.2.0 present.
+
+Handle 0x003E, DMI type 16, 23 bytes
+Physical Memory Array
+        Location: System Board Or Motherboard
+        Use: System Memory
+        Error Correction Type: None
+        Maximum Capacity: 64 GB
+        Error Information Handle: Not Provided
+        Number Of Devices: 4
+
+Handle 0x003F, DMI type 17, 84 bytes
+Memory Device
+        Array Handle: 0x003E
+        Error Information Handle: Not Provided
+        Total Width: Unknown
+        Data Width: Unknown
+        Size: No Module Installed
+        Form Factor: Unknown
+        Set: None
+        Locator: ChannelA-DIMM1
+        Bank Locator: BANK 0
+        Type: Unknown
+        Type Detail: None
+
+Handle 0x0040, DMI type 17, 84 bytes
+Memory Device
+        Array Handle: 0x003E
+        Error Information Handle: Not Provided
+        Total Width: 64 bits
+        Data Width: 64 bits
+        Size: 8 GB
+        Form Factor: DIMM
+        Set: None
+        Locator: ChannelA-DIMM2
+        Bank Locator: BANK 1
+        Type: DDR4
+        Type Detail: Synchronous
+        Speed: 2666 MT/s
+        Manufacturer: Hewlett-Packard
+        Serial Number: 00000000
+        Asset Tag: 9876543210
+        Part Number: 7EH61AA#            
+        Rank: 2
+        Configured Memory Speed: 2666 MT/s
+        Minimum Voltage: 1.2 V
+        Maximum Voltage: 1.2 V
+        Configured Voltage: 1.2 V
+        Memory Technology: DRAM
+        Memory Operating Mode Capability: Volatile memory
+        Firmware Version: Not Specified
+        Module Manufacturer ID: Bank 1, Hex 0x54
+        Module Product ID: Unknown
+        Memory Subsystem Controller Manufacturer ID: Unknown
+        Memory Subsystem Controller Product ID: Unknown
+        Non-Volatile Size: None
+        Volatile Size: 8 GB
+        Cache Size: None
+        Logical Size: None
+
+Handle 0x0041, DMI type 17, 84 bytes
+Memory Device
+        Array Handle: 0x003E
+        Error Information Handle: Not Provided
+        Total Width: Unknown
+        Data Width: Unknown
+        Size: No Module Installed
+        Form Factor: Unknown
+        Set: None
+        Locator: ChannelB-DIMM1
+        Bank Locator: BANK 2
+        Type: Unknown
+        Type Detail: None
+
+Handle 0x0042, DMI type 17, 84 bytes
+Memory Device
+        Array Handle: 0x003E
+        Error Information Handle: Not Provided
+        Total Width: Unknown
+        Data Width: Unknown
+        Size: No Module Installed
+        Form Factor: Unknown
+        Set: None
+        Locator: ChannelB-DIMM2
+        Bank Locator: BANK 3
+        Type: Unknown
+        Type Detail: None
+```
+
 ## 
 
 ```bash
