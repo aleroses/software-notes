@@ -335,6 +335,71 @@ sda    KINGSTON SA400S37960G 894.3G disk
 ## TODO de una vez
 
 ```bash
+sudo apt install inxi
+```
+
+```bash
+❯ inxi -Fxz
+
+System:
+  Kernel: 6.12.57+deb13-amd64 arch: x86_64 bits: 64 compiler: gcc v: 14.2.0
+  Desktop: KDE Plasma v: 6.3.6 Distro: Debian GNU/Linux 13 (trixie)
+Machine:
+  Type: Desktop System: ASUS product: N/A v: N/A serial: <superuser required>
+  Mobo: ASUSTeK model: PRIME B460M-A v: Rev 1.xx
+    serial: <superuser required> UEFI: American Megatrends v: 1401
+    date: 07/27/2020
+CPU:
+  Info: 6-core model: Intel Core i5-10400F bits: 64 type: MT MCP
+    arch: Comet Lake rev: 5 cache: L1: 384 KiB L2: 1.5 MiB L3: 12 MiB
+  Speed (MHz): avg: 800 min/max: 800/4300 cores: 1: 800 2: 800 3: 800 4: 800
+    5: 800 6: 800 7: 800 8: 800 9: 800 10: 800 11: 800 12: 800 bogomips: 69597
+  Flags: avx avx2 ht lm nx pae sse sse2 sse3 sse4_1 sse4_2 ssse3
+Graphics:
+  Device-1: NVIDIA GF108 [GeForce GT 730] vendor: Micro-Star MSI
+    driver: nouveau v: kernel arch: Fermi bus-ID: 01:00.0 temp: 39.0 C
+  Display: wayland server: X.org v: 1.21.1.16 with: Xwayland v: 24.1.6
+    compositor: kwin_wayland driver: X: loaded: modesetting unloaded: fbdev,vesa
+    dri: nouveau gpu: nouveau resolution: 1366x768~60Hz
+  API: EGL v: 1.5 drivers: nouveau,swrast platforms:
+    active: gbm,wayland,x11,surfaceless,device inactive: N/A
+  API: OpenGL v: 4.5 compat-v: 4.3 vendor: mesa v: 25.0.7-2 glx-v: 1.4
+    direct-render: yes renderer: NVC1
+  API: Vulkan v: 1.4.309 drivers: llvmpipe surfaces: xcb,xlib,wayland
+    devices: 1
+  Info: Tools: api: clinfo, eglinfo, glxinfo, vulkaninfo
+    de: kscreen-console,kscreen-doctor wl: wayland-info x11: xdriinfo,
+    xdpyinfo, xprop, xrandr
+Audio:
+  Device-1: Intel Comet Lake PCH-V cAVS vendor: ASUSTeK driver: snd_hda_intel
+    v: kernel bus-ID: 00:1f.3
+  Device-2: NVIDIA GF108 High Definition Audio vendor: Micro-Star MSI
+    driver: snd_hda_intel v: kernel bus-ID: 01:00.1
+  API: ALSA v: k6.12.57+deb13-amd64 status: kernel-api
+  Server-1: PipeWire v: 1.4.2 status: active
+Network:
+  Device-1: Realtek RTL8111/8168/8211/8411 PCI Express Gigabit Ethernet
+    vendor: ASUSTeK RTL8111H driver: r8169 v: kernel port: 3000 bus-ID: 04:00.0
+  IF: enp4s0 state: up speed: 100 Mbps duplex: full mac: <filter>
+  IF-ID-1: docker0 state: down mac: <filter>
+Drives:
+  Local Storage: total: 894.25 GiB used: 166.89 GiB (18.7%)
+  ID-1: /dev/sda vendor: Kingston model: SA400S37960G size: 894.25 GiB
+Partition:
+  ID-1: / size: 171.28 GiB used: 18.61 GiB (10.9%) fs: ext4 dev: /dev/sda7
+  ID-2: /boot/efi size: 96 MiB used: 54.4 MiB (56.6%) fs: vfat
+    dev: /dev/sda1
+  ID-3: /home size: 349.9 GiB used: 148.23 GiB (42.4%) fs: ext4
+    dev: /dev/sda8
+Swap:
+  ID-1: swap-1 type: file size: 4 GiB used: 730.5 MiB (17.8%) file: /swapfile
+Sensors:
+  System Temperatures: cpu: 45.0 C mobo: N/A gpu: nouveau temp: 39.0 C
+  Fan Speeds (rpm): N/A
+Info:
+  Memory: total: 8 GiB available: 7.67 GiB used: 4.91 GiB (64.0%)
+  Processes: 308 Uptime: 3h 38m Init: systemd
+  Packages: 2342 Compilers: gcc: 14.2.0 Shell: Zsh v: 5.9 inxi: 3.3.38
 ```
 
 ## 
