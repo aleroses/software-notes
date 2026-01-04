@@ -1,5 +1,9 @@
+# Mi hardware
+
+## Procesador (CPU)
+
 ```bash
-❯lscpu
+❯ lscpu
 
 Architecture:                x86_64
   CPU op-mode(s):            32-bit, 64-bit
@@ -8,8 +12,7 @@ Architecture:                x86_64
 CPU(s):                      12
   On-line CPU(s) list:       0-11
 Vendor ID:                   GenuineIntel
-  Model name:                Intel(R) Core(TM) i5-10400F CPU @
-                              2.90GHz
+  Model name:                Intel(R) Core(TM) i5-10400F CPU @ 2.90GHz
     CPU family:              6
     Model:                   165
     Thread(s) per core:      2
@@ -52,8 +55,7 @@ NUMA:
   NUMA node0 CPU(s):         0-11
 Vulnerabilities:             
   Gather data sampling:      Mitigation; Microcode
-  Indirect target selection: Mitigation; Aligned branch/return
-                              thunks
+  Indirect target selection: Mitigation; Aligned branch/return thunks
   Itlb multihit:             KVM: Mitigation: VMX unsupported
   L1tf:                      Not affected
   Mds:                       Not affected
@@ -66,8 +68,7 @@ Vulnerabilities:
   Spec store bypass:         Mitigation; Speculative Store Byp
                              ass disabled via prctl
   Spectre v1:                Mitigation; usercopy/swapgs barri
-                             ers and __user pointer sanitizati
-                             on
+                             ers and __user pointer sanitization
   Spectre v2:                Mitigation; Enhanced / Automatic 
                              IBRS; IBPB conditional; PBRSB-eIB
                              RS SW sequence; BHI SW loop, KVM 
@@ -75,6 +76,35 @@ Vulnerabilities:
   Srbds:                     Mitigation; Microcode
   Tsa:                       Not affected
   Tsx async abort:           Not affected
-  Vmscape:                   Mitigation; IBPB before exit to u
-                             serspace
+  Vmscape:                   Mitigation; IBPB before exit to userspace
+```
+
+## Memoria RAM
+
+```bash
+❯ free -h
+
+               total        used        free      shared  buff/cache   available
+Mem:           7.7Gi       4.8Gi       745Mi       133Mi       2.5Gi       2.8Gi
+Swap:          4.0Gi       730Mi       3.3Gi
+```
+
+## 
+
+```bash
+```
+
+## 
+
+```bash
+```
+
+## 
+
+```bash
+```
+
+## 
+
+```bash
 ```
