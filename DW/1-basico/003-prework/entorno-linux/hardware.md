@@ -313,18 +313,26 @@ sda    KINGSTON SA400S37960G 894.3G disk
         Kernel modules: nouveau
 ```
 
-## 
+## Tarjeta de red (Ethernet / Wi-Fi)
 
 ```bash
+❯ lspci | grep -i network
+
+❯ lspci | grep -i ethernet
+
+04:00.0 Ethernet controller: Realtek Semiconductor Co., Ltd. RTL8111/8168/8211/8411 PCI Express Gigabit Ethernet Controller (rev 15)
 ```
 
-
-## 
+##  Audio
 
 ```bash
+❯ lspci | grep -i audio
+
+00:1f.3 Audio device: Intel Corporation Comet Lake PCH-V cAVS
+01:00.1 Audio device: NVIDIA Corporation GF108 High Definition Audio Controller (rev a1)
 ```
 
-## 
+## TODO de una vez
 
 ```bash
 ```
