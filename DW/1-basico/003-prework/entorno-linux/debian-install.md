@@ -104,23 +104,21 @@ Busca el espacio que liberaste de tu partición C o D. En este espacio libre se 
 
 ##### 1. Si tienes Windows instalado
 
-* No borres la partición EFI existente.
-* En el instalador de Debian, selecciona “Particionado manual”.
-* Busca una partición pequeña de tipo **FAT32**, tamaño **100–500 MB**, generalmente montada en `/dev/nvme0n1p1` o `/dev/sda1`.
-* Selecciónala, elige:
-
-  * “Usar como: sistema de archivos EFI (FAT32)”
-  * “Punto de montaje: /boot/efi”
-  * **No la formatees** (importante).
+- No borres la partición EFI existente.
+- En el instalador de Debian, selecciona “Particionado manual”.
+- Busca una partición pequeña de tipo **FAT32**, tamaño **100–500 MB**, generalmente montada en `/dev/nvme0n1p1` o `/dev/sda1`.
+- Selecciónala, elige:
+	- “Usar como: sistema de archivos EFI (FAT32)”
+	- “Punto de montaje: /boot/efi”
+	- **No la formatees** (importante).
 
 ##### 2. Si no tienes partición EFI
 
-* Crea una nueva:
-
-  * Tamaño: 512 MB
-  * Tipo: FAT32
-  * Punto de montaje: `/boot/efi`
-  * Marca “Espacio reservado para el sistema EFI” o “boot, esp”.
+- Crea una nueva:
+	- Tamaño: 512 MB
+	- Tipo: FAT32
+	- Punto de montaje: `/boot/efi`
+	- Marca “Espacio reservado para el sistema EFI” o “boot, esp”.
 
 ---
 
@@ -133,17 +131,17 @@ Busca el espacio que liberaste de tu partición C o D. En este espacio libre se 
   - Utilizar como: `Área de intercambio swap`
   - Se ha terminado de definir la partición
 
-> Nota: Crear un archivo swap es preferible. Ver zram.
+> Nota: Es preferible crear un archivo swap. Ver zram.
 
-## / ext4
-  
+### / ext4
+
 - Escoge el espacio libre
 - Crear una partición nueva
 - Nuevo tamaño:
-  - 7 GB: Primaria Principio
-  - Utilizar como: `Sistema de ficheros ext4 transaccional`
-  - Punto de montaje: `/ - Sistema de ficheros raíz`
-  - Se ha terminado de definir la partición
+	- 7 GB: Primaria Principio
+	- Utilizar como: `Sistema de ficheros ext4 transaccional`
+	- Punto de montaje: `/ - Sistema de ficheros raíz`
+	- Se ha terminado de definir la partición
 
 > Nota: `/` (raíz) | Sistema operativo y programas.
 
