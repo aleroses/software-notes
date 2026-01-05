@@ -98,27 +98,25 @@ Busca el espacio que liberaste de tu partición C o D. En este espacio libre se 
   - Utilizar como: `Partición del sistema EFI`
   - Se ha terminado de definir la partición
 
----
+Como esta es una guía para instalar Linux en Dual boot, es seguro que tengas Windows instalado como sistema principal (mi caso).
 
-#### Sección de dudas con EFI (Solo ignora)
+En ese caso sigue estos pasos:
 
-##### 1. Si tienes Windows instalado
+1. Si tienes Windows instalado
+	- No borres la partición EFI existente.
+	- En el instalador de Debian, selecciona “Particionado manual”.
+	- Busca una partición pequeña de tipo **FAT32**, tamaño **100–500 MB**, generalmente montada en `/dev/nvme0n1p1` o `/dev/sda1`.
+	- Selecciónala, elige:
+		- “Usar como: sistema de archivos EFI (FAT32)”
+		- “Punto de montaje: /boot/efi”
+		- **No la formatees** (importante).
 
-- No borres la partición EFI existente.
-- En el instalador de Debian, selecciona “Particionado manual”.
-- Busca una partición pequeña de tipo **FAT32**, tamaño **100–500 MB**, generalmente montada en `/dev/nvme0n1p1` o `/dev/sda1`.
-- Selecciónala, elige:
-	- “Usar como: sistema de archivos EFI (FAT32)”
-	- “Punto de montaje: /boot/efi”
-	- **No la formatees** (importante).
-
-##### 2. Si no tienes partición EFI
-
-- Crea una nueva:
-	- Tamaño: 512 MB
-	- Tipo: FAT32
-	- Punto de montaje: `/boot/efi`
-	- Marca “Espacio reservado para el sistema EFI” o “boot, esp”.
+2. Si no tienes partición EFI
+	- Crea una nueva:
+		- Tamaño: 512 MB
+		- Tipo: FAT32
+		- Punto de montaje: `/boot/efi`
+		- Marca “Espacio reservado para el sistema EFI” o “boot, esp”.
 
 ---
 
@@ -145,6 +143,15 @@ Busca el espacio que liberaste de tu partición C o D. En este espacio libre se 
 
 > Nota: `/` (raíz) | Sistema operativo y programas.
 
+En caso ya tengas un SO Linux instalado y lo quieres reemplazar sin perder tus archivos actuales esta es la única partición que debes formatear.
+
+- Selecciona tu actual `/` (ej. `/dev/sda7`)
+- Usar como: ext4
+- Punto de montaje: `/`
+- **Formatear: SÍ**
+
+Esto borra **solo el sistema**, no tus datos.
+
 ### /home ext4
 
 - Escoge el espacio libre
@@ -154,6 +161,13 @@ Busca el espacio que liberaste de tu partición C o D. En este espacio libre se 
   - Utilizar como: `Sistema de ficheros ext4 transaccional`
   - Punto de montaje: `/home - directorios personales de los usuarios`
   - Se ha terminado de definir la partición
+
+Igual que el punto anterior, si no quieres perder tus archivos esta es la clave:
+
+- Selecciona `/dev/sda8`
+- Usar como: ext4
+- Punto de montaje: `/home`
+- **Formatear: NO**
 
 Para culminar:
 
