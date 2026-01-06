@@ -5867,8 +5867,10 @@ const printToConsoleConditional = (
 
 const bloquearPrototipo = function (constructor: Function) {
   // seal impide añadir o eliminar propiedades
-  Object.seal(constructor);
-  Object.seal(constructor.prototype);
+  // No puedes agregar propiedades estáticas a la clase
+  Object.seal(constr);
+  // No puedes agregar métodos o propiedades al prototype
+  Object.seal(constr.prototype);
 };
 
 @bloquearPrototipo
