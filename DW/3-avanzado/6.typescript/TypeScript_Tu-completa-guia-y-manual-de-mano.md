@@ -5866,6 +5866,7 @@ const printToConsoleConditional = (
 };
 
 const bloquearPrototipo = function (constructor: Function) {
+  // seal impide añadir o eliminar propiedades
   Object.seal(constructor);
   Object.seal(constructor.prototype);
 };
