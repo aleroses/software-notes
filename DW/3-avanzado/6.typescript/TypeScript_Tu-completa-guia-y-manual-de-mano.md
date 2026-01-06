@@ -5844,6 +5844,8 @@ Object {
 }
 ```
 
+Los Decoradores de Fábrica en TypeScript son funciones especiales que **devuelven otra función decoradora**, permitiendo crear decoradores parametrizados y reutilizables, como `@factory(param1, param2)`.
+
 ### 12.5 Ejemplo de un decorador - Bloquear prototipo
 
 `src/decorators/pokemon-class.ts`
