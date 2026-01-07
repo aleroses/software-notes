@@ -2063,25 +2063,25 @@ Los **5 principios S.O.L.I.D.** de diseño de software son:
 
 Y en esta sección hablaremos sobre cada uno de ellos.
 
-### 5.3
+### 5.3 Principios SOLID - SRP - Responsabilidad Única
 
-```js
-// Bad ❌
-```
+Los principios de SOLID nos indican cómo organizar nuestras funciones y estructuras de datos en componentes y cómo dichos componentes deben estar interconectados.
 
-```js
-// Better 👍
+- Single Responsibility: Responsabilidad única.
+- Open and Close: Abierto y cerrado.
+- Liskov Substitution: Sustitución de Liskov.
+- Interface segregation: Segregación de interfaz.
+- Dependency inversion: Inversión de dependencias.
 
-```
+#### SRP - Principio de responsabilidad única
 
-```
-```
+"Nunca debería haber más de un motivo por el cual cambiar una clase o un módulo".
 
-```
-```
-🐦‍🔥
-👀👇🏻
-👈🏼👀
+- Robert C. Martin
+
+Una clase debe de tener una única responsabilidad. Tener más de una responsabilidad en nuestras clases o módulos hace que nuestro código sea difícil de leer, testear y mantener.
+
+"Tener una única responsabilidad" !== "Hacer una única cosa"
 
 ### 5.4
 
