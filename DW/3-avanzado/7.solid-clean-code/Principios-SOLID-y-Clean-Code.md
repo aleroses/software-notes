@@ -2083,38 +2083,153 @@ Una clase debe de tener una única responsabilidad. Tener más de una responsabi
 
 "Tener una única responsabilidad" !== "Hacer una única cosa"
 
-### 5.4
+### 5.4 Ejemplo de SRP
 
-```js
+`src/solid/01-srp.ts`
+
+```ts
 // Bad ❌
+(() => {
+  interface Product {
+    id: number;
+    name: string;
+  }
+
+  // Usualmente, esto es una clase para controlar la vista que es desplegada al usuario
+  // Recuerden que podemos tener muchas vistas que realicen este mismo trabajo.
+  class ProductBloc {
+    loadProduct(id: number) {
+      // Realiza un proceso para obtener el producto y retornarlo
+      console.log('Producto: ', { id, name: 'OLED Tv' });
+    }
+
+    saveProduct(product: Product) {
+      // Realiza una petición para salvar en base de datos
+      console.log('Guardando en base de datos', product);
+    }
+
+    notifyClients() {
+      console.log('Enviando correo a los clientes');
+    }
+
+    onAddToCart(productId: number) {
+      // Agregar al carrito de compras
+      console.log('Agregando al carrito ', productId);
+    }
+  }
+
+  const productBloc = new ProductBloc();
+
+  productBloc.loadProduct(10);
+  productBloc.saveProduct({ id: 10, name: 'OLED TV' });
+  productBloc.notifyClients();
+  productBloc.onAddToCart(10);
+})();
 ```
 
-```js
+```ts
 // Better 👍
+(() => {
+  interface Product {
+    id: number;
+    name: string;
+  }
 
+  class ProductService {
+    getProduct(id: number) {
+      console.log('Producto: ', { id, name: 'OLED Tv' });
+    }
+
+    saveProduct(product: Product) {
+      console.log('Guardando en base de datos', product);
+    }
+  }
+
+  class Mailer {
+    private masterEmail: string = 'ale@google.com';
+
+    sendEmail(
+      emailList: string[],
+      template: 'to-clients' | 'to-admin'
+    ) {
+      console.log('Enviando correo a los clientes', template);
+    }
+  }
+
+  // Usualmente, esto es una clase para controlar la vista que es desplegada al usuario
+  // Recuerden que podemos tener muchas vistas que realicen este mismo trabajo.
+  class ProductBloc {
+    loadProduct(id: number) {
+      // Realiza un proceso para obtener el producto y retornarlo
+      console.log('Producto: ', { id, name: 'OLED Tv' });
+    }
+
+    saveProduct(product: Product) {
+      // Realiza una petición para salvar en base de datos
+      console.log('Guardando en base de datos', product);
+    }
+
+    notifyClients() {
+      console.log('Enviando correo a los clientes');
+    }
+  }
+
+  class CartBloc {
+    private itemsInCart: Object[] = [];
+
+    onAddToCart(productId: number) {
+      // Agregar al carrito de compras
+      console.log('Agregando al carrito ', productId);
+    }
+  }
+
+  const productBloc = new ProductBloc();
+  const cartBloc = new CartBloc();
+
+  productBloc.loadProduct(10);
+  productBloc.saveProduct({ id: 10, name: 'OLED TV' });
+  productBloc.notifyClients();
+  cartBloc.onAddToCart(10);
+})();
 ```
 
-```
+`src/main.ts`
+
+```ts
+import './style.css';
+import './solid/01-srp';
+
+const app = document.querySelector<HTMLDivElement>('#app')!;
+
+app.innerHTML = `
+  <h1>CleanCode y SOLID</h1>
+  <span>Revisar la consola de JavaScript</span>
+`;
 ```
 
-```
-```
-🐦‍🔥
-👀👇🏻
-👈🏼👀
+**B**usiness **Lo**gic **C**omponent, básicamente un patrón de diseño.
+
+[Ejemplo de SRP](https://gist.github.com/Klerith/644f0dc4c898370308e029f15224f4f0)
 
 ### 5.5
 
+`src/code-smells/02-low-coupling.ts`
+
 ```js
 // Bad ❌
 ```
+
+`src/code-smells/02-low-coupling.ts`
 
 ```js
 // Better 👍
 
 ```
 
-```
+
+`src/main.ts`
+
+```ts
 ```
 
 ```
@@ -2134,7 +2249,9 @@ Una clase debe de tener una única responsabilidad. Tener más de una responsabi
 
 ```
 
-```
+`src/main.ts`
+
+```ts
 ```
 
 ```
@@ -2154,7 +2271,9 @@ Una clase debe de tener una única responsabilidad. Tener más de una responsabi
 
 ```
 
-```
+`src/main.ts`
+
+```ts
 ```
 
 ```
@@ -2174,7 +2293,9 @@ Una clase debe de tener una única responsabilidad. Tener más de una responsabi
 
 ```
 
-```
+`src/main.ts`
+
+```ts
 ```
 
 ```
@@ -2194,7 +2315,9 @@ Una clase debe de tener una única responsabilidad. Tener más de una responsabi
 
 ```
 
-```
+`src/main.ts`
+
+```ts
 ```
 
 ```
@@ -2214,7 +2337,9 @@ Una clase debe de tener una única responsabilidad. Tener más de una responsabi
 
 ```
 
-```
+`src/main.ts`
+
+```ts
 ```
 
 ```
@@ -2234,7 +2359,9 @@ Una clase debe de tener una única responsabilidad. Tener más de una responsabi
 
 ```
 
-```
+`src/main.ts`
+
+```ts
 ```
 
 ```
@@ -2254,7 +2381,9 @@ Una clase debe de tener una única responsabilidad. Tener más de una responsabi
 
 ```
 
-```
+`src/main.ts`
+
+```ts
 ```
 
 ```
@@ -2274,7 +2403,9 @@ Una clase debe de tener una única responsabilidad. Tener más de una responsabi
 
 ```
 
-```
+`src/main.ts`
+
+```ts
 ```
 
 ```
@@ -2294,7 +2425,9 @@ Una clase debe de tener una única responsabilidad. Tener más de una responsabi
 
 ```
 
-```
+`src/main.ts`
+
+```ts
 ```
 
 ```
@@ -2314,7 +2447,9 @@ Una clase debe de tener una única responsabilidad. Tener más de una responsabi
 
 ```
 
-```
+`src/main.ts`
+
+```ts
 ```
 
 ```
@@ -2334,7 +2469,9 @@ Una clase debe de tener una única responsabilidad. Tener más de una responsabi
 
 ```
 
-```
+`src/main.ts`
+
+```ts
 ```
 
 ```
@@ -2354,7 +2491,9 @@ Una clase debe de tener una única responsabilidad. Tener más de una responsabi
 
 ```
 
-```
+`src/main.ts`
+
+```ts
 ```
 
 ```
