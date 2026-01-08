@@ -2327,7 +2327,7 @@ writeFile("hola.txt") writeFile("adios.txt");
 
 El principio abierto-cerrado también se puede lograr de muchas otras maneras, incluso mediante el uso de la herencia o mediante patrones de diseño de composición como el patrón de estrategia.
 
-### 5.8
+### 5.8 Ejercicio de OCP
 
 ```js
 // Bad ❌

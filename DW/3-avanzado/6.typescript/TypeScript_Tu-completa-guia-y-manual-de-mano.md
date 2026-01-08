@@ -5941,23 +5941,147 @@ Cuándo usarlo:
 
 ### 12.6 Decoradores de métodos
 
-``
+`src/decorators/pokemon-class.ts`
 
 ```ts
+function printToConsole(constructor: Function) {
+  console.log(constructor);
+}
+
+const printToConsoleConditional = (
+  print: boolean = false
+): Function => {
+  if (print) {
+    return printToConsole;
+  }
+
+  return () => {};
+};
+
+const bloquearPrototipo = function (constructor: Function) {
+  Object.seal(constructor);
+  Object.seal(constructor.prototype);
+};
+
+function CheckValidPokemonId() {
+  return function (
+    target: any, // parent class constructor and method
+    propertyKey: string, // method name: savePokemonToDB
+    // configurable enumerable writable value
+    descriptor: PropertyDescriptor
+  ) {
+    const originalMethod = descriptor.value;
+
+    // descriptor.value = () => console.log('Hi World!!!');
+    // Se dispara con los argumentos de savePokemonToDB
+    descriptor.value = (id: number) => {
+      if (id < 1 || id > 800) {
+        return console.error(
+          'The Pokemon Id must be between 1 and 800. '
+        );
+      }
+
+      return originalMethod(id);
+    };
+    console.log({ target, propertyKey, descriptor });
+  };
+}
+
+@bloquearPrototipo
+@printToConsoleConditional(false)
+export class Pokemon {
+  public publicApi: string = 'https://pokeapi.co/api/v2/';
+  constructor(public name: string) {}
+
+  @CheckValidPokemonId()
+  savePokemonToDB(id: number) {
+    console.log(`Pokemon saved in the database ${id}`);
+  }
+}
+
+// Este decorador se ejecuta al definir la clase
+
+/* 
+Decoradores en Ts
+
+Son funciones especiales, que sirven para anotar,  amplicar o modificar el comportamiento de:
+
+- métodos
+- clases
+- Propiedades
+- Parametros
+
+
+en tiempo de diseño o ejecución.
+*/
 ```
 
-
-``
+`src/index.ts`
 
 ```ts
+import { Pokemon } from './decorators/pokemon-class';
+
+const charmander = new Pokemon('Charmander');
+
+// Error:
+// (Pokemon.prototype as any).customName = 'Pikachu';
+
+// console.log(charmander.savePokemonToDB(50));
+charmander.savePokemonToDB(50);
 ```
 
+Los decoradores de métodos en TypeScript son funciones especiales (precedidas por `@`) que se aplican a los métodos de una clase para **modificar, observar o reemplazar su comportamiento** en tiempo de diseño, interceptando la definición del método y permitiendo metaprogramación como logging, validación o binding. Se definen como funciones que reciben el prototipo de la clase (`target`), el nombre del método (`propertyName`), y un `PropertyDescriptor`, permitiendo manipular la función original dentro de este descriptor para añadir lógica antes o después de la ejecución. 
 
-👈🏼👀
-👈🏼👀👇🏼
-🔥
-📌
-☢️
+¿Qué son y para qué sirven?
+
+- **Funciones de orden superior**: Son funciones que se aplican a miembros de clases (métodos, propiedades, etc.).
+- **Metaprogramación**: Permiten escribir código que manipula otro código, añadiendo funcionalidades de forma declarativa sin alterar el código fuente original.
+- **Casos de uso**:
+    - **Logging**: Registrar cuándo se llama a un método y con qué argumentos.
+    - **Validación**: Añadir comprobaciones antes de ejecutar el método.
+    - **Binding**: Vincular automáticamente `this` a la instancia.
+    - **Reemplazo**: Sustituir el método por una nueva implementación. 
+
+Estructura de un decorador de método
+
+```ts
+function miDecorador(target: any, propertyName: string, descriptor: PropertyDescriptor) {
+    // target: El prototipo de la clase (o la función constructora para estáticos) [5].
+    // propertyName: El nombre del método [5].
+    // descriptor: Contiene el 'value' (la función original) y otras propiedades [5, 12].
+
+    const metodoOriginal = descriptor.value; // Guardamos la función original.
+
+    // Reemplazamos el 'value' con una nueva función que envuelve a la original.
+    descriptor.value = function(...args: any[]) {
+        console.log(`Llamando al método: ${propertyName}`);
+        // Llamamos al método original con su contexto (this) y argumentos.
+        return metodoOriginal.apply(this, args);
+    };
+}
+```
+
+Ejemplo de uso
+
+```ts
+class MiClase {
+    @miDecorador // Aplicamos el decorador al método.
+    saludar(nombre: string) {
+        console.log(`Hola, ${nombre}`);
+    }
+}
+
+const instancia = new MiClase();
+instancia.saludar("Mundo");
+// Salida:
+// Llamando al método: saludar
+// Hola, Mundo [12]
+```
+
+Consideraciones
+
+- **Configuración**: Debes habilitar los decoradores en tu `tsconfig.json` (ej: `"experimentalDecorators": true`) para usarlos.
+- **Tipos**: Existen decoradores para clases, métodos, propiedades y parámetros, cada uno con sus propios argumentos.
 
 ### 12.7
 
