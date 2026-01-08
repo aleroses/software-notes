@@ -2293,27 +2293,16 @@ app.innerHTML = `
 })();
 ```
 
-### 5.6
+### 5.6 Detectar incumplimiento de SRP
 
-```js
-// Bad ❌
-```
+SRP - Detectar violaciones
 
-```js
-// Better 👍
-
-```
-
-`src/main.ts`
-
-```ts
-```
-
-```
-```
-🐦‍🔥
-👀👇🏻
-👈🏼👀
+- Nombres de clases y módulos demasiado genéricos.
+- Cambios en el código suelen afectar la clase o módulo.
+- La clase involucra múltiples capas.
+- Número elevado de importaciones (clases/módulos)
+- Cantidad elevada de métodos públicos.
+- Exceso número de línea de código.
 
 ### 5.7
 
