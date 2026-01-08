@@ -2211,32 +2211,87 @@ app.innerHTML = `
 
 [Ejemplo de SRP](https://gist.github.com/Klerith/644f0dc4c898370308e029f15224f4f0)
 
-### 5.5
+### 5.5 Ejemplo de SRP - Segunda Parte
 
-`src/code-smells/02-low-coupling.ts`
-
-```js
-// Bad ❌
-```
-
-`src/code-smells/02-low-coupling.ts`
+`src/solid/01-srp.ts`
 
 ```js
 // Better 👍
+(() => {
+  interface Product {
+    id: number;
+    name: string;
+  }
 
+  class ProductService {
+    getProduct(id: number) {
+      console.log('Producto: ', { id, name: 'OLED Tv' });
+    }
+
+    saveProduct(product: Product) {
+      console.log('Guardando en base de datos', product);
+    }
+  }
+
+  class Mailer {
+    private masterEmail: string = 'ale@google.com';
+
+    sendEmail(
+      emailList: string[],
+      template: 'to-clients' | 'to-admin'
+    ) {
+      console.log('Enviando correo a los clientes', template);
+    }
+  }
+
+  // Usualmente, esto es una clase para controlar la vista que es desplegada al usuario
+  // Recuerden que podemos tener muchas vistas que realicen este mismo trabajo.
+  class ProductBloc {
+    private productService: ProductService;
+    private mailer: Mailer;
+
+    constructor(
+      productService: ProductService,
+      mailer: Mailer
+    ) {
+      this.productService = productService;
+      this.mailer = mailer;
+    }
+
+    loadProduct(id: number) {
+      this.productService.getProduct(id);
+    }
+
+    saveProduct(product: Product) {
+      this.productService.saveProduct(product);
+    }
+
+    notifyClients() {
+      this.mailer.sendEmail(['ale@google.com'], 'to-clients');
+    }
+  }
+
+  class CartBloc {
+    private itemsInCart: Object[] = [];
+
+    onAddToCart(productId: number) {
+      // Agregar al carrito de compras
+      console.log('Agregando al carrito ', productId);
+    }
+  }
+
+  const productService = new ProductService();
+  const mailer = new Mailer();
+
+  const productBloc = new ProductBloc(productService, mailer);
+  const cartBloc = new CartBloc();
+
+  productBloc.loadProduct(10);
+  productBloc.saveProduct({ id: 10, name: 'OLED TV' });
+  productBloc.notifyClients();
+  cartBloc.onAddToCart(10);
+})();
 ```
-
-
-`src/main.ts`
-
-```ts
-```
-
-```
-```
-🐦‍🔥
-👀👇🏻
-👈🏼👀
 
 ### 5.6
 
