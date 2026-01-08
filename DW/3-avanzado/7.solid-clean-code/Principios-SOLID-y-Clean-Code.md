@@ -2304,27 +2304,28 @@ SRP - Detectar violaciones
 - Cantidad elevada de métodos públicos.
 - Exceso número de línea de código.
 
-### 5.7
+### 5.7 OCP - Principio de abierto y cerrado
 
-```js
-// Bad ❌
+Open and Close: Abierto y cerrado.
+
+Es un principio que depende mucho del contexto.
+
+Establece que las entidades de software (clases, módulos, métodos, etc.) deben estar abiertas para la extensión, pero cerradas para la modificación.
+
+La forma más sencilla de demostrar este principio es considerar un método que hace una cosa.
+
+```mermaid
+flowchart TD
+    A[Escribir en archivo hola.txt] -->|Nuevos requisitos| B[Escribir en archivo adios.txt]
 ```
 
 ```js
-// Better 👍
+writeFile(fileName: string)
 
+writeFile("hola.txt") writeFile("adios.txt");
 ```
 
-`src/main.ts`
-
-```ts
-```
-
-```
-```
-🐦‍🔥
-👀👇🏻
-👈🏼👀
+El principio abierto-cerrado también se puede lograr de muchas otras maneras, incluso mediante el uso de la herencia o mediante patrones de diseño de composición como el patrón de estrategia.
 
 ### 5.8
 
