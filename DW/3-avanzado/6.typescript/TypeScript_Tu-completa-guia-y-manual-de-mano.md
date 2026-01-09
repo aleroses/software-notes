@@ -6216,7 +6216,61 @@ Recursos de la Lección:
 
 - [curso-typescript-fin-seccion-12.zip](https://import.cdn.thinkific.com/643563/courses/1870132/cursotypescriptfinseccion12-220523-190700.zip)
 
-## 13. 
+## 13. Usando librerías que no están escritas en TypeScript ( Como jQuery )
+
+### 13.1 ¿Qué veremos en esta sección?
+
+Sabemos muy bien que nuestras aplicaciones web, no serán programadas únicamente con TypeScript puro, por lo cual es importante aprender como utilizar librerías de terceros en nuestros proyectos de TypeScript.
+
+Puntualmente aprenderemos sobre:
+
+1. Configuración de un proyecto utilizando el package.json y realizar instalaciones con node.
+    
+2. Utilizar archivos de definiciones "*.d.ts" o Typings
+    
+3. Agregar definiciones de archivos mediante node
+
+### 13.2
+
+``
+
+```ts
+```
+
+
+``
+
+```ts
+```
+
+
+👈🏼👀
+👈🏼👀👇🏼
+🔥
+📌
+☢️
+
+### 13.3
+
+``
+
+```ts
+```
+
+
+``
+
+```ts
+```
+
+
+👈🏼👀
+👈🏼👀👇🏼
+🔥
+📌
+☢️
+
+### 13.4
 
 ``
 
