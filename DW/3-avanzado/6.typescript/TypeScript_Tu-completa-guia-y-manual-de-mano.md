@@ -6230,25 +6230,46 @@ Puntualmente aprenderemos sobre:
     
 3. Agregar definiciones de archivos mediante node
 
-### 13.2
+### 13.2 Inicio de proyecto - Express API
 
-``
+```bash
+mkdir express-api
+cd express-api
+npm init
 
-```ts
+# Termina con enter
+npm i
 ```
 
+`package.json`
 
-``
-
-```ts
+```json
+{
+  "name": "express-api",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "",
+    "start": ""
+  }
+}
 ```
 
+`index.js`
 
-👈🏼👀
-👈🏼👀👇🏼
-🔥
-📌
-☢️
+```js
+console.log('Hi World!!!');
+```
+
+```bash
+node index
+Hi World!!!
+```
 
 ### 13.3
 
