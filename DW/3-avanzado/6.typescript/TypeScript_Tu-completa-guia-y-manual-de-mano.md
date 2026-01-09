@@ -6204,7 +6204,19 @@ charmander.publicApi = 'https://aleroses.com';
 console.log(charmander);
 ```
 
-### 12.8
+### 12.8 Código fuente de la sección
+
+Aquí les dejo el código fuente de la sección por si lo llegan a necesitar en algún momento o bien para compararlo contra el mío
+
+[Github - fin-seccion-12](https://github.com/Klerith/curso-typescript/tree/fin-seccion-12)
+
+También lo pueden descargar del material adjunto.
+
+Recursos de la Lección:
+
+- [curso-typescript-fin-seccion-12.zip](https://import.cdn.thinkific.com/643563/courses/1870132/cursotypescriptfinseccion12-220523-190700.zip)
+
+## 13. 
 
 ``
 
