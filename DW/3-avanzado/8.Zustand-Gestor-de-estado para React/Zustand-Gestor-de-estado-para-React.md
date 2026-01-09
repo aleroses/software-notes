@@ -2429,12 +2429,6 @@ Firebase:
 
 ```
 zustand
-  person-storage
-    state
-      firstName: "Ghost"
-      lastName: "Dark"
-    version: 0
-zustand
 └── person-storage
     ├── state
     │   ├── firstName: "Ghost"
