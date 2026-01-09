@@ -6326,9 +6326,18 @@ tsc index.ts
 
 [Expressjs](https://expressjs.com/)
 
-### 13.4
+### 13.4 Trabajar con TypeScript en lugar de JavaScript
 
-``
+Borra el archivo `index.js` y crea la carpeta `dist`
+
+```bash
+tsc --init
+# tsconfig.json
+```
+
+En el archivo `tsconfig.json` descomenta `"outDir": "./dist",`.
+
+
 
 ```ts
 ```
@@ -6338,6 +6347,8 @@ tsc index.ts
 
 ```ts
 ```
+
+📌 Nota: Recuerda usar `Ctrl + .` sobre los errores para obtener ayuda, incluso puedes intalar cosas necesarias.
 
 
 👈🏼👀

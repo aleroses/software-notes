@@ -2247,33 +2247,208 @@ En Postman al copiar el enlace y añadir `.json` debe aparecer el objeto creado 
 
 ### 3.10 Firebase CustomStorage
 
-```ts
+Estructura:
+
+```bash
+.
+├── .eslintrc.cjs
+├── .gitignore
+├── index.html
+├── package.json
+├── package-lock.json
+├── postcss.config.js
+├── public
+│   ├── screenshot.png
+│   └── vite.svg
+├── README.md
+├── src
+│   ├── assets
+│   │   └── react.svg
+│   ├── components
+│   │   ├── index.ts
+│   │   ├── jira
+│   │   │   └── JiraTasks.tsx
+│   │   └── shared
+│   │       ├── cards
+│   │       │   └── WhiteCard.tsx
+│   │       └── sidemenu
+│   │           ├── SideMenu.css
+│   │           ├── SideMenuItem.tsx
+│   │           └── SideMenu.tsx
+│   ├── index.css
+│   ├── layouts
+│   │   ├── AuthLayout.tsx
+│   │   ├── DashboardLayout.tsx
+│   │   └── index.ts
+│   ├── main.tsx
+│   ├── pages
+│   │   ├── 01-basic
+│   │   │   ├── BearPage.tsx
+│   │   │   └── PersonPage.tsx
+│   │   ├── 02-objects
+│   │   │   └── JiraPage.tsx
+│   │   ├── 03-slices
+│   │   │   └── WeddingInvitationPage.tsx
+│   │   ├── auth
+│   │   │   └── LoginPage.tsx
+│   │   ├── dashboard
+│   │   │   └── DashboardPage.tsx
+│   │   └── index.ts
+│   ├── Root.tsx
+│   ├── router
+│   │   └── router.tsx
+│   ├── stores
+│   │   ├── bears
+│   │   │   └── bears.store.ts
+│   │   ├── person
+│   │   │   └── person.store.ts
+│   │   └── storages 👈🏼👀👇🏻
+│   │       ├── firebase.storage.ts
+│   │       └── session.storage.ts
+│   └── vite-env.d.ts
+├── tailwind.config.js
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
 ```
 
-```ts
-```
+Compilación
+
+- Realtime Database, borra todo lo que se hizo antes.
+- Authentication: Settings/Dominios Autorizados/localhost
+
+Además, borra el session y local storage en el navegador.
+
+`src/stores/storages/firebase.storage.ts`
 
 ```ts
+import {
+  createJSONStorage,
+  StateStorage,
+} from 'zustand/middleware';
+
+// Firebase URL + /zustand
+const firebaseUrl =
+  'https://zustandstoragexd-default-rtdb.firebaseio.com/zustand';
+
+const storageApi: StateStorage = {
+  getItem: async function (
+    name: string
+  ): Promise<string | null> {
+    try {
+      const data = await fetch(
+        `${firebaseUrl}/${name}.json`
+      ).then((res) => res.json());
+      // const data = await response.json();
+
+      console.log(data);
+
+      return JSON.stringify(data);
+    } catch (error) {
+      throw error;
+    }
+  },
+  setItem: async function (
+    name: string,
+    value: string
+  ): Promise<void> {
+    const response = await fetch(
+      `${firebaseUrl}/${name}.json`,
+      {
+        method: 'PUT',
+        body: value,
+        // headers: {
+        //   'Content-Type': 'application/json',
+        // },
+      }
+    ).then((res) => res.json());
+
+    console.log(response);
+
+    return;
+
+    // sessionStorage.setItem(name, value);
+  },
+  removeItem: function (name: string): unknown {
+    console.log('removeItem', name);
+
+    // throw new Error('Function not implemented.');
+    return null;
+  },
+};
+
+export const firebaseStorage = createJSONStorage(
+  () => storageApi
+);
 ```
 
-Compilación Authentication
+`src/stores/person/person.store.ts`
 
-- Comenzar
-- Settings
-- Dominios autorizados
+```ts
+import { create, type StateCreator } from 'zustand';
+import { persist } from 'zustand/middleware';
+import { firebaseStorage } from '../storages/firebase.storage';
 
-👈🏼👀
-👈🏼👀👇🏻
-📌
-➕
+interface PersonState {
+  firstName: string;
+  lastName: string;
+
+  // setFistName: (value: string) => void;
+  // setLastName: (value: string) => void;
+}
+
+interface Actions {
+  setFirstName: (value: string) => void;
+  setLastName: (value: string) => void;
+}
+
+const storeAPI: StateCreator<PersonState & Actions> = (
+  set
+) => ({
+  firstName: '',
+  lastName: '',
+  setFirstName: (value: string) =>
+    set((state) => ({ firstName: value })),
+  setLastName: (value: string) =>
+    set((state) => ({ lastName: value })),
+});
+
+export const usePersonStore = create<PersonState & Actions>()(
+  persist(storeAPI, {
+    name: 'person-storage', // el name que usa sessionStorage arriba
+    storage: firebaseStorage,
+  })
+);
+```
+
+En nuestra web/Persona debe salir `null` escribimos algo en los campos Nombres y Apellidos para ver cambios en la consola y en Firebase.
+
+Puedes cambiar los datos en Firebase y se verán reflejados en nuestra web.
+
+En Firebase
+
+```
+zustand
+	person-storage
+		state
+			firstName: "Ghost"
+			lastName: "Dark"
+		version: 0
+```
 
 ### 3.11
 
-```ts
-```
+``
 
 ```ts
 ```
+
+``
+
+```ts
+```
+
+``
 
 ```ts
 ```
@@ -2285,11 +2460,17 @@ Compilación Authentication
 
 ### 3.12
 
-```ts
-```
+``
 
 ```ts
 ```
+
+``
+
+```ts
+```
+
+``
 
 ```ts
 ```
@@ -2301,11 +2482,17 @@ Compilación Authentication
 
 ### 3.13
 
-```ts
-```
+``
 
 ```ts
 ```
+
+``
+
+```ts
+```
+
+``
 
 ```ts
 ```
@@ -2317,11 +2504,17 @@ Compilación Authentication
 
 ### 3.14
 
-```ts
-```
+``
 
 ```ts
 ```
+
+``
+
+```ts
+```
+
+``
 
 ```ts
 ```
