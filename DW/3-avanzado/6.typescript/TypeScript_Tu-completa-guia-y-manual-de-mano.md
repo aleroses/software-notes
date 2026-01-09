@@ -6271,25 +6271,60 @@ node index
 Hi World!!!
 ```
 
-### 13.3
+### 13.3 Creando un Rest API con Express
 
-``
+Entra en Expressjs y ve a `Getting started/Installing`
 
-```ts
+```bash
+npm install express
+npm install -g typescript
 ```
 
+[Next: Express "Hello World" example](https://expressjs.com/en/starter/hello-world.html)
 
-``
+`index.js`
 
 ```ts
+const express = require('express');
+const app = express();
+const port = 3000;
+
+app.get('/', (req, res) => {
+  // Display message
+  // res.send('Hello World!');
+
+  // Display object
+  res.json({
+    ok: true,
+    msg: 'So far, so good!',
+  });
+});
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});
 ```
 
+Para ver cada cambio usa `Ctrl + C` y nuevamente `node index.js`.
 
-👈🏼👀
-👈🏼👀👇🏼
-🔥
-📌
-☢️
+```bash
+node index.js
+Example app listening on port 3000
+
+# Ctrl + C
+# http://localhost:3000/
+```
+
+DevTools: Network/Headers/304 GET localhost.../Content-Type
+
+Cambia `index.js` por `index.ts`
+
+```bash
+tsc index.ts
+# Error + Create index.js file
+```
+
+[Expressjs](https://expressjs.com/)
 
 ### 13.4
 
