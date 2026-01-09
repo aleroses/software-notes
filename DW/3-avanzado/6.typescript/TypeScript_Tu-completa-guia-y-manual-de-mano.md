@@ -6083,25 +6083,126 @@ Consideraciones
 - **Configuración**: Debes habilitar los decoradores en tu `tsconfig.json` (ej: `"experimentalDecorators": true`) para usarlos.
 - **Tipos**: Existen decoradores para clases, métodos, propiedades y parámetros, cada uno con sus propios argumentos.
 
-### 12.7
+### 12.7 Decoradores de propiedades
 
-``
-
-```ts
-```
-
-
-``
+`src/decorators/pokemon-class.ts`
 
 ```ts
+function printToConsole(constructor: Function) {
+  console.log(constructor);
+}
+
+const printToConsoleConditional = (
+  print: boolean = false
+): Function => {
+  if (print) {
+    return printToConsole;
+  }
+
+  return () => {};
+};
+
+const bloquearPrototipo = function (constructor: Function) {
+  Object.seal(constructor);
+  Object.seal(constructor.prototype);
+};
+
+function CheckValidPokemonId() {
+  return function (
+    target: any, // parent class constructor and method
+    propertyKey: string, // method name: savePokemonToDB
+    // configurable enumerable writable value
+    descriptor: PropertyDescriptor
+  ) {
+    const originalMethod = descriptor.value;
+
+    // descriptor.value = () => console.log('Hi World!!!');
+    // Se dispara con los argumentos de savePokemonToDB
+    descriptor.value = (id: number) => {
+      if (id < 1 || id > 800) {
+        return console.error(
+          'The Pokemon Id must be between 1 and 800. '
+        );
+      }
+
+      return originalMethod(id);
+    };
+    console.log({ target, propertyKey, descriptor });
+  };
+}
+
+function readonly(isWritable: boolean = true): Function {
+  // el "descriptor" solo aplica al decorar métodos, no propiedades
+  return function (
+    target: any,
+    propertyKey: string
+    // descriptor: PropertyDecorator (devuelve undefined)
+  ) {
+    const descriptor: PropertyDescriptor = {
+      get() {
+        console.log(this, 'getter');
+
+        return 'Ale';
+      },
+      set(this, value) {
+        // console.log(this, value);
+        Object.defineProperty(this, propertyKey, {
+          value: value,
+          writable: !isWritable,
+          enumerable: false,
+        });
+      },
+    };
+
+    return descriptor;
+  };
+}
+
+@bloquearPrototipo
+@printToConsoleConditional(false)
+export class Pokemon {
+  @readonly(true)
+  public publicApi: string = 'https://pokeapi.co/api/v2/';
+  constructor(public name: string) {}
+
+  @CheckValidPokemonId()
+  savePokemonToDB(id: number) {
+    console.log(`Pokemon saved in the database ${id}`);
+  }
+}
+
+// Este decorador se ejecuta al definir la clase
+
+/* 
+Decoradores en Ts
+
+Son funciones especiales, que sirven para anotar, amplicar o modificar el comportamiento de:
+
+- Métodos
+- Clases
+- Propiedades
+- Parametros
+
+En tiempo de diseño o ejecución.
+*/
 ```
 
+`src/index.ts`
 
-👈🏼👀
-👈🏼👀👇🏼
-🔥
-📌
-☢️
+```ts
+import { Pokemon } from './decorators/pokemon-class';
+
+const charmander = new Pokemon('Charmander');
+
+// Error:
+// (Pokemon.prototype as any).customName = 'Pikachu';
+
+// console.log(charmander.savePokemonToDB(50));
+// charmander.savePokemonToDB(50);
+
+charmander.publicApi = 'https://aleroses.com';
+console.log(charmander);
+```
 
 ### 12.8
 
