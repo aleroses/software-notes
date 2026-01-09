@@ -2425,15 +2425,15 @@ En nuestra web/Persona debe salir `null` escribimos algo en los campos Nombres y
 
 Puedes cambiar los datos en Firebase y se verán reflejados en nuestra web.
 
-En Firebase
+Firebase:
 
 ```
 zustand
-	person-storage
-		state
-			firstName: "Ghost"
-			lastName: "Dark"
-		version: 0
+  person-storage
+    state
+      firstName: "Ghost"
+      lastName: "Dark"
+    version: 0
 ```
 
 ### 3.11
