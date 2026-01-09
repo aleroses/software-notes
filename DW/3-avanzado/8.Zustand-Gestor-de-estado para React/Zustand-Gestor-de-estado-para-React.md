@@ -2314,7 +2314,7 @@ Estructura:
 
 Compilación
 
-- Realtime Database, borra todo lo que se hizo antes.
+- Realtime Database, entra y borra todo lo que se hizo antes.
 - Authentication: Settings/Dominios Autorizados/localhost
 
 Además, borra el session y local storage en el navegador.
