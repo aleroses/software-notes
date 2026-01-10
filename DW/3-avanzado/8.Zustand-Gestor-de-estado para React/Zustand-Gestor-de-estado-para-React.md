@@ -2438,19 +2438,226 @@ zustand
 
 ### 3.11 Persist Middleware - Consideraciones
 
-``
+Condición de carrera
+
+`src/stores/storages/firebase.storage.ts`
 
 ```ts
+import {
+  createJSONStorage,
+  StateStorage,
+} from 'zustand/middleware';
+
+// Firebase URL + /zustand
+const firebaseUrl =
+  'https://zustandstoragexd-default-rtdb.firebaseio.com/zustand';
+
+const storageApi: StateStorage = {
+  getItem: async function (
+    name: string
+  ): Promise<string | null> {
+    try {
+      const data = await fetch(
+        `${firebaseUrl}/${name}.json`
+      ).then((res) => res.json());
+      // const data = await response.json();
+
+      console.log(data);
+
+      return JSON.stringify(data);
+    } catch (error) {
+      throw error;
+    }
+  },
+  setItem: async function (
+    name: string,
+    value: string
+  ): Promise<void> {
+    await fetch(`${firebaseUrl}/${name}.json`, { // 👈🏼👀👇🏻
+      method: 'PUT',
+      body: value,
+      // headers: {
+      //   'Content-Type': 'application/json',
+      // },
+    }).then((res) => res.json());
+
+    console.count('setItem');
+
+    return;
+
+    // sessionStorage.setItem(name, value);
+  },
+  removeItem: function (name: string): unknown {
+    console.log('removeItem', name);
+
+    // throw new Error('Function not implemented.');
+    return null;
+  },
+};
+
+export const firebaseStorage = createJSONStorage(
+  () => storageApi
+);
 ```
 
-``
+`src/stores/bears/bears.store.ts`
 
 ```ts
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+
+interface Bear {
+  id: number;
+  name: string;
+}
+
+interface BearState {
+  blackBears: number;
+  polarBears: number;
+  pandaBears: number;
+
+  bears: Bear[];
+
+  totalBears: () => number; // 👈🏼👀
+
+  increaseBlackBears: (by: number) => void;
+  increasePolarBears: (by: number) => void;
+  increasePandaBears: (by: number) => void;
+
+  doNothing: () => void;
+  addBear: () => void;
+  clearBears: () => void;
+}
+
+export const useBearStore = create<BearState>()(
+  persist(
+    (set, get) => ({
+      blackBears: 10,
+      polarBears: 5,
+      pandaBears: 1,
+
+      bears: [{ id: 1, name: 'Oso #1' }],
+
+      totalBears: () => { // 👈🏼👀👇🏻
+        return (
+          get().blackBears +
+          get().polarBears +
+          get().pandaBears +
+          get().bears.length
+        );
+      },
+
+      increaseBlackBears: (by: number) =>
+        set((state) => ({
+          blackBears: state.blackBears + by,
+        })),
+      increasePolarBears: (by: number) =>
+        set((state) => ({
+          polarBears: state.polarBears + by,
+        })),
+      increasePandaBears: (by: number) =>
+        set((state) => ({
+          pandaBears: state.pandaBears + by,
+        })),
+
+      doNothing: () =>
+        set((state) => ({ bears: [...state.bears] })),
+      addBear: () =>
+        set((state) => ({
+          bears: [
+            ...state.bears,
+            {
+              id: state.bears.length + 1,
+              name: `Oso #${state.bears.length + 1}`,
+            },
+          ],
+        })),
+      clearBears: () => set({ bears: [] }),
+    }),
+    {
+      name: 'bears-store',
+    }
+  )
+);
 ```
 
-``
+`src/pages/dashboard/DashboardPage.tsx`
 
-```ts
+```tsx
+import {
+  IoAccessibilityOutline,
+  IoHeartOutline,
+  IoListOutline,
+  IoLockClosedOutline,
+  IoPawOutline,
+} from 'react-icons/io5';
+import { WhiteCard } from '../../components';
+import { useBearStore } from '../../stores/bears/bears.store';
+import { usePersonStore } from '../../stores/person/person.store';
+
+export const Dashboard = () => {
+  const totalBears = useBearStore(
+    (state) => state.totalBears
+  );
+  const firstName = usePersonStore(
+    (state) => state.firstName
+  );
+
+  return (
+    <>
+      <h1>Dashboard</h1>
+      <p>Información colectiva de varios stores de Zustand</p>
+      <hr />
+
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4'>
+        <WhiteCard centered>
+          <IoPawOutline
+            size={50}
+            className='text-indigo-600'
+          />
+          <h2>Osos</h2>
+          <p>{totalBears()}</p>
+        </WhiteCard>
+
+        <WhiteCard centered>
+          <IoAccessibilityOutline
+            size={50}
+            className='text-indigo-600'
+          />
+          <h2>Persona</h2>
+          <p>{firstName}</p>
+        </WhiteCard>
+
+        <WhiteCard centered>
+          <IoListOutline
+            size={50}
+            className='text-indigo-600'
+          />
+          <h2>Tareas</h2>
+          <p>Información</p>
+        </WhiteCard>
+
+        <WhiteCard centered>
+          <IoHeartOutline
+            size={50}
+            className='text-indigo-600'
+          />
+          <h2>Boda</h2>
+          <p>Información</p>
+        </WhiteCard>
+
+        <WhiteCard centered>
+          <IoLockClosedOutline
+            size={50}
+            className='text-indigo-600'
+          />
+          <h2>Auth</h2>
+          <p>Información</p>
+        </WhiteCard>
+      </div>
+    </>
+  );
+};
 ```
 
 👈🏼👀
