@@ -2436,7 +2436,7 @@ zustand
     └── version: 0
 ```
 
-### 3.11
+### 3.11 Persist Middleware - Consideraciones
 
 ``
 

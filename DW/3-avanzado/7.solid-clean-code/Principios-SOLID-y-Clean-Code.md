@@ -2329,25 +2329,143 @@ El principio abierto-cerrado también se puede lograr de muchas otras maneras, i
 
 ### 5.8 Ejercicio de OCP
 
-```js
-// Bad ❌
+Estructura:
+
+```bash
+.
+├── .DS_Store
+├── favicon.svg
+├── .gitignore
+├── index.html
+├── package.json
+├── package-lock.json
+├── README.md
+├── src
+│   ├── clean-code
+│   │   ├── 01-names.ts
+│   │   ├── 02.names-types.ts
+│   │   ├── 03.functions.ts
+│   │   ├── 04.homework.ts
+│   │   ├── 05-dry.ts
+│   │   ├── 06.classes-a.ts
+│   │   ├── 06.classes-b.ts
+│   │   ├── 06.classes-c.ts
+│   │   ├── 07.delete.ts
+│   │   ├── 07.tarea.ts
+│   │   └── class.ts
+│   ├── code-smells
+│   │   ├── 01-singleton.js
+│   │   ├── 02-high-coupling.ts
+│   │   └── 02-low-coupling.ts
+│   ├── main.ts
+│   ├── solid 👀👇🏻
+│   │   ├── 01-srp.ts
+│   │   ├── 02-open-close-a.ts
+│   │   ├── 02-open-close-b.ts
+│   │   └── 02-open-close-c.ts
+│   ├── style.css
+│   └── vite-env.d.ts
+└── tsconfig.json
 ```
 
-```js
-// Better 👍
+`src/solid/02-open-close-a.ts`
 
+```ts
+import {
+  PhotosService,
+  PostService,
+  TodoService,
+} from './02-open-close-b';
+import { HttpClient } from './02-open-close-c';
+
+(async () => {
+  const httpClient = new HttpClient();
+
+  const todoService = new TodoService(httpClient);
+  const postService = new PostService(httpClient);
+  const photosService = new PhotosService(httpClient);
+
+  const todos = await todoService.getTodoItems();
+  const posts = await postService.getPosts();
+  const photos = await photosService.getPhotos();
+
+  console.log({ todos, posts, photos });
+})();
+```
+
+`src/solid/02-open-close-b.ts`
+
+```ts
+// Hay que agregar la dependencia de axios ```yarn add axios```
+// import axios from 'axios';
+
+import { HttpClient } from './02-open-close-c';
+
+export class TodoService {
+  constructor(private http: HttpClient) {}
+
+  async getTodoItems() {
+    const { data } = await this.http.get(
+      'https://jsonplaceholder.typicode.com/todos/'
+    );
+    return data;
+  }
+}
+
+export class PostService {
+  constructor(private http: HttpClient) {}
+
+  async getPosts() {
+    const { data } = await this.http.get(
+      'https://jsonplaceholder.typicode.com/posts'
+    );
+    return data;
+  }
+}
+
+export class PhotosService {
+  constructor(private http: HttpClient) {}
+
+  async getPhotos() {
+    const { data } = await this.http.get(
+      'https://jsonplaceholder.typicode.com/photos'
+    );
+    return data;
+  }
+}
+```
+
+`src/solid/02-open-close-c.ts`
+
+```ts
+import axios from 'axios';
+
+export class HttpClient {
+  async get(url: string) {
+    const { data, status } = await axios.get(url);
+
+    // console.log({ status });
+
+    return { data, status };
+  }
+}
 ```
 
 `src/main.ts`
 
 ```ts
+import './style.css';
+import './solid/02-open-close-a';
+
+const app = document.querySelector<HTMLDivElement>('#app')!;
+
+app.innerHTML = `
+  <h1>CleanCode y SOLID</h1>
+  <span>Revisar la consola de JavaScript</span>
+`;
 ```
 
-```
-```
-🐦‍🔥
-👀👇🏻
-👈🏼👀
+[Gist: Ejercicio Open and Close](https://gist.github.com/Klerith/6e23c35f9c00bf216ced71b04cfe4fbe)
 
 ### 5.9
 
