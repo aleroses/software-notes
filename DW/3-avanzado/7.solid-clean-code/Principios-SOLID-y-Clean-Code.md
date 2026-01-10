@@ -2467,7 +2467,15 @@ app.innerHTML = `
 
 [Gist: Ejercicio Open and Close](https://gist.github.com/Klerith/6e23c35f9c00bf216ced71b04cfe4fbe)
 
-### 5.9
+### 5.9 Remover la dependencia de Axios
+
+```bash
+# para dependencias normales
+npm uninstall <nombre-del-paquete>
+
+# para dependencias de desarrollo (node_modules)
+npm uninstall -D <nombre-del-paquete>
+```
 
 ```js
 // Bad ❌
