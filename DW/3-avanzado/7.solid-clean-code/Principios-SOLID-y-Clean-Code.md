@@ -2654,27 +2654,115 @@ app.innerHTML = `
 
 [Material para el ejercicio de LSP](https://gist.github.com/Klerith/f691b27c2a1d799e304fbae9a8ebc12b)
 
-### 5.13
+### 5.13 Solución aplicando los principios OCP y LSP
 
-```js
-// Bad ❌
-```
-
-```js
-// Better 👍
-
-```
-
-`src/main.ts`
+`src/solid/03-liskov-a.ts`
 
 ```ts
+import {
+  Tesla,
+  Audi,
+  Toyota,
+  Honda,
+  Volvo,
+  Vehicle,
+  Ford,
+} from './03-liskov-b';
+
+(() => {
+  const printCarSeats = (cars: Vehicle[]) => {
+    cars.forEach((car) => {
+      console.log(
+        car.constructor.name,
+        car.getNumberOfSeats()
+      );
+    });
+  };
+
+  const cars = [
+    new Tesla(7),
+    new Audi(2),
+    new Toyota(5),
+    new Honda(5),
+    new Volvo(2),
+    new Ford(2),
+  ];
+
+  printCarSeats(cars);
+})();
 ```
 
+`src/solid/03-liskov-b.ts`
+
+```js
+export abstract class Vehicle {
+  // getNumberOfSeats(): number {
+  //   throw Error("Method not implemented!")
+  // }
+
+  abstract getNumberOfSeats(): number;
+}
+
+export class Tesla extends Vehicle {
+  constructor(private numberOfSeats: number) {
+    super();
+  }
+
+  getNumberOfSeats() {
+    return this.numberOfSeats;
+  }
+}
+
+export class Audi extends Vehicle {
+  constructor(private numberOfSeats: number) {
+    super();
+  }
+
+  getNumberOfSeats() {
+    return this.numberOfSeats;
+  }
+}
+
+export class Toyota extends Vehicle {
+  constructor(private numberOfSeats: number) {
+    super();
+  }
+
+  getNumberOfSeats() {
+    return this.numberOfSeats;
+  }
+}
+
+export class Honda extends Vehicle {
+  constructor(private numberOfSeats: number) {
+    super();
+  }
+
+  getNumberOfSeats() {
+    return this.numberOfSeats;
+  }
+}
+
+export class Volvo extends Vehicle {
+  constructor(private numberOfSeats: number) {
+    super();
+  }
+
+  getNumberOfSeats() {
+    return this.numberOfSeats;
+  }
+}
+
+export class Ford extends Vehicle {
+  constructor(private numberOfSeats: number) {
+    super();
+  }
+
+  getNumberOfSeats() {
+    return this.numberOfSeats;
+  }
+}
 ```
-```
-🐦‍🔥
-👀👇🏻
-👈🏼👀
 
 ### 5.14
 
