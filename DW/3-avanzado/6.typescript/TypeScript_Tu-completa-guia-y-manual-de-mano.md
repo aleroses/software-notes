@@ -6337,19 +6337,64 @@ tsc --init
 
 En el archivo `tsconfig.json` descomenta `"outDir": "./dist",`.
 
+Si te sale este error:
 
-
-```ts
+```
+ECMAScript imports and exports cannot be written in a CommonJS file under 'verbatimModuleSyntax'. Adjust the 'type' field in the nearest 'package.json' to make this file an ECMAScript module, or adjust your 'verbatimModuleSyntax', 'module', and 'moduleResolution' settings in TypeScript.
 ```
 
+Abre el archivo `package.json` y cambia `"type": "commonjs",` por `"type": "module",`.
 
-``
+`index.ts`
 
 ```ts
+import express from 'express';
+
+const app = express();
+const port = 3000;
+
+app.get('/', (req, res) => {
+  // Display message
+  // res.send('Hello World!');
+
+  res.status(401).json({
+    ok: false,
+    msg: "There isn't any token in the request",
+  });
+
+  // Display object
+  // res.json({
+  //   ok: true,
+  //   msg: 'So far, so good!',
+  // });
+});
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
+});
+```
+
+Ejecuta `tsc` en la terminal, verás el archivo `index.js` dentro de `dist`.
+
+Ejecuta `node dist/index.js` para revisar la web.
+
+```bash
+# http://localhost:3000/
+```
+
+Verás un objeto json.
+
+Para refrescar los cambios constantemente usa:
+
+```bash
+tsc -w
+
+node dist/index
 ```
 
 📌 Nota: Recuerda usar `Ctrl + .` sobre los errores para obtener ayuda, incluso puedes intalar cosas necesarias.
 
+## 14. 
 
 👈🏼👀
 👈🏼👀👇🏼
