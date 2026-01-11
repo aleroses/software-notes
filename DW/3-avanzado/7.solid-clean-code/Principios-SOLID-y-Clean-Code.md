@@ -2764,27 +2764,23 @@ export class Ford extends Vehicle {
 }
 ```
 
-### 5.14
+### 5.14 Principio de segregación de interfaz
 
-```js
-// Bad ❌
-```
+"Los clientes no deberían estar obligados a depender de interfaces que no utilicen".
 
-```js
-// Better 👍
+Robert C. Martin
 
-```
+El Principio de Segregación de Interfaces (ISP) de SOLID dice que **los clientes no deben ser forzados a depender de métodos que no usan**, lo que significa que las interfaces deben ser pequeñas, específicas y enfocadas en un único rol o comportamiento, en lugar de grandes interfaces genéricas que obligan a las clases a implementar funcionalidades irrelevantes, promoviendo así un código más limpio, flexible y mantenible. 
 
-`src/main.ts`
+En resumen:
 
-```ts
-```
+- **Interfaces específicas:** En lugar de una interfaz `CRUD` gigante (Crear, Leer, Actualizar, Eliminar), crea interfaces más pequeñas como `IReader`, `IWriter`, `IDelete`, etc..
+- **No obligar a implementar:** Una clase solo debe implementar los métodos que realmente necesita, evitando métodos vacíos o que lancen excepciones.
+- **Evitar acoplamiento:** Reduce dependencias innecesarias, haciendo el sistema más robusto y fácil de modificar, como en el ejemplo de animales que no todos pueden correr o hablar. 
 
-```
-```
-🐦‍🔥
-👀👇🏻
-👈🏼👀
+Ejemplo práctico (analogía):
+
+Imagina un control remoto universal (gran interfaz) para todos los dispositivos (TV, DVD, Blu-ray). Si solo quieres controlar la TV, te ves obligado a lidiar con botones para DVD y Blu-ray que no usas (ISP violado). La solución es tener controles remotos separados para cada dispositivo (interfaces segregadas).
 
 ### 5.15
 
