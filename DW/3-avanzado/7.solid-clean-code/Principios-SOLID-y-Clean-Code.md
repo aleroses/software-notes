@@ -2470,32 +2470,25 @@ app.innerHTML = `
 ### 5.9 Remover la dependencia de Axios
 
 ```bash
-# para dependencias normales
+# Remover dependencias normales
 npm uninstall <nombre-del-paquete>
 
-# para dependencias de desarrollo (node_modules)
+# Remover dependencias de desarrollo (node_modules)
 npm uninstall -D <nombre-del-paquete>
 ```
 
-```js
-// Bad ❌
-```
+`src/solid/02-open-close-c.ts`
 
 ```js
-// Better 👍
+export class HttpClient {
+  async get(url: string) {
+    const resp = await fetch(url);
+    const data = await resp.json();
 
+    return { data, status: resp.status };
+  }
+}
 ```
-
-`src/main.ts`
-
-```ts
-```
-
-```
-```
-🐦‍🔥
-👀👇🏻
-👈🏼👀
 
 ### 5.10
 
