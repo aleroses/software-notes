@@ -2539,27 +2539,120 @@ Ejemplo de violación (el Pato)
 - **Facilita el polimorfismo:** Permite usar objetos de distintas clases de forma uniforme.
 - **Mejora el diseño:** Fomenta jerarquías de clases más robustas y lógicas.
 
-### 5.12
+### 5.12 Ejercicio - Substitución de Liskov
+
+`src/solid/03-liskov-a.ts`
 
 ```js
 // Bad ❌
+import {
+  Tesla,
+  Audi,
+  Toyota,
+  Honda,
+  Volvo,
+} from './03-liskov-b';
+
+(() => {
+  const printCarSeats = (
+    cars: (Tesla | Audi | Toyota | Honda | Volvo)[]
+  ) => {
+    for (const car of cars) {
+      if (car instanceof Tesla) {
+        console.log('Tesla', car.getNumberOfTeslaSeats());
+        continue;
+      }
+      if (car instanceof Audi) {
+        console.log('Audi', car.getNumberOfAudiSeats());
+        continue;
+      }
+      if (car instanceof Toyota) {
+        console.log('Toyota', car.getNumberOfToyotaSeats());
+        continue;
+      }
+      if (car instanceof Honda) {
+        console.log('Honda', car.getNumberOfHondaSeats());
+        continue;
+      }
+      if (car instanceof Volvo) {
+        console.log('Volvo', car.getNumberOfVolvoSeats());
+        continue;
+      }
+    }
+  };
+
+  const cars = [
+    new Tesla(7),
+    new Audi(2),
+    new Toyota(5),
+    new Honda(5),
+    new Volvo(2),
+  ];
+
+  printCarSeats(cars);
+})();
 ```
 
-```js
-// Better 👍
+`src/solid/03-liskov-b.ts`
 
+```js
+// Bad ❌
+export class Tesla {
+  constructor(private numberOfSeats: number) {}
+
+  getNumberOfTeslaSeats() {
+    return this.numberOfSeats;
+  }
+}
+
+export class Audi {
+  constructor(private numberOfSeats: number) {}
+
+  getNumberOfAudiSeats() {
+    return this.numberOfSeats;
+  }
+}
+
+export class Toyota {
+  constructor(private numberOfSeats: number) {}
+
+  getNumberOfToyotaSeats() {
+    return this.numberOfSeats;
+  }
+}
+
+export class Honda {
+  constructor(private numberOfSeats: number) {}
+
+  getNumberOfHondaSeats() {
+    return this.numberOfSeats;
+  }
+}
+
+export class Volvo {
+  constructor(private numberOfSeats: number) {}
+
+  getNumberOfVolvoSeats() {
+    return this.numberOfSeats;
+  }
+}
 ```
 
 `src/main.ts`
 
 ```ts
+import './style.css';
+import './solid/03-liskov-a';
+
+const app = document.querySelector<HTMLDivElement>('#app')!;
+
+app.innerHTML = `
+  <h1>CleanCode y SOLID</h1>
+  <span>Revisar la consola de JavaScript</span>
+`;
 ```
 
-```
-```
-🐦‍🔥
-👀👇🏻
-👈🏼👀
+[Material para el ejercicio de LSP](https://gist.github.com/Klerith/f691b27c2a1d799e304fbae9a8ebc12b)
 
 ### 5.13
 
