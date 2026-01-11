@@ -2310,7 +2310,7 @@ Open and Close: Abierto y cerrado.
 
 Es un principio que depende mucho del contexto.
 
-Establece que las entidades de software (clases, módulos, métodos, etc.) deben estar abiertas para la extensión, pero cerradas para la modificación.
+Establece que las entidades de software (clases, módulos, métodos, etc.) deben estar abiertas para la extensión, pero cerradas para la modificación, permitiendo añadir nueva funcionalidad sin alterar el código existente y así evitar errores y mejorar la mantenibilidad.
 
 La forma más sencilla de demostrar este principio es considerar un método que hace una cosa.
 
@@ -2326,6 +2326,22 @@ writeFile("hola.txt") writeFile("adios.txt");
 ```
 
 El principio abierto-cerrado también se puede lograr de muchas otras maneras, incluso mediante el uso de la herencia o mediante patrones de diseño de composición como el patrón de estrategia.
+
+¿Cómo funciona?
+
+- **Abierto para extensión:** Puedes añadir nuevos comportamientos o características a tu clase o módulo.
+- **Cerrado para modificación:** No necesitas cambiar el código fuente de la clase existente para implementar esas nuevas funcionalidades. 
+
+¿Cómo se implementa?
+
+- **Interfaces y Polimorfismo:** Definiendo interfaces claras y usando polimorfismo para que nuevas implementaciones se puedan enchufar sin tocar el código original.
+- **Clases Abstractas:** Usando clases abstractas que definen un método, y luego creando clases concretas que heredan de ella e implementan ese método. 
+
+Ejemplo Práctico
+
+Imagina una clase `Calculadora` que suma. Si quieres añadir una función de resta sin modificar la clase `Calculadora` original, podrías crear una interfaz `Operacion` y una clase `Suma` que la implemente, y una `Resta` que también la implemente, permitiendo que tu código principal trabaje con la interfaz `Operacion` y pueda usar cualquiera de las dos sin cambios.
+
+**En resumen:** El OCP es crucial para construir sistemas flexibles que se adapten a nuevos requisitos sin romper lo que ya funciona, basándose en la reutilización y la estabilidad del código.
 
 ### 5.8 Ejercicio de OCP
 
@@ -2490,7 +2506,7 @@ export class HttpClient {
 }
 ```
 
-### 5.10
+### 5.10 Detectar violaciones de OCP
 
 ```js
 // Bad ❌
