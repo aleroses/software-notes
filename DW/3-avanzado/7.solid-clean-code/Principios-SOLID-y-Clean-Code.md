@@ -2510,27 +2510,34 @@ export class HttpClient {
 
 Para detectar violaciones de SOLID, especialmente el **Principio Abierto/Cerrado (OCP)**, busca clases que se modifican constantemente para añadir nuevas funcionalidades (señal de que no están cerradas a cambios), uso excesivo de `if/else` o `switch` para manejar diferentes tipos, y la necesidad de cambiar múltiples clases para agregar algo nuevo; en general, la clase no está **abierta para extensión pero cerrada para modificación**, y las herramientas como **SonarQube** pueden ayudar a identificar patrones de violaciones automáticamente.
 
-### 5.11
+### 5.11 Principio de Substitución de Liskov
 
-```js
-// Bad ❌
-```
+"Las funciones que utilicen punteros o referencias a clases base deben ser capaces de usar objetos de clases derivadas sin saberlo".
 
-```js
-// Better 👍
+Robert C. Martin
 
-```
+"Siendo U un subtipo de T, cualquier instancia de T debería poder ser sustituida por cualquier instancia de U sin alterar las propiedades del sistema".
 
-`src/main.ts`
+El Principio de Sustitución de Liskov (LSP) es un principio SOLID que dice que **las subclases deben poder sustituir a sus clases padre sin romper el programa**; es decir, si tienes una función que espera un objeto de una clase base, debe funcionar correctamente con cualquier objeto de una clase derivada sin que el comportamiento del código se altere, garantizando que las clases hijas no modifiquen o violen los contratos (métodos, precondiciones, postcondiciones) de la clase padre, como el famoso ejemplo del "Pato" que no puede volar.
 
-```ts
-```
+Claves del LSP
 
-```
-```
-🐦‍🔥
-👀👇🏻
-👈🏼👀
+- **Intercambiabilidad:** Los objetos de una subclase deben ser completamente sustituibles por objetos de la superclase.
+- **Comportamiento consistente:** Las clases hijas deben heredar y mantener los comportamientos esperados de la clase padre.
+- **No violar el contrato:** Una subclase no debe modificar el comportamiento de la clase padre de forma que el código que la usa falle. Esto incluye no lanzar excepciones nuevas no esperadas, no restringir los parámetros de entrada, y no cambiar las reglas de retorno. 
+
+Ejemplo de violación (el Pato)
+
+- **Clase Padre:** `Ave` con método `volar()`.
+- **Subclase `Pato`:** Hereda `volar()`.
+- **Problema:** Si `Pato` no puede volar, implementarlo vacío o lanzando un error viola el LSP, porque rompe el comportamiento esperado por el código que usa `Ave`.
+- **Solución:** Replantear la jerarquía, quizás creando una clase `AveQueVuela`. 
+
+¿Por qué es importante?
+
+- **Previene errores:** Evita comportamientos inesperados y fallos en tiempo de ejecución al usar herencia.
+- **Facilita el polimorfismo:** Permite usar objetos de distintas clases de forma uniforme.
+- **Mejora el diseño:** Fomenta jerarquías de clases más robustas y lógicas.
 
 ### 5.12
 
