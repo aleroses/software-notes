@@ -2508,25 +2508,7 @@ export class HttpClient {
 
 ### 5.10 Detectar violaciones de OCP
 
-```js
-// Bad ❌
-```
-
-```js
-// Better 👍
-
-```
-
-`src/main.ts`
-
-```ts
-```
-
-```
-```
-🐦‍🔥
-👀👇🏻
-👈🏼👀
+Para detectar violaciones de SOLID, especialmente el **Principio Abierto/Cerrado (OCP)**, busca clases que se modifican constantemente para añadir nuevas funcionalidades (señal de que no están cerradas a cambios), uso excesivo de `if/else` o `switch` para manejar diferentes tipos, y la necesidad de cambiar múltiples clases para agregar algo nuevo; en general, la clase no está **abierta para extensión pero cerrada para modificación**, y las herramientas como **SonarQube** pueden ayudar a identificar patrones de violaciones automáticamente.
 
 ### 5.11
 
