@@ -2806,29 +2806,47 @@ class Humminbird implements Bird {
 }
 ```
 
-### 5.16
+### 5.16 Aplicar el principio de segregación de interfaz
 
 `src/solid/04-segregation.ts`
 
 ```js
-// Bad ❌
-```
+interface Bird {
+  eat(): void;
+}
 
-```js
-// Better 👍
+interface FlyingBird {
+  fly(): void;
+}
 
-```
+interface RunningBird {
+  run(): void;
+}
 
-`src/main.ts`
+interface SwimmerBird {
+  swim(): void;
+}
 
-```ts
-```
+class Tucan implements Bird, FlyingBird {
+  public fly() {}
+  public eat() {}
+}
 
+class Humminbird implements Bird, FlyingBird {
+  public fly() {}
+  public eat() {}
+}
+
+class Ostrich implements Bird, RunningBird {
+  public eat() {}
+  public run() {}
+}
+
+class Penguin implements Bird, SwimmerBird {
+  public eat() {}
+  public swim() {}
+}
 ```
-```
-🐦‍🔥
-👀👇🏻
-👈🏼👀
 
 ### 5.17
 
