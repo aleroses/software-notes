@@ -1370,6 +1370,53 @@ En TypeScript, `never` representa un valor que **nunca ocurre**. Se usa para fun
 </html>
 ```
 
+En TypeScript, tanto `null` como `undefined` representan la ausencia de un valor, pero se diferencian principalmente en su **intencionalidad** y cómo aparecen en el código. 
+
+- `undefined`: Indica que una variable ha sido **declarada, pero aún no se le ha asignado un valor**. Suele ser el valor predeterminado o automático para parámetros opcionales, propiedades de objetos inexistentes o funciones sin un `return` explícito.
+- `null`: Se utiliza para indicar la **ausencia intencional y explícita de un valor**. Es un valor que el programador asigna deliberadamente para declarar que una variable o propiedad está "vacía" o "desconocida" en un momento dado, pero se espera que eventualmente pueda tener un valor válido. 
+
+Diferencias Clave
+
+|Característica      |`undefined`|`null`|
+|--------------------|-----------|-------|
+|**Significado**     |Valor no asignado/no inicializado.|Ausencia intencional de un valor u objeto.|
+|**Asignación**      |Mayormente automática (por el motor de JS/TS).|Asignado explícitamente por el programador.|
+|**`typeof`**        |`"undefined"`|`"object"` (un error histórico de JavaScript).|
+|**JSON.stringify()**|La propiedad se omite del JSON resultante.|El valor `null` se mantiene en el JSON resultante.|
+
+Uso en TypeScript
+
+La forma en que se manejan `null` y `undefined` en TypeScript depende de la configuración del compilador `strictNullChecks` en el archivo `tsconfig.json`. 
+
+- **Con `strictNullChecks: true` (recomendado):** Los tipos `null` y `undefined` son distintos de otros tipos. Una variable de tipo `string` solo puede ser una cadena. Si también puede ser nula o indefinida, debes indicarlo explícitamente usando una unión de tipos, como `string | null` o `string | undefined`. Esto ayuda a prevenir errores comunes en tiempo de ejecución (`TypeError: Cannot read properties of undefined`).
+- **Con `strictNullChecks: false`:** `null` y `undefined` son considerados subtipos de cualquier otro tipo (por ejemplo, puedes asignar `null` a una variable `number` sin error), lo que reduce la seguridad de tipos. 
+
+Para verificaciones en tu código, la comparación con operador de igualdad débil `== null` es una práctica común, ya que comprueba si un valor es `null` o `undefined` simultáneamente. 
+
+```ts
+let valor: string | null | undefined;
+
+// Comprueba si es null O undefined
+if (valor == null) {
+    console.log("No tiene un valor definido ni nulo"); 
+}
+
+// Comprueba estrictamente solo para undefined
+if (valor === undefined) {
+    // ...
+}
+
+// Comprueba estrictamente solo para null
+if (valor === null) {
+    // ...
+}
+
+null == undefined // true
+null === undefined  // false
+```
+
+Para más detalles sobre cómo configurar tu proyecto, puedes consultar la [documentación oficial de TypeScript](https://www.typescriptlang.org/tsconfig/strictNullChecks.html) sobre `strictNullChecks`.
+
 ### 3.15 Ejercicio práctico #1.
 
 Descargar el archivo adjunto
