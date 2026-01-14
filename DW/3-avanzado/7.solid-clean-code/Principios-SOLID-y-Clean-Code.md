@@ -2848,27 +2848,9 @@ class Penguin implements Bird, SwimmerBird {
 }
 ```
 
-### 5.17
+### 5.17 Detectar violaciones ISP
 
-```js
-// Bad ❌
-```
-
-```js
-// Better 👍
-
-```
-
-`src/main.ts`
-
-```ts
-```
-
-```
-```
-🐦‍🔥
-👀👇🏻
-👈🏼👀
+- Si las interfaces que diseñamos nos obligan a violar los principios de responsabilidad única y substitución de Liskov.
 
 ### 5.18
 
