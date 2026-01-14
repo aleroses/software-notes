@@ -3039,25 +3039,89 @@ app.innerHTML = `
 
 [Ejercicio de Inversión de dependencias](https://gist.github.com/Klerith/29bc2af9e4df3e30cb9ea60d532618e9)
 
-### 5.20
+### 5.20 Mejorando nuestro código
 
-```js
-// Bad ❌
+`src/solid/05-dependecy-a.ts`
+
+```ts
+import { PostService } from './05-dependency-b';
+import { JsonDataBaseService } from './05-dependency-c';
+
+// Main
+(async () => {
+  const provider = new JsonDataBaseService();
+  const postService = new PostService(provider);
+
+  const posts = await postService.getPosts();
+
+  console.log({ posts });
+})();
 ```
 
-```js
-// Better 👍
+`src/solid/05-dependecy-b.ts`
 
+```ts
+import {
+  JsonDataBaseService,
+  LocalDataBaseService,
+} from './05-dependency-c';
+
+export interface Post {
+  body: string;
+  id: number;
+  title: string;
+  userId: number;
+}
+
+export class PostService {
+  private posts: Post[] = [];
+
+  constructor(private postProvider: JsonDataBaseService) {}
+
+  async getPosts() {
+    // const jsonDB = new LocalDataBaseService();
+    // const jsonDB = new JsonDataBaseService();
+    // this.posts = await jsonDB.getPosts();
+    this.posts = await this.postProvider.getPosts();
+
+    return this.posts;
+  }
+}
 ```
 
-```
-```
+`src/solid/05-dependecy-c.ts`
 
+```ts
+import localPosts from '../data/local-database.json';
+
+export class LocalDataBaseService {
+  // constructor() {}
+
+  async getFakePosts() {
+    return [
+      {
+        userId: 1,
+        id: 1,
+        title:
+          'sunt aut facere repellat provident occaecati excepturi optio reprehenderit',
+        body: 'quia et suscipit suscipit recusandae consequuntur expedita et cum reprehenderit molestiae ut ut quas totam nostrum rerum est autem sunt rem eveniet architecto',
+      },
+      {
+        userId: 1,
+        id: 2,
+        title: 'qui est esse',
+        body: 'est rerum tempore vitae sequi sint nihil reprehenderit dolor beatae ea dolores neque fugiat blanditiis voluptate porro vel nihil molestiae ut reiciendis qui aperiam non debitis possimus qui neque nisi nulla',
+      },
+    ];
+  }
+}
+
+export class JsonDataBaseService {
+  async getPosts() {
+    return localPosts;
+  }
+}
 ```
-```
-🐦‍🔥
-👀👇🏻
-👈🏼👀
 
 ### 5.21
 
