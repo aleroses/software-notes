@@ -2782,29 +2782,33 @@ Ejemplo práctico (analogía):
 
 Imagina un control remoto universal (gran interfaz) para todos los dispositivos (TV, DVD, Blu-ray). Si solo quieres controlar la TV, te ves obligado a lidiar con botones para DVD y Blu-ray que no usas (ISP violado). La solución es tener controles remotos separados para cada dispositivo (interfaces segregadas).
 
-### 5.15
+### 5.15 Ejercicio - Segregación de interfaz
+
+`src/solid/04-segregation.ts`
 
 ```js
-// Bad ❌
-```
+interface Bird {
+  fly(): void;
+  eat(): void;
+  run(): void;
+}
 
-```js
-// Better 👍
+class Tucan implements Bird {
+  public fly() {}
+  public eat() {}
+  public run() {}
+}
 
+class Humminbird implements Bird {
+  public fly() {}
+  public eat() {}
+  public run() {}
+}
 ```
-
-`src/main.ts`
-
-```ts
-```
-
-```
-```
-🐦‍🔥
-👀👇🏻
-👈🏼👀
 
 ### 5.16
+
+`src/solid/04-segregation.ts`
 
 ```js
 // Bad ❌
