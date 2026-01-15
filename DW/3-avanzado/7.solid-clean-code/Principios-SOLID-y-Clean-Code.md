@@ -3250,6 +3250,28 @@ Aquí les dejo las presentaciones que usé a lo largo del curso.
 
 - [Presentaciones.pdf](https://import.cdn.thinkific.com/643563/courses/1847831/Presentaciones-220506-171029.pdf)
 
+### 6.2 Más información sobre nuestros otros cursos
+
+Idealmente, para que puedas seguir aprendiendo, te invitamos a que revises nuestro plan de estudio para guiarte y así continuar desarrollándote en estas tecnologías.
+
+[DevTalles - Programas de estudio](https://cursos.devtalles.com/pages/programas-fundamentos)
+
+🔗 Mi Web personal: [Sitio web con cupones y descuentos](https://fernando-herrera.com/)
+
+🎙️ Mi Podcast: [PodCast](https://anchor.fm/fernando-her85)
+
+👥 Mi Twitter: [@fernando_her85](https://twitter.com/Fernando_Her85)
+
+👨🏻‍🏫 Perfil de instructor | Udemy: [Perfil de Udemy](https://www.udemy.com/user/550c38655ec11/)
+
+👨🏻‍💻 {d/t} DevTalles: [Cursos](https://cursos.devtalles.com/)
+
+👨🏻‍🎓 {d/t} DevTalles LinkedIn: [Linkedin](https://www.linkedin.com/company/devtalles/)
+
+📱 {d/t} DevTalles Twitter: [Twitter oficial de DevTalles](https://twitter.com/DevTalles)
+
+🚀 {d/t} DevTalles Comunidad Discord: [Discord](https://discord.com/invite/fNp7KRDkke)
+
 
 
 ```js
