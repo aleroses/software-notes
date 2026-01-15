@@ -3242,7 +3242,16 @@ Recursos de esta clase
 
 [Github - 05-inversion de dependencias](https://github.com/Klerith/clean-course/tree/05-inversion)
 
-## 6. 
+## 6. Fin del curso
+
+### 6.1 Presentaciones de las clases
+
+Aquí les dejo las presentaciones que usé a lo largo del curso.
+
+- [Presentaciones.pdf](https://import.cdn.thinkific.com/643563/courses/1847831/Presentaciones-220506-171029.pdf)
+
+
+
 ```js
 // Bad ❌
 ```
