@@ -3272,22 +3272,12 @@ Idealmente, para que puedas seguir aprendiendo, te invitamos a que revises nuest
 
 🚀 {d/t} DevTalles Comunidad Discord: [Discord](https://discord.com/invite/fNp7KRDkke)
 
+### 6.3 Despedida del curso
 
+Compra el curso oficial si tienes la oportunidad, no piratees.
 
-```js
-// Bad ❌
-```
+¡Agradecido con el de arriba! 🙏🏽
 
-```js
-// Better 👍
-
-```
-
-```
-```
-
-```
-```
 🐦‍🔥
 👀👇🏻
 👈🏼👀
