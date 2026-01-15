@@ -3234,8 +3234,15 @@ export class WebApiPostService implements PostProvider {
 
 [Jsonplaceholder Posts](https://jsonplaceholder.typicode.com/posts)
 
-### 5.22
+### 5.22 Código fuente de la sección
 
+Aquí les dejo mi código fuente para que lo puedan tener para compararlo contra el suyo, espero que los ejercicios y explicaciones les gustarán y sobre todo aprendiéramos aunque sea un poco con ellos.
+
+Recursos de esta clase
+
+[Github - 05-inversion de dependencias](https://github.com/Klerith/clean-course/tree/05-inversion)
+
+## 6. 
 ```js
 // Bad ❌
 ```
