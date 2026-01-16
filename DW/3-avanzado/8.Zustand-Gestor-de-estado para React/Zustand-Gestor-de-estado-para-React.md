@@ -2662,25 +2662,51 @@ export const Dashboard = () => {
 
 ### 3.12 Redux DevTools
 
-``
+Ejecutamos nuestro proyecto usando `npm run dev`, nos vamos a las Devtools y buscamos `Redux`. Luego seleccionamos la sección `Persona` en el Dashboard y recargamos, elegimos `State` y `Chart` para ver los siguientes pasos y sus valores.
+
+`src/stores/person/person.store.ts`
 
 ```ts
+import { create, type StateCreator } from 'zustand';
+import { devtools, persist } from 'zustand/middleware';
+import { firebaseStorage } from '../storages/firebase.storage';
+
+interface PersonState {
+  firstName: string;
+  lastName: string;
+
+  // setFistName: (value: string) => void;
+  // setLastName: (value: string) => void;
+}
+
+interface Actions {
+  setFirstName: (firstName: string) => void;
+  setLastName: (lastName: string) => void;
+}
+
+type PersonStore = PersonState & Actions;
+
+const storeAPI: StateCreator<
+  PersonStore,
+  [['zustand/devtools', never], ['zustand/persist', unknown]]
+> = (set) => ({
+  firstName: '',
+  lastName: '',
+  setFirstName: (value: string) =>
+    set({ firstName: value }, false, 'setFirstName'),
+  setLastName: (value: string) =>
+    set({ lastName: value }, false, 'setLastName'),
+});
+
+export const usePersonStore = create<PersonStore>()(
+  devtools(
+    persist(storeAPI, {
+      name: 'person-storage', // el name que usa sessionStorage arriba
+      storage: firebaseStorage,
+    })
+  )
+);
 ```
-
-``
-
-```ts
-```
-
-``
-
-```ts
-```
-
-👈🏼👀
-👈🏼👀👇🏻
-📌
-➕
 
 ### 3.13
 
