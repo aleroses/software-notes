@@ -3060,22 +3060,145 @@ export const usePersonStore = create<PersonStore>()(
 
 Si estás usando el código fuente de Fer, es necesario que comentes esa línea para evitar errores.
 
-### 4.4
+### 4.4 TaskStore e interfaces
 
-``
+Estructura:
 
-```ts
+```bash
+.
+├── .eslintrc.cjs
+├── .gitignore
+├── index.html
+├── package.json
+├── package-lock.json
+├── postcss.config.js
+├── public
+│   ├── screenshot.png
+│   └── vite.svg
+├── README.md
+├── src
+│   ├── assets
+│   │   └── react.svg
+│   ├── components
+│   │   ├── index.ts
+│   │   ├── jira
+│   │   │   └── JiraTasks.tsx
+│   │   └── shared
+│   │       ├── cards
+│   │       │   └── WhiteCard.tsx
+│   │       └── sidemenu
+│   │           ├── SideMenu.css
+│   │           ├── SideMenuItem.tsx
+│   │           └── SideMenu.tsx
+│   ├── index.css
+│   ├── interfaces 👈🏼👀👇🏻
+│   │   └── task.interface.ts
+│   ├── layouts
+│   │   ├── AuthLayout.tsx
+│   │   ├── DashboardLayout.tsx
+│   │   └── index.ts
+│   ├── main.tsx
+│   ├── pages
+│   │   ├── 01-basic
+│   │   │   ├── BearPage.tsx
+│   │   │   └── PersonPage.tsx
+│   │   ├── 02-objects
+│   │   │   └── JiraPage.tsx
+│   │   ├── 03-slices
+│   │   │   └── WeddingInvitationPage.tsx
+│   │   ├── auth
+│   │   │   └── LoginPage.tsx
+│   │   ├── dashboard
+│   │   │   └── DashboardPage.tsx
+│   │   └── index.ts
+│   ├── Root.tsx
+│   ├── router
+│   │   └── router.tsx
+│   ├── stores
+│   │   ├── bears
+│   │   │   └── bears.store.ts
+│   │   ├── middlewares
+│   │   │   └── logger.middleware.ts
+│   │   ├── person
+│   │   │   └── person.store.ts
+│   │   └── storages
+│   │       ├── firebase.storage.ts
+│   │       └── session.storage.ts
+│   ├── tasks 👈🏼👀👇🏻
+│   │   └── task.store.ts
+│   └── vite-env.d.ts
+├── tailwind.config.js
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
 ```
 
-``
+`src/interfaces/task.interface.ts`
 
 ```ts
+export interface Task {
+  id: string;
+  title: string;
+  status: TaskStatus;
+}
+
+export type TaskStatus = 'open' | 'in-progress' | 'done';
 ```
 
-👈🏼👀
-👈🏼👀👇🏻
-📌
-➕
+`src/tasks/task.store.ts`
+
+```ts
+import { create, StateCreator } from 'zustand';
+import { Task } from '../interfaces/task.interface';
+
+interface TaskState {
+  tasks: Record<string, Task>;
+}
+
+const storeApi: StateCreator<TaskState> = (set) => ({
+  tasks: {
+    'ABC-1': { id: 'ABC-1', title: 'Task 1', status: 'open' },
+    'ABC-2': {
+      id: 'ABC-2',
+      title: 'Task 2',
+      status: 'in-progress',
+    },
+    'ABC-3': { id: 'ABC-3', title: 'Task 3', status: 'open' },
+    'ABC-4': { id: 'ABC-4', title: 'Task 4', status: 'open' },
+  },
+});
+
+export const useTaskStore = create<TaskState>()(storeApi);
+```
+
+`src/pages/02-objects/jiraPage.tsx`
+
+```ts
+import { JiraTasks } from '../../components';
+import { useTaskStore } from '../../tasks/task.store';
+
+export const JiraPage = () => {
+  const tasks = useTaskStore((state) => state.tasks);
+
+  console.log(tasks);
+
+  return (
+    <>
+      <h1>Tareas</h1>
+      <p>Manejo de estado con objectos de Zustand</p>
+      <hr />
+
+      <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+        <JiraTasks title='Pendientes' value='pending' />
+
+        <JiraTasks title='Avanzando' value='in-progress' />
+
+        <JiraTasks title='Terminadas' value='done' />
+      </div>
+    </>
+  );
+};
+```
 
 ### 4.5
 
