@@ -2982,7 +2982,13 @@ export const useBearStore = create<BearState>()(
 
 [Zustand common-recipes](https://zustand.docs.pmnd.rs/guides/advanced-typescript#common-recipes)
 
-### 3.14
+### 3.14 Código fuente de la sección
+
+Código fuente de la sección por si lo llegan a necesitar.
+
+[Github - Fin sección 3 - Middlewares](https://github.com/Klerith/zustand-mini-curso/tree/fin-seccion-03)
+
+## 4. 
 
 ``
 
