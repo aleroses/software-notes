@@ -2708,27 +2708,279 @@ export const usePersonStore = create<PersonStore>()(
 );
 ```
 
-### 3.13
+### 3.13 Custom Middleware - Logger
 
-``
+Estructura:
 
-```ts
+```bash
+.
+├── .eslintrc.cjs
+├── .gitignore
+├── index.html
+├── package.json
+├── package-lock.json
+├── postcss.config.js
+├── public
+│   ├── screenshot.png
+│   └── vite.svg
+├── README.md
+├── src
+│   ├── assets
+│   │   └── react.svg
+│   ├── components
+│   │   ├── index.ts
+│   │   ├── jira
+│   │   │   └── JiraTasks.tsx
+│   │   └── shared
+│   │       ├── cards
+│   │       │   └── WhiteCard.tsx
+│   │       └── sidemenu
+│   │           ├── SideMenu.css
+│   │           ├── SideMenuItem.tsx
+│   │           └── SideMenu.tsx
+│   ├── index.css
+│   ├── layouts
+│   │   ├── AuthLayout.tsx
+│   │   ├── DashboardLayout.tsx
+│   │   └── index.ts
+│   ├── main.tsx
+│   ├── pages
+│   │   ├── 01-basic
+│   │   │   ├── BearPage.tsx
+│   │   │   └── PersonPage.tsx
+│   │   ├── 02-objects
+│   │   │   └── JiraPage.tsx
+│   │   ├── 03-slices
+│   │   │   └── WeddingInvitationPage.tsx
+│   │   ├── auth
+│   │   │   └── LoginPage.tsx
+│   │   ├── dashboard
+│   │   │   └── DashboardPage.tsx
+│   │   └── index.ts
+│   ├── Root.tsx
+│   ├── router
+│   │   └── router.tsx
+│   ├── stores
+│   │   ├── bears
+│   │   │   └── bears.store.ts
+│   │   ├── middlewares 👈🏼👀👇🏻
+│   │   │   └── logger.middleware.ts
+│   │   ├── person
+│   │   │   └── person.store.ts
+│   │   └── storages
+│   │       ├── firebase.storage.ts
+│   │       └── session.storage.ts
+│   └── vite-env.d.ts
+├── tailwind.config.js
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
 ```
 
-``
+Primero probamos parte de un Middleware, revisando las salidas cambiando los datos de la pestaña Persona.
+
+`src/stores/middlewares/logger.middleware.ts`
 
 ```ts
+const loggerImpl: any =
+  (f: any, name: any) => (set: any, get: any, store: any) => {
+    const loggedSet: typeof set = (...a: any[]) => {
+      set(...(a as Parameters<typeof set>));
+      // console.log(...(name ? [`${name}:`] : []), get());
+      console.log(get());
+    };
+
+    const setState = store.setState;
+    store.setState = (...a: any[]) => {
+      setState(...(a as Parameters<typeof setState>));
+      console.log(
+        ...(name ? [`${name}:`] : []),
+        store.getState()
+      );
+    };
+
+    return f(loggedSet, get, store);
+  };
+
+export const logger = loggerImpl as unknown as any;
 ```
 
-``
+`src/stores/middlewares/logger.middleware.ts`
 
 ```ts
+// Copy from documentation
+import {
+  StateCreator,
+  StoreMutatorIdentifier,
+} from 'zustand';
+
+type Logger = <
+  T,
+  Mps extends [StoreMutatorIdentifier, unknown][] = [],
+  Mcs extends [StoreMutatorIdentifier, unknown][] = []
+>(
+  f: StateCreator<T, Mps, Mcs>,
+  name?: string
+) => StateCreator<T, Mps, Mcs>;
+
+type LoggerImpl = <T>(
+  f: StateCreator<T, [], []>,
+  name?: string
+) => StateCreator<T, [], []>;
+
+const loggerImpl: LoggerImpl =
+  (f, name) => (set, get, store) => {
+    const loggedSet: typeof set = (...a) => {
+      set(...(a as Parameters<typeof set>));
+      console.log(...(name ? [`${name}:`] : []), get());
+    };
+    const setState = store.setState;
+    store.setState = (...a) => {
+      setState(...(a as Parameters<typeof setState>));
+      console.log(
+        ...(name ? [`${name}:`] : []),
+        store.getState()
+      );
+    };
+
+    return f(loggedSet, get, store);
+  };
+
+export const logger = loggerImpl as unknown as Logger;
+// Copy from documentation
 ```
 
-👈🏼👀
-👈🏼👀👇🏻
-📌
-➕
+`src/stores/person/person.store.ts`
+
+```ts
+import { create, type StateCreator } from 'zustand';
+import { devtools, persist } from 'zustand/middleware';
+import { firebaseStorage } from '../storages/firebase.storage';
+import { logger } from '../middlewares/logger.middleware';
+
+interface PersonState {
+  firstName: string;
+  lastName: string;
+
+  // setFistName: (value: string) => void;
+  // setLastName: (value: string) => void;
+}
+
+interface Actions {
+  setFirstName: (firstName: string) => void;
+  setLastName: (lastName: string) => void;
+}
+
+type PersonStore = PersonState & Actions;
+
+const storeAPI: StateCreator<
+  PersonStore,
+  [['zustand/devtools', never], ['zustand/persist', unknown]]
+> = (set) => ({
+  firstName: '',
+  lastName: '',
+  setFirstName: (value: string) =>
+    set({ firstName: value }, false, 'setFirstName'),
+  setLastName: (value: string) =>
+    set({ lastName: value }, false, 'setLastName'),
+});
+
+export const usePersonStore = create<PersonStore>()(
+  logger( // 👈🏼👀👇🏻 After testing, we remove the logger.
+    devtools(
+      persist(storeAPI, {
+        name: 'person-storage', // el name que usa sessionStorage arriba
+        storage: firebaseStorage,
+      })
+    )
+  )
+);
+```
+
+`src/stores/bears/bears.store.ts`
+
+```ts
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
+
+interface Bear {
+  id: number;
+  name: string;
+}
+
+interface BearState {
+  blackBears: number;
+  polarBears: number;
+  pandaBears: number;
+
+  bears: Bear[];
+
+  totalBears: () => number;
+
+  increaseBlackBears: (by: number) => void;
+  increasePolarBears: (by: number) => void;
+  increasePandaBears: (by: number) => void;
+
+  doNothing: () => void;
+  addBear: () => void;
+  clearBears: () => void;
+}
+
+export const useBearStore = create<BearState>()(
+  persist(
+    (set, get, store 👈🏼👀) => ({
+      blackBears: 10,
+      polarBears: 5,
+      pandaBears: 1,
+
+      bears: [{ id: 1, name: 'Oso #1' }],
+
+      totalBears: () => {
+        console.log(store); 👈🏼👀
+
+        return (
+          get().blackBears +
+          get().polarBears +
+          get().pandaBears +
+          get().bears.length
+        );
+      },
+
+      increaseBlackBears: (by: number) =>
+        set((state) => ({
+          blackBears: state.blackBears + by,
+        })),
+      increasePolarBears: (by: number) =>
+        set((state) => ({
+          polarBears: state.polarBears + by,
+        })),
+      increasePandaBears: (by: number) =>
+        set((state) => ({
+          pandaBears: state.pandaBears + by,
+        })),
+
+      doNothing: () =>
+        set((state) => ({ bears: [...state.bears] })),
+      addBear: () =>
+        set((state) => ({
+          bears: [
+            ...state.bears,
+            {
+              id: state.bears.length + 1,
+              name: `Oso #${state.bears.length + 1}`,
+            },
+          ],
+        })),
+      clearBears: () => set({ bears: [] }),
+    }),
+    {
+      name: 'bears-store',
+    }
+  )
+);
+```
+
+[Zustand common-recipes](https://zustand.docs.pmnd.rs/guides/advanced-typescript#common-recipes)
 
 ### 3.14
 
