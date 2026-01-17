@@ -2988,8 +2988,26 @@ Código fuente de la sección por si lo llegan a necesitar.
 
 [Github - Fin sección 3 - Middlewares](https://github.com/Klerith/zustand-mini-curso/tree/fin-seccion-03)
 
-## 4. 
+## 4. Tareas - Drag & Drop - Inmutabilidad con Immer
 
+### 4.1 Introducción a la sección
+
+### 4.2 Temas puntuales de la sección
+
+En esta sección aprenderemos a trabajar con objetos anidados dentro de nuestro store, con el objetivo de apreciar claramente él benefició de utilizar la función **produce** o mejor aún, el middleware **immer,** para poder mutar el estado y generar uno nuevo basado en esa mutación.
+
+Puntualmente veremos:
+
+1. Drag & Drop (sin dependencias)
+2. Uso de Store con objetos anidados
+3. Middlewares
+4. Funciones adicionales
+5. UUID
+6. Mutaciones vs Clonaciones
+7. Tipado en TypeScript
+8. Entre otras cosas
+
+### 4.3 
 ``
 
 ```ts
