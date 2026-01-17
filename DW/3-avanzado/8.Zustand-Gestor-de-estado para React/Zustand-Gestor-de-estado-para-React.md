@@ -3007,11 +3007,60 @@ Puntualmente veremos:
 7. Tipado en TypeScript
 8. Entre otras cosas
 
-### 4.3 
-``
+### 4.3 Continuación de la sección
+
+Si estás en tu propio código fuente no necesitas comentar la línea `storage: firebaseStorage,` en:
+
+`src/stores/person/person.store.ts`
 
 ```ts
+import { create, type StateCreator } from 'zustand';
+import { devtools, persist } from 'zustand/middleware';
+import { firebaseStorage } from '../storages/firebase.storage';
+import { logger } from '../middlewares/logger.middleware';
+
+interface PersonState {
+  firstName: string;
+  lastName: string;
+
+  // setFistName: (value: string) => void;
+  // setLastName: (value: string) => void;
+}
+
+interface Actions {
+  setFirstName: (firstName: string) => void;
+  setLastName: (lastName: string) => void;
+}
+
+type PersonStore = PersonState & Actions;
+
+const storeAPI: StateCreator<
+  PersonStore,
+  [['zustand/devtools', never], ['zustand/persist', unknown]]
+> = (set) => ({
+  firstName: '',
+  lastName: '',
+  setFirstName: (value: string) =>
+    set({ firstName: value }, false, 'setFirstName'),
+  setLastName: (value: string) =>
+    set({ lastName: value }, false, 'setLastName'),
+});
+
+export const usePersonStore = create<PersonStore>()(
+  // logger(
+  devtools(
+    persist(storeAPI, {
+      name: 'person-storage', // el name que usa sessionStorage arriba
+      // storage: firebaseStorage, 👈🏼👀
+    })
+  )
+  // )
+);
 ```
+
+Si estás usando el código fuente de Fer, es necesario que comentes esa línea para evitar errores.
+
+### 4.4
 
 ``
 
@@ -3027,6 +3076,300 @@ Puntualmente veremos:
 👈🏼👀👇🏻
 📌
 ➕
+
+### 4.5
+
+``
+
+```ts
+```
+
+``
+
+```ts
+```
+
+👈🏼👀
+👈🏼👀👇🏻
+📌
+➕
+
+
+### 4.6
+
+``
+
+```ts
+```
+
+``
+
+```ts
+```
+
+👈🏼👀
+👈🏼👀👇🏻
+📌
+➕
+
+
+### 4.7
+
+``
+
+```ts
+```
+
+``
+
+```ts
+```
+
+👈🏼👀
+👈🏼👀👇🏻
+📌
+➕
+
+
+### 4.8
+
+``
+
+```ts
+```
+
+``
+
+```ts
+```
+
+👈🏼👀
+👈🏼👀👇🏻
+📌
+➕
+
+
+### 4.9
+
+``
+
+```ts
+```
+
+``
+
+```ts
+```
+
+👈🏼👀
+👈🏼👀👇🏻
+📌
+➕
+
+
+### 4.10
+
+``
+
+```ts
+```
+
+``
+
+```ts
+```
+
+👈🏼👀
+👈🏼👀👇🏻
+📌
+➕
+
+
+### 4.11
+
+``
+
+```ts
+```
+
+``
+
+```ts
+```
+
+👈🏼👀
+👈🏼👀👇🏻
+📌
+➕
+
+### 4.12
+
+``
+
+```ts
+```
+
+``
+
+```ts
+```
+
+👈🏼👀
+👈🏼👀👇🏻
+📌
+➕
+
+### 4.13
+
+``
+
+```ts
+```
+
+``
+
+```ts
+```
+
+👈🏼👀
+👈🏼👀👇🏻
+📌
+➕
+
+
+
+
+### 4.14
+
+``
+
+```ts
+```
+
+``
+
+```ts
+```
+
+👈🏼👀
+👈🏼👀👇🏻
+📌
+➕
+
+
+### 4.15
+
+``
+
+```ts
+```
+
+``
+
+```ts
+```
+
+👈🏼👀
+👈🏼👀👇🏻
+📌
+➕
+
+
+### 4.16
+
+``
+
+```ts
+```
+
+``
+
+```ts
+```
+
+👈🏼👀
+👈🏼👀👇🏻
+📌
+➕
+
+
+### 4.17
+
+``
+
+```ts
+```
+
+``
+
+```ts
+```
+
+👈🏼👀
+👈🏼👀👇🏻
+📌
+➕
+
+### 4.18
+
+``
+
+```ts
+```
+
+``
+
+```ts
+```
+
+👈🏼👀
+👈🏼👀👇🏻
+📌
+➕
+
+
+
+
+### 4.19
+
+``
+
+```ts
+```
+
+``
+
+```ts
+```
+
+👈🏼👀
+👈🏼👀👇🏻
+📌
+➕
+
+
+
+### 4.20
+
+``
+
+```ts
+```
+
+``
+
+```ts
+```
+
+👈🏼👀
+👈🏼👀👇🏻
+📌
+➕
+
+
+
+
+
 
 ```
 ```
