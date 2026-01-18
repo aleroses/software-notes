@@ -3200,23 +3200,84 @@ export const JiraPage = () => {
 };
 ```
 
-### 4.5
+### 4.5 Obtener tareas por estado
 
-``
-
-```ts
-```
-
-``
+`src/tasks/task.store.ts`
 
 ```ts
+import { create, StateCreator } from 'zustand';
+import type {
+  Task,
+  TaskStatus,
+} from '../interfaces/task.interface';
+
+interface TaskState {
+  tasks: Record<string, Task>;
+  getTaskByStatus: (status: TaskStatus) => Task[];
+}
+
+const storeApi: StateCreator<TaskState> = (set, get) => ({
+  tasks: {
+    'ABC-1': { id: 'ABC-1', title: 'Task 1', status: 'open' },
+    'ABC-2': {
+      id: 'ABC-2',
+      title: 'Task 2',
+      status: 'in-progress',
+    },
+    'ABC-3': { id: 'ABC-3', title: 'Task 3', status: 'open' },
+    'ABC-4': { id: 'ABC-4', title: 'Task 4', status: 'open' },
+  },
+  getTaskByStatus: (status: TaskStatus) => {
+    const tasks = get().tasks;
+
+    return Object.values(tasks).filter(
+      (task) => task.status === status
+    );
+  },
+});
+
+export const useTaskStore = create<TaskState>()(storeApi);
 ```
 
-👈🏼👀
-👈🏼👀👇🏻
-📌
-➕
+`src/pages/02-objects/jiraPage.tsx`
 
+```ts
+import { useShallow } from 'zustand/shallow';
+import { JiraTasks } from '../../components';
+import { useTaskStore } from '../../tasks/task.store';
+
+export const JiraPage = () => {
+  const pendingTasks = useTaskStore(
+    useShallow((state) => state.getTaskByStatus('open'))
+  );
+  const inProgressTasks = useTaskStore(
+    useShallow((state) =>
+      state.getTaskByStatus('in-progress')
+    )
+  );
+  const doneTasks = useTaskStore(
+    useShallow((state) => state.getTaskByStatus('done'))
+  );
+
+  console.log({ pendingTasks, inProgressTasks, doneTasks });
+
+  return (
+    <>
+      <h1>Tareas</h1>
+      <p>Manejo de estado con objectos de Zustand</p>
+      <hr />
+
+      <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
+        <JiraTasks title='Pendientes' value='pending' />
+
+        <JiraTasks title='Avanzando' value='in-progress' />
+
+        <JiraTasks title='Terminadas' value='done' />
+      </div>
+    </>
+  );
+};
+```
 
 ### 4.6
 
