@@ -3279,7 +3279,12 @@ export const JiraPage = () => {
 };
 ```
 
-### 4.6
+### 4.6 Mostrar las tareas apropiadamente
+
+Estructura:
+
+```bash
+```
 
 ``
 
