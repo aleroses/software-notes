@@ -100,4 +100,14 @@ export default defineConfig({
 
 Y listo.
 
+## Usando Live Server
+
+La extensión Live Server para VS Code es una herramienta esencial que lanza un servidor de desarrollo local, permitiendo previsualizar proyectos web con una **recarga automática en tiempo real en el navegador** cada vez que guardas cambios en tu código HTML, CSS o JavaScript, eliminando la necesidad de refrescar la página manualmente y agilizando el flujo de trabajo.
+
+Para usarlo debes hacer:
+- **Clic derecho** dentro de tu `HTML`
+- Elegir **Open with Live Server**
+
+
+
 👈🏼👀
