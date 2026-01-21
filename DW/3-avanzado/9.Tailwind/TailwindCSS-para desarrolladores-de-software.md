@@ -100,7 +100,7 @@ En la parte inferior de la web vemos `Generated CSS` que muestra:
 
 - All
 - Theme: Variables
-- Base: CSS puro
+- Base: Normalize CSS para estandarizar.
 - Components
 - Utilities: Utility classes aplicadas como clases.  
 	```css
@@ -115,3 +115,104 @@ En la parte inferior de la web vemos `Generated CSS` que muestra:
 
 - [Página oficial de TailwindCSS](https://tailwindcss.com/)
 - [Playground Tailwind](https://play.tailwindcss.com/)
+
+### 2.5 Tema, base, componentes y utilidades
+
+Nunca hagas modificaciones dentro del `Generated CSS`.
+
+Para cambiar los valores por defecto dentro del **Tailwind Play**, entramos la pestaña `CSS`:
+
+```html
+<div class="h-screen w-full bg-gray-900 text-white">
+  <h1 class="text-2xl">Hi World!!!</h1>
+  <h2 class="text-2xl">Hi World!!!</h2>
+  <h3 class="text-2xl">Hi World!!!</h3>
+</div>
+```
+
+```css
+@layer base {
+  h1 {
+    @apply text-5xl text-blue-500;
+  }
+}
+```
+
+Esto añade dentro de **Base** nuestras configuraciones personalizadas.
+
+### 2.6 Creando un componente
+
+Dentro de `Generated CSS` revisar **Components**.
+
+```html
+<div class="flex h-screen w-full items-center justify-center bg-gray-900 text-white">
+  <button class="btn-primary 👈🏼👀">Click me</button>
+</div>
+```
+
+En la pestaña `CSS` creamos el componente `.btn-primary`:
+
+```css
+@layer components {
+  .btn-primary { 👈🏼👀👇🏼
+    @apply rounded bg-gray-800 p-2 px-4 text-cyan-400 hover:bg-slate-900;
+    font-weight: 600;
+    border: 2px solid pink;
+    &:hover {
+      ...esto también es css
+    }
+  }
+}
+```
+
+Nota: También nos permite usar CSS clásico.
+
+### 2.7 Flexbox Row
+
+- Puedes añadir valores computados o arbitrarios `class="h-[100px]"`
+- Puedes añadir opacidad `bg-green-400/15`
+
+```html
+<div class="flex h-screen w-full items-center justify-around bg-gray-900 text-white">
+  <div class="h-[100px] w-[100px] rounded-full bg-red-400"></div>
+  <div class="h-[100px] w-[100px] self-start rounded-full bg-yellow-200"></div>
+  <div class="h-[100px] w-[100px] rounded-full bg-green-400/15"></div>
+</div>
+```
+
+
+
+
+
+
+```css
+
+```
+
+
+```html
+
+```
+
+```css
+
+```
+
+```html
+
+```
+
+```css
+
+```
+
+```html
+
+```
+
+```css
+
+```
+👈🏼👀
+👈🏼👀👇🏼
+🔥
