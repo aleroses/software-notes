@@ -86,4 +86,32 @@ En lugar de clases genéricas como `.btn` o `.card`, aplicas clases de utilidad 
 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">  Botón de Ejemplo</button>
 ```
 
-### 
+### 2.4 ¿Cómo funciona Tailwind?
+
+En el Playground de Tailwind podemos hacer pruebas y ver como funciona.
+
+```html
+<div class="h-screen w-full bg-gray-900 text-white">
+  <h1 class="text-2xl">Hi World!!!</h1>
+</div>
+```
+
+En la parte inferior de la web vemos `Generated CSS` que muestra:
+
+- All
+- Theme: Variables
+- Base: CSS puro
+- Components
+- Utilities: Utility classes aplicadas como clases.  
+	```css
+	.h-screen {
+    height: 100vh;
+  }
+	
+  .w-full {
+    width: 100%;
+  }
+	```
+
+- [Página oficial de TailwindCSS](https://tailwindcss.com/)
+- [Playground Tailwind](https://play.tailwindcss.com/)
