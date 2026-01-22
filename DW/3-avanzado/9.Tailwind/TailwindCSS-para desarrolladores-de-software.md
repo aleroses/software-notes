@@ -120,13 +120,21 @@ En la parte inferior de la web vemos `Generated CSS` que muestra:
 
 Nunca hagas modificaciones dentro del `Generated CSS`.
 
-Para cambiar los valores por defecto dentro del **Tailwind Play**, entramos la pestaña `CSS`:
-
 ```html
 <div class="h-screen w-full bg-gray-900 text-white">
   <h1 class="text-2xl">Hi World!!!</h1>
   <h2 class="text-2xl">Hi World!!!</h2>
   <h3 class="text-2xl">Hi World!!!</h3>
+</div>
+```
+
+Para cambiar los valores por defecto dentro del **Tailwind Play**, entramos la pestaña `CSS`:
+
+```html
+<div class="h-screen w-full bg-gray-900 text-white">
+  <h1>Hi World!!!</h1>
+  <h2>Hi World!!!</h2>
+  <h3>Hi World!!!</h3>
 </div>
 ```
 
@@ -214,7 +222,7 @@ En pantallas medianas cambia de `flex-col` a `flex-row`.
 </div>
 ```
 
-### 
+### 2.10 TailwindCSS - Documentación
 
 ```html
 
