@@ -230,7 +230,39 @@ Lo encuentras en `Docs/Course`
 
 [Página oficial de TailwindCSS](https://tailwindcss.com/)
 
-## 
+## 3. TailwindCSS localmente + Recomendaciones oficiales
+
+### 3.1 Introducción
+
+### 3.2 Temas puntuales de la sección
+
+En esta sección configuraremos nuestro proyecto para ejecutar TailwindCSS localmente sin frameworks.
+
+**Puntualmente vermos:**
+
+1. **Configuración manual**  
+    
+    Cómo instalar TailwindCSS desde cero y activar sus capas base, components y utilities sin depender de frameworks.
+    
+2. **Extensiones valiosas como TailwindCSS IntelliSense y plugin de Prettier**  
+    
+    Herramientas que mejoran el autocompletado, el orden de clases y la productividad en el editor.
+    
+3. **Configuraciones de Prettier y VSCode**  
+    
+    Ajustes recomendados para formatear el código automáticamente y mantener un proyecto consistente.
+    
+4. **Live Server**  
+    
+    Uso de un servidor local para visualizar cambios en tiempo real mientras desarrollamos.
+    
+5. **Modo observador — Watch Mode**  
+    
+    Cómo Tailwind recompila los estilos automáticamente al modificar el HTML o el CSS.
+    
+6. **Preparar todo el material para las siguientes secciones**  
+    
+    Dejar el entorno listo para continuar con componentes, layout y ejercicios más avanzados.
 
 
 
