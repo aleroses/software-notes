@@ -167,7 +167,7 @@ En la pestaña `CSS` creamos el componente `.btn-primary`:
 
 Nota: También nos permite usar CSS clásico.
 
-### 2.7 Flexbox Row
+### 2.7 Flexbox Row (default)
 
 - Puedes añadir valores computados o arbitrarios `class="h-[100px]"`
 - Puedes añadir opacidad `bg-green-400/15`
@@ -180,9 +180,27 @@ Nota: También nos permite usar CSS clásico.
 </div>
 ```
 
+### 2.8 Flexbox Column
 
+```html
+<div class="flex h-screen w-full flex-col-reverse 👈🏼👀 items-center justify-around bg-gray-900 text-white">
+  <div class="h-[100px] w-[100px] rounded-full bg-red-400"></div>
+  <div class="h-[100px] w-[100px] self-start rounded-full bg-yellow-200"></div>
+  <div class="h-[100px] w-[100px] rounded-full bg-green-400/15"></div>
+</div>
+```
 
+Media query
 
+```html
+<div class="flex h-screen w-full flex-col items-center justify-around bg-gray-900 text-white md:flex-row 👈🏼👀">
+  <div class="h-[12rem] w-[12rem] rounded-full bg-red-400"></div>
+  <div class="h-[12rem] w-[12rem] self-start rounded-full bg-yellow-200"></div>
+  <div class="h-[12rem] w-[12rem] rounded-full bg-green-400/15"></div>
+</div>
+```
+
+En pantallas medianas cambia de `flex-col` a `flex-row`.
 
 
 ```css
