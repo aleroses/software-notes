@@ -224,6 +224,16 @@ En pantallas medianas cambia de `flex-col` a `flex-row`.
 
 ### 2.10 TailwindCSS - Documentación
 
+Tratemos de revisar la documentación y si puedes o quieres inscríbete en el curso que brinda el equipo de Tailwind.
+
+Lo encuentras en `Docs/Course`
+
+[Página oficial de TailwindCSS](https://tailwindcss.com/)
+
+## 
+
+
+
 ```html
 
 ```
@@ -231,6 +241,7 @@ En pantallas medianas cambia de `flex-col` a `flex-row`.
 ```css
 
 ```
+
 
 ```html
 
