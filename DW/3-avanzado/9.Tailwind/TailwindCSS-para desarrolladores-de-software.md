@@ -202,11 +202,19 @@ Media query
 
 En pantallas medianas cambia de `flex-col` a `flex-row`.
 
+### 2.9 Grid
 
 ```css
-
+<div class="grid h-screen w-screen grid-cols-2 gap-4 bg-gray-900 px-2 sm:grid-cols-3 md:grid-cols-4">
+  <div class="h-[6rem] rounded-2xl bg-red-500"></div>
+  <div class="h-[6rem] rounded-2xl bg-yellow-400"></div>
+  <div class="h-[6rem] rounded-2xl bg-green-400"></div>
+  <div class="h-[6rem] rounded-2xl bg-blue-950"></div>
+  <div class="h-[6rem] rounded-2xl bg-orange-400"></div>
+</div>
 ```
 
+### 
 
 ```html
 
