@@ -357,20 +357,56 @@ No olvides que para ver los cambios en la web debes ejecutar `npm run dev`
 
 Dentro del `index.html` dar clic derecho `Open with Live Server`
 
-### 3.4
+### 3.4 Prettier - Configuraciones necesarias
 
-```html
+Instala la extensión Prettier desde VSC.
 
+Instala el plugin que va a ordenar las clases dentro de VSC.
+
+```bash
+npm install -D prettier prettier-plugin-tailwindcss
 ```
 
-```css
+Estructura
 
+```bash
+.
+├── dist
+│   └── output.css
+├── package.json
+├── package-lock.json
+├── .prettierrc 👈🏼👀
+└── src
+    ├── index.html
+    └── styles.css
 ```
 
-
-```html
+`.prettierrc`
 
 ```
+{
+  "plugins": ["prettier-plugin-tailwindcss"]
+}
+```
+
+Revisa los **Settings** usando `Ctrl + ,` debes tener:
+
+- [x] Editor: Format on save
+- [x] Editor: Format On Save Mode
+	- "File"
+
+Si al usar `Ctrl + S` no se formatea, recarga la ventana usando `F1` y elige:
+
+- Developer: Reload Window
+
+También prueba con:
+
+- Developer: Restart Extension Host
+
+Enlaces:
+
+- [Docs - Configuraciones de editor](https://tailwindcss.com/docs/editor-setup)
+- [Class sorting with prettier](https://tailwindcss.com/docs/editor-setup#class-sorting-with-prettier)
 
 ### 3.5
 
@@ -401,7 +437,9 @@ Dentro del `index.html` dar clic derecho `Open with Live Server`
 ```html
 
 ```
-
+👈🏼👀
+👈🏼👀👇🏼
+🔥
 ### 3.7
 
 ```html
@@ -416,7 +454,9 @@ Dentro del `index.html` dar clic derecho `Open with Live Server`
 ```html
 
 ```
-
+👈🏼👀
+👈🏼👀👇🏼
+🔥
 ### 3.8
 
 ```html
