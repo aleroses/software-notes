@@ -367,7 +367,7 @@ Instala el plugin que va a ordenar las clases dentro de VSC.
 npm install -D prettier prettier-plugin-tailwindcss
 ```
 
-Estructura
+Estructura:
 
 ```bash
 .
