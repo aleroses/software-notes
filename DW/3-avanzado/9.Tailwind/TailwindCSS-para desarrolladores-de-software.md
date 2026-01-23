@@ -264,7 +264,160 @@ En esta sección configuraremos nuestro proyecto para ejecutar TailwindCSS local
     
     Dejar el entorno listo para continuar con componentes, layout y ejercicios más avanzados.
 
+### 3.3 Inicio de proyecto - TailwindCSS localmente
 
+```bash
+mkdir tailwindCSS
+cd tailwindCSS
+mkdir 01-css-local
+cd 01-css-local
+code .
+```
+
+Instalar Tailwind con CLI:
+
+```bash
+npm init -y # Create the package.json file
+npm install tailwindcss @tailwindcss/cli
+```
+
+Estructura:
+
+```bash
+.
+├── dist
+│   └── output.css
+├── node_modules
+├── package.json
+├── package-lock.json
+└── src
+    ├── index.html
+    └── styles.css
+```
+
+La instalación y los pasos para crear el archivo `src/input.css` o `src/styles.css` se encuentran en la sección **Tailwind CLI**.
+
+`src/index.html`
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>Document</title>
+
+    <link rel="stylesheet" href="../dist/output.css" />
+  </head>
+  <body class="bg-gray-950">
+    <h1 class="text-red-500 underline">Hi World</h1>
+  </body>
+</html>
+```
+
+`src/styles.css`
+
+```css
+@import 'tailwindcss';
+```
+
+`package.json`
+
+```json
+{
+  "name": "01-css-local",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx @tailwindcss/cli -i ./src/styles.css -o ./dist/output.css --watch",
+    "build": "npx @tailwindcss/cli -i ./src/styles.css -o ./dist/output.css --minify"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.18",
+    "tailwindcss": "^4.1.18"
+  }
+}
+```
+
+```bash
+npm run dev
+npm run build # Minified CSS
+```
+
+No olvides que para ver los cambios en la web debes ejecutar `npm run dev`
+
+Dentro del `index.html` dar clic derecho `Open with Live Server`
+
+### 3.4
+
+```html
+
+```
+
+```css
+
+```
+
+
+```html
+
+```
+
+### 3.5
+
+```html
+
+```
+
+```css
+
+```
+
+
+```html
+
+```
+
+### 3.6
+
+```html
+
+```
+
+```css
+
+```
+
+
+```html
+
+```
+
+### 3.7
+
+```html
+
+```
+
+```css
+
+```
+
+
+```html
+
+```
+
+### 3.8
 
 ```html
 
