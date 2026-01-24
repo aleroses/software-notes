@@ -444,23 +444,52 @@ git init
 - En Obsidian: [[git-github]]
 - En GitHub: [git and github](https://github.com/aleroses/software-notes/blob/master/DW/1-basico/005-git-github/git-github.md#1-qu%C3%A9-es-git)
 
-### 3.6 
+### 3.6 Live Server - Probar y desarrollar
 
-```html
+Estructura
 
+```bash
+.
+├── dist
+│   └── output.css
+├── .gitignore
+├── node_modules
+├── package.json
+├── package-lock.json
+├── .prettierrc
+├── README.md 👈🏼👀
+└── src
+    ├── index.html
+    └── styles.css
 ```
 
-```css
-
+```bash
+npm run dev
 ```
 
+Abre el archivo `index.html`, da clic derecho y selecciona `Open with Live Server` para ver los resultados en el navegador.
 
-```html
+Para más opciones de Live Server, usa `F1` y escribe **Live Server**:
 
+- Change Live Server workspace
+- Open with Live Server
+- Stop Live Server
+
+`README.md`
+
+```md
+# Ejercicios de Tailwind CSS
+
+## Correr proyecto
+
+1. Instalar dependencias `npm install`
+2. Correr proyecto `npm run dev` (ver package.json para los scripts)
+3. Ejecutar live server (extensión de VS Code)
+4. Abrir el archivo index.html en el navegador (o cualquier otro archivo html deseado)
 ```
-👈🏼👀
-👈🏼👀👇🏼
-🔥
+
+[Gist - Notas para el proyecto](https://gist.github.com/Klerith/1925248dc9b196fba92fe4d5c9aaea5a)
+
 ### 3.7
 
 ```html
