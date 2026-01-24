@@ -586,7 +586,63 @@ Este es un CSS global.
 
 [01-pseudo-classes.zip](https://import.cdn.thinkific.com/643563/azL0ov9vSry448FniCHO_01-pseudo-classes.zip)
 
-### 3.8
+### 3.8 Código fuente
+
+Aquí tienen el código fuente de la sección por si quieren saltarse toda la preparación inicial y llegar directamente a los ejercicios.
+
+[GitHub - Tailwindcss Localmente](https://github.com/DevTalles-corp/tailwindcss-css-localmente)
+
+## 4. Pseudo-classes
+
+### 4.1 Introducción
+
+### 4.2 Temas puntuales
+
+En esta sección estaremos trabajando en el proyecto local que hicimos en la sección anterior pero con el objetivo de aprender pseudo-clases que permiten realizar mucho trabajo que normalmente hacemos con JavaScript.
+
+**Temas puntuales de la sección “Pseudo-clases”**
+
+- **Ejercicio: Listas**
+    
+    Estilizar listas usando pseudo-clases para separaciones y control.
+    
+- **Ejercicio: Tablas**
+    
+    Aplicar estilos condicionales a filas y celdas mediante pseudo-clases.
+    
+- **Tablas responsivas**
+    
+    Añadir variantes responsivas + pseudo-clases para mejorar usabilidad.
+    
+- **Ejercicio: Formularios**
+    
+    Hover, focus, disabled y otros estados comunes en inputs.
+    
+- **Elementos hermanos – Peer**
+    
+    Introducción a peer para reaccionar a estados de un elemento hermano.
+    
+- **Ejemplo: has()**
+    
+    Uso de has-* para aplicar estilos basados en contenido o estados hijos.
+    
+- **Ejemplo: Grupos**
+    
+    Variantes group para manejar estados colectivos de varios elementos.
+    
+- **Ejemplo: Hermanos**
+    
+    Estilos aplicados a elementos hermanos con variantes avanzadas.
+    
+- **Ejemplo: Grupos anidados**
+    
+    Comportamiento de group dentro de otro group.
+    
+- **Ejemplo: Diferenciando peers**
+    
+    Cómo usar varios peer para controlar interacciones más complejas.
+
+### 4.3
 
 ```html
 
@@ -601,9 +657,190 @@ Este es un CSS global.
 
 ```
 
+
+👈🏼👀
+👈🏼👀👇🏼
+🔥
+
+### 4.4
+
+```html
+
+```
+
 ```css
 
 ```
+
+
+```html
+
+```
+
+
+👈🏼👀
+👈🏼👀👇🏼
+🔥
+
+### 4.5
+
+```html
+
+```
+
+```css
+
+```
+
+
+```html
+
+```
+
+
+👈🏼👀
+👈🏼👀👇🏼
+🔥
+
+### 4.6
+
+```html
+
+```
+
+```css
+
+```
+
+
+```html
+
+```
+
+
+👈🏼👀
+👈🏼👀👇🏼
+🔥
+
+### 4.7
+
+```html
+
+```
+
+```css
+
+```
+
+
+```html
+
+```
+
+
+👈🏼👀
+👈🏼👀👇🏼
+🔥
+
+### 4.8
+
+```html
+
+```
+
+```css
+
+```
+
+
+```html
+
+```
+
+
+👈🏼👀
+👈🏼👀👇🏼
+🔥
+
+### 4.9
+
+```html
+
+```
+
+```css
+
+```
+
+
+```html
+
+```
+
+
+👈🏼👀
+👈🏼👀👇🏼
+🔥
+
+### 4.10
+
+```html
+
+```
+
+```css
+
+```
+
+
+```html
+
+```
+
+
+👈🏼👀
+👈🏼👀👇🏼
+🔥
+
+### 4.11
+
+```html
+
+```
+
+```css
+
+```
+
+
+```html
+
+```
+
+
+👈🏼👀
+👈🏼👀👇🏼
+🔥
+
+### 4.12
+
+```html
+
+```
+
+```css
+
+```
+
+
+```html
+
+```
+
+
+👈🏼👀
+👈🏼👀👇🏼
+🔥
 
 ```html
 
