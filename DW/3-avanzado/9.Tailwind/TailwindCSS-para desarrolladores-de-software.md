@@ -642,25 +642,12 @@ En esta sección estaremos trabajando en el proyecto local que hicimos en la sec
     
     Cómo usar varios peer para controlar interacciones más complejas.
 
-### 4.3
+### 4.3 Continuación de proyecto
 
-```html
+Empezaremos a trabajar con listas, pero mientras revisa la documentación.
 
-```
-
-```css
-
-```
-
-
-```html
-
-```
-
-
-👈🏼👀
-👈🏼👀👇🏼
-🔥
+- [GitHub - Repositorio inicial](https://github.com/DevTalles-corp/tailwindcss-css-localmente)
+- [Docs hover-focus-and-other-states](https://tailwindcss.com/docs/hover-focus-and-other-states)
 
 ### 4.4
 
