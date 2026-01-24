@@ -490,23 +490,102 @@ Para más opciones de Live Server, usa `F1` y escribe **Live Server**:
 
 [Gist - Notas para el proyecto](https://gist.github.com/Klerith/1925248dc9b196fba92fe4d5c9aaea5a)
 
-### 3.7
+### 3.7 Ejercicios con pseudo clases
+
+Estructura:
+
+```bash
+.
+├── dist
+│   └── output.css
+├── .gitignore
+├── package.json
+├── package-lock.json
+├── .prettierrc
+├── README.md
+└── src
+    ├── 01-pseudo-classes
+    │   ├── 01-listas.html
+    │   ├── 02-tablas.html
+    │   ├── 03-formularios.html
+    │   ├── 04-has.html
+    │   ├── 05-grupos.html
+    │   ├── 06-hermanos.html
+    │   ├── 07-grupos-anidados.html
+    │   ├── 08-grupos-implicitos.html
+    │   └── 09-diferenciando-peers.html
+    ├── index.html
+    └── styles.css
+```
+
+`src/index.html`
 
 ```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
 
+    <link rel="stylesheet" href="../dist/output.css" />
+  </head>
+  <body>
+    <h1 class="text-2xl">Hi World</h1>
+
+    <a
+      class="underline hover:text-red-600"
+      href="./01-pseudo-classes/01-listas.html"
+      >Listas HTML</a
+    >
+  </body>
+</html>
 ```
+
+`src/01-pseudo-classes/01-listas.html`
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../../dist/output.css" />
+  </head>
+  <body>
+    <h1>Listas</h1>
+    <hr />
+    <ul>
+      <li>Item 1</li>
+      <li>Item 2</li>
+      <li>Item 3</li>
+      <li>Item 4</li>
+    </ul>
+    <footer>
+      <p>Soy el footer</p>
+      <a href="02-tablas.html">Siguiente Tablas</a>
+    </footer>
+  </body>
+</html>
+```
+
+`src/styles.css`
 
 ```css
+@import "tailwindcss";
 
+@layer base {
+  body {
+    @apply bg-gray-950 px-4 py-2 text-red-500;
+  }
+}
 ```
 
+Este es un CSS global.
 
-```html
+[01-pseudo-classes.zip](https://import.cdn.thinkific.com/643563/azL0ov9vSry448FniCHO_01-pseudo-classes.zip)
 
-```
-👈🏼👀
-👈🏼👀👇🏼
-🔥
 ### 3.8
 
 ```html
