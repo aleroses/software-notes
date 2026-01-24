@@ -408,22 +408,43 @@ Enlaces:
 - [Docs - Configuraciones de editor](https://tailwindcss.com/docs/editor-setup)
 - [Class sorting with prettier](https://tailwindcss.com/docs/editor-setup#class-sorting-with-prettier)
 
-### 3.5
+### 3.5 .gitIgnore - Configuraciones de Git
+
+Estructura:
+
+```bash
+.
+├── dist
+│   └── output.css
+├── .gitignore 👈🏼👀
+├── node_modules
+├── package.json
+├── package-lock.json
+├── .prettierrc
+└── src
+    ├── index.html
+    └── styles.css
+```
+
+Crea un archivo `.gitignore` en la raíz del proyecto.
+
+`.gitignore`
 
 ```html
-
+dist/
+node_modules/
 ```
 
-```css
+Usa Git, es muy importante
 
+```bash
+git init
 ```
 
+- En Obsidian: [[git-github]]
+- En GitHub: [git and github](https://github.com/aleroses/software-notes/blob/master/DW/1-basico/005-git-github/git-github.md#1-qu%C3%A9-es-git)
 
-```html
-
-```
-
-### 3.6
+### 3.6 
 
 ```html
 
