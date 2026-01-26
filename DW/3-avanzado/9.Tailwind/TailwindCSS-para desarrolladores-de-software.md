@@ -103,6 +103,7 @@ En la parte inferior de la web vemos `Generated CSS` que muestra:
 - Base: Normalize CSS para estandarizar.
 - Components
 - Utilities: Utility classes aplicadas como clases.  
+
 	```css
 	.h-screen {
     height: 100vh;
