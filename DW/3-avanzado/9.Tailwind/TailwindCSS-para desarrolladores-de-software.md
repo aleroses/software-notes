@@ -649,7 +649,7 @@ Empezaremos a trabajar con listas, pero mientras revisa la documentación.
 - [GitHub - Repositorio inicial](https://github.com/DevTalles-corp/tailwindcss-css-localmente)
 - [Docs hover-focus-and-other-states](https://tailwindcss.com/docs/hover-focus-and-other-states)
 
-### 4.4
+### 4.4 Ejercicio - Listas
 
 ```html
 
