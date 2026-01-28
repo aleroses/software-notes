@@ -339,6 +339,8 @@ sudo vim /etc/fstab # Edita el archivo /etc/fstab
 
 # Añadir al final
 /swapfile    swap    swap    defaults 0 0
+# Ahora uso esto 👀👇🏼
+/swapfile none swap sw,pri=100 0 0
 
 # Probar
 /swapfile none swap sw 0 0
