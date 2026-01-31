@@ -7,7 +7,16 @@ Commitizen es una herramienta de línea de comandos (CLI) y utilidad de código 
 ### Instalación
 
 ```bash
+# Commitizen + adaptador que define el formato
 npm install -D commitizen cz-conventional-changelog
+```
+
+Ejemplos de otros adaptadores:
+
+```bash
+cz-jira
+cz-customizable
+cz-git # Alternativa moderna
 ```
 
 ### Configuración
