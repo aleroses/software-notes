@@ -705,29 +705,124 @@ npm run dev
 }
 ```
 
-### 4.5
+### 4.5 Ejercicio - Tablas
 
-`src/01-pseudo-classes/.html`
-
-```html
-
-```
-
-`01-css-local/src/styles.css`
-
-```css
-
-```
-
+`src/01-pseudo-classes/02-tablas.html`
 
 ```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../../dist/output.css" />
+  </head>
 
+  <body>
+    <h1>Tablas</h1>
+    <hr />
+
+    <table>
+      <thead class="bg-gray-900/35">
+        <tr
+          class="odd:bg-white even:bg-gray-50 dark:odd:bg-gray-900/50 dark:even:bg-gray-950"
+        >
+          <th class="p-3">Foto</th>
+          <th class="p-3">Nombre</th>
+          <th class="p-3">Edad</th>
+          <th class="p-3 text-right">Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!--  -->
+        <tr
+          class="odd:bg-white even:bg-gray-50 dark:odd:bg-gray-900/50 dark:even:bg-gray-950"
+        >
+          <td>
+            <img
+              src="https://randomuser.me/api/portraits/men/1.jpg"
+              alt="Foto de Juan Pérez"
+            />
+          </td>
+          <td>Juan Pérez</td>
+          <td>28</td>
+          <td>juan.perez@email.com</td>
+        </tr>
+        <tr
+          class="odd:bg-white even:bg-gray-50 dark:odd:bg-gray-900/50 dark:even:bg-gray-950"
+        >
+          <td>
+            <img
+              src="https://randomuser.me/api/portraits/women/2.jpg"
+              alt="Foto de Maria Gomez"
+            />
+          </td>
+          <td>Maria Gomez</td>
+          <td>34</td>
+          <td>maria.gomez@email.com</td>
+        </tr>
+        <tr
+          class="odd:bg-white even:bg-gray-50 dark:odd:bg-gray-900/50 dark:even:bg-gray-950"
+        >
+          <td>
+            <img
+              src="https://randomuser.me/api/portraits/men/3.jpg"
+              alt="Foto de Luis Fernández"
+            />
+          </td>
+          <td>Luis Fernández</td>
+          <td>25</td>
+          <td>luis.fernandez@email.com</td>
+        </tr>
+        <tr
+          class="odd:bg-white even:bg-gray-50 dark:odd:bg-gray-900/50 dark:even:bg-gray-950"
+        >
+          <td>
+            <img
+              src="https://randomuser.me/api/portraits/women/4.jpg"
+              alt="Foto de Ana Ruiz"
+            />
+          </td>
+          <td>Ana Ruiz</td>
+          <td>30</td>
+          <td>ana.ruiz@email.com</td>
+        </tr>
+        <tr
+          class="odd:bg-white even:bg-gray-50 dark:odd:bg-gray-900/50 dark:even:bg-gray-950"
+        >
+          <td>
+            <img
+              src="https://randomuser.me/api/portraits/men/5.jpg"
+              alt="Foto de Carlos Torres"
+            />
+          </td>
+          <td>Carlos Torres</td>
+          <td>41</td>
+          <td>carlos.torres@email.com</td>
+        </tr>
+        <tr
+          class="odd:bg-white even:bg-gray-50 dark:odd:bg-gray-900/50 dark:even:bg-gray-950"
+        >
+          <td>
+            <img
+              src="https://randomuser.me/api/portraits/women/6.jpg"
+              alt="Foto de Laura Sánchez"
+            />
+          </td>
+          <td>Laura Sánchez</td>
+          <td>22</td>
+          <td>laura.sanchez@email.com</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <a href="03-formularios.html">Siguiente Formularios</a>
+  </body>
+</html>
 ```
 
-
-👈🏼👀
-👈🏼👀👇🏼
-🔥
+[Hover focus and other states#first-last-odd-and-even](https://tailwindcss.com/docs/hover-focus-and-other-states#first-last-odd-and-even)
 
 ### 4.6
 
