@@ -651,29 +651,69 @@ Empezaremos a trabajar con listas, pero mientras revisa la documentación.
 
 ### 4.4 Ejercicio - Listas
 
-```html
-
+```bash
+cd 01-css-local
+npm run dev
 ```
+
+`src/01-pseudo-classes/01-listas.html`
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../../dist/output.css" />
+  </head>
+  <body>
+    <h1>Listas</h1>
+    <hr />
+    <ul class="list-inside list-disc">
+      <!-- Se aplica solo al primer elemento -->
+      <li class="first:mt-4">Item 1</li>
+      <li class="first:mt-4">Item 2</li>
+      <li class="first:mt-4">Item 3</li>
+      <li class="first:mt-4 last:mb-4">Item 4</li>
+    </ul>
+    <footer>
+      <p>Soy el footer</p>
+      <a
+        href="02-tablas.html"
+        class="text-bold cursor-pointer text-red-400 hover:underline"
+        >Siguiente Tablas</a
+      >
+    </footer>
+  </body>
+</html>
+```
+
+`01-css-local/src/styles.css`
 
 ```css
+@import "tailwindcss";
 
+@layer base {
+  body {
+    @apply bg-gray-950 p-8 px-4 py-2 text-red-500;
+  }
+
+  h1 {
+    @apply mb-2 text-3xl font-bold;
+  }
+}
 ```
-
-
-```html
-
-```
-
-
-👈🏼👀
-👈🏼👀👇🏼
-🔥
 
 ### 4.5
 
+`src/01-pseudo-classes/.html`
+
 ```html
 
 ```
+
+`01-css-local/src/styles.css`
 
 ```css
 
@@ -691,9 +731,13 @@ Empezaremos a trabajar con listas, pero mientras revisa la documentación.
 
 ### 4.6
 
+`src/01-pseudo-classes/.html`
+
 ```html
 
 ```
+
+`01-css-local/src/styles.css`
 
 ```css
 
@@ -710,6 +754,8 @@ Empezaremos a trabajar con listas, pero mientras revisa la documentación.
 🔥
 
 ### 4.7
+
+`src/01-pseudo-classes/.html`
 
 ```html
 
@@ -731,6 +777,8 @@ Empezaremos a trabajar con listas, pero mientras revisa la documentación.
 
 ### 4.8
 
+`src/01-pseudo-classes/.html`
+
 ```html
 
 ```
@@ -750,6 +798,8 @@ Empezaremos a trabajar con listas, pero mientras revisa la documentación.
 🔥
 
 ### 4.9
+
+`src/01-pseudo-classes/.html`
 
 ```html
 
@@ -771,6 +821,8 @@ Empezaremos a trabajar con listas, pero mientras revisa la documentación.
 
 ### 4.10
 
+`src/01-pseudo-classes/.html`
+
 ```html
 
 ```
@@ -791,6 +843,8 @@ Empezaremos a trabajar con listas, pero mientras revisa la documentación.
 
 ### 4.11
 
+`src/01-pseudo-classes/.html`
+
 ```html
 
 ```
@@ -810,6 +864,8 @@ Empezaremos a trabajar con listas, pero mientras revisa la documentación.
 🔥
 
 ### 4.12
+
+`src/01-pseudo-classes/.html`
 
 ```html
 
