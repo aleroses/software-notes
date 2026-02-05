@@ -824,29 +824,133 @@ npm run dev
 
 [Hover focus and other states#first-last-odd-and-even](https://tailwindcss.com/docs/hover-focus-and-other-states#first-last-odd-and-even)
 
-### 4.6
+### 4.6 Tablas responsivas
 
-`src/01-pseudo-classes/.html`
-
-```html
-
-```
-
-`01-css-local/src/styles.css`
-
-```css
-
-```
-
+`src/01-pseudo-classes/02-tablas.html`
 
 ```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../../dist/output.css" />
+  </head>
 
+  <body>
+    <h1>Tablas</h1>
+    <hr />
+
+    <div class="overflow-x-auto">
+      <table class="w-full min-w-max">
+        <thead class="hidden bg-gray-900/35 md:table-header-group">
+          <tr
+            class="odd:bg-white even:bg-gray-50 dark:odd:bg-gray-900/50 dark:even:bg-gray-950"
+          >
+            <th class="p-3">Foto</th>
+            <th class="p-3">Nombre</th>
+            <th class="p-3">Edad</th>
+            <th class="p-3 text-right">Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!--  -->
+          <tr
+            class="mb-5 flex flex-col items-center justify-center p-2 odd:bg-white even:bg-gray-50 md:table-row dark:odd:bg-gray-900/50 dark:even:bg-gray-950"
+          >
+            <td>
+              <img
+                src="https://randomuser.me/api/portraits/men/1.jpg"
+                alt="Foto de Juan Pérez"
+                class="h-12 w-12 rounded-full"
+              />
+            </td>
+            <td class="capitalize">Juan Pérez</td>
+            <td>28</td>
+            <td>juan.perez@email.com</td>
+          </tr>
+          <tr
+            class="mb-5 flex flex-col items-center justify-center p-2 odd:bg-white even:bg-gray-50 md:table-row dark:odd:bg-gray-900/50 dark:even:bg-gray-950"
+          >
+            <td>
+              <img
+                src="https://randomuser.me/api/portraits/women/2.jpg"
+                alt="Foto de Maria Gomez"
+                class="h-12 w-12 rounded-full"
+              />
+            </td>
+            <td>Maria Gomez</td>
+            <td>34</td>
+            <td class="lowercase">maria.gomez@email.com</td>
+          </tr>
+          <tr
+            class="mb-5 flex flex-col items-center justify-center p-2 odd:bg-white even:bg-gray-50 md:table-row dark:odd:bg-gray-900/50 dark:even:bg-gray-950"
+          >
+            <td>
+              <img
+                src="https://randomuser.me/api/portraits/men/3.jpg"
+                alt="Foto de Luis Fernández"
+                class="h-12 w-12 rounded-full"
+              />
+            </td>
+            <td>Luis Fernández</td>
+            <td>25</td>
+            <td>luis.fernandez@email.com</td>
+          </tr>
+          <tr
+            class="mb-5 flex flex-col items-center justify-center p-2 odd:bg-white even:bg-gray-50 md:table-row dark:odd:bg-gray-900/50 dark:even:bg-gray-950"
+          >
+            <td>
+              <img
+                src="https://randomuser.me/api/portraits/women/4.jpg"
+                alt="Foto de Ana Ruiz"
+                class="h-12 w-12 rounded-full"
+              />
+            </td>
+            <td>Ana Ruiz</td>
+            <td>30</td>
+            <td>ana.ruiz@email.com</td>
+          </tr>
+          <tr
+            class="mb-5 flex flex-col items-center justify-center p-2 odd:bg-white even:bg-gray-50 md:table-row dark:odd:bg-gray-900/50 dark:even:bg-gray-950"
+          >
+            <td>
+              <img
+                src="https://randomuser.me/api/portraits/men/5.jpg"
+                alt="Foto de Carlos Torres"
+                class="h-12 w-12 rounded-full"
+              />
+            </td>
+            <td>Carlos Torres</td>
+            <td>41</td>
+            <td>carlos.torres@email.com</td>
+          </tr>
+          <tr
+            class="mb-5 flex flex-col items-center justify-center p-2 odd:bg-white even:bg-gray-50 md:table-row dark:odd:bg-gray-900/50 dark:even:bg-gray-950"
+          >
+            <td>
+              <img
+                src="https://randomuser.me/api/portraits/women/6.jpg"
+                alt="Foto de Laura Sánchez"
+                class="h-12 w-12 rounded-full"
+              />
+            </td>
+            <td>Laura Sánchez</td>
+            <td>22</td>
+            <td>laura.sanchez@email.com</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <a
+      href="03-formularios.html"
+      class="text-bold cursor-pointer text-red-400 hover:underline"
+      >Siguiente Formularios</a
+    >
+  </body>
+</html>
 ```
-
-
-👈🏼👀
-👈🏼👀👇🏼
-🔥
 
 ### 4.7
 
