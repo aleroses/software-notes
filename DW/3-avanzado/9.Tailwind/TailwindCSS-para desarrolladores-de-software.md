@@ -826,6 +826,10 @@ npm run dev
 
 ### 4.6 Tablas responsivas
 
+```bash
+npm run dev
+```
+
 `src/01-pseudo-classes/02-tablas.html`
 
 ```html
@@ -952,27 +956,108 @@ npm run dev
 </html>
 ```
 
-### 4.7
+### 4.7 Ejercicio - Formularios
 
-`src/01-pseudo-classes/.html`
+```bash
+npm run dev
+```
+
+`src/01-pseudo-classes/03-formularios.html`
 
 ```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Formularios</title>
+    <link rel="stylesheet" href="../../dist/output.css" />
+  </head>
+  <body class="p-8">
+    <h1 class="mb-2 text-3xl font-bold">Formularios</h1>
+    <hr />
 
+    <form
+      action=""
+      class="mx-auto mt-10 flex max-w-md flex-col gap-6 rounded-lg border border-gray-700 bg-slate-900 p-8"
+    >
+      <!-- Campo Username (disabled) -->
+      <div class="flex flex-col gap-2">
+        <label for="username" class="font-medium text-white">Username</label>
+        <input
+          type="text"
+          id="username"
+          value="JuanCarlos"
+          disabled
+          class="form-control"
+        />
+      </div>
+
+      <!-- Campo Email (con validación) -->
+      <div class="flex flex-col gap-2">
+        <label for="email" class="font-medium text-white">Email</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="correo@ejemplo.com"
+          class="form-control"
+        />
+        <span class="text-sm text-pink-500">Ingresa un correo válido</span>
+      </div>
+
+      <!-- Campo Password -->
+      <div class="flex flex-col gap-2">
+        <label for="password" class="font-medium text-white">Password</label>
+        <input
+          type="password"
+          id="password"
+          minlength="8"
+          maxlength="16"
+          placeholder="Mínimo 8 caracteres"
+          class="form-control"
+        />
+        <span class="text-sm text-pink-500"
+          >Ingresa una contraseña válida de entre 8 y 16 caracteres</span
+        >
+      </div>
+
+      <!-- Botón Submit -->
+      <div class="flex justify-end">
+        <button
+          type="submit"
+          class="rounded-md bg-sky-500 px-6 py-3 font-semibold text-white transition-colors"
+        >
+          Save changes
+        </button>
+      </div>
+    </form>
+
+    <a href="04-has.html" class="mt-4 block text-blue-500">Siguiente Has</a>
+  </body>
+</html>
 ```
+
+`src/styles.css`
 
 ```css
+@import "tailwindcss";
 
+@layer base {
+  body {
+    @apply bg-gray-950 p-8 px-4 py-2 text-red-500;
+  }
+
+  h1 {
+    @apply mb-2 text-3xl font-bold;
+  }
+}
+
+@layer components {
+  .form-control {
+    @apply rounded-md border border-gray-600 bg-transparent px-4 py-3 text-white transition-colors outline-none placeholder:text-sm placeholder:italic invalid:border-pink-500 invalid:text-pink-400 focus:border-sky-500 focus:invalid:border-pink-500 disabled:bg-transparent disabled:text-gray-400;
+  }
+}
 ```
-
-
-```html
-
-```
-
-
-👈🏼👀
-👈🏼👀👇🏼
-🔥
 
 ### 4.8
 
