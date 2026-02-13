@@ -517,32 +517,36 @@ Vamos a crear la paleta de color de un nuevo proyecto
 ✨ Operaciones No-Destructivas: no importa que tanto ampliemos estos vectores la resolución nunca se va a perder.
 
 🔥 Construyendo vectores    
-- ➔ P para usar la herramienta “Pen - Esfero” 
-	- ◆ Click en cualquier lugar para empezar 
-	- ◆ Escape para abandonar 
-- ➔ En Figma, un punto puede alojar una cantidad infinita de trazos que salgan desde ese punto 
-- ➔ Cuando seleccionas y mueves dicho punto, todos los trazos se mueven con él
 
+- P para usar la herramienta “Pen - Esfero” 
+	- Click en cualquier lugar para empezar 
+	- Escape para abandonar 
+- En Figma, un punto puede alojar una cantidad infinita de trazos que salgan desde ese punto 
+- Cuando seleccionas y mueves dicho punto, todos los trazos se mueven con él
 
 🔥 Editando trazos   
-- ➔ Stroke 
-	- ◆ Center 
-	- ◆ Inside 
-	- ◆ Outside 
-- ➔ Cap 
-	- ◆ Round - Square - Arrows 
-- ➔ Dashes
+
+- Stroke 
+	- Center 
+	- Inside 
+	- Outside 
+- Cap 
+	- Round 
+	- Square 
+	- Arrows 
+- Dashes
 
 🔥 Operaciones Booleanas    
-➔ Sumas y Restas 
-	◆ Union 
-	◆ Substract 
-➔ Combinatorias 
-	◆ Intersect 
-	◆ Exclude
 
+- Sumas y Restas 
+	- Union 
+	- Substract 
+- Combinatorias 
+	- Intersect 
+	- Exclude
 
 ✨ Ejemplo 1 - Vector
+
 - Crear Frame
 - Tecla P
 - Dibujar un 🔺 Esc para dejar de editar 
@@ -553,7 +557,8 @@ Vamos a crear la paleta de color de un nuevo proyecto
 - Jugar con las opciones de stroke 
 
 
-✨ Ejemplo 2 - Operaciones Booleanas - Resta   
+✨ Ejemplo 2 - Operaciones Booleanas - Resta
+
 - Hacer un circulo pequeño dentro de otro mas grande   
 - Darles color
 -  Seleccionar ambos círculos
@@ -569,62 +574,68 @@ Vamos a crear la paleta de color de un nuevo proyecto
 
 ✨ Ejemplo 4 - Dibujar pluma   
 
-
 ## 13. Integración: importar y exportar elementos
 
-¿Qué se puede importar?       
-🔥 Figma soporta:     
-- ◆ JPEG 
-- ◆ PNG 
-- ◆ SVG 
-- ◆ .sketch
+¿Qué se puede importar?
 
-🔥 ¿Cómo importar?    
-- ➔ Drag and drop 
-	- ◆ En archivos 
-	- ◆ En proyectos 
-- ➔ Command + Shift + K 
-- ➔ Home: Importar file
-- ➔ Copy/Paste desde: 
-	- ◆ Sketch 
-	- ◆ Illustrator 
-	- ◆ Otros archivos de Figma
+🔥 Figma soporta:
 
-¿Qué se puede exportar?     
-🔥 Figma puede exportar cualquier cosa como:    
-- ◆ JPEG 
-- ◆ PNG 
-- ◆ SVG
+- JPEG 
+- PNG 
+- SVG 
+- sketch
+
+🔥 ¿Cómo importar?
+
+- Drag and drop 
+	- En archivos 
+	- En proyectos 
+- Command + Shift + K 
+- Home: Importar file
+- Copy/Paste desde: 
+	- Sketch 
+	- Illustrator 
+	- Otros archivos de Figma
+
+¿Qué se puede exportar?
+
+🔥 Figma puede exportar cualquier cosa como:
+
+- JPEG 
+- PNG 
+- SVG
+
+¿Cómo exportar?
+
+🔥 Op1
+
+- Seleccionar elemento 
+- Agregar propiedad de “Export” 
+- Definir parámetros 
+	- JPEG, SVG 
+	- 1X, 2X, 3X
+
+🔥 Op2
+
+- Sin ninguna selección activa 
+- Command + Shift + E 
+- Seleccionar elementos a exportar 
+
+- Fondos transparentes
 
 
-¿Cómo exportar? 
-🔥 Op1 
-- ◆ Seleccionar elemento 
-- ◆ Agregar propiedad de “Export” 
-- ◆ Definir parámetros 
-	- ● JPEG, SVG 
-	- ● 1X, 2X, 3X
+¿Puedo exportar un archivo?
 
+Sí, puedes tener una versión offline en .fig
 
-🔥 ➔ Op2     
-- ◆ Sin ninguna selección activa 
-- ◆ Command + Shift + E 
-- ◆ Seleccionar elementos a exportar 
-
-- ➔ Fondos transparentes
-
-
-¿Puedo exportar un archivo?       
-Sí, puedes tener una versión offline en .fig     
 ◆ ¿Pero para qué?   
 
 
 Compartir un archivo          
-- ➔ Permisos de edición 
-- ➔ Vista de frames 
-	- ◆ Permite crear nuevos parámetros de exportar 
-- ➔ Vista solo de prototipo
-
+- Permisos de edición 
+- Vista de frames 
+	- Permite crear nuevos parámetros de exportar 
+- Vista solo de prototipo
 
 📌 PNG permite transparencias 
 
