@@ -1228,27 +1228,66 @@ npm run dev
 </html>
 ```
 
-### 4.10
+### 4.10 Ejemplo - Grupos
 
-`src/01-pseudo-classes/.html`
-
-```html
-
-```
-
-```css
-
-```
-
+`src/01-pseudo-classes/05-grupos.html`
 
 ```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../../dist/output.css" />
+  </head>
 
+  <body class="p-8">
+    <h1 class="mb-2 text-3xl font-bold">Grupos</h1>
+    <hr />
+
+    <div
+      class="group 👈🏼👀 mt-10 cursor-pointer rounded-md border bg-slate-800 p-6 text-white transition-colors hover:bg-sky-400 👈🏼👀"
+    >
+      <svg
+        class="group-hover:text-gray-900 group-has-[a]:text-red-500" 👈🏼👀
+        xmlns="http://www.w3.org/2000/svg"
+        width="48"
+        height="48"
+        viewBox="0 0 16 16"
+      >
+        <path
+          fill="currentColor" 👈🏼👀
+          fill-rule="evenodd"
+          d="M12.5 12.618c.307-.275.5-.674.5-1.118V6.977a1.5 1.5 0 0 0-.585-1.189l-3.5-2.692a1.5 1.5 0 0 0-1.83 0l-3.5 2.692A1.5 1.5 0 0 0 3 6.978V11.5A1.496 1.496 0 0 0 4.493 13H5V9.5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2V13h.507c.381-.002.73-.146.993-.382m2-1.118a3 3 0 0 1-3 3h-7a3 3 0 0 1-3-3V6.977A3 3 0 0 1 2.67 4.6l3.5-2.692a3 3 0 0 1 3.66 0l3.5 2.692a3 3 0 0 1 1.17 2.378zm-5-2A.5.5 0 0 0 9 9H7a.5.5 0 0 0-.5.5V13h3z"
+          clip-rule="evenodd"
+        />
+      </svg>
+      <p class="mb-3">
+        Este es un contenedor que cambiará de color si contiene un enlace.
+      </p>
+      <span class="hidden group-has-[a]:inline-block" 👈🏼👀>Ir al enlace</span>
+      <a
+        href="#"
+        class="underline group-hover:text-gray-900 group-has-[a]:text-red-500" 👈🏼👀
+        >Visita este enlace</a
+      >
+    </div>
+
+    <div
+      class="mt-10 rounded-md border bg-slate-800 p-6 text-white transition-colors"
+    >
+      <p class="mb-3">Este no cambiará de color.</p>
+
+      <span class="hidden group-has-[a]:inline-block" 👈🏼👀
+        >Ir al enlace (Yo no debería verme)</span
+      >
+    </div>
+
+    <a href="06-hermanos.html" class="text-blue-500">Siguiente Hermanos</a>
+  </body>
+</html>
 ```
-
-
-👈🏼👀
-👈🏼👀👇🏼
-🔥
 
 ### 4.11
 
