@@ -1289,27 +1289,131 @@ npm run dev
 </html>
 ```
 
-### 4.11
+### 4.11 Ejemplo - Hermanos
 
-`src/01-pseudo-classes/.html`
-
-```html
-
-```
-
-```css
-
-```
-
+`src/01-pseudo-classes/06-hermanos.html`
 
 ```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Selectores de Hermanos - Peer</title>
+    <link rel="stylesheet" href="../../dist/output.css" />
+  </head>
+  <body class="p-8">
+    <h1 class="mb-2 text-3xl font-bold">Selectores de Hermanos - Peer</h1>
+    <hr />
 
+    <div
+      class="mx-auto mt-10 w-full max-w-lg rounded-lg bg-slate-900 p-8 shadow-xl"
+    >
+      <h1 class="mb-6 text-2xl font-bold text-white">
+        Hoy es un buen día para...
+      </h1>
+
+      <ul class="space-y-4">
+        <!-- Item completado -->
+        <li class="flex items-center gap-4">
+          <label
+            for="task-1"
+            class="peer 👈🏼👀 text-slate-40 flex flex-1 cursor-pointer items-center gap-4 text-lg"
+          >
+            <input
+              type="checkbox"
+              id="task-1"
+              checked
+              class="peer 👈🏼👀 relative h-6 w-6 cursor-pointer appearance-none rounded border-2 border-slate-600 checked:after:absolute checked:after:top-1/2 checked:after:left-1/2 checked:after:-translate-x-1/2 checked:after:-translate-y-1/2 checked:after:text-sm checked:after:text-white checked:after:content-['✓']"
+            />
+            <span
+              class="flex-1 transition-all duration-300 ease-in-out peer-checked:line-through" 👈🏼👀
+            >
+              Crear una lista de tareas
+            </span>
+          </label>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="hidden h-5 w-5 text-gray-500 peer-has-checked:block" 👈🏼👀
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </li>
+
+        <!-- Item no completado -->
+        <li class="flex items-center gap-4">
+          <label
+            for="task-2"
+            class="peer text-slate-40 flex flex-1 cursor-pointer items-center gap-4 text-lg"
+          >
+            <input
+              type="checkbox"
+              id="task-2"
+              class="peer relative h-6 w-6 cursor-pointer appearance-none rounded border-2 border-slate-600 checked:after:absolute checked:after:top-1/2 checked:after:left-1/2 checked:after:-translate-x-1/2 checked:after:-translate-y-1/2 checked:after:text-sm checked:after:text-white checked:after:content-['✓']"
+            />
+            <span class="flex-1 peer-checked:line-through">
+              Aprender sobre selectores de hermanos
+            </span>
+          </label>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="hidden h-5 w-5 text-gray-500 peer-has-checked:block"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </li>
+
+        <!-- Item no completado -->
+        <li class="flex items-center gap-4">
+          <label
+            for="task-3"
+            class="peer text-slate-40 flex flex-1 cursor-pointer items-center gap-4 text-lg"
+          >
+            <input
+              type="checkbox"
+              id="task-3"
+              class="peer relative h-6 w-6 cursor-pointer appearance-none rounded border-2 border-slate-600 checked:after:absolute checked:after:top-1/2 checked:after:left-1/2 checked:after:-translate-x-1/2 checked:after:-translate-y-1/2 checked:after:text-sm checked:after:text-white checked:after:content-['✓']"
+            />
+            <span class="flex-1 peer-checked:line-through">
+              Compartir mi lista con amigos
+            </span>
+          </label>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="hidden h-5 w-5 text-gray-500 peer-has-checked:block"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </li>
+      </ul>
+    </div>
+
+    <a
+      href="07-grupos-anidados.html"
+      class="mt-4 block self-start text-blue-500"
+      >Siguiente Grupos Anidados</a
+    >
+  </body>
+</html>
 ```
-
-
-👈🏼👀
-👈🏼👀👇🏼
-🔥
 
 ### 4.12
 
