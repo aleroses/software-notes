@@ -1415,7 +1415,7 @@ npm run dev
 </html>
 ```
 
-### 4.12
+### 4.12 Ejemplo - Grupos anidados
 
 `src/01-pseudo-classes/.html`
 
