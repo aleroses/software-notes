@@ -1556,16 +1556,96 @@ npm run dev
 </html>
 ```
 
-### 4.13 
+### 4.13 Ejemplo - Grupos implícitos
 
-```css
-
-```
-
+`src/01-pseudo-classes/08-grupos-implicitos.html`
 
 ```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../../dist/output.css" />
+  </head>
 
+  <body class="p-8">
+    <h1 tabindex="0" class="mb-2 text-3xl font-bold">Grupos Implícitos</h1>
+    <hr />
+
+    <div
+      class="mx-auto mt-10 w-full max-w-lg rounded-lg bg-slate-900 p-8 shadow-xl"
+    >
+      <h2 class="mb-6 text-2xl font-bold text-white">
+        Ejemplo: Grupos Implícitos (in-*)
+      </h2>
+
+      <div class="space-y-8">
+        <!-- Ejemplo con .group y .group-focus -->
+        <div>
+          <p class="mb-4 font-medium text-white">
+            Usando
+            <span class="rounded bg-slate-700 px-1">group</span> tradicional:
+          </p>
+          <div
+            tabindex="0" 👈🏼👀
+            class="group 👈🏼👀 cursor-pointer rounded-lg bg-slate-800 p-4 ring-pink-500 👈🏼👀 transition outline-none 👈🏼👀 focus:ring-2 👈🏼👀"
+          >
+            <p class="mb-2 text-sm text-slate-300">
+              Haz foco (tab o click) en esta caja para ver el efecto:
+            </p>
+            <div
+              class="rounded bg-pink-500 p-3 text-white opacity-30 👈🏼👀 transition-opacity group-hover:bg-red-800 👈🏼👀 group-focus:opacity-100 👈🏼👀"
+            >
+              <span class="font-semibold">group-focus:</span> ¡Ahora me ves
+              claramente!
+            </div>
+          </div>
+        </div>
+
+        <!-- Ejemplo con in-focus -->
+        <div>
+          <p class="mb-2 font-medium text-white">
+            Usando
+            <span class="rounded bg-slate-700 px-1">in-focus</span> (grupo
+            implícito):
+          </p>
+          <div
+            tabindex="0" 👈🏼👀
+            class="cursor-pointer rounded-lg bg-slate-800 p-4 ring-pink-500 transition outline-none 👈🏼👀 focus:ring-2 👈🏼👀"
+          >
+            <p class="mb-2 text-sm text-slate-300">
+              Haz foco (tab o click) en esta caja para ver el efecto:
+            </p>
+            <div
+              class="rounded bg-pink-500 p-3 text-white opacity-30 👈🏼👀 transition-opacity in-hover:bg-amber-500 👈🏼👀 in-focus:opacity-100 👈🏼👀"
+            >
+              <span class="font-semibold">in-focus:</span> ¡Yo no necesito
+              class="group"!
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <a href="09-diferenciando-peers.html" class="text-blue-500"
+      >Siguiente Diferenciando Peers</a
+    >
+  </body>
+</html>
 ```
+
+| Característica   | group-focus       | in-focus            |
+|------------------|-------------------|---------------------|
+| Clase en padre   | ✅ Necesita group | ❌ No necesita nada |
+| Sintaxis en hijo | group-focus:*     | in-focus:*          |
+| Versión          | v3+               | v4+                 |
+| Verbosidad       | Mayor             | Menor               |
+
+### 4.14 
+
+
 
 
 👈🏼👀
@@ -1575,6 +1655,8 @@ npm run dev
 ```html
 
 ```
+
+### 4.15
 
 ```css
 
