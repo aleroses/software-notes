@@ -1695,7 +1695,82 @@ Aquí tienen el código fuente de la sección por si quieren saltarse toda la pr
 
 [GitHub - Tailwindcss Localmente](https://github.com/DevTalles-corp/tailwindcss-css-localmente/tree/fin-seccion-04)
 
-## 5. 
+## 5. Tema y configuraciones
+
+### 5.1 Introducción
+
+### 5.2 Temas puntuales
+
+En esta sección estaremos aprendiendo sobre personalizaciones en el lado de TailwindCSS, tanto en modo light y dark como en configuraciones globales de estilo y temas.
+
+**Puntualmente veremos:**
+
+- **Ejemplo – Diseño responsivo**
+    
+    Crear una interfaz adaptable usando breakpoints y utilidades responsivas.
+    
+- **Ejemplo – Tema Light y Dark**
+    
+    Implementar soporte para modos claro y oscuro usando clases y configuraciones.
+    
+- **Cambiar tema manualmente**
+    
+    Agregar botón o toggle para alternar entre temas en tiempo real.
+    
+- **Ejercicio – Variables de color**
+    
+    Practicar la creación y uso de variables personalizadas dentro del tema.
+    
+- **Ejercicio – Fuentes personalizadas**
+    
+    Integrar nuevas tipografías y aplicarlas mediante configuraciones del theme.
+
+### 5.3
+
+```css
+
+```
+👈🏼👀
+👈🏼👀👇🏼
+🔥
+
+### 5.4
+
+```css
+
+```
+👈🏼👀
+👈🏼👀👇🏼
+🔥
+
+### 5.5
+
+```css
+
+```
+👈🏼👀
+👈🏼👀👇🏼
+🔥
+
+### 5.6
+
+```css
+
+```
+👈🏼👀
+👈🏼👀👇🏼
+🔥
+
+### 5.7
+
+```css
+
+```
+👈🏼👀
+👈🏼👀👇🏼
+🔥
+
+### 5.8
 
 ```css
 
