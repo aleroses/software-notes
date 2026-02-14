@@ -1643,18 +1643,51 @@ npm run dev
 | Versión          | v3+               | v4+                 |
 | Verbosidad       | Mayor             | Menor               |
 
-### 4.14 
+### 4.14 Ejemplo - Diferenciando peers
 
-
-
-
-👈🏼👀
-👈🏼👀👇🏼
-🔥
+`src/01-pseudo-classes/09-diferenciando-peers.html`
 
 ```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../../dist/output.css" />
+  </head>
 
+  <body class="p-8">
+    <h1 class="mb-2 text-3xl font-bold">Diferenciando Peers</h1>
+    <hr />
+
+    <fieldset
+      class="mx-auto mt-10 w-full max-w-lg rounded-lg bg-slate-900 p-8 shadow-xl"
+    >
+      <legend>Published status</legend>
+
+      <!-- Los inputs deben estar ANTES y ser HERMANOS de los elementos que reaccionan -->
+      <input id="draft" class="peer/draft" 👈🏼👀 type="radio" name="status" />
+      <label for="draft" class="mr-6 cursor-pointer font-medium">Draft</label>
+
+      <input id="published" class="peer/published" 👈🏼👀 type="radio" name="status" />
+      <label for="published" class="cursor-pointer font-medium"
+        >Published</label
+      >
+
+      <!-- Estos divs son hermanos de los inputs -->
+      <div class="mt-4 hidden 👈🏼👀 text-gray-300 peer-checked/draft:block 👈🏼👀">
+        Drafts are only visible to administrators.
+      </div>
+      <div class="mt-4 hidden 👈🏼👀 text-gray-300 peer-checked/published:block 👈🏼👀">
+        Your post will be publicly visible on your site.
+      </div>
+    </fieldset>
+  </body>
+</html>
 ```
+
+[Styling based on sibling state](https://tailwindcss.com/docs/hover-focus-and-other-states#styling-based-on-sibling-state)
 
 ### 4.15
 
