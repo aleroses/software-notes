@@ -1417,11 +1417,146 @@ npm run dev
 
 ### 4.12 Ejemplo - Grupos anidados
 
-`src/01-pseudo-classes/.html`
+`src/01-pseudo-classes/07-grupos-anidados.html`
 
 ```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../../dist/output.css" />
+  </head>
 
+  <body class="p-8">
+    <h1 class="mb-2 text-3xl font-bold">Grupos Anidados</h1>
+    <hr />
+
+    <div
+      class="mx-auto mt-10 w-full max-w-lg rounded-lg bg-slate-900 p-8 shadow-xl"
+    >
+      <h2 class="mb-6 text-2xl font-bold text-white">Nuestro equipo</h2>
+
+      <ul role="list" class="mt-10 space-y-4">
+        <!-- Person 1 -->
+        <li
+          class="group/item 👈🏼👀 flex cursor-pointer items-center gap-4 rounded-xl bg-slate-800 px-6 py-4 hover:bg-red-500/30 👈🏼👀"
+        >
+          <img
+            src="https://randomuser.me/api/portraits/women/32.jpg"
+            alt="Foto de Leslie Abbott"
+            class="h-12 w-12 rounded-full object-cover"
+          />
+          <div class="flex-1">
+            <p class="font-semibold text-white">Leslie Abbott</p>
+            <p class="text-sm text-slate-400">Co-Founder / CEO</p>
+          </div>
+          <a
+            href="#"
+            class="group/edit 👈🏼👀 invisible 👈🏼👀 flex items-center gap-1 font-medium text-blue-400 transition group-hover/item:visible 👈🏼👀"
+          >
+            <span class="transition-colors group-hover:text-gray-200"
+              >Call</span
+            >
+            <svg
+              class="transition-transform delay-200 group-hover/edit:translate-x-0.5 👈🏼👀"
+              width="18"
+              height="18"
+              fill="none"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill="currentColor"
+                fill-rule="evenodd"
+                d="M7.293 14.707a1 1 0 0 1 0-1.414L10.586 10 7.293 6.707a1 1 0 0 1 1.414-1.414l4 4a1 1 0 0 1 0 1.414l-4 4a1 1 0 0 1-1.414 0z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </a>
+        </li>
+        <!-- Person 2 -->
+        <li
+          class="group/item flex cursor-pointer items-center gap-4 rounded-xl bg-slate-800 px-6 py-4 hover:bg-red-500/30"
+        >
+          <img
+            src="https://randomuser.me/api/portraits/men/44.jpg"
+            alt="Foto de Hector Adams"
+            class="h-12 w-12 rounded-full object-cover"
+          />
+          <div class="flex-1">
+            <p class="font-semibold text-white">Hector Adams</p>
+            <p class="text-sm text-slate-400">VP, Marketing</p>
+          </div>
+          <a
+            href="#"
+            class="group/edit invisible flex items-center gap-1 font-medium text-blue-400 transition group-hover/item:visible"
+          >
+            <span class="transition-colors group-hover/edit:text-gray-200"
+              >Call</span
+            >
+            <svg
+              class="transition-transform group-hover/edit:translate-x-0.5"
+              width="18"
+              height="18"
+              fill="none"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fill="currentColor"
+                fill-rule="evenodd"
+                d="M7.293 14.707a1 1 0 0 1 0-1.414L10.586 10 7.293 6.707a1 1 0 0 1 1.414-1.414l4 4a1 1 0 0 1 0 1.414l-4 4a1 1 0 0 1-1.414 0z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </a>
+        </li>
+        <!-- Person 3 -->
+        <li
+          class="group/item flex cursor-pointer items-center gap-4 rounded-xl bg-slate-800 px-6 py-4"
+        >
+          <img
+            src="https://randomuser.me/api/portraits/men/36.jpg"
+            alt="Foto de Blake Alexander"
+            class="h-12 w-12 rounded-full object-cover"
+          />
+          <div class="flex-1">
+            <p class="font-semibold text-white">Blake Alexander</p>
+            <p class="text-sm text-slate-400">Account Coordinator</p>
+          </div>
+          <a
+            href="#"
+            class="group/edit invisible flex items-center gap-1 font-medium text-blue-400 transition group-hover/item:visible"
+          >
+            <span class="transition-colors group-hover/edit:text-gray-200"
+              >Call</span
+            >
+            <svg
+              class="transition-transform group-hover/edit:translate-x-0.5"
+              width="18"
+              height="18"
+              fill="none"
+            >
+              <path
+                fill="currentColor"
+                fill-rule="evenodd"
+                d="M7.293 14.707a1 1 0 0 1 0-1.414L10.586 10 7.293 6.707a1 1 0 0 1 1.414-1.414l4 4a1 1 0 0 1 0 1.414l-4 4a1 1 0 0 1-1.414 0z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <a href="08-grupos-implicitos.html" class="text-blue-500"
+      >Siguiente Grupos Implícitos</a
+    >
+  </body>
+</html>
 ```
+
+### 4.13 
 
 ```css
 
