@@ -1725,14 +1725,43 @@ En esta sección estaremos aprendiendo sobre personalizaciones en el lado de Tai
     
     Integrar nuevas tipografías y aplicarlas mediante configuraciones del theme.
 
-### 5.3
+### 5.3 Continuación de proyecto
 
-```css
+Revisa el README.md de la sección anterior y descarga el archivo adjunto.
 
+Estructura:
+
+```bash
+.
+└── 01-css-local
+    ├── dist
+    │   └── output.css
+    ├── .gitignore
+    ├── package.json
+    ├── package-lock.json
+    ├── .prettierrc
+    ├── README.md
+    └── src
+        ├── 01-pseudo-classes
+        │   ├── 01-listas.html
+        │   ├── 02-tablas.html
+        │   ├── 03-formularios.html
+        │   ├── 04-has.html
+        │   ├── 05-grupos.html
+        │   ├── 06-hermanos.html
+        │   ├── 07-grupos-anidados.html
+        │   ├── 08-grupos-implicitos.html
+        │   └── 09-diferenciando-peers.html
+        ├── 02-temas 👈🏼👀👇🏼
+        │   ├── 01-responsivo.html
+        │   ├── 02-dark.html
+        │   ├── 03-variantes-color.html
+        │   └── 04-fuente.html
+        ├── index.html
+        └── styles.css
 ```
-👈🏼👀
-👈🏼👀👇🏼
-🔥
+
+[Descargar](https://import.cdn.thinkific.com/643563/tn8Cam8MSjSVQwCfdT99_02-temas.zip)
 
 ### 5.4
 
