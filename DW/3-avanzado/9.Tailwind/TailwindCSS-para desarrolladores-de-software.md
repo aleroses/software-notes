@@ -1763,18 +1763,83 @@ Estructura:
 
 [Descargar](https://import.cdn.thinkific.com/643563/tn8Cam8MSjSVQwCfdT99_02-temas.zip)
 
-### 5.4
+### 5.4 Ejemplo - Diseño responsivo
 
-```css
+`src/02-temas/01-responsivo.html`
 
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../../dist/output.css" />
+  </head>
+
+  <body>
+    <h1 class="text-3xl font-bold">Diseño responsivo con Tailwind</h1>
+
+    <!-- Ejemplo de Grid responsivo en TailwindCSS -->
+    <div
+      class="mt-10 grid 👈🏼👀 grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 👈🏼👀"
+    >
+      <div
+        class="rounded-lg bg-slate-700 p-6 text-white shadow-lg sm:bg-red-400 👈🏼👀 md:bg-red-500 lg:bg-red-600 xl:bg-red-700 👈🏼👀"
+      >
+        <h2 class="mb-2 text-xl font-semibold">Card 1</h2>
+        <p>
+          Este es un ejemplo de una tarjeta en un grid responsivo. En pantallas
+          pequeñas hay una columna, en medianas dos, y en grandes tres.
+        </p>
+      </div>
+      <div class="rounded-lg bg-slate-700 p-6 text-white shadow-lg">
+        <h2 class="mb-2 text-xl font-semibold">Card 2</h2>
+        <p>
+          Usa <code>grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3</code> para
+          controlar el número de columnas según el tamaño de pantalla.
+        </p>
+      </div>
+      <div class="rounded-lg bg-slate-700 p-6 text-white shadow-lg">
+        <h2 class="mb-2 text-xl font-semibold">Card 3</h2>
+        <p>
+          El sistema de grid de TailwindCSS hace que el diseño sea flexible y
+          sencillo de adaptar.
+        </p>
+      </div>
+      <div class="rounded-lg bg-slate-700 p-6 text-white shadow-lg">
+        <h2 class="mb-2 text-xl font-semibold">Card 4</h2>
+        <p>
+          Puedes agregar o quitar tarjetas y el grid se ajustará
+          automáticamente.
+        </p>
+      </div>
+      <div class="rounded-lg bg-slate-700 p-6 text-white shadow-lg">
+        <h2 class="mb-2 text-xl font-semibold">Card 5</h2>
+        <p>
+          Con Tailwind puedes personalizar el número de columnas y el espacio
+          entre ellas para lograr diferentes diseños responsivos.
+        </p>
+      </div>
+      <div class="rounded-lg bg-slate-700 p-6 text-white shadow-lg">
+        <h2 class="mb-2 text-xl font-semibold">Card 6</h2>
+        <p>
+          Tailwind facilita la creación de layouts adaptables a cualquier
+          dispositivo con clases utilitarias.
+        </p>
+      </div>
+    </div>
+
+    <a href="02-dark.html" class="text-blue-500">Siguiente Tema Dark / Light</a>
+  </body>
+</html>
 ```
-👈🏼👀
-👈🏼👀👇🏼
-🔥
 
 ### 5.5
 
-```css
+`src/02-temas/0.html`
+
+```html
 
 ```
 👈🏼👀
@@ -1783,7 +1848,9 @@ Estructura:
 
 ### 5.6
 
-```css
+`src/02-temas/0.html`
+
+```html
 
 ```
 👈🏼👀
@@ -1792,7 +1859,9 @@ Estructura:
 
 ### 5.7
 
-```css
+`src/02-temas/0.html`
+
+```html
 
 ```
 👈🏼👀
@@ -1801,7 +1870,9 @@ Estructura:
 
 ### 5.8
 
-```css
+`src/02-temas/0.html`
+
+```html
 
 ```
 👈🏼👀
