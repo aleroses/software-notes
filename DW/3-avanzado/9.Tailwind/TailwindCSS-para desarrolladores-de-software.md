@@ -1835,18 +1835,125 @@ Estructura:
 </html>
 ```
 
-### 5.5
+### 5.5 Ejemplo - Tema light y Dark
 
-`src/02-temas/0.html`
+`src/02-temas/02-dark.html`
 
 ```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../../dist/output.css" />
+  </head>
 
+  <body>
+    <h1 class="text-3xl font-bold">Tema Dark / Light</h1>
+
+    <div class="mt-10 flex gap-8">
+      <!-- Tarjeta Modo Light -->
+      <div
+        class="flex-1 rounded-lg border border-slate-200 bg-white p-6 text-slate-900 shadow-lg transition-colors dark:border-gray-700 👈🏼👀 dark:bg-gray-800 👈🏼👀"
+      >
+        <div class="mb-4 flex items-center">
+          <svg
+            class="mr-3 h-7 w-7 text-yellow-400"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="5"
+              stroke="currentColor"
+              fill="currentColor"
+            />
+            <g stroke="currentColor">
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </g>
+          </svg>
+          <h2 class="text-xl font-semibold text-slate-900 dark:text-white 👈🏼👀">
+            Modo Light
+          </h2>
+        </div>
+        <p class="text-slate-700 dark:text-white/80 👈🏼👀">
+          Este es un ejemplo de tarjeta en modo
+          <span class="font-bold">claro (light)</span>. El fondo es claro y el
+          texto oscuro. El icono representa el sol.
+        </p>
+      </div>
+
+      <!-- Tarjeta Modo Dark -->
+      <div
+        class="flex-1 rounded-lg border border-slate-700 bg-slate-800 p-6 text-white shadow-lg transition-colors dark:border-gray-200 👈🏼👀 dark:bg-gray-50 👈🏼👀"
+      >
+        <div class="mb-4 flex items-center">
+          <svg
+            class="mr-3 h-7 w-7 text-sky-400"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"
+              fill="currentColor"
+              stroke="currentColor"
+            />
+          </svg>
+          <h2 class="text-xl font-semibold text-white dark:text-gray-900 👈🏼👀">
+            Modo Dark
+          </h2>
+        </div>
+        <p class="text-slate-300 dark:text-gray-900 👈🏼👀">
+          Este es un ejemplo de tarjeta en modo
+          <span class="font-bold">oscuro (dark)</span>. El fondo es oscuro y el
+          texto claro. El icono representa la luna.
+        </p>
+      </div>
+    </div>
+
+    <h1 class="my-5 text-xl font-bold">
+      Actualmente:
+      <span>Tema Light</span>
+      <span>Tema Dark</span>
+    </h1>
+
+    <button
+      id="theme-toggle"
+      class="my-10 mt-10 block rounded-md bg-sky-500 px-6 py-3 font-semibold text-white transition-colors hover:bg-sky-600 focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 focus:ring-offset-slate-900 focus:outline-none"
+    >
+      Toggle theme
+    </button>
+
+    <a href="03-variantes-color.html" class="text-blue-500"
+      >Siguiente: Variantes de color</a
+    >
+
+    <script>
+      // Todo: Agregar botón para cambiar tema aquí:
+      // Docs: https://tailwindcss.com/docs/dark-mode#toggling-dark-mode-manually
+    </script>
+  </body>
+</html>
 ```
-👈🏼👀
-👈🏼👀👇🏼
-🔥
 
-### 5.6
+Luego de añadir las clases utilitarias, ve a apariencia de tu computador y cambia a modo light o modo dark para hacer prueba.
+
+[Toggling dark mode manually](https://tailwindcss.com/docs/dark-mode#toggling-dark-mode-manually)
+
+### 5.6 
 
 `src/02-temas/0.html`
 
