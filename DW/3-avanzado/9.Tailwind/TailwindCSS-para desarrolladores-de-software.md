@@ -1953,16 +1953,541 @@ Luego de añadir las clases utilitarias, ve a apariencia de tu computador y camb
 
 [Toggling dark mode manually](https://tailwindcss.com/docs/dark-mode#toggling-dark-mode-manually)
 
-### 5.6 
+### 5.6 Cambiar tema manualmente
 
 `src/02-temas/0.html`
 
 ```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../../dist/output.css" />
+  </head>
+
+  <body>
+    <h1 class="text-3xl font-bold">Tema Dark / Light</h1>
+
+    <div class="mt-10 flex gap-8">
+      <!-- Tarjeta Modo Light -->
+      <div
+        class="flex-1 rounded-lg border border-slate-200 bg-white p-6 text-slate-900 shadow-lg transition-colors dark:border-gray-700 dark:bg-gray-800"
+      >
+        <div class="mb-4 flex items-center">
+          <svg
+            class="mr-3 h-7 w-7 text-yellow-400"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="5"
+              stroke="currentColor"
+              fill="currentColor"
+            />
+            <g stroke="currentColor">
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </g>
+          </svg>
+          <h2 class="text-xl font-semibold text-slate-900 dark:text-white">
+            Modo Light
+          </h2>
+        </div>
+        <p class="text-slate-700 dark:text-white/80">
+          Este es un ejemplo de tarjeta en modo
+          <span class="font-bold">claro (light)</span>. El fondo es claro y el
+          texto oscuro. El icono representa el sol.
+        </p>
+      </div>
+
+      <!-- Tarjeta Modo Dark -->
+      <div
+        class="flex-1 rounded-lg border border-slate-700 bg-slate-800 p-6 text-white shadow-lg transition-colors dark:border-gray-200 dark:bg-gray-50"
+      >
+        <div class="mb-4 flex items-center">
+          <svg
+            class="mr-3 h-7 w-7 text-sky-400"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"
+              fill="currentColor"
+              stroke="currentColor"
+            />
+          </svg>
+          <h2 class="text-xl font-semibold text-white dark:text-gray-900">
+            Modo Dark
+          </h2>
+        </div>
+        <p class="text-slate-300 dark:text-gray-900">
+          Este es un ejemplo de tarjeta en modo
+          <span class="font-bold">oscuro (dark)</span>. El fondo es oscuro y el
+          texto claro. El icono representa la luna.
+        </p>
+      </div>
+    </div>
+
+    <h1 class="my-5 text-xl font-bold">
+      Actualmente:
+      <span class="block dark:hidden">Tema Light</span>
+      <span class="hidden dark:block">Tema Dark</span>
+    </h1>
+
+    <button
+      id="theme-toggle"
+      class="my-10 mt-10 block rounded-md bg-sky-500 px-6 py-3 font-semibold text-white transition-colors hover:bg-sky-600 focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 focus:ring-offset-slate-900 focus:outline-none"
+    >
+      Toggle theme
+    </button>
+
+    <a href="03-variantes-color.html" class="text-blue-500"
+      >Siguiente: Variantes de color</a
+    >
+
+    <script> 👈🏼👀👇🏼
+      // Todo: Agregar botón para cambiar tema aquí:
+      // Docs: https://tailwindcss.com/docs/dark-mode#toggling-dark-mode-manually
+      document.documentElement.classList.toggle(
+        "dark",
+        localStorage.theme === "dark" ||
+          (!("theme" in localStorage) &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches),
+      );
+
+      document.querySelector("#theme-toggle").addEventListener("click", () => {
+        // console.log("Click en toggle");
+        localStorage.theme = document.documentElement.classList.contains("dark")
+          ? "dark"
+          : "light";
+      });
+    </script>
+  </body>
+</html>
+```
+
+`src/styles.css`
+
+```css
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *)); 👈🏼👀
+
+@layer base {
+  body {
+    @apply bg-gray-950 p-8 px-4 py-2 text-red-500;
+  }
+
+  h1 {
+    @apply mb-2 text-3xl font-bold;
+  }
+
+  button {
+    @apply cursor-pointer;
+  }
+}
+
+@layer components {
+  .form-control {
+    @apply rounded-md border border-gray-600 bg-transparent px-4 py-3 text-white transition-colors outline-none placeholder:text-sm placeholder:italic invalid:border-pink-500 invalid:text-pink-400 focus:border-sky-500 focus:invalid:border-pink-500 disabled:bg-transparent disabled:text-gray-400;
+  }
+}
+```
+
+#### `document.documentElement`
+
+En el DOM, `document` representa todo el documento HTML.
+
+Dentro de él existe una propiedad llamada:
+
+```js
+document.documentElement
+```
+
+Eso representa el elemento raíz del HTML, es decir:
+
+```html
+<html>...</html>
+```
+
+🔎 Entonces:
+
+```js
+document.documentElement
+```
+
+es exactamente lo mismo que hacer:
+
+```js
+document.querySelector("html")
+```
+
+Es el elemento `<html>`.
+
+#### `classList`
+
+Todos los elementos HTML tienen una propiedad:
+
+```js
+element.classList
+```
+
+Es un objeto que permite manipular las clases CSS fácilmente.
+
+Ejemplo:
+
+```js
+element.classList.add("dark")
+element.classList.remove("dark")
+element.classList.toggle("dark")
+element.classList.contains("dark")
+```
+
+No es una clase CSS.  
+No es algo de Tailwind.  
+Es una API nativa del DOM.
+
+#### `toggle()`
+
+`toggle()` es un método de `classList`.
+
+Funciona así:
+
+```js
+element.classList.toggle("dark")
+```
+
+Si la clase existe → la elimina  
+Si la clase NO existe → la agrega
+
+Es básicamente un interruptor.
+
+##### ⚡ Pero aquí lo usan diferente:
+
+```js
+document.documentElement.classList.toggle(
+  "dark",
+  condicion
+);
+```
+
+`toggle()` tiene una segunda forma:
+
+```js
+toggle(nombreClase, booleano)
+```
+
+Si el booleano es:
+
+- `true` → agrega la clase
+- `false` → la elimina
+
+Entonces esto:
+
+```js
+classList.toggle("dark", true)
+```
+
+es igual a:
+
+```js
+classList.add("dark")
+```
+
+Y esto:
+
+```js
+classList.toggle("dark", false)
+```
+
+es igual a:
+
+```js
+classList.remove("dark")
+```
+
+Ahora entendamos esta parte completa
+
+```js
+document.documentElement.classList.toggle(
+  "dark",
+  localStorage.theme === "dark" ||
+    (!("theme" in localStorage) &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches),
+);
+```
+
+Vamos por partes.
+
+#### `localStorage`
+
+`localStorage` es un almacenamiento del navegador.
+
+Guarda datos en formato clave → valor.
+
+Ejemplo:
+
+```js
+localStorage.theme = "dark";
+```
+
+Eso guarda:
 
 ```
-👈🏼👀
-👈🏼👀👇🏼
-🔥
+clave: "theme"
+valor: "dark"
+```
+
+Se mantiene incluso si recargas la página.
+
+¿De dónde sale `"theme"`?
+
+Aquí:
+
+```js
+localStorage.theme = ...
+```
+
+Ahí se está creando la clave.
+
+No existe antes.  
+Se crea cuando la asignas.
+
+Es lo mismo que:
+
+```js
+localStorage.setItem("theme", "dark")
+```
+
+¿Qué significa esto?
+
+```js
+localStorage.theme === "dark"
+```
+
+Significa:
+
+> "Si en el almacenamiento existe una clave llamada theme y su valor es 'dark'"
+
+#### `"theme" in localStorage`
+
+El operador `in` en JavaScript verifica si una propiedad existe dentro de un objeto.
+
+Ejemplo:
+
+```js
+"theme" in localStorage
+```
+
+Significa:
+
+> ¿Existe la clave "theme" en localStorage?
+
+Devuelve `true` o `false`.
+
+Entonces esto:
+
+```js
+!("theme" in localStorage)
+```
+
+Significa:
+
+> NO existe la clave "theme" en localStorage
+
+El `!` es negación.
+
+#### `window.matchMedia()`
+
+`matchMedia()` es una API que permite evaluar media queries desde JavaScript.
+
+Es como escribir CSS, pero en JS.
+
+Ejemplo:
+
+```js
+window.matchMedia("(prefers-color-scheme: dark)")
+```
+
+Pregunta al sistema operativo:
+
+> ¿El usuario tiene activado modo oscuro en su sistema?
+
+Devuelve un objeto.
+
+#### `.matches`
+
+Ese objeto tiene una propiedad:
+
+```js
+.matches
+```
+
+Devuelve:
+
+- `true` → si la condición se cumple
+    
+- `false` → si no
+    
+
+Entonces:
+
+```js
+window.matchMedia("(prefers-color-scheme: dark)").matches
+```
+
+Significa:
+
+> ¿El sistema del usuario está en modo oscuro?
+
+#### 🔥 Ahora entendamos TODA la condición
+
+```js
+localStorage.theme === "dark" ||
+(
+  !("theme" in localStorage) &&
+  window.matchMedia("(prefers-color-scheme: dark)").matches
+)
+```
+
+Traducción en español:
+
+Activa dark si:
+
+1. El usuario ya guardó dark en localStorage  
+    O
+    
+2. No existe preferencia guardada Y el sistema está en dark
+    
+
+"Si el usuario ya eligió modo oscuro, respétalo.  
+Si nunca eligió nada, usa la preferencia del sistema."
+
+#### Ahora el botón
+
+```js
+document.querySelector("#theme-toggle")
+  .addEventListener("click", () => {
+```
+
+Esto selecciona el botón con id:
+
+```html
+<button id="theme-toggle">
+```
+
+Y le agrega un evento click.
+
+Dentro del click:
+
+```js
+document.documentElement.classList.toggle("dark");
+```
+
+Sin segundo parámetro.
+
+Eso significa:
+
+Si tiene dark → lo quita  
+Si no tiene dark → lo agrega
+
+Es un interruptor manual.
+
+Luego:
+
+```js
+localStorage.theme = document.documentElement.classList.contains("dark")
+  ? "dark"
+  : "light";
+```
+
+Aquí aparece algo nuevo:
+
+#### `classList.contains()`
+
+Sirve para verificar si una clase existe.
+
+Devuelve `true` o `false`.
+
+#### Operador ternario
+
+```js
+condicion ? valor1 : valor2
+```
+
+Es lo mismo que:
+
+```js
+if (condicion) {
+  return valor1
+} else {
+  return valor2
+}
+```
+
+Entonces esto:
+
+```js
+document.documentElement.classList.contains("dark")
+  ? "dark"
+  : "light";
+```
+
+Significa:
+
+Si el html tiene la clase dark → guarda "dark"  
+Si no → guarda "light"
+
+#### Resumen
+
+Cuando la página carga:
+
+1. Revisa si hay una preferencia guardada.
+2. Si sí → la usa.
+3. Si no → revisa el sistema operativo.
+4. Agrega o quita la clase `dark` al `<html>`.
+
+Cuando haces click:
+
+1. Alterna la clase `dark`.
+2. Guarda la nueva preferencia en localStorage.
+
+Visualización simple
+
+```text
+<html class="dark">   ← aquí vive todo el sistema
+```
+
+Tailwind detecta esa clase y activa todos los estilos `dark:`.
+
+Lo más importante que aprendiste aquí
+
+|Código                   |Qué es                                  |
+|-------------------------|----------------------------------------|
+|document.documentElement |El `<html>`                             |
+|classList                |API para manipular clases               |
+|toggle()                 |Agrega o quita clase                    |
+|contains()               |Verifica si existe                       |
+|localStorage             |Almacenamiento persistente del navegador |
+|"prop" in objeto         |Verifica si existe una propiedad         |
+|matchMedia()             |Evalúa media queries en JS               |
+|.matches                 |Devuelve true/false                      |
+|? :                      |Operador ternario                        |
+
+[Toggling dark mode manually](https://tailwindcss.com/docs/dark-mode#toggling-dark-mode-manually)
 
 ### 5.7
 
