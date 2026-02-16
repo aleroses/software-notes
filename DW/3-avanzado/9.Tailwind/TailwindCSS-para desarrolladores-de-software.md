@@ -2489,16 +2489,164 @@ Lo más importante que aprendiste aquí
 
 [Toggling dark mode manually](https://tailwindcss.com/docs/dark-mode#toggling-dark-mode-manually)
 
-### 5.7
+### 5.7 Ejercicio - Variables de color
 
-`src/02-temas/0.html`
+`src/02-temas/03-variantes-color.html`
 
 ```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../../dist/output.css" />
+  </head>
 
+  <body>
+    <h1 class="text-3xl font-bold">Variantes de color</h1>
+
+    <div
+      class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6"
+    >
+      <div class="rounded-lg bg-slate-700 p-6 text-white shadow-lg">
+        <h2 class="mb-2 text-xl font-semibold">Card 1</h2>
+        <p>Cada línea de código es una oportunidad para aprender algo nuevo.</p>
+        <div class="mt-2 flex justify-center">
+          <svg class="h-5 w-5 text-gold-500" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 15.27L16.18 18l-1.64-7.03L19 7.24l-7.19-.61L10 0 8.19 6.63 1 7.24l5.46 3.73L4.82 18z"/>
+          </svg>
+        </div>
+      </div>
+      <div class="rounded-lg bg-slate-700 p-6 text-white shadow-lg">
+        <h2 class="mb-2 text-xl font-semibold">Card 2</h2>
+        <p>La creatividad impulsa la innovación en cada línea de código.</p>
+        <div class="mt-2 flex justify-center">
+          <svg class="h-5 w-5 text-gold-500" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656l-1.172 1.172L10 16.657l-5.656-5.657-1.172-1.172a4 4 0 010-5.656z"/>
+          </svg>
+        </div>
+      </div>
+      <div class="rounded-lg bg-slate-700 p-6 text-white shadow-lg">
+        <h2 class="mb-2 text-xl font-semibold">Card 3</h2>
+        <p>Tus ideas pueden cambiar el mundo con solo unos cuantos commits.</p>
+        <div class="mt-2 flex justify-center">
+          <svg class="h-5 w-5 text-gold-500" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 2a8 8 0 108 8 8 8 0 00-8-8zm1 12H9V9h2zm0-6H9V5h2z"/>
+          </svg>
+        </div>
+      </div>
+      <div class="rounded-lg bg-slate-700 p-6 text-white shadow-lg">
+        <h2 class="mb-2 text-xl font-semibold">Card 4</h2>
+        <p>Todo error es una oportunidad para crecer como desarrollador.</p>
+        <div class="mt-2 flex justify-center">
+          <svg class="h-5 w-5 text-gold-500" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M16.707 5.293a1 1 0 010 1.414L8.414 15H5v-3.414l8.293-8.293a1 1 0 011.414 0z"/>
+          </svg>
+        </div>
+      </div>
+      <div class="rounded-lg bg-slate-700 p-6 text-white shadow-lg">
+        <h2 class="mb-2 text-xl font-semibold">Card 5</h2>
+        <p>No hay límites para lo que puedes crear con pasión y dedicación.</p>
+        <div class="mt-2 flex justify-center">
+          <svg class="h-5 w-5 text-gold-500" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 3a1 1 0 01.894.553l7 14A1 1 0 0117 19H3a1 1 0 01-.894-1.447l7-14A1 1 0 0110 3zm0 4a1 1 0 100 2 1 1 0 000-2zm.75 7.75a.75.75 0 11-1.5 0V11a.75.75 0 111.5 0z"/>
+          </svg>
+        </div>
+      </div>
+      <div class="rounded-lg bg-slate-700 p-6 text-white shadow-lg">
+        <h2 class="mb-2 text-xl font-semibold">Card 6</h2>
+        <p>¡Sigue adelante! El siguiente gran proyecto te espera.</p>
+        <div class="mt-2 flex justify-center">
+          <svg class="h-5 w-5 text-gold-500" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 19a1.71 1.71 0 01-.79-.2A8 8 0 1117.45 8.6 6.6 6.6 0 0110 19zm2-8V7a2 2 0 00-4 0v4a2 2 0 004 0z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <h1 class="my-5 text-xl font-bold">Variantes de color textos y botones</h2>
+      <hr>
+      <div class="mt-2 grid grid-cols-2">
+        <div class="flex flex-col">
+          <span class="text-gold-50 👈🏼👀👇🏼"> Texto gold-50</span>
+          <span class="text-gold-100"> Texto gold-100</span>
+          <span class="text-gold-200"> Texto gold-200</span>
+          <span class="text-gold-300"> Texto gold-300</span>
+          <span class="text-gold-400"> Texto gold-400</span>
+          <span class="text-gold-500">Texto gold-500</span>
+          <span class="text-gold-600">Texto gold-600</span>
+          <span class="text-gold-700">Texto gold-700</span>
+          <span class="text-gold-800">Texto gold-800</span>
+          <span class="text-gold-900">Texto gold-900</span>
+          <span class="text-gold-950">Texto gold-950</span>
+        </div>
+        <div class="grid gap-2">
+          <button class="rounded-md bg-gold-50 px-4 py-2 text-gold-500">Button gold-50</button>
+          <button class="rounded-md bg-gold-100 px-4 py-2 text-gold-500">Button gold-100</button>
+          <button class="rounded-md bg-gold-200 px-4 py-2 text-gold-500">Button gold-200</button>
+          <button class="rounded-md bg-gold-300 px-4 py-2 text-gold-500">Button gold-300</button>
+          <button class="rounded-md bg-gold-400 px-4 py-2 text-gold-500">Button gold-400</button>
+          <button class="rounded-md bg-gold-500 px-4 py-2 text-white">Button gold-500</button>
+          <button class="rounded-md bg-gold-600 px-4 py-2 text-white">Button gold-600</button>
+          <button class="rounded-md bg-gold-700 px-4 py-2 text-white">Button gold-700</button>
+          <button class="rounded-md bg-gold-800/40 px-4 py-2 text-white">Button gold-800</button>
+          <button class="rounded-md bg-gold-900 px-4 py-2 text-white">Button gold-900</button>
+          <button class="rounded-md bg-gold-950 px-4 py-2 text-white">Button gold-950</button>
+        </div>
+      </div>
+
+
+    <a href="04-fuente.html" class="text-blue-500"
+      >Siguiente Fuente</a
+    >
+  </body>
+</html>
 ```
-👈🏼👀
-👈🏼👀👇🏼
-🔥
+
+`src/styles.css`
+
+```css
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme { 👈🏼👀👇🏼
+  --color-gold-50: oklch(98.5% 0.02 100);
+  --color-gold-100: oklch(96.7% 0.035 100);
+  --color-gold-200: oklch(92.5% 0.07 100);
+  --color-gold-300: oklch(87.1% 0.107 100);
+  --color-gold-400: oklch(80.5% 0.14 100);
+  --color-gold-500: oklch(73.2% 0.175 100);
+  --color-gold-600: oklch(65.5% 0.18 100);
+  --color-gold-700: oklch(54.1% 0.17 100);
+  --color-gold-800: oklch(42.5% 0.13 100);
+  --color-gold-900: oklch(27.2% 0.09 100);
+  --color-gold-950: oklch(16% 0.06 100);
+  --color-gold-950: oklch(0.01 0.005 123.39);
+}
+
+@layer base {
+  body {
+    @apply bg-gray-950 p-8 px-4 py-2 text-red-500;
+  }
+
+  h1 {
+    @apply mb-2 text-3xl font-bold;
+  }
+
+  button {
+    @apply cursor-pointer;
+  }
+}
+
+@layer components {
+  .form-control {
+    @apply rounded-md border border-gray-600 bg-transparent px-4 py-3 text-white transition-colors outline-none placeholder:text-sm placeholder:italic invalid:border-pink-500 invalid:text-pink-400 focus:border-sky-500 focus:invalid:border-pink-500 disabled:bg-transparent disabled:text-gray-400;
+  }
+}
+```
+
+[Gist - Colors](https://gist.github.com/Klerith/a4d65f3d4f914e2b52eb71ccb58192a6)
 
 ### 5.8
 
