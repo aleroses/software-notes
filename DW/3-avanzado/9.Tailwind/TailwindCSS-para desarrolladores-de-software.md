@@ -2734,10 +2734,14 @@ Lo más importante que aprendiste aquí
 - [Montserrat Alternates](https://fonts.google.com/specimen/Montserrat+Alternates)
 - [Font-family](https://tailwindcss.com/docs/font-family)
 
+### 5.9 Código fuente
+
+Aquí tienen el código fuente de la sección por si quieren saltarse toda la preparación inicial y llegar directamente a los ejercicios.
+
+[GitHub - Tailwindcss Localmente - Fin sección 05](https://github.com/DevTalles-corp/tailwindcss-css-localmente/tree/fin-seccion-05)
+
+## 6. 
+
 👈🏼👀
 👈🏼👀👇🏼
 🔥
-
-### 5.9
-
-## 6. 
