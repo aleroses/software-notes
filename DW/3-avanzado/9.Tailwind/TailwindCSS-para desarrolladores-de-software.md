@@ -2648,13 +2648,96 @@ Lo más importante que aprendiste aquí
 
 [Gist - Colors](https://gist.github.com/Klerith/a4d65f3d4f914e2b52eb71ccb58192a6)
 
-### 5.8
+### 5.8 Ejercicio - Fuentes personalizadas
 
-`src/02-temas/0.html`
+`src/02-temas/04-fuente.html`
 
 ```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../../dist/output.css" />
+  </head>
 
+  <body>
+    <h1 class="text-3xl font-bold">Fuentes</h1>
+    <hr />
+    <div class="mt-2">
+      <p class="font-montserrat-alternatives 👈🏼👀 font-thin">
+        Font Montserrat Alternates Thin
+      </p>
+      <p class="font-montserrat-alternatives font-light">
+        Font Montserrat Alternates Light
+      </p>
+      <p class="font-montserrat-alternatives font-normal">
+        Font Montserrat Alternates Regular
+      </p>
+      <p class="font-montserrat-alternatives font-bold">
+        Font Montserrat Alternates Bold
+      </p>
+    </div>
+  </body>
+</html>
 ```
+
+`src/styles.css`
+
+```css
+  👈🏼👀👇🏼
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat+Alternates:wght@100;300;400;700&display=swap");
+
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-gold-50: oklch(98.5% 0.02 100);
+  --color-gold-100: oklch(96.7% 0.035 100);
+  --color-gold-200: oklch(92.5% 0.07 100);
+  --color-gold-300: oklch(87.1% 0.107 100);
+  --color-gold-400: oklch(80.5% 0.14 100);
+  --color-gold-500: oklch(73.2% 0.175 100);
+  --color-gold-600: oklch(65.5% 0.18 100);
+  --color-gold-700: oklch(54.1% 0.17 100);
+  --color-gold-800: oklch(42.5% 0.13 100);
+  --color-gold-900: oklch(27.2% 0.09 100);
+  --color-gold-950: oklch(16% 0.06 100);
+  --color-gold-950: oklch(0.01 0.005 123.39);
+  
+  👈🏼👀👇🏼
+  --font-montserrat-alternatives: "Montserrat Alternates", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-gray-950 p-8 px-4 py-2 text-red-500;
+  }
+
+  h1 {
+    @apply mb-2 text-3xl font-bold;
+  }
+
+  button {
+    @apply cursor-pointer;
+  }
+}
+
+@layer components {
+  .form-control {
+    @apply rounded-md border border-gray-600 bg-transparent px-4 py-3 text-white transition-colors outline-none placeholder:text-sm placeholder:italic invalid:border-pink-500 invalid:text-pink-400 focus:border-sky-500 focus:invalid:border-pink-500 disabled:bg-transparent disabled:text-gray-400;
+  }
+}
+```
+
+- [Montserrat Alternates](https://fonts.google.com/specimen/Montserrat+Alternates)
+- [Font-family](https://tailwindcss.com/docs/font-family)
+
 👈🏼👀
 👈🏼👀👇🏼
 🔥
+
+### 5.9
+
+## 6. 
