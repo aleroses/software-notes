@@ -339,7 +339,7 @@ const initialState = {
 <Square value={board[index]} />
 ```
 
-# 7️⃣ Analogía final
+## Analogía final
 
 ### 🎲 Juego de mesa
 
@@ -350,9 +350,7 @@ const initialState = {
 | Árbitro          | Lógica  |
 | Tablero físico   | UI      |
 
----
-
-# 8️⃣ Dónde vive cada cosa en tu estructura
+## Dónde vive cada cosa en tu estructura
 
 ```txt
 features/game/
@@ -362,11 +360,3 @@ features/game/
 ├── GameContext.tsx   ← ESTADO
 ├── components/       ← UI
 ```
-
----
-
-# 9️⃣ Frase final (GUÁRDALA)
-
-> **“El dominio es lo que sigue siendo verdad aunque apagues la computadora.”**
-
-Si entiendes esta frase, ya entendiste dominio.
