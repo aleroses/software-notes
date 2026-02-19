@@ -134,10 +134,10 @@ Solo dejas:
 
 ## Pilares de la arquitectura de software
 
-* Dominio
-* UI
-* Estado
-* Lógica
+- Dominio
+- UI
+- Estado
+- Lógica
 
 El dominio define las reglas de negocio; la UI es lo que el usuario ve; El Estado representa los datos actuales de la pantalla; y la Lógica gestiona cómo cambia ese estado basándose en la interacción del usuario.
 
