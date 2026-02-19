@@ -260,7 +260,7 @@ Estas funciones:
 
 ### Estado
 
-> **Estado = la foto actual del dominio en el tiempo**
+> **Estado = la foto actual del dominio en el tiempo. Representa los datos actuales de la pantalla**
 
 Ejemplo:
 
