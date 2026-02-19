@@ -233,7 +233,7 @@ No son lo mismo, pero están relacionados.
 
 ### Lógica
 
-> **Lógica = funciones que aplican reglas del dominio. Gestiona cómo cambia ese estado basándose en la interacción del usuario.**
+> **Lógica = funciones que aplican reglas del dominio. Gestiona cómo cambia el estado basándose en la interacción del usuario.**
 
 Ejemplos tuyos:
 
@@ -260,7 +260,7 @@ Estas funciones:
 
 ### Estado
 
-> **Estado = la foto actual del dominio en el tiempo. Representa los datos actuales de la pantalla**
+> **Estado = la foto actual del dominio en el tiempo. Representa los datos actuales de la pantalla.**
 
 Ejemplo:
 
