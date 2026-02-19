@@ -143,10 +143,10 @@ El dominio define las reglas de negocio; la UI es lo que el usuario ve; El Estad
 
 Lógica: Funciones que aplican reglas del dominio. Gestiona como cambia el estado basándose en la interacción del usuario.
 
-
 ### Dominio
 
 > **Dominio = las reglas, conceptos y comportamientos del problema que estás resolviendo**
+> **Dominio = conceptos y reglas que esas funciones usan**
 
 En tu caso:
 
@@ -195,6 +195,16 @@ Nada de eso depende de React.
 * `useEffect`
 * Un `div`
 
+Ejemplos:
+
+```ts
+type Board = Array<Player | null>
+type GameStatus = 'playing' | 'win' | 'draw'
+type GameMode = 'pvp' | 'pvc'
+```
+
+📁 `features/game/game.types.ts`
+
 ### Dominio vs UI
 
 ❌ UI (cómo se ve)
@@ -220,15 +230,11 @@ type Player = 'X' | 'O'
 > **UI = cómo se muestra**  
 > **Dominio = qué significa**
 
----
-
-# 4️⃣ Dominio vs Lógica (esto confunde mucho)
+### Dominio vs Lógica
 
 No son lo mismo, pero están relacionados.
 
----
-
-## 🧠 LÓGICA
+### Lógica
 
 > **Lógica = funciones que aplican reglas del dominio**
 
@@ -248,38 +254,14 @@ Estas funciones:
 
 📁 `features/game/logic`
 
----
-
-## 🧠 DOMINIO
-
-> **Dominio = conceptos y reglas que esas funciones usan**
-
-Ejemplos:
-
-```ts
-type Board = Array<Player | null>
-type GameStatus = 'playing' | 'win' | 'draw'
-type GameMode = 'pvp' | 'pvc'
-```
-
-📁 `features/game/game.types.ts`
-
----
-
-### Analogía rápida
+#### Analogía rápida
 
 | Concepto | Ejemplo                              |
 | -------- | ------------------------------------ |
 | Dominio  | “Un tablero tiene 9 casillas”        |
 | Lógica   | “Función que revisa si alguien ganó” |
 
----
-
-# 5️⃣ Dominio vs Estado (MUY importante)
-
----
-
-## 🧠 ESTADO
+### Estado
 
 > **Estado = la foto actual del dominio en el tiempo**
 
@@ -295,9 +277,7 @@ const state = {
 
 👉 El estado **usa conceptos del dominio**, pero es dinámico.
 
----
-
-### Comparación clave
+#### Comparación clave
 
 | Cosa    | Qué es                 |
 | ------- | ---------------------- |
@@ -308,20 +288,16 @@ const state = {
 
 💥 Esta tabla es oro.
 
----
+### Dominio explicado con un ejemplo REAL
 
-# 6️⃣ Dominio explicado con un ejemplo REAL completo
-
-## 📌 El juego en papel (dominio)
+#### 📌 El juego en papel (dominio)
 
 * Dos jugadores
 * Turnos
 * Tablero 3×3
 * Reglas de victoria
 
----
-
-## 📌 En código (dominio)
+#### 📌 En código (dominio)
 
 ```ts
 // game.types.ts
@@ -336,9 +312,7 @@ export type GameStatus = 'playing' | 'win' | 'draw'
 
 Esto **NO depende de React**.
 
----
-
-## 📌 Lógica (usa el dominio)
+#### 📌 Lógica (usa el dominio)
 
 ```ts
 // checkWinner.ts
@@ -349,9 +323,7 @@ export function checkWinner(board: Board): Player | null {
 }
 ```
 
----
-
-## 📌 Estado (instancia del dominio)
+#### 📌 Estado (instancia del dominio)
 
 ```ts
 const initialState = {
@@ -361,17 +333,13 @@ const initialState = {
 }
 ```
 
----
-
-## 📌 UI (representación)
+#### 📌 UI (representación)
 
 ```tsx
 <Square value={board[index]} />
 ```
 
----
-
-# 7️⃣ Analogía final (para que no se te olvide)
+# 7️⃣ Analogía final
 
 ### 🎲 Juego de mesa
 
