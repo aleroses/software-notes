@@ -158,13 +158,11 @@ Dominio en una frase
 
 > “Si mañana tuvieras que explicar el juego a alguien SIN mencionar computadoras, eso es el dominio.”
 
----
-
-# 2️⃣ Dominio aplicado a tu Tic-Tac-Toe
+🔥 Dominio aplicado a tu Tic-Tac-Toe
 
 Piensa en el juego en la vida real:
 
-🎮 **Tic-Tac-Toe existe aunque no haya computadora**
+**Tic-Tac-Toe existe aunque no haya computadora**
 
 Tiene:
 
@@ -176,11 +174,7 @@ Tiene:
 
 Eso es **dominio puro**.
 
----
-
-## 🧩 Ejemplos CLAROS de dominio
-
-### ✔️ Son dominio
+🔥 Son dominio
 
 * El tablero es 3×3
 * Un jugador usa ❌ y el otro ⭕
@@ -192,9 +186,7 @@ Eso es **dominio puro**.
 
 Nada de eso depende de React.
 
----
-
-## ❌ NO son dominio
+🔥 NO son dominio
 
 * Un `<button>`
 * Un modal
@@ -203,11 +195,9 @@ Nada de eso depende de React.
 * `useEffect`
 * Un `div`
 
----
+### Dominio vs UI
 
-# 3️⃣ Dominio vs UI (ejemplo brutalmente claro)
-
-### ❌ UI (cómo se ve)
+❌ UI (cómo se ve)
 
 ```tsx
 <button className="bg-red-500">
@@ -217,9 +207,7 @@ Nada de eso depende de React.
 
 👉 Esto **NO existe fuera de la pantalla**
 
----
-
-### ✅ Dominio (qué significa)
+✅ Dominio (qué significa)
 
 ```ts
 type Player = 'X' | 'O'
@@ -227,9 +215,7 @@ type Player = 'X' | 'O'
 
 👉 Esto existiría aunque el juego fuera en papel.
 
----
-
-## 🧠 Regla mental
+🧠 Regla mental
 
 > **UI = cómo se muestra**  
 > **Dominio = qué significa**
