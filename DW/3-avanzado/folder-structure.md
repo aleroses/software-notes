@@ -10,9 +10,7 @@
 Los *modales* **NO son algo especial**.
 Son **componentes**, y viven donde viva la feature que los usa.
 
----
-
-## Estructura
+Estructura:
 
 ```txt
 src/
@@ -75,9 +73,9 @@ src/
 
 ---
 
-## 3️⃣ Mapeo exacto: de tu estructura actual → nueva
+## Mapeo exacto: de tu estructura actual
 
-### 🧩 Componentes (`src/components`)
+Componentes (`src/components`)
 
 | Antes                   | Ahora                                            | Por qué                  |
 | ----------------------- | ------------------------------------------------ | ------------------------ |
@@ -94,9 +92,7 @@ src/
 👉 **Los modales NO van en una carpeta “modals”**
 Van donde vive la feature que los necesita.
 
----
-
-### 🧠 Lógica (`src/logic`)
+Lógica (`src/logic`)
 
 | Antes                    | Ahora                                        |
 | ------------------------ | -------------------------------------------- |
@@ -108,9 +104,7 @@ Van donde vive la feature que los necesita.
 
 📌 **Toda esta lógica pertenece al dominio “game”**
 
----
-
-### 🧩 Estado (`context` + `reducer`)
+Estado (`context` + `reducer`)
 
 | Antes                      | Ahora                            |
 | -------------------------- | -------------------------------- |
@@ -120,9 +114,7 @@ Van donde vive la feature que los necesita.
 
 👉 Context + reducer **son parte del feature**, no infraestructura global.
 
----
-
-### 🎨 Estilos
+Estilos
 
 | Antes           | Ahora                |
 | --------------- | -------------------- |
@@ -140,24 +132,12 @@ Solo dejas:
 
 ---
 
-## 4️⃣ Por qué esta estructura es la correcta para TI
+## Pilares de la arquitectura de software
 
-✔️ No es teórica
-✔️ Refleja EXACTAMENTE tu proyecto
-✔️ Te obliga a entender:
-
-* qué es dominio
-* qué es UI
-* qué es estado
-* qué es lógica
-
-Y cuando pases a **TypeScript**, vas a sentir esto:
-
-> “Ah… ahora todo tiene sentido”
-
-Que es dominio, UI, estado y logica.
-
-Pilares de la arquitectura de software
+* Dominio
+* UI
+* Estado
+* Lógica
 
 El dominio define las reglas de negocio; la UI es lo que el usuario ve; El Estado representa los datos actuales de la pantalla; y la Lógica gestiona cómo cambia ese estado basándose en la interacción del usuario.
 
