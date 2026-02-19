@@ -277,7 +277,7 @@ type Player = 'X' | 'O'
 
 ## 🧠 Regla mental
 
-> **UI = cómo se muestra**
+> **UI = cómo se muestra**  
 > **Dominio = qué significa**
 
 ---
@@ -462,13 +462,3 @@ features/game/
 > **“El dominio es lo que sigue siendo verdad aunque apagues la computadora.”**
 
 Si entiendes esta frase, ya entendiste dominio.
-
----
-
-Si quieres, en el siguiente mensaje:
-
-* diseñamos **todo el dominio del Tic-Tac-Toe juntos**
-* o revisamos **archivo por archivo** y lo clasificamos
-* o convertimos tu lógica actual a **dominio + lógica limpia**
-
-Tú eliges 👀
