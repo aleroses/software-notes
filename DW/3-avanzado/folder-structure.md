@@ -2,9 +2,9 @@
 
 ## 1️⃣ Regla mental simple (guárdala)
 
-> **Si un componente existe SOLO por el juego → `features/game`**
-> **Si puede reutilizarse o es UI genérica → `shared`**
-> **Si es lógica pura → `logic` dentro del feature**
+> **Si un componente existe SOLO por el juego → `features/game`**  
+> **Si puede reutilizarse o es UI genérica → `shared`**  
+> **Si es lógica pura → `logic` dentro del feature**  
 > **Si controla estado del juego → dentro del feature**
 
 Los *modales* **NO son algo especial**.
