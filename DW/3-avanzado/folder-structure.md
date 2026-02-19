@@ -141,60 +141,20 @@ Solo dejas:
 
 El dominio define las reglas de negocio; la UI es lo que el usuario ve; El Estado representa los datos actuales de la pantalla; y la Lógica gestiona cómo cambia ese estado basándose en la interacción del usuario.
 
-El dominio son las reglas, conceptos y comportamientos del problema que se está resolviendo. Es el tic tac toe en si, es la explicación de como funciona el juego.
-
-
-
-Dominio: Reglas, conceptos y comportamientos del problema que se está resolviendo.
 Lógica: Funciones que aplican reglas del dominio. Gestiona como cambia el estado basándose en la interacción del usuario.
 
 
----
-
-## 5️⃣ Siguiente paso recomendado (muy importante)
-
-NO empieces escribiendo componentes.
-
-👉 **Empieza por `game.types.ts`**
-
-Define:
-
-* Player
-* Board
-* GameState
-* GameMode
-
-Eso va a ordenar TODO lo demás.
-
-
-
-# 🧠 Dominio
-
-## ❗ El dominio NO es React
-
-## ❗ El dominio NO es TypeScript
-
-## ❗ El dominio NO es la UI
-
-👉 **El dominio es “de qué trata tu programa”**
-
----
-
-# 1️⃣ ¿Qué es DOMINIO? (definición humana)
+### Dominio
 
 > **Dominio = las reglas, conceptos y comportamientos del problema que estás resolviendo**
 
 En tu caso:
 
-> 👉 El dominio es **el juego Tic-Tac-Toe**
+> 👉 El dominio es **el juego Tic-Tac-Toe**  
+> 👉 El dominio es “de qué trata tu programa”
+> 👉 Es la explicación de como funciona el juego.
 
-No la web.
-No los botones.
-No React.
-
----
-
-## 📦 Dominio en una frase
+Dominio en una frase
 
 > “Si mañana tuvieras que explicar el juego a alguien SIN mencionar computadoras, eso es el dominio.”
 
