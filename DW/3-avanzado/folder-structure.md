@@ -141,8 +141,6 @@ Solo dejas:
 
 El dominio define las reglas de negocio; la UI es lo que el usuario ve; El Estado representa los datos actuales de la pantalla; y la Lógica gestiona cómo cambia ese estado basándose en la interacción del usuario.
 
-Lógica: Funciones que aplican reglas del dominio. Gestiona como cambia el estado basándose en la interacción del usuario.
-
 ### Dominio
 
 > **Dominio = las reglas, conceptos y comportamientos del problema que estás resolviendo**
@@ -205,7 +203,7 @@ type GameMode = 'pvp' | 'pvc'
 
 📁 `features/game/game.types.ts`
 
-### Dominio vs UI
+#### Dominio vs UI
 
 ❌ UI (cómo se ve)
 
@@ -230,13 +228,13 @@ type Player = 'X' | 'O'
 > **UI = cómo se muestra**  
 > **Dominio = qué significa**
 
-### Dominio vs Lógica
+#### Dominio vs Lógica
 
 No son lo mismo, pero están relacionados.
 
 ### Lógica
 
-> **Lógica = funciones que aplican reglas del dominio**
+> **Lógica = funciones que aplican reglas del dominio. Gestiona cómo cambia ese estado basándose en la interacción del usuario.**
 
 Ejemplos tuyos:
 
