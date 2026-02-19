@@ -144,7 +144,6 @@ El dominio define las reglas de negocio; la UI es lo que el usuario ve; El Estad
 ### Dominio
 
 > **Dominio = las reglas, conceptos y comportamientos del problema que estás resolviendo**
-> **Dominio = conceptos y reglas que esas funciones usan**
 
 En tu caso:
 
