@@ -1,4 +1,4 @@
-# My Notes
+# Estructura de carpetas
 
 ## Regla mental simple
 
@@ -12,7 +12,7 @@ Son **componentes**, y viven donde viva la feature que los usa.
 
 ---
 
-## 2️⃣ Estructura
+## Estructura
 
 ```txt
 src/
