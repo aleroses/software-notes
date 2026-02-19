@@ -155,6 +155,20 @@ Y cuando pases a **TypeScript**, vas a sentir esto:
 
 > “Ah… ahora todo tiene sentido”
 
+Que es dominio, UI, estado y logica.
+
+Pilares de la arquitectura de software
+
+El dominio define las reglas de negocio; la UI es lo que el usuario ve; El Estado representa los datos actuales de la pantalla; y la Lógica gestiona cómo cambia ese estado basándose en la interacción del usuario.
+
+El dominio son las reglas, conceptos y comportamientos del problema que se está resolviendo. Es el tic tac toe en si, es la explicación de como funciona el juego.
+
+
+
+Dominio: Reglas, conceptos y comportamientos del problema que se está resolviendo.
+Lógica: Funciones que aplican reglas del dominio. Gestiona como cambia el estado basándose en la interacción del usuario.
+
+
 ---
 
 ## 5️⃣ Siguiente paso recomendado (muy importante)
