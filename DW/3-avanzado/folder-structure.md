@@ -127,6 +127,8 @@ Solo dejas:
 
 ## Otros ejemplos
 
+[[react-hooks-mern#17.17 NoteView]]
+
 ```bash
 ## 22.23 Primera
 .
