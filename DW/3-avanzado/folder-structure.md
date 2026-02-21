@@ -1,13 +1,13 @@
 # Estructura de carpetas
 
-## Regla mental simple
+## Por feature
 
 > **Si un componente existe SOLO por el juego → `features/game`**  
 > **Si puede reutilizarse o es UI genérica → `shared`**  
 > **Si es lógica pura → `feature/game/logic`**  
 > **Si controla estado del juego → `feature/game`**
 
-Los *modales* **NO son algo especial**.
+Los *modales* **NO son algo especial**.  
 Son **componentes**, y viven donde viva la feature que los usa.
 
 Estructura:
@@ -71,9 +71,7 @@ src/
 │   └── globals.css
 ```
 
----
-
-## Mapeo exacto: de tu estructura actual
+Mapeo exacto: estructura actual
 
 Componentes (`src/components`)
 
@@ -88,9 +86,6 @@ Componentes (`src/components`)
 | `PlayerVsPlayer.jsx`    | `features/game/modes/PlayerVsPlayer.tsx`         | Es un modo               |
 | `PlayerVsComputer.jsx`  | `features/game/modes/PlayerVsComputer.tsx`       | Es un modo               |
 | `Logo.jsx`              | `shared/components/Logo.tsx`                     | UI reutilizable          |
-
-👉 **Los modales NO van en una carpeta “modals”**
-Van donde vive la feature que los necesita.
 
 Lógica (`src/logic`)
 
@@ -130,7 +125,262 @@ Solo dejas:
 * fuentes
 * variables globales
 
----
+## Otros ejemplos
+
+```bash
+## 22.23 Primera
+.
+├── eslint.config.js
+├── index.html
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+├── README.md
+├── src
+│   ├── auth
+│   │   └── pages
+│   │       ├── LoginPage.css
+│   │       └── LoginPage.jsx
+│   ├── calendar
+│   │   ├── components
+│   │   │   ├── CalendarEvent.jsx
+│   │   │   ├── CalendarModal.jsx
+│   │   │   ├── FabAddNew.jsx
+│   │   │   ├── FabDelete.jsx
+│   │   │   └── Navbar.jsx
+│   │   └── pages
+│   │       └── CalendarPage.jsx
+│   ├── CalendarApp.jsx
+│   ├── helpers
+│   │   ├── calendarLocalizer.js
+│   │   └── getMessages.js
+│   ├── hooks
+│   │   ├── useCalendarStore.js
+│   │   └── useUiStore.js
+│   ├── main.jsx
+│   ├── router
+│   │   └── AppRouter.jsx
+│   ├── store
+│   │   ├── calendar
+│   │   │   └── calendarSlice.js
+│   │   ├── store.js
+│   │   └── ui
+│   │       └── uiSlice.js
+│   └── styles.css
+└── vite.config.js
+
+## 20.17 Segunda
+
+.
+├── eslint.config.js
+├── index.html
+├── LICENSE
+├── node_modules
+├── package.json
+├── package-lock.json
+├── public
+├── README.md
+├── src
+│   ├── App.jsx
+│   ├── auth
+│   │   ├── layout
+│   │   │   └── AuthLayout.jsx
+│   │   ├── pages
+│   │   │   ├── LoginPage.jsx
+│   │   │   └── RegisterPage.jsx
+│   │   └── routes
+│   │       └── AuthRoutes.jsx
+│   ├── firebase
+│   │   ├── config.js
+│   │   └── providers.js
+│   ├── helpers
+│   │   ├── fileUpload.js
+│   │   └── loadNotes.js
+│   ├── hooks
+│   │   ├── useCheckAuth.js
+│   │   └── useForm.js
+│   ├── journal
+│   │   ├── components
+│   │   │   ├── ImageGallery.jsx
+│   │   │   ├── NavBar.jsx
+│   │   │   ├── SideBarItem.jsx
+│   │   │   └── SideBar.jsx
+│   │   ├── layout
+│   │   │   └── JournalLayout.jsx
+│   │   ├── pages
+│   │   │   └── JournalPage.jsx
+│   │   ├── routes
+│   │   │   └── JournalRoutes.jsx
+│   │   └── views
+│   │       ├── NoteView.jsx
+│   │       └── NothingSelectedView.jsx
+│   ├── main.jsx
+│   ├── router
+│   │   └── AppRouter.jsx
+│   ├── store
+│   │   ├── auth
+│   │   │   ├── authSlice.js
+│   │   │   └── thunks.js
+│   │   ├── journal
+│   │   │   ├── journalSlice.js
+│   │   │   └── thunks.js
+│   │   └── store.js
+│   ├── styles.css
+│   ├── theme
+│   │   ├── purpleTheme.js
+│   │   └── Theme.jsx
+│   └── ui
+│       └── components
+│           └── CheckingAuth.jsx
+├── vite.config.js
+└── yarn.lock
+
+## 17.17 Tercera
+
+.
+├── eslint.config.js
+├── index.html
+├── node_modules
+├── package.json
+├── public
+├── README.md
+├── src
+│   ├── App.jsx
+│   ├── auth
+│   │   ├── layout
+│   │   │   └── AuthLayout.jsx
+│   │   ├── pages
+│   │   │   ├── LoginPage.jsx
+│   │   │   └── RegisterPage.jsx
+│   │   └── routes
+│   │       └── AuthRoutes.jsx
+│   ├── journal
+│   │   ├── components
+│   │   │   ├── ImageGallery.jsx
+│   │   │   ├── NavBar.jsx
+│   │   │   └── SideBar.jsx
+│   │   ├── layout
+│   │   │   └── JournalLayout.jsx
+│   │   ├── pages
+│   │   │   └── JournalPage.jsx
+│   │   ├── routes
+│   │   │   └── JournalRoutes.jsx
+│   │   └── views
+│   │       ├── NoteView.jsx
+│   │       └── NothingSelectedView.jsx
+│   ├── main.jsx
+│   ├── router
+│   │   └── AppRouter.jsx
+│   ├── styles.css
+│   └── theme
+│       ├── purpleTheme.js
+│       └── Theme.jsx
+├── vite.config.js
+└── yarn.lock
+```
+
+Todas usan:
+
+- ⚡ **Vite**
+    
+- ⚛️ **React**
+    
+- 📦 Organización por carpetas dentro de `src`
+    
+- 🧠 Separación por responsabilidades (auth, journal, calendar, store, hooks, etc.)
+    
+
+Eso significa que siguen una:
+
+> **Arquitectura modular basada en features (feature-based architecture)**
+
+No es una estructura por tipo técnico (como `components/`, `pages/`, `services/` todo mezclado), sino por **dominio funcional**.
+
+Son **la misma arquitectura base**, pero en diferentes etapas de crecimiento.
+
+1. Primera (22.23) — Calendar App
+
+```bash
+src/
+ ├── auth
+ ├── calendar
+ ├── helpers
+ ├── hooks
+ ├── router
+ ├── store
+```
+
+Tipo: Arquitectura modular + Redux Toolkit
+
+Características
+
+- Separación clara por feature (`auth`, `calendar`)
+- `store` dividido en slices
+- Hooks personalizados para acceder al store
+- Helpers aislados
+
+👉 Es una estructura madura y bien organizada.
+
+2. Segunda (20.17) — Journal App (más completa)
+
+Aquí ya tienes:
+
+```bash
+src/
+journal/
+auth/
+firebase/
+store/
+theme/
+ui/
+```
+
+Tipo: Arquitectura modular + Redux + Firebase + Layout pattern
+
+Diferencias con la primera
+
+- Introduce `firebase`
+- Introduce `theme`
+- Introduce `ui` global
+- Separa `layout`, `routes`, `views`
+
+👉 Es más escalable que la primera.
+
+3. Tercera (17.17)
+
+Esta es la más simple.
+
+No tiene:
+
+- ❌ store
+- ❌ firebase
+- ❌ hooks personalizados
+- ❌ slices
+
+Solo estructura visual + rutas.
+
+👉 Es la versión base del proyecto antes de agregar estado global.
+
+📊 Comparación resumida
+
+|Versión |Tipo base                |Estado global |Backend |Nivel      |
+|--------|-------------------------|--------------|--------|-----------|
+|17.17   |Modular simple           |❌            |❌      |Básico     |
+|19.21   |Modular + Redux parcial  |✅ (auth)     |✅      |Intermedio |
+|20.17   |Modular + Redux completo |✅            |✅      |Avanzado   |
+|22.23   |Modular por feature      |✅            |❌      |Avanzado diferente dominio|
+
+Conceptualmente, ¿qué patrón están usando?
+
+Podemos describirlo como:
+
+- 📦 **Feature-Based Architecture**
+- 🧩 **Modular Architecture**
+- 🗂 Separación por dominio
+- 🧠 Redux Toolkit pattern (slice-based state management)
+- 🏗 Layout + Routes pattern
 
 ## Pilares de la arquitectura de software
 
