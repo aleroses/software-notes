@@ -154,6 +154,61 @@ done
 | **1440p (2K)**      | 2560x1440                           | 1440x2560                         |
 | **2160p (4K)**      | 3840x2160                           | 2160x3840                         |
 
+## Reproducir una lista de videos
+
+Tengo esta lista de videos de una serie y se puede reproducir todo usando un comando.
+
+```bash
+ale ❯ tree -L 4
+.
+├── playlist.m3u
+├── Young Sheldon (2017) Season 1 S01
+│   ├── Young Sheldon (2017) - S01E01 - Pilot.mkv
+│   ├── ...
+│   └── Young Sheldon (2017) - S01E22 - Vanilla.mkv
+├── Young Sheldon (2017) Season 2 S02
+│   ├── Young Sheldon (2017) - S02E01 - A High-Pitched.mkv
+│   ├── ...
+│   └── Young Sheldon (2017) - S02E22 - A Swedish.mkv
+├── Young Sheldon (2017) Season 3 S03
+│   ├── Young Sheldon (2017) - S03E01 - Quirky.mkv
+│   ├── ...
+│   └── Young Sheldon (2017) - S03E21 - A Secret.mkv
+├── Young Sheldon (2017) Season 4 S04
+│   ├── Young Sheldon (2017) - S04E01 - Graduation.mkv
+│   ├── ...
+│   └── Young Sheldon (2017) - S04E18 - The Wild.mkv
+├── Young Sheldon (2017) Season 5 S05
+│   ├── Young Sheldon (2017) - S05E01 - One Bad.mkv
+│   ├── ...
+│   └── Young Sheldon (2017) - S05E22 - A Clogged.mkv
+├── Young Sheldon (2017) Season 6 S06
+│   ├── Young Sheldon (2017) - S06E01 - Four Hundred.mkv
+│   ├── ...
+│   └── Young Sheldon (2017) - S06E22 - A Tornado.mkv
+└── Young Sheldon (2017) Season 7 S07
+    ├── Young Sheldon (2017) - S07E01 - A Wiener.mkv
+    ├── ...
+    └── Young Sheldon (2017) - S07E14 - Memoir.mkv
+
+8 directories, 142 files
+```
+
+Comando:
+
+```bash
+cd "/media/jellyfin/shows/young-sheldon"
+find . -type f -iname "*.mkv" | sort > playlist.m3u
+mpv --playlist=playlist.m3u --save-position-on-quit
+```
+
+Crea el archivo `playlist.m3u` y reproduce todo. Para retomar la reproducción otro día se debe ejecutar este comando:
+
+```bash
+cd "/media/jellyfin/shows/young-sheldon"
+mpv --playlist=playlist.m3u --save-position-on-quit
+```
+
 ## Comprimir carpetas
 
 ### `.zip`
