@@ -128,7 +128,8 @@ Lista de comandos fundamentales de Linux, organizados para facilitar su estudio 
 36. `echo` — Muestra texto o el valor de variables en la terminal.
 ```
 
-Otros apuntes    
+Otros apuntes
+
 - [Notion](https://www.notion.so/Introducci-n-a-la-Terminal-y-L-nea-de-Comandos-5ed377c3c79e4313b0796b679cb1dc73)
 - [GitHub](https://github.com/francomanca93/terminal-y-linea-de-comandos/blob/master/apuntes.md)
 - [Notion](https://aluminum-kick-a4f.notion.site/Terminal-de0cbfe5f508435bbfb608952b408579)
@@ -164,7 +165,7 @@ Sigue paso a paso las instrucciones de estas clases para que tengas con éxito l
 
 De igual forma te comparto la [documentación oficial de Microsoft](https://docs.microsoft.com/es-mx/windows/wsl/install-win10) de este proceso y te invito a que dejes en los comentarios cualquier duda o inconveniente con el que te hayas topado al instalarlas para que podamos apoyarte.
 
-📌 Tambien puedes usar Git
+📌 También puedes usar Git
 
 🎲
 
@@ -173,7 +174,7 @@ De igual forma te comparto la [documentación oficial de Microsoft](https://doc
 ### Sistema de archivos
 En los sistemas operativos organizamos los archivos en una estructura de carpetas en forma de árbol jerárquico. Este árbol cambia dependiendo de los diferentes sistemas operativos (no tanto en Linux y Mac).
 
-El sistema operativo con el que trabajaremos es Linux, por lo tanto usaremos su estructura. Observa el siguiente esquema:
+El sistema operativo con el que trabajaremos es Linux, por lo tanto, usaremos su estructura. Observa el siguiente esquema:
 
 ![Sistema de archivos](https://i.postimg.cc/26FYYCpk/3-sistema-archivos.png)
 
@@ -199,77 +200,427 @@ Todo esto parece un mensaje encriptado, pero es más sencillo de lo que parece, 
 
 
 ### Algunos comandos:
-- `ls`: Lista archivos
-	- Las carpetas y archivos son de diferente color
-	- `ls -l`: -long info de archivos
-	- `ls -lh`: Lectura human muestra cuanto pesa cada archivo y mas datos
-- `cd`: Changing directory 
-	- Necesita nombre de la carpeta a ingresar
-	- `cd`: Nos lleva al home ~
-	- `cd ~`: Nos lleva al home
-	- `cd /`: Lleva a la raíz donde están todas las carpetas del sistema operativo
-	- `cd .`: Indica la carpeta actual
-	- `cd ..`: Retrocede una carpeta 
-	- `cd ../..` : Retrocede dos carpetas
-	- `cd Pictures`: Ejemplo de acceso a carpetas
-	- `cd /home/codevars/Documents/Dev`
-- `clear`: Limpia la terminal
-	- `control + l`: Otra forma de limpiar terminal 
-- `pwd`: Print working directory muestra la ruta
-- `file`: describe tipo de archivo
-	- `file archivoCualquiera`
-	- `file ./Pictures/screenshot.png`
-
 
 ![Anatomía de un comando](https://i.postimg.cc/wMbDJJrf/3-anatomia.webp)
 
+📂 `ls` — Listar archivos y directorios
 
-Operadores de rutas relativas: `. y ..`    
-- Un `.` nos señala el directorio actual
-- Dos `..` indica un directorio hacia atrás 
+```bash
+# Muestra el contenido del directorio actual.
+# Las carpetas y los archivos pueden aparecer en diferentes colores según su tipo o configuración de la terminal.
+ls 
+
+# Muestra información detallada de archivos y directorios (*long listing*).
+ls -l
+
+# Muestra información detallada utilizando unidades legibles para humanos (*human-readable*), por ejemplo, `KB`, `MB` o `GB`.
+ls -lh
+````
+
+📁 `cd` — Cambiar de directorio
+
+`cd` (_change directory_) permite desplazarse entre directorios.
 
 
-📌 Con el tabulador 🔁 autocompleta coincidencias en archivos
-📌 Presiona las flechas ⬆ ⬇ para ver los comando usados recientemente. 
+```bash
+# Nos lleva al **directorio Home** del usuario actual.
+cd
 
-- Home: Carpeta donde encontramos al usuario
-- User: Dentro existen subcarpetas con diferentes contenidos
-- ~ : Referencia al Home o root
+# También nos lleva al **directorio Home** del usuario actual.
+cd ~
 
-✨ ~ Home:  alt + 126
-✨ ^ = alt  + 94
+# Nos lleva al **directorio raíz** (`/`), donde se encuentra la estructura principal de directorios del sistema operativo.
+cd /
+
+# Indica el **directorio actual**.
+cd .
+
+# Retrocede un nivel, es decir, nos lleva al **directorio padre**.
+cd ..
+
+# Retrocede dos niveles.
+cd ../..
+
+# Entra en el directorio `Pictures` si este se encuentra dentro del directorio actual.
+cd Pictures
+
+# También podemos utilizar una **ruta absoluta**:
+cd /home/codevars/Documents/Dev
+```
+
+🧹 `clear` — Limpiar la terminal
+
+```bash
+# Limpia el contenido visible de la terminal.
+clear
+
+# También podemos utilizar el atajo:
+Ctrl + L
+```
+
+📍 `pwd` — Mostrar la ubicación actual
+
+```bash
+# `pwd` (_print working directory_) muestra la ruta absoluta del directorio en el que nos encontramos actualmente.
+pwd
+
+# Por ejemplo:
+/home/codevars/Documents/Dev
+```
+
+📄 `file` — Identificar el tipo de archivo
+
+```bash
+# Describe el tipo de un archivo.
+file archivoCualquiera
+
+# También podemos proporcionar una ruta:
+file ./Pictures/screenshot.png
+```
+
+Por ejemplo, puede devolver información indicando que el archivo es una imagen PNG.
+
+🧭 Operadores de rutas relativas
+
+Los operadores `.` y `..` permiten desplazarnos utilizando **rutas relativas**.
+
+```bash
+# Un punto (`.`) representa el **directorio actual**.
+cd .
+
+# Dos puntos (`..`) representan el **directorio padre**, es decir, un nivel hacia atrás.
+cd ..
+```
+
+```bash
+# Ejemplo: 
+# Si estamos en:
+/home/codevars/Documents/Dev
+
+# Entonces:
+.
+
+# Representa:
+/home/codevars/Documents/Dev
+
+# Mientras que:
+..
+
+# representa:
+/home/codevars/Documents
+
+# Y:
+../..
+
+# representa:
+/home/codevars
+```
+
+### Conceptos importantes
+
+```bash
+# Home
+# El **directorio Home** es el directorio personal del usuario. Normalmente, se encuentra dentro de `/home`.
+
+# Por ejemplo:
+/home/codevars
+
+
+# User
+# Dentro del directorio `/home` existen normalmente los directorios personales de los diferentes usuarios:
+
+/home
+├── codevars
+├── usuario1
+└── usuario2
+
+# `~` — Home del usuario actual
+# El símbolo `~` es una referencia al **directorio Home del usuario actual**.
+
+# Por ejemplo:
+cd ~
+
+# Equivale a:
+cd /home/codevars
+```
+
+> ⚠️ `~` representa el Home del usuario actual; no significa necesariamente `root`.
+
+Atajos y consejos útiles
+
+📌 **Tabulador `Tab`**  
+Autocompleta nombres de archivos, directorios y comandos cuando existe una coincidencia.
+
+📌 **Flechas `⬆` y `⬇`**  
+Permiten recorrer los comandos utilizados recientemente.
+
+Por ejemplo:
+
+```text
+⬆  → comando anterior
+⬇  → comando siguiente
+```
+
+Caracteres útiles en la terminal
+
+|Símbolo|Significado|
+|:-----:|-----------|
+|`~`    |Home del usuario actual|
+|`.`    |Directorio actual|
+|`..`   |Directorio padre|
+|`/`    |Directorio raíz y separador de rutas|
+|`^`    |Símbolo de circunflejo (_caret_)|
+
+Códigos mediante `Alt`
+
+```text
+~  → Alt + 126
+^  → Alt + 94
+```
+
+> 💡 Los códigos `Alt` pueden depender de la distribución del teclado y de la configuración del sistema.
 
 🎲
 
 ## 4. Manipulando archivos y directorios
 
-- `ls` 
-	- `ls -la`: Muestra todos los archivos incluyendo ocultos
-	- `ls -lSh`: Size mayúscula, tamaño, talla ordena de mayor a menor tamaño
-	- `ls -lr`: Ordena por abecedario al revés 
-- `tree`: Despliega todos los archivos en forma de árbol 
-	- `tree -L 2`: Levels niveles, profundiza en 2 niveles
-	- `tree -L 1`: Parecido al ls
-- `mkdir`: Make directory crear carpetas
-	- `mkdir newDirectory`:
-	- `mkdir "Mi Directorio"`: Nombra carpetas con espacios 
-	- `mkdir dir1 dir2 dir3`: Crea varias carpetas de una sola vez
-- `touch`: Crear archivos
-	- `touch miArchivo`
-	- `touch file1 file2 file3`
-- `cp`: Copy, copiar archivos
-	- `cp file1 file_bk`: Copia archivo en la misma carpeta, solo se le puso otro nombre, primero el archivo a copiar luego el nombre
-- `mv`: Mover archivos  
-	- `mv file_bk ..`: Mover hacia atrás 
-	- `mv file_bk fileCopy`: Renombrar el archivo, primero archivo a renombrar y luego el nuevo nombre 
-	- `mv dir1 dir2`: Carpeta dir1 se mueve a carpeta dir2
-- `rm`: Remove remover
-	- `rm fileCopy` : Eliminar archivos 
-	- `rm -i miArchivo` : Eliminar interactivo
-		- `yes`
-	- `rm -ri dir1`: Recursive interactiva elimina dir1
-	- `rm -rf dir1`: Force elimina cualquier cosa, no se recomienda
-	- `rm -r dir2 dir3 dir_cp miDirectorio 'Mi Directorio'`: Eliminar varios archivos  
+```bash
+# ============================================================
+# 4. Manipulando archivos y directorios
+# ============================================================
+
+
+# `ls` — Listar archivos y directorios
+# Muestra el contenido del directorio actual.
+
+ls
+
+
+# `ls -la` — Mostrar todos los archivos
+# `-l` muestra información detallada.
+# `-a` muestra todos los archivos, incluidos los archivos ocultos.
+
+ls -la
+
+
+# `ls -lSh` — Ordenar por tamaño
+# `-l` muestra información detallada.
+# `-S` ordena por tamaño, de mayor a menor.
+# `-h` muestra los tamaños en un formato legible para humanos (KB, MB, GB, etc.).
+
+ls -lSh
+
+
+# `ls -lr` — Ordenar en orden inverso
+# `-l` muestra información detallada.
+# `-r` invierte el orden de clasificación.
+#
+# Si el listado normalmente aparece en orden alfabético,
+# `-r` lo muestra en orden inverso.
+
+ls -lr
+
+
+# ============================================================
+# `tree` — Mostrar archivos y directorios en forma de árbol
+# ============================================================
+
+# Muestra la estructura de archivos y directorios
+# del directorio actual.
+
+tree
+
+
+# `tree -L 2` — Mostrar hasta 2 niveles
+# `-L` indica la cantidad máxima de niveles que queremos mostrar.
+
+tree -L 2
+
+
+# `tree -L 1` — Mostrar solamente el primer nivel
+# Es similar a `ls`, pero utilizando una representación en árbol.
+
+tree -L 1
+
+
+# ============================================================
+# `mkdir` — Crear directorios
+# ============================================================
+
+# `mkdir` significa "make directory".
+# Permite crear uno o varios directorios.
+
+mkdir newDirectory
+
+
+# Crear un directorio cuyo nombre contiene espacios
+# Debemos utilizar comillas para que la terminal interprete
+# todo el texto como un único nombre.
+
+mkdir "Mi Directorio"
+
+
+# Crear varios directorios de una sola vez
+
+mkdir dir1 dir2 dir3
+
+
+# ============================================================
+# `touch` — Crear archivos
+# ============================================================
+
+# Crea un archivo vacío llamado `miArchivo`.
+
+touch miArchivo
+
+
+# Crear varios archivos de una sola vez
+
+touch file1 file2 file3
+
+
+# ============================================================
+# `cp` — Copiar archivos y directorios
+# ============================================================
+
+# `cp` significa "copy".
+#
+# Sintaxis:
+# cp ORIGEN DESTINO
+#
+# Primero indicamos el archivo que queremos copiar
+# y después el nombre o ubicación de la copia.
+
+cp file1 file_bk
+
+
+# En este ejemplo:
+#
+# file1    → archivo original
+# file_bk  → copia del archivo
+#
+# Ambos archivos quedan en el directorio actual.
+
+
+# ============================================================
+# `mv` — Mover o renombrar archivos y directorios
+# ============================================================
+
+# `mv` significa "move".
+#
+# Sintaxis:
+# mv ORIGEN DESTINO
+
+
+# Mover un archivo al directorio padre
+# `..` representa el directorio padre.
+
+mv file_bk ..
+
+
+# Renombrar un archivo
+#
+# Si el destino se encuentra en el mismo directorio,
+# `mv` funciona como un comando para cambiar el nombre.
+
+mv file_bk fileCopy
+
+
+# Mover un directorio dentro de otro directorio
+#
+# En este caso, `dir1` se mueve dentro de `dir2`.
+
+mv dir1 dir2
+
+
+# ============================================================
+# `rm` — Eliminar archivos y directorios
+# ============================================================
+
+# `rm` significa "remove".
+# Permite eliminar archivos y, utilizando determinadas opciones,
+# también directorios.
+
+
+# Eliminar un archivo
+
+rm fileCopy
+
+
+# `rm -i` — Eliminación interactiva
+# `-i` significa "interactive".
+# Solicita confirmación antes de eliminar el archivo.
+
+rm -i miArchivo
+
+
+# Si aparece una pregunta como:
+
+# remove regular file 'miArchivo'? 
+
+# Podemos responder:
+#
+# y  → Sí
+# n  → No
+#
+# También podemos utilizar comandos como `yes` para responder
+# automáticamente con "yes" cuando un programa lo solicite.
+
+
+# ============================================================
+# `rm -ri` — Eliminar directorios de forma interactiva
+# ============================================================
+
+# `-r` significa "recursive".
+# Permite eliminar un directorio junto con su contenido.
+#
+# `-i` solicita confirmación antes de eliminar.
+
+rm -ri dir1
+
+
+# ============================================================
+# `rm -rf` — Eliminación forzada y recursiva
+# ============================================================
+
+# `-r` → Elimina directorios y todo su contenido de forma recursiva.
+# `-f` → "force". No solicita confirmación y fuerza la eliminación.
+#
+# ⚠️ Es un comando peligroso si se utiliza incorrectamente,
+# especialmente con rutas importantes del sistema.
+#
+# Se recomienda utilizarlo con mucho cuidado.
+
+rm -rf dir1
+
+
+# ============================================================
+# Eliminar varios directorios de una sola vez
+# ============================================================
+
+# Podemos indicar varios archivos o directorios
+# en un mismo comando.
+
+rm -r dir2 dir3 dir_cp miDirectorio "Mi Directorio"
+
+
+# ============================================================
+# RESUMEN
+# ============================================================
+
+# ls       → Listar archivos y directorios
+# tree     → Mostrar la estructura en forma de árbol
+# mkdir    → Crear directorios
+# touch    → Crear archivos
+# cp       → Copiar archivos o directorios
+# mv       → Mover o renombrar archivos y directorios
+# rm       → Eliminar archivos
+# rm -r    → Eliminar directorios y su contenido
+# rm -i    → Eliminar solicitando confirmación
+# rm -f    → Forzar la eliminación
+# rm -rf   → Eliminar recursivamente y de forma forzada
+```
+
 
 🎲
 
