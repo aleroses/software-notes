@@ -1,14 +1,17 @@
 # Curso de Prework: Configuración de Entorno de Desarrollo en Windows
+
 > Ricardo Celis
 
 ## **1.** Qué es el navegador?
 
 Funciona gracias a https  
+
 - HTML
 - CSS
 - JS
 
 Versiones de Google Chrome
+
 - Canary
 - **Dev**
 - Stable

@@ -52,8 +52,6 @@ Tipos de Shells
 Un comando es:     
 Un programa que se puede ejecutar desde la terminal. Este puede recibir parámetros y opciones. 
 
-
-
 **NOTA:** Para este curso necesitarás estar usando un sistema operativo basado en Linux o tener instalado Windows Subsystem for Linux en windows.
 
 Si no sabes como instalarlo, en el [Curso de Prework en Windows](https://platzi.com/cursos/prework-windows/) tienes más detalles.
@@ -63,41 +61,72 @@ Si no sabes como instalarlo, en el [Curso de Prework en Windows](https://platzi
 
 🔥 Comandos básicos de Linux  
 
-1.  comando pwd
-2.  comando cd
-3.  comando ls
-4.  comando cat
-5.  comando cp
-6.  comando mv
-7.  comando mkdir
-8.  comando rmdir
-9.  comando rm
-10.  comando touch
-11.  comando locate
-12.  comando find
-13.  comando grep
-14.  comando sudo
-15.  comando df
-16.  comando du
-17.  comando head
-18.  comando tail
-19.  comando diff
-20.  comando tar
-21.  comando chmod
-22.  comando chown
-23.  comando jobs
-24.  comando kill
-25.  comando ping
-26.  comando wget
-27.  comando uname
-28.  comando top
-29.  comando history
-30.  comando man
-31.  comando echo
-32.  comando zip, unzip
-33.  comando hostname
-34.  comando useradd, userdel
+Lista de comandos fundamentales de Linux, organizados para facilitar su estudio y consulta.
 
+```bash
+## 📂 Navegación y archivos
+
+1. `pwd` — Muestra el directorio de trabajo actual.
+2. `cd` — Cambia de directorio.
+3. `ls` — Lista el contenido de un directorio.
+4. `cat` — Muestra el contenido de uno o varios archivos.
+5. `cp` — Copia archivos y directorios.
+6. `mv` — Mueve o renombra archivos y directorios.
+7. `mkdir` — Crea directorios.
+8. `rmdir` — Elimina directorios vacíos.
+9. `rm` — Elimina archivos y directorios.
+10. `touch` — Crea archivos vacíos o actualiza sus marcas de tiempo.
+
+## 🔎 Búsqueda y procesamiento de texto
+
+11. `locate` — Busca archivos y directorios mediante una base de datos.
+12. `find` — Busca archivos y directorios según diferentes criterios.
+13. `grep` — Busca texto o patrones dentro de archivos.
+14. `head` — Muestra las primeras líneas de un archivo.
+15. `tail` — Muestra las últimas líneas de un archivo.
+16. `diff` — Compara el contenido de dos archivos.
+
+## 🔐 Permisos y usuarios
+
+17. `sudo` — Ejecuta comandos con privilegios de otro usuario, normalmente `root`.
+18. `chmod` — Cambia los permisos de archivos y directorios.
+19. `chown` — Cambia el propietario y/o grupo de archivos y directorios.
+20. `useradd` — Crea un usuario.
+21. `userdel` — Elimina un usuario.
+
+## 💾 Disco y almacenamiento
+
+22. `df` — Muestra el espacio disponible y utilizado en los sistemas de archivos.
+23. `du` — Muestra el espacio utilizado por archivos y directorios.
+24. `tar` — Crea y extrae archivos de tipo TAR y otros formatos de archivado.
+
+## ⚙️ Procesos y tareas
+
+25. `jobs` — Muestra los trabajos ejecutándose en segundo plano en la sesión actual.
+26. `kill` — Envía una señal a un proceso, normalmente para finalizarlo.
+27. `top` — Muestra información en tiempo real sobre procesos y uso de recursos.
+
+## 🌐 Red
+
+28. `ping` — Comprueba la conectividad con otro equipo o dirección de red.
+29. `wget` — Descarga archivos desde Internet.
+30. `hostname` — Muestra o establece el nombre del equipo.
+
+## 🖥️ Información del sistema
+
+31. `uname` — Muestra información sobre el sistema operativo y el kernel.
+32. `history` — Muestra el historial de comandos ejecutados.
+
+## 📦 Compresión y archivos
+
+33. `zip` — Comprime archivos en formato ZIP.
+34. `unzip` — Extrae archivos de un archivo ZIP.
+
+## 📖 Ayuda y comandos
+
+35. `man` — Muestra el manual de un comando.
+36. `echo` — Muestra texto o el valor de variables en la terminal.
+```
 
 Otros apuntes    
 - [Notion](https://www.notion.so/Introducci-n-a-la-Terminal-y-L-nea-de-Comandos-5ed377c3c79e4313b0796b679cb1dc73)
