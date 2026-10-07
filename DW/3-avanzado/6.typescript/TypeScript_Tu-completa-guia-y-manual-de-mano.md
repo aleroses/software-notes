@@ -116,7 +116,7 @@ Al inicio referenciamos el archivo `app.ts` dentro de la etiqueta `script` lo qu
 
 #### ☢️ Advertencia
 
-> 🔥 Como recomendación personal instala y usa TypeSript con los siguiente pasos, ya que a partir del cierto punto la configuración del curso da muchos problemas. En todo caso si continuas con esa configuración e instalación y luego tienes problemas, regresa aquí y sigue los pasos que te muestro.
+> 🔥 Como recomendación personal instala y usa TypeSript con los siguiente pasos, ya que a partir de cierto punto la configuración del curso da muchos problemas. En todo caso si continuas con esa configuración e instalación y luego tienes problemas, regresa aquí y sigue los pasos que te muestro.
 
 ##### Usando la consola de VSC 
 
